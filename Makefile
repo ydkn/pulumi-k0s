@@ -6,13 +6,13 @@ PROJECT          := github.com/ydkn/pulumi-k0s
 NODE_MODULE_NAME := @ydkn/pulumi-k0s
 NUGET_PKG_NAME   := Pulumi.K0s
 
-PROVIDER        := pulumi-resource-${PACK}
-CODEGEN         := pulumi-gen-${PACK}
-VERSION         ?= $(shell pulumictl get version)
-PROVIDER_PATH   := provider
-VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
+PROVIDER      := pulumi-resource-${PACK}
+CODEGEN       := pulumi-gen-${PACK}
+VERSION       ?= $(shell pulumictl get version)
+PROVIDER_PATH := provider
+VERSION_PATH  := ${PROVIDER_PATH}/pkg/version.Version
 
-SCHEMA_FILE     := provider/cmd/pulumi-resource-k0s/schema.json
+SCHEMA_FILE := provider/cmd/pulumi-resource-k0s/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
 WORKING_DIR     := $(shell pwd)
@@ -52,11 +52,14 @@ nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
 nodejs_sdk::
 	rm -rf sdk/nodejs
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
+	jq '.name = "$(NODE_MODULE_NAME)"' ${PACKDIR}/nodejs/package.json > ${PACKDIR}/nodejs/package.json.new
+	mv ${PACKDIR}/nodejs/package.json.new ${PACKDIR}/nodejs/package.json
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
+	jq '.version = "$(VERSION)"' ${PACKDIR}/nodejs/bin/package.json > ${PACKDIR}/nodejs/bin/package.json.new
+	mv ${PACKDIR}/nodejs/bin/package.json.new ${PACKDIR}/nodejs/bin/package.json
 
 python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
 python_sdk::

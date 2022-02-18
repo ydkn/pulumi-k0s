@@ -6,7 +6,7 @@
   "publisher": "Florian Schwab",
   "homepage": "https://github.com/ydkn/pulumi-k0s",
   "license": "Apache-2.0",
-  "attribution": "This Pulumi package is based on [`k0sctl` Terraform Provider](https://github.com/k0sproject/k0sctl).",
+  "attribution": "This Pulumi package is based on [`k0sctl`](https://github.com/k0sproject/k0sctl).",
   "repository": "https://github.com/ydkn/pulumi-k0s",
   "logoUrl": "https://k0sproject.io/images/k0s-logo.svg",
   "pluginDownloadURL": "https://download.ydkn.io/pulumi-k0s",

@@ -1,25 +1,25 @@
 {
-    "name": "@pulumi/k0s",
-    "version": "${VERSION}",
-    "keywords": [
-        "pulumi",
-        "k0s"
-    ],
-    "homepage": "https://github.com/ydkn/pulumi-k0s",
-    "repository": "https://github.com/ydkn/pulumi-k0s",
-    "license": "Apache-2.0",
-    "scripts": {
-        "build": "tsc",
-        "install": "node scripts/install-pulumi-plugin.js resource k0s ${VERSION}"
-    },
-    "dependencies": {
-        "@pulumi/pulumi": "^3.0.0"
-    },
-    "devDependencies": {
-        "typescript": "^4.3.5"
-    },
-    "pulumi": {
-        "resource": true,
-        "pluginDownloadURL": "https://download.ydkn.io/pulumi-k0s"
-    }
+  "name": "@ydkn/pulumi-k0s",
+  "version": "${VERSION}",
+  "keywords": [
+    "pulumi",
+    "k0s"
+  ],
+  "homepage": "https://github.com/ydkn/pulumi-k0s",
+  "repository": "https://github.com/ydkn/pulumi-k0s",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "install": "node scripts/install-pulumi-plugin.js resource k0s ${VERSION}"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  },
+  "pulumi": {
+    "resource": true,
+    "pluginDownloadURL": "https://download.ydkn.io/pulumi-k0s"
+  }
 }
