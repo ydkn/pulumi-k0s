@@ -39,11 +39,18 @@ def readme():
 
 setup(name='pulumi_k0s',
       version=VERSION,
+      description="A Pulumi package for creating and managing k0s clusters.",
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
           'install': InstallPluginCommand,
       },
+      keywords='pulumi k0s',
+      url='https://github.com/ydkn/pulumi-k0s',
+      project_urls={
+          'Repository': 'https://github.com/ydkn/pulumi-k0s'
+      },
+      license='Apache-2.0',
       packages=find_packages(),
       package_data={
           'pulumi_k0s': [
