@@ -451,6 +451,8 @@ func propertiesToCluster(propertyMap resource.PropertyMap) (*k0sctl.Cluster, err
 }
 
 func prepareClusterForDiff(cluster *k0sctl.Cluster) resource.PropertyMap {
+	cluster.KubeConfig = ""
+
 	if cluster.Spec != nil {
 		cluster.Spec.Hosts = nil
 	}
