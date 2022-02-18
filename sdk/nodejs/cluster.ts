@@ -32,7 +32,7 @@ export class Cluster extends pulumi.CustomResource {
         return obj['__pulumiType'] === Cluster.__pulumiType;
     }
 
-    public /*out*/ readonly kubeconfig!: pulumi.Output<string | undefined>;
+    public /*out*/ readonly kubeconfig!: pulumi.Output<string>;
     public readonly metadata!: pulumi.Output<outputs.Metadata>;
     public readonly spec!: pulumi.Output<outputs.Spec>;
 

@@ -14,9 +14,9 @@ import (
 type Cluster struct {
 	pulumi.CustomResourceState
 
-	Kubeconfig pulumi.StringPtrOutput `pulumi:"kubeconfig"`
-	Metadata   MetadataOutput         `pulumi:"metadata"`
-	Spec       SpecOutput             `pulumi:"spec"`
+	Kubeconfig pulumi.StringOutput `pulumi:"kubeconfig"`
+	Metadata   MetadataOutput      `pulumi:"metadata"`
+	Spec       SpecOutput          `pulumi:"spec"`
 }
 
 // NewCluster registers a new resource with the given unique name, arguments, and options.

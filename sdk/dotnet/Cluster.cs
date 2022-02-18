@@ -13,7 +13,7 @@ namespace Pulumi.K0s
     public partial class Cluster : Pulumi.CustomResource
     {
         [Output("kubeconfig")]
-        public Output<string?> Kubeconfig { get; private set; } = null!;
+        public Output<string> Kubeconfig { get; private set; } = null!;
 
         [Output("metadata")]
         public Output<Outputs.Metadata> Metadata { get; private set; } = null!;

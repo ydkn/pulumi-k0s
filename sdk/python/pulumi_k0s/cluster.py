@@ -130,7 +130,7 @@ class Cluster(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kubeconfig(self) -> pulumi.Output[Optional[str]]:
+    def kubeconfig(self) -> pulumi.Output[str]:
         return pulumi.get(self, "kubeconfig")
 
     @property

@@ -45,7 +45,7 @@
           "type": "string"
         }
       },
-      "required": ["metadata", "spec"],
+      "required": ["metadata", "spec", "kubeconfig"],
       "inputProperties": {
         "metadata": {
           "$ref": "#/types/k0s:index:Metadata"
