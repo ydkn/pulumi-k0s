@@ -57,7 +57,7 @@ nodejs_sdk::
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
 		yarn run tsc
-	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
+	cp -r README.md LICENSE ${PACKDIR}/nodejs/scripts ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
 	jq '.version = "$(VERSION)"' ${PACKDIR}/nodejs/bin/package.json > ${PACKDIR}/nodejs/bin/package.json.new
 	mv ${PACKDIR}/nodejs/bin/package.json.new ${PACKDIR}/nodejs/bin/package.json
 
