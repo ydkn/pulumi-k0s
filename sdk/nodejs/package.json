@@ -19,6 +19,7 @@
         "typescript": "^4.3.5"
     },
     "pulumi": {
-        "resource": true
+        "resource": true,
+        "pluginDownloadURL": "https://download.ydkn.io/pulumi-k0s"
     }
 }

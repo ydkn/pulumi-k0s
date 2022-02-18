@@ -1,9 +1,9 @@
-PROJECT_NAME := Pulumi K0s Resource Provider
+PROJECT_NAME := Pulumi k0s Resource Provider
 
 PACK             := k0s
 PACKDIR          := sdk
 PROJECT          := github.com/ydkn/pulumi-k0s
-NODE_MODULE_NAME := @pulumi/k0s
+NODE_MODULE_NAME := @ydkn/pulumi-k0s
 NUGET_PKG_NAME   := Pulumi.K0s
 
 PROVIDER        := pulumi-resource-${PACK}

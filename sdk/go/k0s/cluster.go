@@ -32,6 +32,7 @@ func NewCluster(ctx *pulumi.Context,
 	if args.Spec == nil {
 		return nil, errors.New("invalid value for required argument 'Spec'")
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource Cluster
 	err := ctx.RegisterResource("k0s:index:Cluster", name, args, &resource, opts...)
 	if err != nil {

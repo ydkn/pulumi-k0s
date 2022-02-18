@@ -15,7 +15,7 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'k0s', PLUGIN_VERSION])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'k0s', PLUGIN_VERSION, '--server', 'https://download.ydkn.io/pulumi-k0s'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print(f"""

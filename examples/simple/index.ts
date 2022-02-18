@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as k0s from "@pulumi/k0s";
+import * as k0s from "@ydkn/pulumi-k0s";
 
 const provider = new k0s.Provider("k0s", { noDrain: true });
 

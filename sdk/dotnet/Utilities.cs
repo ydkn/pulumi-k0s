@@ -58,6 +58,7 @@ namespace Pulumi.K0s
         {
             InvokeOptions dst = src ?? new InvokeOptions{};
             dst.Version = src?.Version ?? Version;
+            dst.PluginDownloadURL = src?.PluginDownloadURL ?? "https://download.ydkn.io/pulumi-k0s";
             return dst;
         }
 

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Pulumi Corp.</Authors>
-    <Company>Pulumi Corp.</Company>
+    <Authors>Florian Schwab</Authors>
+    <Company>Florian Schwab</Company>
     <Description>A Pulumi package for creating and managing k0s clusters.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/ydkn/pulumi-k0s</PackageProjectUrl>

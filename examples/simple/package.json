@@ -6,6 +6,6 @@
   },
   "dependencies": {
     "@pulumi/pulumi": "latest",
-    "@pulumi/k0s": "latest"
+    "@ydkn/pulumi-k0s": "latest"
   }
 }
