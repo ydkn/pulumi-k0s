@@ -2,6 +2,7 @@
 **/bin/
 **/obj/
 **/node_modules/
+**/version.txt
 **/.vs
 **/.idea
 **/.ionide
