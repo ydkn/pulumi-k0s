@@ -1,38 +1,49 @@
-# xyz Pulumi Provider
+[![Actions Status](https://github.com/ydkn/pulumi-k0s/workflows/master/badge.svg)](https://github.com/ydkn/pulumi-k0s/actions)
+[![NPM version](https://badge.fury.io/js/%40pulumi%2Faws.svg)](https://www.npmjs.com/package/@pulumi/k0s)
+[![Python version](https://badge.fury.io/py/pulumi-k0s.svg)](https://pypi.org/project/pulumi-k0s)
+[![NuGet version](https://badge.fury.io/nu/pulumi.k0s.svg)](https://badge.fury.io/nu/pulumi.k0s)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/ydkn/pulumi-k0s/sdk/go)](https://pkg.go.dev/github.com/ydkn/pulumi-k0s/sdk/go)
 
-This repo is a boilerplate showing how to create a native Pulumi provider.  You can search-replace `xyz` with the name of your desired provider as a starting point for creating a provider that manages resources in the target cloud.
+# k0s Pulumi Provider
 
-Most of the code for the provider implementation is in `pkg/provider/provider.go`.  
+The Amazon Web Services (AWS) resource provider for Pulumi lets you use AWS resources in your cloud programs. To use
+this package, please [install the Pulumi CLI first](https://pulumi.com/). For a streamlined Pulumi walkthrough, including language runtime installation and AWS configuration, click "Get Started" below.
 
-An example of using the single resource defined in this example is in `examples/simple`.
+## Installing
 
-A code generator is available which generates SDKs in TypeScript, Python, Go and .NET which are also checked in to the `sdk` folder.  The SDKs are generated from a schema in `provider/cmd/pulumi-resource-xyz/schema.json`.  This file should be kept aligned with the resources, functions and types supported by the provider implementation.
+This package is available in many languages in the standard packaging formats.
 
-Note that the generated provider plugin (`pulumi-resource-xyz`) must be on your `PATH` to be used by Pulumi deployments.  If creating a provider for distribution to other users, you should ensure they install this plugin to their `PATH`.
+### Node.js (Java/TypeScript)
 
-## Pre-requisites
+To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
-Install the `pulumictl` cli from the [releases](https://github.com/pulumi/pulumictl/releases) page or follow the [install instructions](https://github.com/pulumi/pulumictl#installation)
+    $ npm install @pulumi/k0s
 
-> NB: Usage of `pulumictl` is optional. If not using it, hard code the version in the [Makefile](Makefile) of when building explicitly pass version as `VERSION=0.0.1 make build`
+or `yarn`:
 
-## Build and Test
+    $ yarn add @pulumi/k0s
 
-```bash
-# build and install the resource provider plugin
-$ make build install
+### Python
 
-# test
-$ cd examples/simple
-$ yarn link @pulumi/xyz
-$ yarn install
-$ pulumi stack init test
-$ pulumi up
-```
+To use from Python, install using `pip`:
 
-## References
+    $ pip install pulumi_k0s
 
-Other resources for learning about the Pulumi resource model:
-* [Pulumi Kubernetes provider](https://github.com/pulumi/pulumi-kubernetes/blob/master/provider/pkg/provider/provider.go)
-* [Pulumi Terraform Remote State provider](https://github.com/pulumi/pulumi-terraform/blob/master/provider/cmd/pulumi-resource-terraform/provider.go)
-* [Dynamic Providers](https://www.pulumi.com/docs/intro/concepts/programming-model/#dynamicproviders)
+### Go
+
+To use from Go, use `go get` to grab the latest version of the library
+
+    $ go get github.com/pulumi/pulumi-k0s/sdk
+
+### .NET
+
+To use from .NET, install using `dotnet add package`:
+
+    $ dotnet add package Pulumi.K0s
+
+## Configuration
+
+The following configuration points are available:
+
+- `k0s:skipDowngradeCheck` - Do not check if a downgrade would be performed.
+- `k0s:noDrain` - Do not drain nodes before upgrades/updates.

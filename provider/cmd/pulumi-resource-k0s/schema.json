@@ -1,0 +1,932 @@
+{
+  "name": "k0s",
+  "version": "0.0.1",
+  "config": {
+    "variables": {
+      "skipDowngradeCheck": {
+        "type": "boolean"
+      },
+      "noDrain": {
+        "type": "boolean"
+      }
+    }
+  },
+  "provider": {
+    "description": "The provider type for the k0s package.",
+    "type": "object",
+    "inputProperties": {
+      "skipDowngradeCheck": {
+        "type": "boolean"
+      },
+      "noDrain": {
+        "type": "boolean"
+      }
+    }
+  },
+  "resources": {
+    "k0s:index:Cluster": {
+      "properties": {
+        "metadata": {
+          "$ref": "#/types/k0s:index:Metadata"
+        },
+        "spec": {
+          "$ref": "#/types/k0s:index:Spec"
+        },
+        "kubeconfig": {
+          "type": "string"
+        }
+      },
+      "required": ["metadata", "spec"],
+      "inputProperties": {
+        "metadata": {
+          "$ref": "#/types/k0s:index:Metadata"
+        },
+        "spec": {
+          "$ref": "#/types/k0s:index:Spec"
+        }
+      },
+      "requiredInputs": ["metadata", "spec"]
+    }
+  },
+  "types": {
+    "k0s:index:Metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["name"],
+      "inputProperties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": ["name"]
+    },
+    "k0s:index:Spec": {
+      "type": "object",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/k0s:index:Host"
+          }
+        },
+        "k0s": {
+          "$ref": "#/types/k0s:index:K0s"
+        }
+      },
+      "required": ["hosts"],
+      "inputProperties": {
+        "hosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/k0s:index:Host"
+          }
+        },
+        "k0s": {
+          "$ref": "#/types/k0s:index:K0s"
+        }
+      },
+      "requiredInputs": ["hosts"]
+    },
+    "k0s:index:Host": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "privateInterface": {
+          "type": "string"
+        },
+        "privateAddress": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "uploadBinary": {
+          "type": "boolean"
+        },
+        "k0sBinaryPath": {
+          "type": "string"
+        },
+        "installFlags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/k0s:index:UploadFile"
+          }
+        },
+        "os": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "hooks": {
+          "$ref": "#/types/k0s:index:Hooks"
+        },
+        "winRM": {
+          "$ref": "#/types/k0s:index:WinRM"
+        },
+        "ssh": {
+          "$ref": "#/types/k0s:index:SSH"
+        },
+        "localhost": {
+          "$ref": "#/types/k0s:index:Localhost"
+        }
+      },
+      "required": ["role"],
+      "inputProperties": {
+        "role": {
+          "type": "string"
+        },
+        "privateInterface": {
+          "type": "string"
+        },
+        "privateAddress": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "uploadBinary": {
+          "type": "boolean"
+        },
+        "k0sBinaryPath": {
+          "type": "string"
+        },
+        "installFlags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/types/k0s:index:UploadFile"
+          }
+        },
+        "os": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "hooks": {
+          "$ref": "#/types/k0s:index:Hooks"
+        },
+        "winRM": {
+          "$ref": "#/types/k0s:index:WinRM"
+        },
+        "ssh": {
+          "$ref": "#/types/k0s:index:SSH"
+        },
+        "localhost": {
+          "$ref": "#/types/k0s:index:Localhost"
+        }
+      },
+      "requiredInputs": ["role"]
+    },
+    "k0s:index:UploadFile": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "src": {
+          "type": "string"
+        },
+        "dstDir": {
+          "type": "string"
+        },
+        "dst": {
+          "type": "string"
+        },
+        "perm": {
+          "type": "number"
+        },
+        "dirPerm": {
+          "type": "number"
+        },
+        "user": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "name": {
+          "type": "string"
+        },
+        "src": {
+          "type": "string"
+        },
+        "dstDir": {
+          "type": "string"
+        },
+        "dst": {
+          "type": "string"
+        },
+        "perm": {
+          "type": "number"
+        },
+        "dirPerm": {
+          "type": "number"
+        },
+        "user": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Hooks": {
+      "type": "object",
+      "properties": {
+        "apply": {
+          "$ref": "#/types/k0s:index:Hook"
+        },
+        "backup": {
+          "$ref": "#/types/k0s:index:Hook"
+        },
+        "reset": {
+          "$ref": "#/types/k0s:index:Hook"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "apply": {
+          "$ref": "#/types/k0s:index:Hook"
+        },
+        "backup": {
+          "$ref": "#/types/k0s:index:Hook"
+        },
+        "reset": {
+          "$ref": "#/types/k0s:index:Hook"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Hook": {
+      "type": "object",
+      "properties": {
+        "before": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "after": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "before": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "after": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:WinRM": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "port": {
+          "type": "number"
+        },
+        "user": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "useHTTPS": {
+          "type": "boolean"
+        },
+        "insecure": {
+          "type": "boolean"
+        },
+        "useNTLM": {
+          "type": "boolean"
+        },
+        "caCertPath": {
+          "type": "string"
+        },
+        "certPath": {
+          "type": "string"
+        },
+        "keyPath": {
+          "type": "string"
+        },
+        "tlsServerName": {
+          "type": "string"
+        },
+        "bastion": {
+          "$ref": "#/types/k0s:index:SSH"
+        }
+      },
+      "required": ["address"],
+      "inputProperties": {
+        "address": {
+          "type": "string"
+        },
+        "port": {
+          "type": "number"
+        },
+        "user": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "useHTTPS": {
+          "type": "boolean"
+        },
+        "insecure": {
+          "type": "boolean"
+        },
+        "useNTLM": {
+          "type": "boolean"
+        },
+        "caCertPath": {
+          "type": "string"
+        },
+        "certPath": {
+          "type": "string"
+        },
+        "keyPath": {
+          "type": "string"
+        },
+        "tlsServerName": {
+          "type": "string"
+        },
+        "bastion": {
+          "$ref": "#/types/k0s:index:SSH"
+        }
+      },
+      "requiredInputs": ["address"]
+    },
+    "k0s:index:SSH": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "port": {
+          "type": "number"
+        },
+        "user": {
+          "type": "string"
+        },
+        "keyPath": {
+          "type": "string"
+        },
+        "hostKey": {
+          "type": "string"
+        },
+        "bastion": {
+          "$ref": "#/types/k0s:index:SSH"
+        }
+      },
+      "required": ["address"],
+      "inputProperties": {
+        "address": {
+          "type": "string"
+        },
+        "port": {
+          "type": "number"
+        },
+        "user": {
+          "type": "string"
+        },
+        "keyPath": {
+          "type": "string"
+        },
+        "hostKey": {
+          "type": "string"
+        },
+        "bastion": {
+          "$ref": "#/types/k0s:index:SSH"
+        }
+      },
+      "requiredInputs": ["address"]
+    },
+    "k0s:index:Localhost": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:K0s": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "dynamicConfig": {
+          "type": "boolean"
+        },
+        "config": {
+          "$ref": "#/types/k0s:index:Config"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "version": {
+          "type": "string"
+        },
+        "dynamicConfig": {
+          "type": "boolean"
+        },
+        "config": {
+          "$ref": "#/types/k0s:index:Config"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Config": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "$ref": "#/types/k0s:index:Metadata"
+        },
+        "spec": {
+          "$ref": "#/types/k0s:index:K0sSpec"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "metadata": {
+          "$ref": "#/types/k0s:index:Metadata"
+        },
+        "spec": {
+          "$ref": "#/types/k0s:index:K0sSpec"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:K0sSpec": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "$ref": "#/types/k0s:index:API"
+        },
+        "images": {
+          "$ref": "#/types/k0s:index:Images"
+        },
+        "installConfig": {
+          "$ref": "#/types/k0s:index:InstallConfig"
+        },
+        "konnectivity": {
+          "$ref": "#/types/k0s:index:Konnectivity"
+        },
+        "network": {
+          "$ref": "#/types/k0s:index:Network"
+        },
+        "podSecurityPolicy": {
+          "$ref": "#/types/k0s:index:PodSecurityPolicy"
+        },
+        "storage": {
+          "$ref": "#/types/k0s:index:Storage"
+        },
+        "telemetry": {
+          "$ref": "#/types/k0s:index:Telemetry"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "api": {
+          "$ref": "#/types/k0s:index:API"
+        },
+        "images": {
+          "$ref": "#/types/k0s:index:Images"
+        },
+        "installConfig": {
+          "$ref": "#/types/k0s:index:InstallConfig"
+        },
+        "konnectivity": {
+          "$ref": "#/types/k0s:index:Konnectivity"
+        },
+        "network": {
+          "$ref": "#/types/k0s:index:Network"
+        },
+        "podSecurityPolicy": {
+          "$ref": "#/types/k0s:index:PodSecurityPolicy"
+        },
+        "storage": {
+          "$ref": "#/types/k0s:index:Storage"
+        },
+        "telemetry": {
+          "$ref": "#/types/k0s:index:Telemetry"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:API": {
+      "type": "object",
+      "properties": {
+        "k0sApiPort": {
+          "type": "number"
+        },
+        "port": {
+          "type": "number"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "k0sApiPort": {
+          "type": "number"
+        },
+        "port": {
+          "type": "number"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:ContainerImage": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "image": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Images": {
+      "type": "object",
+      "properties": {
+        "default_pull_policy": {
+          "type": "string"
+        },
+        "calico": {
+          "$ref": "#/types/k0s:index:ImagesCalico"
+        },
+        "coredns": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "konnectivity": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "kubeproxy": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "kuberouter": {
+          "$ref": "#/types/k0s:index:ImagesKubeRouter"
+        },
+        "metricsserver": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "default_pull_policy": {
+          "type": "string"
+        },
+        "calico": {
+          "$ref": "#/types/k0s:index:ImagesCalico"
+        },
+        "coredns": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "konnectivity": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "kubeproxy": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "kuberouter": {
+          "$ref": "#/types/k0s:index:ImagesKubeRouter"
+        },
+        "metricsserver": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:ImagesCalico": {
+      "type": "object",
+      "properties": {
+        "cni": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "kubecontrollers": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "node": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "cni": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "kubecontrollers": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "node": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:ImagesKubeRouter": {
+      "type": "object",
+      "properties": {
+        "cni": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "cniInstaller": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "cni": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        },
+        "cniInstaller": {
+          "$ref": "#/types/k0s:index:ContainerImage"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:InstallConfig": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "$ref": "#/types/k0s:index:InstallConfigUsers"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "users": {
+          "$ref": "#/types/k0s:index:InstallConfigUsers"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:InstallConfigUsers": {
+      "type": "object",
+      "properties": {
+        "etcdUser": {
+          "type": "string"
+        },
+        "kineUser": {
+          "type": "string"
+        },
+        "konnectivityUser": {
+          "type": "string"
+        },
+        "kubeAPIserverUser": {
+          "type": "string"
+        },
+        "kubeSchedulerUser": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "etcdUser": {
+          "type": "string"
+        },
+        "kineUser": {
+          "type": "string"
+        },
+        "konnectivityUser": {
+          "type": "string"
+        },
+        "kubeAPIserverUser": {
+          "type": "string"
+        },
+        "kubeSchedulerUser": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Konnectivity": {
+      "type": "object",
+      "properties": {
+        "adminPort": {
+          "type": "number"
+        },
+        "agentPort": {
+          "type": "number"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "adminPort": {
+          "type": "number"
+        },
+        "agentPort": {
+          "type": "number"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Network": {
+      "type": "object",
+      "properties": {
+        "kubeProxy": {
+          "$ref": "#/types/k0s:index:KubeProxy"
+        },
+        "kuberouter": {
+          "$ref": "#/types/k0s:index:KubeRouter"
+        },
+        "podCIDR": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "serviceCIDR": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "kubeProxy": {
+          "$ref": "#/types/k0s:index:KubeProxy"
+        },
+        "kuberouter": {
+          "$ref": "#/types/k0s:index:KubeRouter"
+        },
+        "podCIDR": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "serviceCIDR": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:KubeProxy": {
+      "type": "object",
+      "properties": {
+        "disabled": {
+          "type": "boolean"
+        },
+        "mode": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "disabled": {
+          "type": "boolean"
+        },
+        "mode": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:KubeRouter": {
+      "type": "object",
+      "properties": {
+        "autoMTU": {
+          "type": "boolean"
+        },
+        "mtu": {
+          "type": "number"
+        },
+        "peerRouterASNs": {
+          "type": "string"
+        },
+        "peerRouterIPs": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "autoMTU": {
+          "type": "boolean"
+        },
+        "mtu": {
+          "type": "number"
+        },
+        "peerRouterASNs": {
+          "type": "string"
+        },
+        "peerRouterIPs": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:PodSecurityPolicy": {
+      "type": "object",
+      "properties": {
+        "defaultPolicy": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "defaultPolicy": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Storage": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Telemetry": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "requiredInputs": []
+    }
+  },
+  "language": {
+    "csharp": {
+      "packageReferences": {
+        "Pulumi": "3.*"
+      }
+    },
+    "go": {
+      "generateResourceContainerTypes": true,
+      "importBasePath": "github.com/ydkn/pulumi-k0s/sdk/go/k0s"
+    },
+    "nodejs": {
+      "dependencies": {
+        "@pulumi/pulumi": "^3.0.0"
+      }
+    },
+    "python": {
+      "requires": {
+        "pulumi": ">=3.0.0,<4.0.0"
+      }
+    }
+  }
+}

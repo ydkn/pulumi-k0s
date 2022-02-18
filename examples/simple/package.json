@@ -1,10 +1,11 @@
 {
-    "name": "xyz-typescript",
-    "version": "0.1.0",
-    "devDependencies": {
-        "@types/node": "latest"
-    },
-    "dependencies": {
-        "@pulumi/pulumi": "latest"
-    }
+  "name": "k0s-typescript",
+  "version": "0.1.0",
+  "devDependencies": {
+    "@types/node": "latest"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "latest",
+    "@pulumi/k0s": "latest"
+  }
 }

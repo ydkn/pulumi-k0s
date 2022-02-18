@@ -4,9 +4,12 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * The provider type for the k0s package.
+ */
 export class Provider extends pulumi.ProviderResource {
     /** @internal */
-    public static readonly __pulumiType = 'xyz';
+    public static readonly __pulumiType = 'k0s';
 
     /**
      * Returns true if the given object is an instance of Provider.  This is designed to work even
@@ -31,6 +34,8 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
+            resourceInputs["noDrain"] = pulumi.output(args ? args.noDrain : undefined).apply(JSON.stringify);
+            resourceInputs["skipDowngradeCheck"] = pulumi.output(args ? args.skipDowngradeCheck : undefined).apply(JSON.stringify);
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
@@ -41,4 +46,6 @@ export class Provider extends pulumi.ProviderResource {
  * The set of arguments for constructing a Provider resource.
  */
 export interface ProviderArgs {
+    noDrain?: pulumi.Input<boolean>;
+    skipDowngradeCheck?: pulumi.Input<boolean>;
 }

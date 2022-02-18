@@ -7,9 +7,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Xyz
+namespace Pulumi.K0s
 {
-    [XyzResourceType("pulumi:providers:xyz")]
+    /// <summary>
+    /// The provider type for the k0s package.
+    /// </summary>
+    [K0sResourceType("pulumi:providers:k0s")]
     public partial class Provider : Pulumi.ProviderResource
     {
         /// <summary>
@@ -20,7 +23,7 @@ namespace Pulumi.Xyz
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
-            : base("xyz", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("k0s", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 
@@ -39,6 +42,12 @@ namespace Pulumi.Xyz
 
     public sealed class ProviderArgs : Pulumi.ResourceArgs
     {
+        [Input("noDrain", json: true)]
+        public Input<bool>? NoDrain { get; set; }
+
+        [Input("skipDowngradeCheck", json: true)]
+        public Input<bool>? SkipDowngradeCheck { get; set; }
+
         public ProviderArgs()
         {
         }
