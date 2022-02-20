@@ -13,17 +13,29 @@ namespace Pulumi.K0s.Outputs
     [OutputType]
     public sealed class API
     {
+        public readonly string? Address;
+        public readonly string? ExternalAddress;
         public readonly double? K0sApiPort;
         public readonly double? Port;
+        public readonly ImmutableArray<string> Sans;
 
         [OutputConstructor]
         private API(
+            string? address,
+
+            string? externalAddress,
+
             double? k0sApiPort,
 
-            double? port)
+            double? port,
+
+            ImmutableArray<string> sans)
         {
+            Address = address;
+            ExternalAddress = externalAddress;
             K0sApiPort = k0sApiPort;
             Port = port;
+            Sans = sans;
         }
     }
 }

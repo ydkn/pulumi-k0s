@@ -12,6 +12,12 @@ namespace Pulumi.K0s.Inputs
 
     public sealed class NetworkArgs : Pulumi.ResourceArgs
     {
+        [Input("calico")]
+        public Input<Inputs.CalicoArgs>? Calico { get; set; }
+
+        [Input("dualStack")]
+        public Input<Inputs.DualStackArgs>? DualStack { get; set; }
+
         [Input("kubeProxy")]
         public Input<Inputs.KubeProxyArgs>? KubeProxy { get; set; }
 

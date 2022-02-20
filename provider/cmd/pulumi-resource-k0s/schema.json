@@ -1,6 +1,6 @@
 {
   "name": "k0s",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A Pulumi package for creating and managing k0s clusters.",
   "keywords": ["pulumi", "k0s"],
   "publisher": "Florian Schwab",
@@ -565,20 +565,44 @@
     "k0s:index:API": {
       "type": "object",
       "properties": {
-        "k0sApiPort": {
-          "type": "number"
+        "address": {
+          "type": "string"
         },
         "port": {
           "type": "number"
+        },
+        "k0sApiPort": {
+          "type": "number"
+        },
+        "externalAddress": {
+          "type": "string"
+        },
+        "sans": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [],
       "inputProperties": {
-        "k0sApiPort": {
-          "type": "number"
+        "address": {
+          "type": "string"
         },
         "port": {
           "type": "number"
+        },
+        "k0sApiPort": {
+          "type": "number"
+        },
+        "externalAddress": {
+          "type": "string"
+        },
+        "sans": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "requiredInputs": []
@@ -787,6 +811,12 @@
         "kuberouter": {
           "$ref": "#/types/k0s:index:KubeRouter"
         },
+        "calico": {
+          "$ref": "#/types/k0s:index:Calico"
+        },
+        "dualStack": {
+          "$ref": "#/types/k0s:index:DualStack"
+        },
         "podCIDR": {
           "type": "string"
         },
@@ -804,6 +834,12 @@
         },
         "kuberouter": {
           "$ref": "#/types/k0s:index:KubeRouter"
+        },
+        "calico": {
+          "$ref": "#/types/k0s:index:Calico"
+        },
+        "dualStack": {
+          "$ref": "#/types/k0s:index:DualStack"
         },
         "podCIDR": {
           "type": "string"
@@ -871,6 +907,90 @@
       },
       "requiredInputs": []
     },
+    "k0s:index:Calico": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string"
+        },
+        "overlay": {
+          "type": "string"
+        },
+        "vxlanPort": {
+          "type": "number"
+        },
+        "vxlanVNI": {
+          "type": "number"
+        },
+        "mtu": {
+          "type": "number"
+        },
+        "wireguard": {
+          "type": "boolean"
+        },
+        "flexVolumeDriverPath": {
+          "type": "string"
+        },
+        "ipAutodetectionMethod": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "mode": {
+          "type": "string"
+        },
+        "overlay": {
+          "type": "string"
+        },
+        "vxlanPort": {
+          "type": "number"
+        },
+        "vxlanVNI": {
+          "type": "number"
+        },
+        "mtu": {
+          "type": "number"
+        },
+        "wireguard": {
+          "type": "boolean"
+        },
+        "flexVolumeDriverPath": {
+          "type": "string"
+        },
+        "ipAutodetectionMethod": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:DualStack": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "IPv6podCIDR": {
+          "type": "string"
+        },
+        "IPv6serviceCIDR": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "IPv6podCIDR": {
+          "type": "string"
+        },
+        "IPv6serviceCIDR": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
     "k0s:index:PodSecurityPolicy": {
       "type": "object",
       "properties": {
@@ -891,11 +1011,32 @@
       "properties": {
         "type": {
           "type": "string"
+        },
+        "etcd": {
+          "$ref": "#/types/k0s:index:Etcd"
         }
       },
       "required": [],
       "inputProperties": {
         "type": {
+          "type": "string"
+        },
+        "etcd": {
+          "$ref": "#/types/k0s:index:Etcd"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Etcd": {
+      "type": "object",
+      "properties": {
+        "peerAddress": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "peerAddress": {
           "type": "string"
         }
       },

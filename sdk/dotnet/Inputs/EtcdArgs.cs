@@ -7,23 +7,16 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.K0s.Outputs
+namespace Pulumi.K0s.Inputs
 {
 
-    [OutputType]
-    public sealed class Storage
+    public sealed class EtcdArgs : Pulumi.ResourceArgs
     {
-        public readonly Outputs.Etcd? Etcd;
-        public readonly string? Type;
+        [Input("peerAddress")]
+        public Input<string>? PeerAddress { get; set; }
 
-        [OutputConstructor]
-        private Storage(
-            Outputs.Etcd? etcd,
-
-            string? type)
+        public EtcdArgs()
         {
-            Etcd = etcd;
-            Type = type;
         }
     }
 }

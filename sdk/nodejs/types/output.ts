@@ -5,8 +5,22 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "../types";
 
 export interface API {
+    address?: string;
+    externalAddress?: string;
     k0sApiPort?: number;
     port?: number;
+    sans?: string[];
+}
+
+export interface Calico {
+    flexVolumeDriverPath?: string;
+    ipAutodetectionMethod?: string;
+    mode?: string;
+    mtu?: number;
+    overlay?: string;
+    vxlanPort?: number;
+    vxlanVNI?: number;
+    wireguard?: boolean;
 }
 
 export interface Config {
@@ -17,6 +31,16 @@ export interface Config {
 export interface ContainerImage {
     image?: string;
     version?: string;
+}
+
+export interface DualStack {
+    IPv6podCIDR?: string;
+    IPv6serviceCIDR?: string;
+    enabled?: boolean;
+}
+
+export interface Etcd {
+    peerAddress?: string;
 }
 
 export interface Hook {
@@ -123,6 +147,8 @@ export interface Metadata {
 }
 
 export interface Network {
+    calico?: outputs.Calico;
+    dualStack?: outputs.DualStack;
     kubeProxy?: outputs.KubeProxy;
     kuberouter?: outputs.KubeRouter;
     podCIDR?: string;
@@ -149,6 +175,7 @@ export interface Spec {
 }
 
 export interface Storage {
+    etcd?: outputs.Etcd;
     type?: string;
 }
 

@@ -13,6 +13,8 @@ namespace Pulumi.K0s.Outputs
     [OutputType]
     public sealed class Network
     {
+        public readonly Outputs.Calico? Calico;
+        public readonly Outputs.DualStack? DualStack;
         public readonly Outputs.KubeProxy? KubeProxy;
         public readonly Outputs.KubeRouter? Kuberouter;
         public readonly string? PodCIDR;
@@ -21,6 +23,10 @@ namespace Pulumi.K0s.Outputs
 
         [OutputConstructor]
         private Network(
+            Outputs.Calico? calico,
+
+            Outputs.DualStack? dualStack,
+
             Outputs.KubeProxy? kubeProxy,
 
             Outputs.KubeRouter? kuberouter,
@@ -31,6 +37,8 @@ namespace Pulumi.K0s.Outputs
 
             string? serviceCIDR)
         {
+            Calico = calico;
+            DualStack = dualStack;
             KubeProxy = kubeProxy;
             Kuberouter = kuberouter;
             PodCIDR = podCIDR;

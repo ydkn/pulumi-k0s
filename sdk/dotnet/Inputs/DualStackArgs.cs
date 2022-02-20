@@ -10,15 +10,18 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class StorageArgs : Pulumi.ResourceArgs
+    public sealed class DualStackArgs : Pulumi.ResourceArgs
     {
-        [Input("etcd")]
-        public Input<Inputs.EtcdArgs>? Etcd { get; set; }
+        [Input("IPv6podCIDR")]
+        public Input<string>? IPv6podCIDR { get; set; }
 
-        [Input("type")]
-        public Input<string>? Type { get; set; }
+        [Input("IPv6serviceCIDR")]
+        public Input<string>? IPv6serviceCIDR { get; set; }
 
-        public StorageArgs()
+        [Input("enabled")]
+        public Input<bool>? Enabled { get; set; }
+
+        public DualStackArgs()
         {
         }
     }

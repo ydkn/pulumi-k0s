@@ -12,11 +12,25 @@ namespace Pulumi.K0s.Inputs
 
     public sealed class APIArgs : Pulumi.ResourceArgs
     {
+        [Input("address")]
+        public Input<string>? Address { get; set; }
+
+        [Input("externalAddress")]
+        public Input<string>? ExternalAddress { get; set; }
+
         [Input("k0sApiPort")]
         public Input<double>? K0sApiPort { get; set; }
 
         [Input("port")]
         public Input<double>? Port { get; set; }
+
+        [Input("sans")]
+        private InputList<string>? _sans;
+        public InputList<string> Sans
+        {
+            get => _sans ?? (_sans = new InputList<string>());
+            set => _sans = value;
+        }
 
         public APIArgs()
         {

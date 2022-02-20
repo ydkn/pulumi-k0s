@@ -10,8 +10,11 @@ from . import _utilities
 
 __all__ = [
     'APIArgs',
+    'CalicoArgs',
     'ConfigArgs',
     'ContainerImageArgs',
+    'DualStackArgs',
+    'EtcdArgs',
     'HooksArgs',
     'HookArgs',
     'HostArgs',
@@ -40,12 +43,39 @@ __all__ = [
 @pulumi.input_type
 class APIArgs:
     def __init__(__self__, *,
+                 address: Optional[pulumi.Input[str]] = None,
+                 external_address: Optional[pulumi.Input[str]] = None,
                  k0s_api_port: Optional[pulumi.Input[float]] = None,
-                 port: Optional[pulumi.Input[float]] = None):
+                 port: Optional[pulumi.Input[float]] = None,
+                 sans: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if external_address is not None:
+            pulumi.set(__self__, "external_address", external_address)
         if k0s_api_port is not None:
             pulumi.set(__self__, "k0s_api_port", k0s_api_port)
         if port is not None:
             pulumi.set(__self__, "port", port)
+        if sans is not None:
+            pulumi.set(__self__, "sans", sans)
+
+    @property
+    @pulumi.getter
+    def address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "address")
+
+    @address.setter
+    def address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "address", value)
+
+    @property
+    @pulumi.getter(name="externalAddress")
+    def external_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "external_address")
+
+    @external_address.setter
+    def external_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "external_address", value)
 
     @property
     @pulumi.getter(name="k0sApiPort")
@@ -64,6 +94,116 @@ class APIArgs:
     @port.setter
     def port(self, value: Optional[pulumi.Input[float]]):
         pulumi.set(self, "port", value)
+
+    @property
+    @pulumi.getter
+    def sans(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "sans")
+
+    @sans.setter
+    def sans(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "sans", value)
+
+
+@pulumi.input_type
+class CalicoArgs:
+    def __init__(__self__, *,
+                 flex_volume_driver_path: Optional[pulumi.Input[str]] = None,
+                 ip_autodetection_method: Optional[pulumi.Input[str]] = None,
+                 mode: Optional[pulumi.Input[str]] = None,
+                 mtu: Optional[pulumi.Input[float]] = None,
+                 overlay: Optional[pulumi.Input[str]] = None,
+                 vxlan_port: Optional[pulumi.Input[float]] = None,
+                 vxlan_vni: Optional[pulumi.Input[float]] = None,
+                 wireguard: Optional[pulumi.Input[bool]] = None):
+        if flex_volume_driver_path is not None:
+            pulumi.set(__self__, "flex_volume_driver_path", flex_volume_driver_path)
+        if ip_autodetection_method is not None:
+            pulumi.set(__self__, "ip_autodetection_method", ip_autodetection_method)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if mtu is not None:
+            pulumi.set(__self__, "mtu", mtu)
+        if overlay is not None:
+            pulumi.set(__self__, "overlay", overlay)
+        if vxlan_port is not None:
+            pulumi.set(__self__, "vxlan_port", vxlan_port)
+        if vxlan_vni is not None:
+            pulumi.set(__self__, "vxlan_vni", vxlan_vni)
+        if wireguard is not None:
+            pulumi.set(__self__, "wireguard", wireguard)
+
+    @property
+    @pulumi.getter(name="flexVolumeDriverPath")
+    def flex_volume_driver_path(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "flex_volume_driver_path")
+
+    @flex_volume_driver_path.setter
+    def flex_volume_driver_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "flex_volume_driver_path", value)
+
+    @property
+    @pulumi.getter(name="ipAutodetectionMethod")
+    def ip_autodetection_method(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "ip_autodetection_method")
+
+    @ip_autodetection_method.setter
+    def ip_autodetection_method(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ip_autodetection_method", value)
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mode")
+
+    @mode.setter
+    def mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mode", value)
+
+    @property
+    @pulumi.getter
+    def mtu(self) -> Optional[pulumi.Input[float]]:
+        return pulumi.get(self, "mtu")
+
+    @mtu.setter
+    def mtu(self, value: Optional[pulumi.Input[float]]):
+        pulumi.set(self, "mtu", value)
+
+    @property
+    @pulumi.getter
+    def overlay(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "overlay")
+
+    @overlay.setter
+    def overlay(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "overlay", value)
+
+    @property
+    @pulumi.getter(name="vxlanPort")
+    def vxlan_port(self) -> Optional[pulumi.Input[float]]:
+        return pulumi.get(self, "vxlan_port")
+
+    @vxlan_port.setter
+    def vxlan_port(self, value: Optional[pulumi.Input[float]]):
+        pulumi.set(self, "vxlan_port", value)
+
+    @property
+    @pulumi.getter(name="vxlanVNI")
+    def vxlan_vni(self) -> Optional[pulumi.Input[float]]:
+        return pulumi.get(self, "vxlan_vni")
+
+    @vxlan_vni.setter
+    def vxlan_vni(self, value: Optional[pulumi.Input[float]]):
+        pulumi.set(self, "vxlan_vni", value)
+
+    @property
+    @pulumi.getter
+    def wireguard(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "wireguard")
+
+    @wireguard.setter
+    def wireguard(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "wireguard", value)
 
 
 @pulumi.input_type
@@ -122,6 +262,64 @@ class ContainerImageArgs:
     @version.setter
     def version(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "version", value)
+
+
+@pulumi.input_type
+class DualStackArgs:
+    def __init__(__self__, *,
+                 i_pv6pod_cidr: Optional[pulumi.Input[str]] = None,
+                 i_pv6service_cidr: Optional[pulumi.Input[str]] = None,
+                 enabled: Optional[pulumi.Input[bool]] = None):
+        if i_pv6pod_cidr is not None:
+            pulumi.set(__self__, "i_pv6pod_cidr", i_pv6pod_cidr)
+        if i_pv6service_cidr is not None:
+            pulumi.set(__self__, "i_pv6service_cidr", i_pv6service_cidr)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter(name="IPv6podCIDR")
+    def i_pv6pod_cidr(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "i_pv6pod_cidr")
+
+    @i_pv6pod_cidr.setter
+    def i_pv6pod_cidr(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "i_pv6pod_cidr", value)
+
+    @property
+    @pulumi.getter(name="IPv6serviceCIDR")
+    def i_pv6service_cidr(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "i_pv6service_cidr")
+
+    @i_pv6service_cidr.setter
+    def i_pv6service_cidr(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "i_pv6service_cidr", value)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+@pulumi.input_type
+class EtcdArgs:
+    def __init__(__self__, *,
+                 peer_address: Optional[pulumi.Input[str]] = None):
+        if peer_address is not None:
+            pulumi.set(__self__, "peer_address", peer_address)
+
+    @property
+    @pulumi.getter(name="peerAddress")
+    def peer_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "peer_address")
+
+    @peer_address.setter
+    def peer_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "peer_address", value)
 
 
 @pulumi.input_type
@@ -896,11 +1094,17 @@ class MetadataArgs:
 @pulumi.input_type
 class NetworkArgs:
     def __init__(__self__, *,
+                 calico: Optional[pulumi.Input['CalicoArgs']] = None,
+                 dual_stack: Optional[pulumi.Input['DualStackArgs']] = None,
                  kube_proxy: Optional[pulumi.Input['KubeProxyArgs']] = None,
                  kuberouter: Optional[pulumi.Input['KubeRouterArgs']] = None,
                  pod_cidr: Optional[pulumi.Input[str]] = None,
                  provider: Optional[pulumi.Input[str]] = None,
                  service_cidr: Optional[pulumi.Input[str]] = None):
+        if calico is not None:
+            pulumi.set(__self__, "calico", calico)
+        if dual_stack is not None:
+            pulumi.set(__self__, "dual_stack", dual_stack)
         if kube_proxy is not None:
             pulumi.set(__self__, "kube_proxy", kube_proxy)
         if kuberouter is not None:
@@ -911,6 +1115,24 @@ class NetworkArgs:
             pulumi.set(__self__, "provider", provider)
         if service_cidr is not None:
             pulumi.set(__self__, "service_cidr", service_cidr)
+
+    @property
+    @pulumi.getter
+    def calico(self) -> Optional[pulumi.Input['CalicoArgs']]:
+        return pulumi.get(self, "calico")
+
+    @calico.setter
+    def calico(self, value: Optional[pulumi.Input['CalicoArgs']]):
+        pulumi.set(self, "calico", value)
+
+    @property
+    @pulumi.getter(name="dualStack")
+    def dual_stack(self) -> Optional[pulumi.Input['DualStackArgs']]:
+        return pulumi.get(self, "dual_stack")
+
+    @dual_stack.setter
+    def dual_stack(self, value: Optional[pulumi.Input['DualStackArgs']]):
+        pulumi.set(self, "dual_stack", value)
 
     @property
     @pulumi.getter(name="kubeProxy")
@@ -1082,9 +1304,21 @@ class SpecArgs:
 @pulumi.input_type
 class StorageArgs:
     def __init__(__self__, *,
+                 etcd: Optional[pulumi.Input['EtcdArgs']] = None,
                  type: Optional[pulumi.Input[str]] = None):
+        if etcd is not None:
+            pulumi.set(__self__, "etcd", etcd)
         if type is not None:
             pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def etcd(self) -> Optional[pulumi.Input['EtcdArgs']]:
+        return pulumi.get(self, "etcd")
+
+    @etcd.setter
+    def etcd(self, value: Optional[pulumi.Input['EtcdArgs']]):
+        pulumi.set(self, "etcd", value)
 
     @property
     @pulumi.getter

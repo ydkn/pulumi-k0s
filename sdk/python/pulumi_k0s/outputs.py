@@ -11,8 +11,11 @@ from . import outputs
 
 __all__ = [
     'API',
+    'Calico',
     'Config',
     'ContainerImage',
+    'DualStack',
+    'Etcd',
     'Hook',
     'Hooks',
     'Host',
@@ -43,7 +46,9 @@ class API(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "k0sApiPort":
+        if key == "externalAddress":
+            suggest = "external_address"
+        elif key == "k0sApiPort":
             suggest = "k0s_api_port"
 
         if suggest:
@@ -58,12 +63,31 @@ class API(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 address: Optional[str] = None,
+                 external_address: Optional[str] = None,
                  k0s_api_port: Optional[float] = None,
-                 port: Optional[float] = None):
+                 port: Optional[float] = None,
+                 sans: Optional[Sequence[str]] = None):
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if external_address is not None:
+            pulumi.set(__self__, "external_address", external_address)
         if k0s_api_port is not None:
             pulumi.set(__self__, "k0s_api_port", k0s_api_port)
         if port is not None:
             pulumi.set(__self__, "port", port)
+        if sans is not None:
+            pulumi.set(__self__, "sans", sans)
+
+    @property
+    @pulumi.getter
+    def address(self) -> Optional[str]:
+        return pulumi.get(self, "address")
+
+    @property
+    @pulumi.getter(name="externalAddress")
+    def external_address(self) -> Optional[str]:
+        return pulumi.get(self, "external_address")
 
     @property
     @pulumi.getter(name="k0sApiPort")
@@ -74,6 +98,103 @@ class API(dict):
     @pulumi.getter
     def port(self) -> Optional[float]:
         return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def sans(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "sans")
+
+
+@pulumi.output_type
+class Calico(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "flexVolumeDriverPath":
+            suggest = "flex_volume_driver_path"
+        elif key == "ipAutodetectionMethod":
+            suggest = "ip_autodetection_method"
+        elif key == "vxlanPort":
+            suggest = "vxlan_port"
+        elif key == "vxlanVNI":
+            suggest = "vxlan_vni"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Calico. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Calico.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Calico.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 flex_volume_driver_path: Optional[str] = None,
+                 ip_autodetection_method: Optional[str] = None,
+                 mode: Optional[str] = None,
+                 mtu: Optional[float] = None,
+                 overlay: Optional[str] = None,
+                 vxlan_port: Optional[float] = None,
+                 vxlan_vni: Optional[float] = None,
+                 wireguard: Optional[bool] = None):
+        if flex_volume_driver_path is not None:
+            pulumi.set(__self__, "flex_volume_driver_path", flex_volume_driver_path)
+        if ip_autodetection_method is not None:
+            pulumi.set(__self__, "ip_autodetection_method", ip_autodetection_method)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if mtu is not None:
+            pulumi.set(__self__, "mtu", mtu)
+        if overlay is not None:
+            pulumi.set(__self__, "overlay", overlay)
+        if vxlan_port is not None:
+            pulumi.set(__self__, "vxlan_port", vxlan_port)
+        if vxlan_vni is not None:
+            pulumi.set(__self__, "vxlan_vni", vxlan_vni)
+        if wireguard is not None:
+            pulumi.set(__self__, "wireguard", wireguard)
+
+    @property
+    @pulumi.getter(name="flexVolumeDriverPath")
+    def flex_volume_driver_path(self) -> Optional[str]:
+        return pulumi.get(self, "flex_volume_driver_path")
+
+    @property
+    @pulumi.getter(name="ipAutodetectionMethod")
+    def ip_autodetection_method(self) -> Optional[str]:
+        return pulumi.get(self, "ip_autodetection_method")
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[str]:
+        return pulumi.get(self, "mode")
+
+    @property
+    @pulumi.getter
+    def mtu(self) -> Optional[float]:
+        return pulumi.get(self, "mtu")
+
+    @property
+    @pulumi.getter
+    def overlay(self) -> Optional[str]:
+        return pulumi.get(self, "overlay")
+
+    @property
+    @pulumi.getter(name="vxlanPort")
+    def vxlan_port(self) -> Optional[float]:
+        return pulumi.get(self, "vxlan_port")
+
+    @property
+    @pulumi.getter(name="vxlanVNI")
+    def vxlan_vni(self) -> Optional[float]:
+        return pulumi.get(self, "vxlan_vni")
+
+    @property
+    @pulumi.getter
+    def wireguard(self) -> Optional[bool]:
+        return pulumi.get(self, "wireguard")
 
 
 @pulumi.output_type
@@ -116,6 +237,84 @@ class ContainerImage(dict):
     @pulumi.getter
     def version(self) -> Optional[str]:
         return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class DualStack(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "IPv6podCIDR":
+            suggest = "i_pv6pod_cidr"
+        elif key == "IPv6serviceCIDR":
+            suggest = "i_pv6service_cidr"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DualStack. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DualStack.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DualStack.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 i_pv6pod_cidr: Optional[str] = None,
+                 i_pv6service_cidr: Optional[str] = None,
+                 enabled: Optional[bool] = None):
+        if i_pv6pod_cidr is not None:
+            pulumi.set(__self__, "i_pv6pod_cidr", i_pv6pod_cidr)
+        if i_pv6service_cidr is not None:
+            pulumi.set(__self__, "i_pv6service_cidr", i_pv6service_cidr)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter(name="IPv6podCIDR")
+    def i_pv6pod_cidr(self) -> Optional[str]:
+        return pulumi.get(self, "i_pv6pod_cidr")
+
+    @property
+    @pulumi.getter(name="IPv6serviceCIDR")
+    def i_pv6service_cidr(self) -> Optional[str]:
+        return pulumi.get(self, "i_pv6service_cidr")
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class Etcd(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "peerAddress":
+            suggest = "peer_address"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Etcd. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Etcd.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Etcd.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 peer_address: Optional[str] = None):
+        if peer_address is not None:
+            pulumi.set(__self__, "peer_address", peer_address)
+
+    @property
+    @pulumi.getter(name="peerAddress")
+    def peer_address(self) -> Optional[str]:
+        return pulumi.get(self, "peer_address")
 
 
 @pulumi.output_type
@@ -805,7 +1004,9 @@ class Network(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "kubeProxy":
+        if key == "dualStack":
+            suggest = "dual_stack"
+        elif key == "kubeProxy":
             suggest = "kube_proxy"
         elif key == "podCIDR":
             suggest = "pod_cidr"
@@ -824,11 +1025,17 @@ class Network(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 calico: Optional['outputs.Calico'] = None,
+                 dual_stack: Optional['outputs.DualStack'] = None,
                  kube_proxy: Optional['outputs.KubeProxy'] = None,
                  kuberouter: Optional['outputs.KubeRouter'] = None,
                  pod_cidr: Optional[str] = None,
                  provider: Optional[str] = None,
                  service_cidr: Optional[str] = None):
+        if calico is not None:
+            pulumi.set(__self__, "calico", calico)
+        if dual_stack is not None:
+            pulumi.set(__self__, "dual_stack", dual_stack)
         if kube_proxy is not None:
             pulumi.set(__self__, "kube_proxy", kube_proxy)
         if kuberouter is not None:
@@ -839,6 +1046,16 @@ class Network(dict):
             pulumi.set(__self__, "provider", provider)
         if service_cidr is not None:
             pulumi.set(__self__, "service_cidr", service_cidr)
+
+    @property
+    @pulumi.getter
+    def calico(self) -> Optional['outputs.Calico']:
+        return pulumi.get(self, "calico")
+
+    @property
+    @pulumi.getter(name="dualStack")
+    def dual_stack(self) -> Optional['outputs.DualStack']:
+        return pulumi.get(self, "dual_stack")
 
     @property
     @pulumi.getter(name="kubeProxy")
@@ -990,9 +1207,17 @@ class Spec(dict):
 @pulumi.output_type
 class Storage(dict):
     def __init__(__self__, *,
+                 etcd: Optional['outputs.Etcd'] = None,
                  type: Optional[str] = None):
+        if etcd is not None:
+            pulumi.set(__self__, "etcd", etcd)
         if type is not None:
             pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def etcd(self) -> Optional['outputs.Etcd']:
+        return pulumi.get(self, "etcd")
 
     @property
     @pulumi.getter

@@ -11,19 +11,14 @@ namespace Pulumi.K0s.Outputs
 {
 
     [OutputType]
-    public sealed class Storage
+    public sealed class Etcd
     {
-        public readonly Outputs.Etcd? Etcd;
-        public readonly string? Type;
+        public readonly string? PeerAddress;
 
         [OutputConstructor]
-        private Storage(
-            Outputs.Etcd? etcd,
-
-            string? type)
+        private Etcd(string? peerAddress)
         {
-            Etcd = etcd;
-            Type = type;
+            PeerAddress = peerAddress;
         }
     }
 }

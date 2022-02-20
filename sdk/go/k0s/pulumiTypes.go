@@ -11,8 +11,11 @@ import (
 )
 
 type API struct {
-	K0sApiPort *float64 `pulumi:"k0sApiPort"`
-	Port       *float64 `pulumi:"port"`
+	Address         *string  `pulumi:"address"`
+	ExternalAddress *string  `pulumi:"externalAddress"`
+	K0sApiPort      *float64 `pulumi:"k0sApiPort"`
+	Port            *float64 `pulumi:"port"`
+	Sans            []string `pulumi:"sans"`
 }
 
 // APIInput is an input type that accepts APIArgs and APIOutput values.
@@ -27,8 +30,11 @@ type APIInput interface {
 }
 
 type APIArgs struct {
-	K0sApiPort pulumi.Float64PtrInput `pulumi:"k0sApiPort"`
-	Port       pulumi.Float64PtrInput `pulumi:"port"`
+	Address         pulumi.StringPtrInput   `pulumi:"address"`
+	ExternalAddress pulumi.StringPtrInput   `pulumi:"externalAddress"`
+	K0sApiPort      pulumi.Float64PtrInput  `pulumi:"k0sApiPort"`
+	Port            pulumi.Float64PtrInput  `pulumi:"port"`
+	Sans            pulumi.StringArrayInput `pulumi:"sans"`
 }
 
 func (APIArgs) ElementType() reflect.Type {
@@ -108,12 +114,24 @@ func (o APIOutput) ToAPIPtrOutputWithContext(ctx context.Context) APIPtrOutput {
 	}).(APIPtrOutput)
 }
 
+func (o APIOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v API) *string { return v.Address }).(pulumi.StringPtrOutput)
+}
+
+func (o APIOutput) ExternalAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v API) *string { return v.ExternalAddress }).(pulumi.StringPtrOutput)
+}
+
 func (o APIOutput) K0sApiPort() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v API) *float64 { return v.K0sApiPort }).(pulumi.Float64PtrOutput)
 }
 
 func (o APIOutput) Port() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v API) *float64 { return v.Port }).(pulumi.Float64PtrOutput)
+}
+
+func (o APIOutput) Sans() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v API) []string { return v.Sans }).(pulumi.StringArrayOutput)
 }
 
 type APIPtrOutput struct{ *pulumi.OutputState }
@@ -140,6 +158,24 @@ func (o APIPtrOutput) Elem() APIOutput {
 	}).(APIOutput)
 }
 
+func (o APIPtrOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *API) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Address
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o APIPtrOutput) ExternalAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *API) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ExternalAddress
+	}).(pulumi.StringPtrOutput)
+}
+
 func (o APIPtrOutput) K0sApiPort() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *API) *float64 {
 		if v == nil {
@@ -156,6 +192,253 @@ func (o APIPtrOutput) Port() pulumi.Float64PtrOutput {
 		}
 		return v.Port
 	}).(pulumi.Float64PtrOutput)
+}
+
+func (o APIPtrOutput) Sans() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *API) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Sans
+	}).(pulumi.StringArrayOutput)
+}
+
+type Calico struct {
+	FlexVolumeDriverPath  *string  `pulumi:"flexVolumeDriverPath"`
+	IpAutodetectionMethod *string  `pulumi:"ipAutodetectionMethod"`
+	Mode                  *string  `pulumi:"mode"`
+	Mtu                   *float64 `pulumi:"mtu"`
+	Overlay               *string  `pulumi:"overlay"`
+	VxlanPort             *float64 `pulumi:"vxlanPort"`
+	VxlanVNI              *float64 `pulumi:"vxlanVNI"`
+	Wireguard             *bool    `pulumi:"wireguard"`
+}
+
+// CalicoInput is an input type that accepts CalicoArgs and CalicoOutput values.
+// You can construct a concrete instance of `CalicoInput` via:
+//
+//          CalicoArgs{...}
+type CalicoInput interface {
+	pulumi.Input
+
+	ToCalicoOutput() CalicoOutput
+	ToCalicoOutputWithContext(context.Context) CalicoOutput
+}
+
+type CalicoArgs struct {
+	FlexVolumeDriverPath  pulumi.StringPtrInput  `pulumi:"flexVolumeDriverPath"`
+	IpAutodetectionMethod pulumi.StringPtrInput  `pulumi:"ipAutodetectionMethod"`
+	Mode                  pulumi.StringPtrInput  `pulumi:"mode"`
+	Mtu                   pulumi.Float64PtrInput `pulumi:"mtu"`
+	Overlay               pulumi.StringPtrInput  `pulumi:"overlay"`
+	VxlanPort             pulumi.Float64PtrInput `pulumi:"vxlanPort"`
+	VxlanVNI              pulumi.Float64PtrInput `pulumi:"vxlanVNI"`
+	Wireguard             pulumi.BoolPtrInput    `pulumi:"wireguard"`
+}
+
+func (CalicoArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Calico)(nil)).Elem()
+}
+
+func (i CalicoArgs) ToCalicoOutput() CalicoOutput {
+	return i.ToCalicoOutputWithContext(context.Background())
+}
+
+func (i CalicoArgs) ToCalicoOutputWithContext(ctx context.Context) CalicoOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CalicoOutput)
+}
+
+func (i CalicoArgs) ToCalicoPtrOutput() CalicoPtrOutput {
+	return i.ToCalicoPtrOutputWithContext(context.Background())
+}
+
+func (i CalicoArgs) ToCalicoPtrOutputWithContext(ctx context.Context) CalicoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CalicoOutput).ToCalicoPtrOutputWithContext(ctx)
+}
+
+// CalicoPtrInput is an input type that accepts CalicoArgs, CalicoPtr and CalicoPtrOutput values.
+// You can construct a concrete instance of `CalicoPtrInput` via:
+//
+//          CalicoArgs{...}
+//
+//  or:
+//
+//          nil
+type CalicoPtrInput interface {
+	pulumi.Input
+
+	ToCalicoPtrOutput() CalicoPtrOutput
+	ToCalicoPtrOutputWithContext(context.Context) CalicoPtrOutput
+}
+
+type calicoPtrType CalicoArgs
+
+func CalicoPtr(v *CalicoArgs) CalicoPtrInput {
+	return (*calicoPtrType)(v)
+}
+
+func (*calicoPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Calico)(nil)).Elem()
+}
+
+func (i *calicoPtrType) ToCalicoPtrOutput() CalicoPtrOutput {
+	return i.ToCalicoPtrOutputWithContext(context.Background())
+}
+
+func (i *calicoPtrType) ToCalicoPtrOutputWithContext(ctx context.Context) CalicoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CalicoPtrOutput)
+}
+
+type CalicoOutput struct{ *pulumi.OutputState }
+
+func (CalicoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Calico)(nil)).Elem()
+}
+
+func (o CalicoOutput) ToCalicoOutput() CalicoOutput {
+	return o
+}
+
+func (o CalicoOutput) ToCalicoOutputWithContext(ctx context.Context) CalicoOutput {
+	return o
+}
+
+func (o CalicoOutput) ToCalicoPtrOutput() CalicoPtrOutput {
+	return o.ToCalicoPtrOutputWithContext(context.Background())
+}
+
+func (o CalicoOutput) ToCalicoPtrOutputWithContext(ctx context.Context) CalicoPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Calico) *Calico {
+		return &v
+	}).(CalicoPtrOutput)
+}
+
+func (o CalicoOutput) FlexVolumeDriverPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Calico) *string { return v.FlexVolumeDriverPath }).(pulumi.StringPtrOutput)
+}
+
+func (o CalicoOutput) IpAutodetectionMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Calico) *string { return v.IpAutodetectionMethod }).(pulumi.StringPtrOutput)
+}
+
+func (o CalicoOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Calico) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+func (o CalicoOutput) Mtu() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v Calico) *float64 { return v.Mtu }).(pulumi.Float64PtrOutput)
+}
+
+func (o CalicoOutput) Overlay() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Calico) *string { return v.Overlay }).(pulumi.StringPtrOutput)
+}
+
+func (o CalicoOutput) VxlanPort() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v Calico) *float64 { return v.VxlanPort }).(pulumi.Float64PtrOutput)
+}
+
+func (o CalicoOutput) VxlanVNI() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v Calico) *float64 { return v.VxlanVNI }).(pulumi.Float64PtrOutput)
+}
+
+func (o CalicoOutput) Wireguard() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Calico) *bool { return v.Wireguard }).(pulumi.BoolPtrOutput)
+}
+
+type CalicoPtrOutput struct{ *pulumi.OutputState }
+
+func (CalicoPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Calico)(nil)).Elem()
+}
+
+func (o CalicoPtrOutput) ToCalicoPtrOutput() CalicoPtrOutput {
+	return o
+}
+
+func (o CalicoPtrOutput) ToCalicoPtrOutputWithContext(ctx context.Context) CalicoPtrOutput {
+	return o
+}
+
+func (o CalicoPtrOutput) Elem() CalicoOutput {
+	return o.ApplyT(func(v *Calico) Calico {
+		if v != nil {
+			return *v
+		}
+		var ret Calico
+		return ret
+	}).(CalicoOutput)
+}
+
+func (o CalicoPtrOutput) FlexVolumeDriverPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Calico) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FlexVolumeDriverPath
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CalicoPtrOutput) IpAutodetectionMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Calico) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpAutodetectionMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CalicoPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Calico) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CalicoPtrOutput) Mtu() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *Calico) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Mtu
+	}).(pulumi.Float64PtrOutput)
+}
+
+func (o CalicoPtrOutput) Overlay() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Calico) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Overlay
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CalicoPtrOutput) VxlanPort() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *Calico) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.VxlanPort
+	}).(pulumi.Float64PtrOutput)
+}
+
+func (o CalicoPtrOutput) VxlanVNI() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *Calico) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.VxlanVNI
+	}).(pulumi.Float64PtrOutput)
+}
+
+func (o CalicoPtrOutput) Wireguard() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Calico) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Wireguard
+	}).(pulumi.BoolPtrOutput)
 }
 
 type Config struct {
@@ -451,6 +734,302 @@ func (o ContainerImagePtrOutput) Version() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.Version
+	}).(pulumi.StringPtrOutput)
+}
+
+type DualStack struct {
+	IPv6podCIDR     *string `pulumi:"IPv6podCIDR"`
+	IPv6serviceCIDR *string `pulumi:"IPv6serviceCIDR"`
+	Enabled         *bool   `pulumi:"enabled"`
+}
+
+// DualStackInput is an input type that accepts DualStackArgs and DualStackOutput values.
+// You can construct a concrete instance of `DualStackInput` via:
+//
+//          DualStackArgs{...}
+type DualStackInput interface {
+	pulumi.Input
+
+	ToDualStackOutput() DualStackOutput
+	ToDualStackOutputWithContext(context.Context) DualStackOutput
+}
+
+type DualStackArgs struct {
+	IPv6podCIDR     pulumi.StringPtrInput `pulumi:"IPv6podCIDR"`
+	IPv6serviceCIDR pulumi.StringPtrInput `pulumi:"IPv6serviceCIDR"`
+	Enabled         pulumi.BoolPtrInput   `pulumi:"enabled"`
+}
+
+func (DualStackArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DualStack)(nil)).Elem()
+}
+
+func (i DualStackArgs) ToDualStackOutput() DualStackOutput {
+	return i.ToDualStackOutputWithContext(context.Background())
+}
+
+func (i DualStackArgs) ToDualStackOutputWithContext(ctx context.Context) DualStackOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DualStackOutput)
+}
+
+func (i DualStackArgs) ToDualStackPtrOutput() DualStackPtrOutput {
+	return i.ToDualStackPtrOutputWithContext(context.Background())
+}
+
+func (i DualStackArgs) ToDualStackPtrOutputWithContext(ctx context.Context) DualStackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DualStackOutput).ToDualStackPtrOutputWithContext(ctx)
+}
+
+// DualStackPtrInput is an input type that accepts DualStackArgs, DualStackPtr and DualStackPtrOutput values.
+// You can construct a concrete instance of `DualStackPtrInput` via:
+//
+//          DualStackArgs{...}
+//
+//  or:
+//
+//          nil
+type DualStackPtrInput interface {
+	pulumi.Input
+
+	ToDualStackPtrOutput() DualStackPtrOutput
+	ToDualStackPtrOutputWithContext(context.Context) DualStackPtrOutput
+}
+
+type dualStackPtrType DualStackArgs
+
+func DualStackPtr(v *DualStackArgs) DualStackPtrInput {
+	return (*dualStackPtrType)(v)
+}
+
+func (*dualStackPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DualStack)(nil)).Elem()
+}
+
+func (i *dualStackPtrType) ToDualStackPtrOutput() DualStackPtrOutput {
+	return i.ToDualStackPtrOutputWithContext(context.Background())
+}
+
+func (i *dualStackPtrType) ToDualStackPtrOutputWithContext(ctx context.Context) DualStackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DualStackPtrOutput)
+}
+
+type DualStackOutput struct{ *pulumi.OutputState }
+
+func (DualStackOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DualStack)(nil)).Elem()
+}
+
+func (o DualStackOutput) ToDualStackOutput() DualStackOutput {
+	return o
+}
+
+func (o DualStackOutput) ToDualStackOutputWithContext(ctx context.Context) DualStackOutput {
+	return o
+}
+
+func (o DualStackOutput) ToDualStackPtrOutput() DualStackPtrOutput {
+	return o.ToDualStackPtrOutputWithContext(context.Background())
+}
+
+func (o DualStackOutput) ToDualStackPtrOutputWithContext(ctx context.Context) DualStackPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DualStack) *DualStack {
+		return &v
+	}).(DualStackPtrOutput)
+}
+
+func (o DualStackOutput) IPv6podCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DualStack) *string { return v.IPv6podCIDR }).(pulumi.StringPtrOutput)
+}
+
+func (o DualStackOutput) IPv6serviceCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DualStack) *string { return v.IPv6serviceCIDR }).(pulumi.StringPtrOutput)
+}
+
+func (o DualStackOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DualStack) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type DualStackPtrOutput struct{ *pulumi.OutputState }
+
+func (DualStackPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DualStack)(nil)).Elem()
+}
+
+func (o DualStackPtrOutput) ToDualStackPtrOutput() DualStackPtrOutput {
+	return o
+}
+
+func (o DualStackPtrOutput) ToDualStackPtrOutputWithContext(ctx context.Context) DualStackPtrOutput {
+	return o
+}
+
+func (o DualStackPtrOutput) Elem() DualStackOutput {
+	return o.ApplyT(func(v *DualStack) DualStack {
+		if v != nil {
+			return *v
+		}
+		var ret DualStack
+		return ret
+	}).(DualStackOutput)
+}
+
+func (o DualStackPtrOutput) IPv6podCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DualStack) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IPv6podCIDR
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o DualStackPtrOutput) IPv6serviceCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DualStack) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IPv6serviceCIDR
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o DualStackPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *DualStack) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type Etcd struct {
+	PeerAddress *string `pulumi:"peerAddress"`
+}
+
+// EtcdInput is an input type that accepts EtcdArgs and EtcdOutput values.
+// You can construct a concrete instance of `EtcdInput` via:
+//
+//          EtcdArgs{...}
+type EtcdInput interface {
+	pulumi.Input
+
+	ToEtcdOutput() EtcdOutput
+	ToEtcdOutputWithContext(context.Context) EtcdOutput
+}
+
+type EtcdArgs struct {
+	PeerAddress pulumi.StringPtrInput `pulumi:"peerAddress"`
+}
+
+func (EtcdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Etcd)(nil)).Elem()
+}
+
+func (i EtcdArgs) ToEtcdOutput() EtcdOutput {
+	return i.ToEtcdOutputWithContext(context.Background())
+}
+
+func (i EtcdArgs) ToEtcdOutputWithContext(ctx context.Context) EtcdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EtcdOutput)
+}
+
+func (i EtcdArgs) ToEtcdPtrOutput() EtcdPtrOutput {
+	return i.ToEtcdPtrOutputWithContext(context.Background())
+}
+
+func (i EtcdArgs) ToEtcdPtrOutputWithContext(ctx context.Context) EtcdPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EtcdOutput).ToEtcdPtrOutputWithContext(ctx)
+}
+
+// EtcdPtrInput is an input type that accepts EtcdArgs, EtcdPtr and EtcdPtrOutput values.
+// You can construct a concrete instance of `EtcdPtrInput` via:
+//
+//          EtcdArgs{...}
+//
+//  or:
+//
+//          nil
+type EtcdPtrInput interface {
+	pulumi.Input
+
+	ToEtcdPtrOutput() EtcdPtrOutput
+	ToEtcdPtrOutputWithContext(context.Context) EtcdPtrOutput
+}
+
+type etcdPtrType EtcdArgs
+
+func EtcdPtr(v *EtcdArgs) EtcdPtrInput {
+	return (*etcdPtrType)(v)
+}
+
+func (*etcdPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Etcd)(nil)).Elem()
+}
+
+func (i *etcdPtrType) ToEtcdPtrOutput() EtcdPtrOutput {
+	return i.ToEtcdPtrOutputWithContext(context.Background())
+}
+
+func (i *etcdPtrType) ToEtcdPtrOutputWithContext(ctx context.Context) EtcdPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EtcdPtrOutput)
+}
+
+type EtcdOutput struct{ *pulumi.OutputState }
+
+func (EtcdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Etcd)(nil)).Elem()
+}
+
+func (o EtcdOutput) ToEtcdOutput() EtcdOutput {
+	return o
+}
+
+func (o EtcdOutput) ToEtcdOutputWithContext(ctx context.Context) EtcdOutput {
+	return o
+}
+
+func (o EtcdOutput) ToEtcdPtrOutput() EtcdPtrOutput {
+	return o.ToEtcdPtrOutputWithContext(context.Background())
+}
+
+func (o EtcdOutput) ToEtcdPtrOutputWithContext(ctx context.Context) EtcdPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Etcd) *Etcd {
+		return &v
+	}).(EtcdPtrOutput)
+}
+
+func (o EtcdOutput) PeerAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Etcd) *string { return v.PeerAddress }).(pulumi.StringPtrOutput)
+}
+
+type EtcdPtrOutput struct{ *pulumi.OutputState }
+
+func (EtcdPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Etcd)(nil)).Elem()
+}
+
+func (o EtcdPtrOutput) ToEtcdPtrOutput() EtcdPtrOutput {
+	return o
+}
+
+func (o EtcdPtrOutput) ToEtcdPtrOutputWithContext(ctx context.Context) EtcdPtrOutput {
+	return o
+}
+
+func (o EtcdPtrOutput) Elem() EtcdOutput {
+	return o.ApplyT(func(v *Etcd) Etcd {
+		if v != nil {
+			return *v
+		}
+		var ret Etcd
+		return ret
+	}).(EtcdOutput)
+}
+
+func (o EtcdPtrOutput) PeerAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Etcd) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PeerAddress
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -2939,6 +3518,8 @@ func (o MetadataPtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 type Network struct {
+	Calico      *Calico     `pulumi:"calico"`
+	DualStack   *DualStack  `pulumi:"dualStack"`
 	KubeProxy   *KubeProxy  `pulumi:"kubeProxy"`
 	Kuberouter  *KubeRouter `pulumi:"kuberouter"`
 	PodCIDR     *string     `pulumi:"podCIDR"`
@@ -2958,6 +3539,8 @@ type NetworkInput interface {
 }
 
 type NetworkArgs struct {
+	Calico      CalicoPtrInput        `pulumi:"calico"`
+	DualStack   DualStackPtrInput     `pulumi:"dualStack"`
 	KubeProxy   KubeProxyPtrInput     `pulumi:"kubeProxy"`
 	Kuberouter  KubeRouterPtrInput    `pulumi:"kuberouter"`
 	PodCIDR     pulumi.StringPtrInput `pulumi:"podCIDR"`
@@ -3042,6 +3625,14 @@ func (o NetworkOutput) ToNetworkPtrOutputWithContext(ctx context.Context) Networ
 	}).(NetworkPtrOutput)
 }
 
+func (o NetworkOutput) Calico() CalicoPtrOutput {
+	return o.ApplyT(func(v Network) *Calico { return v.Calico }).(CalicoPtrOutput)
+}
+
+func (o NetworkOutput) DualStack() DualStackPtrOutput {
+	return o.ApplyT(func(v Network) *DualStack { return v.DualStack }).(DualStackPtrOutput)
+}
+
 func (o NetworkOutput) KubeProxy() KubeProxyPtrOutput {
 	return o.ApplyT(func(v Network) *KubeProxy { return v.KubeProxy }).(KubeProxyPtrOutput)
 }
@@ -3084,6 +3675,24 @@ func (o NetworkPtrOutput) Elem() NetworkOutput {
 		var ret Network
 		return ret
 	}).(NetworkOutput)
+}
+
+func (o NetworkPtrOutput) Calico() CalicoPtrOutput {
+	return o.ApplyT(func(v *Network) *Calico {
+		if v == nil {
+			return nil
+		}
+		return v.Calico
+	}).(CalicoPtrOutput)
+}
+
+func (o NetworkPtrOutput) DualStack() DualStackPtrOutput {
+	return o.ApplyT(func(v *Network) *DualStack {
+		if v == nil {
+			return nil
+		}
+		return v.DualStack
+	}).(DualStackPtrOutput)
 }
 
 func (o NetworkPtrOutput) KubeProxy() KubeProxyPtrOutput {
@@ -3528,6 +4137,7 @@ func (o SpecOutput) K0s() K0sPtrOutput {
 }
 
 type Storage struct {
+	Etcd *Etcd   `pulumi:"etcd"`
 	Type *string `pulumi:"type"`
 }
 
@@ -3543,6 +4153,7 @@ type StorageInput interface {
 }
 
 type StorageArgs struct {
+	Etcd EtcdPtrInput          `pulumi:"etcd"`
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -3623,6 +4234,10 @@ func (o StorageOutput) ToStoragePtrOutputWithContext(ctx context.Context) Storag
 	}).(StoragePtrOutput)
 }
 
+func (o StorageOutput) Etcd() EtcdPtrOutput {
+	return o.ApplyT(func(v Storage) *Etcd { return v.Etcd }).(EtcdPtrOutput)
+}
+
 func (o StorageOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Storage) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -3649,6 +4264,15 @@ func (o StoragePtrOutput) Elem() StorageOutput {
 		var ret Storage
 		return ret
 	}).(StorageOutput)
+}
+
+func (o StoragePtrOutput) Etcd() EtcdPtrOutput {
+	return o.ApplyT(func(v *Storage) *Etcd {
+		if v == nil {
+			return nil
+		}
+		return v.Etcd
+	}).(EtcdPtrOutput)
 }
 
 func (o StoragePtrOutput) Type() pulumi.StringPtrOutput {
@@ -4230,10 +4854,16 @@ func (o WinRMPtrOutput) User() pulumi.StringPtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*APIInput)(nil)).Elem(), APIArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*APIPtrInput)(nil)).Elem(), APIArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CalicoInput)(nil)).Elem(), CalicoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CalicoPtrInput)(nil)).Elem(), CalicoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ConfigInput)(nil)).Elem(), ConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ConfigPtrInput)(nil)).Elem(), ConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerImageInput)(nil)).Elem(), ContainerImageArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerImagePtrInput)(nil)).Elem(), ContainerImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DualStackInput)(nil)).Elem(), DualStackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DualStackPtrInput)(nil)).Elem(), DualStackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EtcdInput)(nil)).Elem(), EtcdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EtcdPtrInput)(nil)).Elem(), EtcdArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HookInput)(nil)).Elem(), HookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HookPtrInput)(nil)).Elem(), HookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HooksInput)(nil)).Elem(), HooksArgs{})
@@ -4281,10 +4911,16 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*WinRMPtrInput)(nil)).Elem(), WinRMArgs{})
 	pulumi.RegisterOutputType(APIOutput{})
 	pulumi.RegisterOutputType(APIPtrOutput{})
+	pulumi.RegisterOutputType(CalicoOutput{})
+	pulumi.RegisterOutputType(CalicoPtrOutput{})
 	pulumi.RegisterOutputType(ConfigOutput{})
 	pulumi.RegisterOutputType(ConfigPtrOutput{})
 	pulumi.RegisterOutputType(ContainerImageOutput{})
 	pulumi.RegisterOutputType(ContainerImagePtrOutput{})
+	pulumi.RegisterOutputType(DualStackOutput{})
+	pulumi.RegisterOutputType(DualStackPtrOutput{})
+	pulumi.RegisterOutputType(EtcdOutput{})
+	pulumi.RegisterOutputType(EtcdPtrOutput{})
 	pulumi.RegisterOutputType(HookOutput{})
 	pulumi.RegisterOutputType(HookPtrOutput{})
 	pulumi.RegisterOutputType(HooksOutput{})

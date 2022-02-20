@@ -5,8 +5,22 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "../types";
 
 export interface APIArgs {
+    address?: pulumi.Input<string>;
+    externalAddress?: pulumi.Input<string>;
     k0sApiPort?: pulumi.Input<number>;
     port?: pulumi.Input<number>;
+    sans?: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface CalicoArgs {
+    flexVolumeDriverPath?: pulumi.Input<string>;
+    ipAutodetectionMethod?: pulumi.Input<string>;
+    mode?: pulumi.Input<string>;
+    mtu?: pulumi.Input<number>;
+    overlay?: pulumi.Input<string>;
+    vxlanPort?: pulumi.Input<number>;
+    vxlanVNI?: pulumi.Input<number>;
+    wireguard?: pulumi.Input<boolean>;
 }
 
 export interface ConfigArgs {
@@ -17,6 +31,16 @@ export interface ConfigArgs {
 export interface ContainerImageArgs {
     image?: pulumi.Input<string>;
     version?: pulumi.Input<string>;
+}
+
+export interface DualStackArgs {
+    IPv6podCIDR?: pulumi.Input<string>;
+    IPv6serviceCIDR?: pulumi.Input<string>;
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface EtcdArgs {
+    peerAddress?: pulumi.Input<string>;
 }
 
 export interface HookArgs {
@@ -123,6 +147,8 @@ export interface MetadataArgs {
 }
 
 export interface NetworkArgs {
+    calico?: pulumi.Input<inputs.CalicoArgs>;
+    dualStack?: pulumi.Input<inputs.DualStackArgs>;
     kubeProxy?: pulumi.Input<inputs.KubeProxyArgs>;
     kuberouter?: pulumi.Input<inputs.KubeRouterArgs>;
     podCIDR?: pulumi.Input<string>;
@@ -149,6 +175,7 @@ export interface SpecArgs {
 }
 
 export interface StorageArgs {
+    etcd?: pulumi.Input<inputs.EtcdArgs>;
     type?: pulumi.Input<string>;
 }
 
@@ -181,3 +208,4 @@ export interface WinRMArgs {
     useNTLM?: pulumi.Input<boolean>;
     user?: pulumi.Input<string>;
 }
+
