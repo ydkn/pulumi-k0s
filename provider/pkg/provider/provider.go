@@ -278,7 +278,7 @@ func (p *k0sProvider) Create(ctx context.Context, req *pulumirpc.CreateRequest) 
 		return nil, err
 	}
 
-	cluster, err = k0sctl.KubeConfig(cluster, "")
+	cluster, err = k0sctl.KubeConfig(cluster)
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +332,7 @@ func (p *k0sProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) 
 		return nil, err
 	}
 
-	cluster, err = k0sctl.KubeConfig(cluster, "")
+	cluster, err = k0sctl.KubeConfig(cluster)
 	if err != nil {
 		return nil, err
 	}
@@ -350,7 +350,7 @@ func (p *k0sProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) 
 	}, nil
 }
 
-// Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
+// Delete tears down an existing resource with the given ID. If it fails, the resource is assumed
 // to still exist.
 func (p *k0sProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	urn := resource.URN(req.GetUrn())
@@ -451,7 +451,7 @@ func propertiesToCluster(propertyMap resource.PropertyMap) (*k0sctl.Cluster, err
 }
 
 func prepareClusterForDiff(cluster *k0sctl.Cluster) resource.PropertyMap {
-	cluster.KubeConfig = ""
+	cluster.Kubeconfig = ""
 
 	if cluster.Spec != nil {
 		cluster.Spec.Hosts = nil

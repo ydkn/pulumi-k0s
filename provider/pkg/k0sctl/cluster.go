@@ -7,21 +7,33 @@ import (
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1"
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1/cluster"
 	"github.com/k0sproject/rig"
+	"gopkg.in/yaml.v2"
 )
 
 type Cluster struct {
 	Metadata   *Metadata `json:"metadata,omitempty" yaml:"metadata,omitempty" validate:"required"`
 	Spec       *Spec     `json:"spec,omitempty" yaml:"spec,omitempty" validate:"required"`
-	KubeConfig string    `json:"kubeconfig,omitempty" yaml:"kubeconfig,omitempty"`
+	Kubeconfig string    `json:"kubeconfig,omitempty" yaml:"-"`
 }
 
 func (o *Cluster) K0sCtlObject() *v1beta1.Cluster {
-	return &v1beta1.Cluster{
+	cluster := &v1beta1.Cluster{
 		APIVersion: v1beta1.APIVersion,
 		Kind:       "Cluster",
 		Metadata:   o.Metadata.K0sCtlObject(),
 		Spec:       o.Spec.K0sCtlObject(),
 	}
+
+	cfg, err := yaml.Marshal(cluster)
+	if err != nil {
+		return nil
+	}
+
+	if err := yaml.Unmarshal(cfg, cluster); err != nil {
+		return nil
+	}
+
+	return cluster
 }
 
 func (o *Cluster) Check() error {
