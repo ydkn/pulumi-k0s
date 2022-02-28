@@ -12,12 +12,10 @@ func KubeConfig(cluster *Cluster) (*Cluster, error) {
 	c.Spec.Hosts = k0sctlCluster.Hosts{c.Spec.K0sLeader()}
 	manager := phase.Manager{Config: c}
 
-	kubeconfig := &getKubeconfigPhase{}
-
 	manager.AddPhase(
 		&phase.Connect{},
 		&phase.DetectOS{},
-		kubeconfig,
+		&phase.GetKubeconfig{},
 		&phase.Disconnect{},
 	)
 
@@ -25,7 +23,7 @@ func KubeConfig(cluster *Cluster) (*Cluster, error) {
 		return nil, err
 	}
 
-	cluster.Kubeconfig = kubeconfig.Kubeconfig()
+	cluster.Kubeconfig = c.Metadata.Kubeconfig
 
 	return cluster, nil
 }

@@ -20,7 +20,7 @@ import (
 
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 
-	pbempty "github.com/golang/protobuf/ptypes/empty"
+	pbempty "google.golang.org/protobuf/types/known/emptypb"
 )
 
 type k0sProvider struct {
