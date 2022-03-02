@@ -109,3 +109,17 @@ install_go_sdk::
 install_nodejs_sdk::
 	-yarn unlink --cwd $(WORKING_DIR)/sdk/nodejs/bin
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
+
+.PHONY: publish
+publish:: publish_python_sdk publish_go_sdk publish_nodejs_sdk
+
+publish_python_sdk:: python_sdk
+	cd $(WORKING_DIR)/sdk/python/bin && \
+		twine upload -u __token__ -p ${PYPI_TOKEN} dist/*
+
+publish_go_sdk:: go_sdk
+	#target intentionally blank
+
+publish_nodejs_sdk:: nodejs_sdk
+	cd $(WORKING_DIR)/sdk/nodejs/bin && \
+		yarn publish --access=public --no-git-tag-version --new-version="$(VERSION)"
