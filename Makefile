@@ -13,10 +13,11 @@ PROVIDER_PATH := provider
 VERSION_PATH  := ${PROVIDER_PATH}/pkg/version.Version
 
 SCHEMA_FILE := provider/cmd/pulumi-resource-k0s/schema.json
-GOPATH			:= $(shell go env GOPATH)
+GOPATH      := $(shell go env GOPATH)
 
 WORKING_DIR     := $(shell pwd)
 TESTPARALLELISM := 4
+GO_TEST         := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 
 ensure::
 	cd provider && go mod tidy
@@ -58,8 +59,8 @@ nodejs_sdk::
 		yarn install && \
 		yarn run tsc
 	cp -r README.md LICENSE ${PACKDIR}/nodejs/scripts ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	jq '.version = "$(VERSION)"' ${PACKDIR}/nodejs/bin/package.json > ${PACKDIR}/nodejs/bin/package.json.new
-	mv ${PACKDIR}/nodejs/bin/package.json.new ${PACKDIR}/nodejs/bin/package.json
+	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
+	rm ${PACKDIR}/nodejs/bin/package.json.bak
 
 python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
 python_sdk::
@@ -84,12 +85,8 @@ lint::
 		pushd $$DIR && golangci-lint run -c ../.golangci.yml --timeout 10m && popd ; \
 	done
 
-
 install:: install_nodejs_sdk install_dotnet_sdk
 	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin
-
-
-GO_TEST 	 := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 
 test_all::
 	cd provider/pkg && $(GO_TEST) ./...

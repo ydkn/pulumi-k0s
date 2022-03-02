@@ -1,6 +1,6 @@
 {
   "name": "k0s-typescript",
-  "version": "0.1.2",
+  "version": "0.0.1",
   "devDependencies": {
     "@types/node": "latest"
   },
