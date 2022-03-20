@@ -135,5 +135,5 @@ publish_plugin:
 publish_plugin_arch:
 	$(MAKE) provider
 	mkdir -p dist
-	tar -cf dist/pulumi-resource-k0s-$(VERSION)-$(GOOS)-$(GOARCH).tar README.md LICENSE
-	cd bin && tar -rf ../dist/pulumi-resource-k0s-$(VERSION)-$(GOOS)-$(GOARCH).tar pulumi-resource-k0s
+	tar -cf dist/pulumi-resource-k0s-v$(VERSION)-$(GOOS)-$(GOARCH).tar README.md LICENSE
+	cd bin && tar -rf ../dist/pulumi-resource-k0s-v$(VERSION)-$(GOOS)-$(GOARCH).tar pulumi-resource-k0s
