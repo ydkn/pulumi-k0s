@@ -110,8 +110,8 @@ install_nodejs_sdk::
 	-yarn unlink --cwd $(WORKING_DIR)/sdk/nodejs/bin
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
 
-.PHONY: publish
-publish:: publish_python_sdk publish_go_sdk publish_nodejs_sdk
+.PHONY: publish_sdks
+publish_sdks:: publish_python_sdk publish_go_sdk publish_nodejs_sdk
 
 publish_python_sdk:: python_sdk
 	cd $(WORKING_DIR)/sdk/python/bin && \
@@ -123,3 +123,17 @@ publish_go_sdk:: go_sdk
 publish_nodejs_sdk:: nodejs_sdk
 	cd $(WORKING_DIR)/sdk/nodejs/bin && \
 		yarn publish --access=public --no-git-tag-version --new-version="$(VERSION)"
+
+.PHONY: publish_plugin
+publish_plugin:
+	GOOS=linux GOARCH=amd64 $(MAKE) publish_plugin_arch
+	GOOS=linux GOARCH=arm64 $(MAKE) publish_plugin_arch
+	GOOS=darwin GOARCH=amd64 $(MAKE) publish_plugin_arch
+	GOOS=darwin GOARCH=arm64 $(MAKE) publish_plugin_arch
+	GOOS=windows GOARCH=amd64 $(MAKE) publish_plugin_arch
+
+publish_plugin_arch:
+	$(MAKE) provider
+	mkdir -p dist
+	tar -cf dist/pulumi-resource-k0s-$(VERSION)-$(GOOS)-$(GOARCH).tar README.md LICENSE
+	cd bin && tar -rf ../dist/pulumi-resource-k0s-$(VERSION)-$(GOOS)-$(GOARCH).tar pulumi-resource-k0s
