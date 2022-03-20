@@ -2,6 +2,11 @@ package k0sctl
 
 import (
 	"encoding/json"
+	"errors"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+	"time"
 
 	"github.com/creasty/defaults"
 	"github.com/k0sproject/dig"
@@ -11,6 +16,8 @@ import (
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1/cluster"
 	"gopkg.in/yaml.v2"
 )
+
+const k0sVersionCacheTTL = 1 * time.Hour
 
 // DefaultCluster returns a default cluster configuration.
 // see https://github.com/k0sproject/k0sctl/blob/main/cmd/init.go
@@ -54,5 +61,31 @@ func DefaultClusterConfig() (*Cluster, error) {
 }
 
 func latestK0sVersion() (string, error) {
-	return github.LatestK0sVersion(false)
+	cacheFilename := filepath.Join(os.TempDir(), "pulumi-k0-latest-k0s-version.txt")
+
+	stat, err := os.Stat(cacheFilename)
+
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return "", err
+	}
+
+	if err == nil && stat.ModTime().Add(k0sVersionCacheTTL).Before(time.Now()) {
+		content, err := ioutil.ReadFile(cacheFilename)
+		if err != nil {
+			return "", err
+		}
+
+		return string(content), nil
+	}
+
+	version, err := github.LatestK0sVersion(false)
+	if err != nil {
+		return "", err
+	}
+
+	if err := ioutil.WriteFile(cacheFilename, []byte(version), 0644); err != nil {
+		return version, err
+	}
+
+	return version, nil
 }
