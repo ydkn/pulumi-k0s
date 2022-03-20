@@ -137,3 +137,4 @@ publish_plugin_arch:
 	mkdir -p dist
 	tar -cf dist/pulumi-resource-k0s-v$(VERSION)-$(GOOS)-$(GOARCH).tar README.md LICENSE
 	cd bin && tar -rf ../dist/pulumi-resource-k0s-v$(VERSION)-$(GOOS)-$(GOARCH).tar pulumi-resource-k0s
+	gzip -9 dist/pulumi-resource-k0s-v$(VERSION)-$(GOOS)-$(GOARCH).tar
