@@ -19,6 +19,8 @@ import (
 
 const k0sVersionCacheTTL = 1 * time.Hour
 
+var k0sLatestVersion = ""
+
 // DefaultCluster returns a default cluster configuration.
 // see https://github.com/k0sproject/k0sctl/blob/main/cmd/init.go
 func DefaultClusterConfig() (*Cluster, error) {
@@ -61,6 +63,21 @@ func DefaultClusterConfig() (*Cluster, error) {
 }
 
 func latestK0sVersion() (string, error) {
+	if k0sLatestVersion != "" {
+		return k0sLatestVersion, nil
+	}
+
+	version, err := fetchLatestK0sVersion()
+	if err != nil {
+		return "", err
+	}
+
+	k0sLatestVersion = version
+
+	return version, nil
+}
+
+func fetchLatestK0sVersion() (string, error) {
 	cacheFilename := filepath.Join(os.TempDir(), "pulumi-k0-latest-k0s-version.txt")
 
 	stat, err := os.Stat(cacheFilename)
@@ -69,7 +86,7 @@ func latestK0sVersion() (string, error) {
 		return "", err
 	}
 
-	if err == nil && stat.ModTime().Add(k0sVersionCacheTTL).Before(time.Now()) {
+	if err == nil && stat.ModTime().Add(k0sVersionCacheTTL).After(time.Now()) {
 		content, err := ioutil.ReadFile(cacheFilename)
 		if err != nil {
 			return "", err
