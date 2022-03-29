@@ -305,7 +305,10 @@ func (p *k0sProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pu
 		return nil, fmt.Errorf("Unknown resource type '%s'", ty)
 	}
 
-	return nil, status.Error(codes.Unimplemented, "Read is not yet implemented for 'k0s:index:Cluster'")
+	return &pulumirpc.ReadResponse{
+		Id:         urn.Name().String(),
+		Properties: req.Properties,
+	}, nil
 }
 
 // Update updates an existing resource with new values.
