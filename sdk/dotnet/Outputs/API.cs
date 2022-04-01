@@ -15,6 +15,7 @@ namespace Pulumi.K0s.Outputs
     {
         public readonly string? Address;
         public readonly string? ExternalAddress;
+        public readonly ImmutableDictionary<string, string>? ExtraArgs;
         public readonly double? K0sApiPort;
         public readonly double? Port;
         public readonly ImmutableArray<string> Sans;
@@ -25,6 +26,8 @@ namespace Pulumi.K0s.Outputs
 
             string? externalAddress,
 
+            ImmutableDictionary<string, string>? extraArgs,
+
             double? k0sApiPort,
 
             double? port,
@@ -33,6 +36,7 @@ namespace Pulumi.K0s.Outputs
         {
             Address = address;
             ExternalAddress = externalAddress;
+            ExtraArgs = extraArgs;
             K0sApiPort = k0sApiPort;
             Port = port;
             Sans = sans;

@@ -11,11 +11,12 @@ import (
 )
 
 type API struct {
-	Address         *string  `pulumi:"address"`
-	ExternalAddress *string  `pulumi:"externalAddress"`
-	K0sApiPort      *float64 `pulumi:"k0sApiPort"`
-	Port            *float64 `pulumi:"port"`
-	Sans            []string `pulumi:"sans"`
+	Address         *string           `pulumi:"address"`
+	ExternalAddress *string           `pulumi:"externalAddress"`
+	ExtraArgs       map[string]string `pulumi:"extraArgs"`
+	K0sApiPort      *float64          `pulumi:"k0sApiPort"`
+	Port            *float64          `pulumi:"port"`
+	Sans            []string          `pulumi:"sans"`
 }
 
 // APIInput is an input type that accepts APIArgs and APIOutput values.
@@ -32,6 +33,7 @@ type APIInput interface {
 type APIArgs struct {
 	Address         pulumi.StringPtrInput   `pulumi:"address"`
 	ExternalAddress pulumi.StringPtrInput   `pulumi:"externalAddress"`
+	ExtraArgs       pulumi.StringMapInput   `pulumi:"extraArgs"`
 	K0sApiPort      pulumi.Float64PtrInput  `pulumi:"k0sApiPort"`
 	Port            pulumi.Float64PtrInput  `pulumi:"port"`
 	Sans            pulumi.StringArrayInput `pulumi:"sans"`
@@ -122,6 +124,10 @@ func (o APIOutput) ExternalAddress() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v API) *string { return v.ExternalAddress }).(pulumi.StringPtrOutput)
 }
 
+func (o APIOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v API) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
+}
+
 func (o APIOutput) K0sApiPort() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v API) *float64 { return v.K0sApiPort }).(pulumi.Float64PtrOutput)
 }
@@ -174,6 +180,15 @@ func (o APIPtrOutput) ExternalAddress() pulumi.StringPtrOutput {
 		}
 		return v.ExternalAddress
 	}).(pulumi.StringPtrOutput)
+}
+
+func (o APIPtrOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *API) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(pulumi.StringMapOutput)
 }
 
 func (o APIPtrOutput) K0sApiPort() pulumi.Float64PtrOutput {
@@ -735,6 +750,139 @@ func (o ContainerImagePtrOutput) Version() pulumi.StringPtrOutput {
 		}
 		return v.Version
 	}).(pulumi.StringPtrOutput)
+}
+
+type ControllerManager struct {
+	ExtraArgs map[string]string `pulumi:"extraArgs"`
+}
+
+// ControllerManagerInput is an input type that accepts ControllerManagerArgs and ControllerManagerOutput values.
+// You can construct a concrete instance of `ControllerManagerInput` via:
+//
+//          ControllerManagerArgs{...}
+type ControllerManagerInput interface {
+	pulumi.Input
+
+	ToControllerManagerOutput() ControllerManagerOutput
+	ToControllerManagerOutputWithContext(context.Context) ControllerManagerOutput
+}
+
+type ControllerManagerArgs struct {
+	ExtraArgs pulumi.StringMapInput `pulumi:"extraArgs"`
+}
+
+func (ControllerManagerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ControllerManager)(nil)).Elem()
+}
+
+func (i ControllerManagerArgs) ToControllerManagerOutput() ControllerManagerOutput {
+	return i.ToControllerManagerOutputWithContext(context.Background())
+}
+
+func (i ControllerManagerArgs) ToControllerManagerOutputWithContext(ctx context.Context) ControllerManagerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ControllerManagerOutput)
+}
+
+func (i ControllerManagerArgs) ToControllerManagerPtrOutput() ControllerManagerPtrOutput {
+	return i.ToControllerManagerPtrOutputWithContext(context.Background())
+}
+
+func (i ControllerManagerArgs) ToControllerManagerPtrOutputWithContext(ctx context.Context) ControllerManagerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ControllerManagerOutput).ToControllerManagerPtrOutputWithContext(ctx)
+}
+
+// ControllerManagerPtrInput is an input type that accepts ControllerManagerArgs, ControllerManagerPtr and ControllerManagerPtrOutput values.
+// You can construct a concrete instance of `ControllerManagerPtrInput` via:
+//
+//          ControllerManagerArgs{...}
+//
+//  or:
+//
+//          nil
+type ControllerManagerPtrInput interface {
+	pulumi.Input
+
+	ToControllerManagerPtrOutput() ControllerManagerPtrOutput
+	ToControllerManagerPtrOutputWithContext(context.Context) ControllerManagerPtrOutput
+}
+
+type controllerManagerPtrType ControllerManagerArgs
+
+func ControllerManagerPtr(v *ControllerManagerArgs) ControllerManagerPtrInput {
+	return (*controllerManagerPtrType)(v)
+}
+
+func (*controllerManagerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ControllerManager)(nil)).Elem()
+}
+
+func (i *controllerManagerPtrType) ToControllerManagerPtrOutput() ControllerManagerPtrOutput {
+	return i.ToControllerManagerPtrOutputWithContext(context.Background())
+}
+
+func (i *controllerManagerPtrType) ToControllerManagerPtrOutputWithContext(ctx context.Context) ControllerManagerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ControllerManagerPtrOutput)
+}
+
+type ControllerManagerOutput struct{ *pulumi.OutputState }
+
+func (ControllerManagerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ControllerManager)(nil)).Elem()
+}
+
+func (o ControllerManagerOutput) ToControllerManagerOutput() ControllerManagerOutput {
+	return o
+}
+
+func (o ControllerManagerOutput) ToControllerManagerOutputWithContext(ctx context.Context) ControllerManagerOutput {
+	return o
+}
+
+func (o ControllerManagerOutput) ToControllerManagerPtrOutput() ControllerManagerPtrOutput {
+	return o.ToControllerManagerPtrOutputWithContext(context.Background())
+}
+
+func (o ControllerManagerOutput) ToControllerManagerPtrOutputWithContext(ctx context.Context) ControllerManagerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ControllerManager) *ControllerManager {
+		return &v
+	}).(ControllerManagerPtrOutput)
+}
+
+func (o ControllerManagerOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ControllerManager) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
+}
+
+type ControllerManagerPtrOutput struct{ *pulumi.OutputState }
+
+func (ControllerManagerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ControllerManager)(nil)).Elem()
+}
+
+func (o ControllerManagerPtrOutput) ToControllerManagerPtrOutput() ControllerManagerPtrOutput {
+	return o
+}
+
+func (o ControllerManagerPtrOutput) ToControllerManagerPtrOutputWithContext(ctx context.Context) ControllerManagerPtrOutput {
+	return o
+}
+
+func (o ControllerManagerPtrOutput) Elem() ControllerManagerOutput {
+	return o.ApplyT(func(v *ControllerManager) ControllerManager {
+		if v != nil {
+			return *v
+		}
+		var ret ControllerManager
+		return ret
+	}).(ControllerManagerOutput)
+}
+
+func (o ControllerManagerPtrOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *ControllerManager) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(pulumi.StringMapOutput)
 }
 
 type DualStack struct {
@@ -2541,11 +2689,13 @@ func (o K0sPtrOutput) Version() pulumi.StringPtrOutput {
 
 type K0sSpec struct {
 	Api               *API               `pulumi:"api"`
+	ControllerManager *ControllerManager `pulumi:"controllerManager"`
 	Images            *Images            `pulumi:"images"`
 	InstallConfig     *InstallConfig     `pulumi:"installConfig"`
 	Konnectivity      *Konnectivity      `pulumi:"konnectivity"`
 	Network           *Network           `pulumi:"network"`
 	PodSecurityPolicy *PodSecurityPolicy `pulumi:"podSecurityPolicy"`
+	Scheduler         *Scheduler         `pulumi:"scheduler"`
 	Storage           *Storage           `pulumi:"storage"`
 	Telemetry         *Telemetry         `pulumi:"telemetry"`
 }
@@ -2563,11 +2713,13 @@ type K0sSpecInput interface {
 
 type K0sSpecArgs struct {
 	Api               APIPtrInput               `pulumi:"api"`
+	ControllerManager ControllerManagerPtrInput `pulumi:"controllerManager"`
 	Images            ImagesPtrInput            `pulumi:"images"`
 	InstallConfig     InstallConfigPtrInput     `pulumi:"installConfig"`
 	Konnectivity      KonnectivityPtrInput      `pulumi:"konnectivity"`
 	Network           NetworkPtrInput           `pulumi:"network"`
 	PodSecurityPolicy PodSecurityPolicyPtrInput `pulumi:"podSecurityPolicy"`
+	Scheduler         SchedulerPtrInput         `pulumi:"scheduler"`
 	Storage           StoragePtrInput           `pulumi:"storage"`
 	Telemetry         TelemetryPtrInput         `pulumi:"telemetry"`
 }
@@ -2653,6 +2805,10 @@ func (o K0sSpecOutput) Api() APIPtrOutput {
 	return o.ApplyT(func(v K0sSpec) *API { return v.Api }).(APIPtrOutput)
 }
 
+func (o K0sSpecOutput) ControllerManager() ControllerManagerPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *ControllerManager { return v.ControllerManager }).(ControllerManagerPtrOutput)
+}
+
 func (o K0sSpecOutput) Images() ImagesPtrOutput {
 	return o.ApplyT(func(v K0sSpec) *Images { return v.Images }).(ImagesPtrOutput)
 }
@@ -2671,6 +2827,10 @@ func (o K0sSpecOutput) Network() NetworkPtrOutput {
 
 func (o K0sSpecOutput) PodSecurityPolicy() PodSecurityPolicyPtrOutput {
 	return o.ApplyT(func(v K0sSpec) *PodSecurityPolicy { return v.PodSecurityPolicy }).(PodSecurityPolicyPtrOutput)
+}
+
+func (o K0sSpecOutput) Scheduler() SchedulerPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *Scheduler { return v.Scheduler }).(SchedulerPtrOutput)
 }
 
 func (o K0sSpecOutput) Storage() StoragePtrOutput {
@@ -2712,6 +2872,15 @@ func (o K0sSpecPtrOutput) Api() APIPtrOutput {
 		}
 		return v.Api
 	}).(APIPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) ControllerManager() ControllerManagerPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *ControllerManager {
+		if v == nil {
+			return nil
+		}
+		return v.ControllerManager
+	}).(ControllerManagerPtrOutput)
 }
 
 func (o K0sSpecPtrOutput) Images() ImagesPtrOutput {
@@ -2757,6 +2926,15 @@ func (o K0sSpecPtrOutput) PodSecurityPolicy() PodSecurityPolicyPtrOutput {
 		}
 		return v.PodSecurityPolicy
 	}).(PodSecurityPolicyPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) Scheduler() SchedulerPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *Scheduler {
+		if v == nil {
+			return nil
+		}
+		return v.Scheduler
+	}).(SchedulerPtrOutput)
 }
 
 func (o K0sSpecPtrOutput) Storage() StoragePtrOutput {
@@ -4081,6 +4259,139 @@ func (o SSHPtrOutput) User() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type Scheduler struct {
+	ExtraArgs map[string]string `pulumi:"extraArgs"`
+}
+
+// SchedulerInput is an input type that accepts SchedulerArgs and SchedulerOutput values.
+// You can construct a concrete instance of `SchedulerInput` via:
+//
+//          SchedulerArgs{...}
+type SchedulerInput interface {
+	pulumi.Input
+
+	ToSchedulerOutput() SchedulerOutput
+	ToSchedulerOutputWithContext(context.Context) SchedulerOutput
+}
+
+type SchedulerArgs struct {
+	ExtraArgs pulumi.StringMapInput `pulumi:"extraArgs"`
+}
+
+func (SchedulerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Scheduler)(nil)).Elem()
+}
+
+func (i SchedulerArgs) ToSchedulerOutput() SchedulerOutput {
+	return i.ToSchedulerOutputWithContext(context.Background())
+}
+
+func (i SchedulerArgs) ToSchedulerOutputWithContext(ctx context.Context) SchedulerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SchedulerOutput)
+}
+
+func (i SchedulerArgs) ToSchedulerPtrOutput() SchedulerPtrOutput {
+	return i.ToSchedulerPtrOutputWithContext(context.Background())
+}
+
+func (i SchedulerArgs) ToSchedulerPtrOutputWithContext(ctx context.Context) SchedulerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SchedulerOutput).ToSchedulerPtrOutputWithContext(ctx)
+}
+
+// SchedulerPtrInput is an input type that accepts SchedulerArgs, SchedulerPtr and SchedulerPtrOutput values.
+// You can construct a concrete instance of `SchedulerPtrInput` via:
+//
+//          SchedulerArgs{...}
+//
+//  or:
+//
+//          nil
+type SchedulerPtrInput interface {
+	pulumi.Input
+
+	ToSchedulerPtrOutput() SchedulerPtrOutput
+	ToSchedulerPtrOutputWithContext(context.Context) SchedulerPtrOutput
+}
+
+type schedulerPtrType SchedulerArgs
+
+func SchedulerPtr(v *SchedulerArgs) SchedulerPtrInput {
+	return (*schedulerPtrType)(v)
+}
+
+func (*schedulerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Scheduler)(nil)).Elem()
+}
+
+func (i *schedulerPtrType) ToSchedulerPtrOutput() SchedulerPtrOutput {
+	return i.ToSchedulerPtrOutputWithContext(context.Background())
+}
+
+func (i *schedulerPtrType) ToSchedulerPtrOutputWithContext(ctx context.Context) SchedulerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SchedulerPtrOutput)
+}
+
+type SchedulerOutput struct{ *pulumi.OutputState }
+
+func (SchedulerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Scheduler)(nil)).Elem()
+}
+
+func (o SchedulerOutput) ToSchedulerOutput() SchedulerOutput {
+	return o
+}
+
+func (o SchedulerOutput) ToSchedulerOutputWithContext(ctx context.Context) SchedulerOutput {
+	return o
+}
+
+func (o SchedulerOutput) ToSchedulerPtrOutput() SchedulerPtrOutput {
+	return o.ToSchedulerPtrOutputWithContext(context.Background())
+}
+
+func (o SchedulerOutput) ToSchedulerPtrOutputWithContext(ctx context.Context) SchedulerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Scheduler) *Scheduler {
+		return &v
+	}).(SchedulerPtrOutput)
+}
+
+func (o SchedulerOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v Scheduler) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
+}
+
+type SchedulerPtrOutput struct{ *pulumi.OutputState }
+
+func (SchedulerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Scheduler)(nil)).Elem()
+}
+
+func (o SchedulerPtrOutput) ToSchedulerPtrOutput() SchedulerPtrOutput {
+	return o
+}
+
+func (o SchedulerPtrOutput) ToSchedulerPtrOutputWithContext(ctx context.Context) SchedulerPtrOutput {
+	return o
+}
+
+func (o SchedulerPtrOutput) Elem() SchedulerOutput {
+	return o.ApplyT(func(v *Scheduler) Scheduler {
+		if v != nil {
+			return *v
+		}
+		var ret Scheduler
+		return ret
+	}).(SchedulerOutput)
+}
+
+func (o SchedulerPtrOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *Scheduler) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(pulumi.StringMapOutput)
+}
+
 type Spec struct {
 	Hosts []Host `pulumi:"hosts"`
 	K0s   *K0s   `pulumi:"k0s"`
@@ -4860,6 +5171,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ConfigPtrInput)(nil)).Elem(), ConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerImageInput)(nil)).Elem(), ContainerImageArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerImagePtrInput)(nil)).Elem(), ContainerImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerManagerInput)(nil)).Elem(), ControllerManagerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerManagerPtrInput)(nil)).Elem(), ControllerManagerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DualStackInput)(nil)).Elem(), DualStackArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DualStackPtrInput)(nil)).Elem(), DualStackArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EtcdInput)(nil)).Elem(), EtcdArgs{})
@@ -4900,6 +5213,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicyPtrInput)(nil)).Elem(), PodSecurityPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SSHInput)(nil)).Elem(), SSHArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SSHPtrInput)(nil)).Elem(), SSHArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SchedulerInput)(nil)).Elem(), SchedulerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SchedulerPtrInput)(nil)).Elem(), SchedulerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SpecInput)(nil)).Elem(), SpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StorageInput)(nil)).Elem(), StorageArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StoragePtrInput)(nil)).Elem(), StorageArgs{})
@@ -4917,6 +5232,8 @@ func init() {
 	pulumi.RegisterOutputType(ConfigPtrOutput{})
 	pulumi.RegisterOutputType(ContainerImageOutput{})
 	pulumi.RegisterOutputType(ContainerImagePtrOutput{})
+	pulumi.RegisterOutputType(ControllerManagerOutput{})
+	pulumi.RegisterOutputType(ControllerManagerPtrOutput{})
 	pulumi.RegisterOutputType(DualStackOutput{})
 	pulumi.RegisterOutputType(DualStackPtrOutput{})
 	pulumi.RegisterOutputType(EtcdOutput{})
@@ -4957,6 +5274,8 @@ func init() {
 	pulumi.RegisterOutputType(PodSecurityPolicyPtrOutput{})
 	pulumi.RegisterOutputType(SSHOutput{})
 	pulumi.RegisterOutputType(SSHPtrOutput{})
+	pulumi.RegisterOutputType(SchedulerOutput{})
+	pulumi.RegisterOutputType(SchedulerPtrOutput{})
 	pulumi.RegisterOutputType(SpecOutput{})
 	pulumi.RegisterOutputType(StorageOutput{})
 	pulumi.RegisterOutputType(StoragePtrOutput{})

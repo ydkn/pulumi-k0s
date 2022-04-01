@@ -13,6 +13,7 @@ __all__ = [
     'CalicoArgs',
     'ConfigArgs',
     'ContainerImageArgs',
+    'ControllerManagerArgs',
     'DualStackArgs',
     'EtcdArgs',
     'HooksArgs',
@@ -33,6 +34,7 @@ __all__ = [
     'NetworkArgs',
     'PodSecurityPolicyArgs',
     'SSHArgs',
+    'SchedulerArgs',
     'SpecArgs',
     'StorageArgs',
     'TelemetryArgs',
@@ -45,6 +47,7 @@ class APIArgs:
     def __init__(__self__, *,
                  address: Optional[pulumi.Input[str]] = None,
                  external_address: Optional[pulumi.Input[str]] = None,
+                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  k0s_api_port: Optional[pulumi.Input[float]] = None,
                  port: Optional[pulumi.Input[float]] = None,
                  sans: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
@@ -52,6 +55,8 @@ class APIArgs:
             pulumi.set(__self__, "address", address)
         if external_address is not None:
             pulumi.set(__self__, "external_address", external_address)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
         if k0s_api_port is not None:
             pulumi.set(__self__, "k0s_api_port", k0s_api_port)
         if port is not None:
@@ -76,6 +81,15 @@ class APIArgs:
     @external_address.setter
     def external_address(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "external_address", value)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_args", value)
 
     @property
     @pulumi.getter(name="k0sApiPort")
@@ -262,6 +276,23 @@ class ContainerImageArgs:
     @version.setter
     def version(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "version", value)
+
+
+@pulumi.input_type
+class ControllerManagerArgs:
+    def __init__(__self__, *,
+                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_args", value)
 
 
 @pulumi.input_type
@@ -809,15 +840,19 @@ class InstallConfigArgs:
 class K0sSpecArgs:
     def __init__(__self__, *,
                  api: Optional[pulumi.Input['APIArgs']] = None,
+                 controller_manager: Optional[pulumi.Input['ControllerManagerArgs']] = None,
                  images: Optional[pulumi.Input['ImagesArgs']] = None,
                  install_config: Optional[pulumi.Input['InstallConfigArgs']] = None,
                  konnectivity: Optional[pulumi.Input['KonnectivityArgs']] = None,
                  network: Optional[pulumi.Input['NetworkArgs']] = None,
                  pod_security_policy: Optional[pulumi.Input['PodSecurityPolicyArgs']] = None,
+                 scheduler: Optional[pulumi.Input['SchedulerArgs']] = None,
                  storage: Optional[pulumi.Input['StorageArgs']] = None,
                  telemetry: Optional[pulumi.Input['TelemetryArgs']] = None):
         if api is not None:
             pulumi.set(__self__, "api", api)
+        if controller_manager is not None:
+            pulumi.set(__self__, "controller_manager", controller_manager)
         if images is not None:
             pulumi.set(__self__, "images", images)
         if install_config is not None:
@@ -828,6 +863,8 @@ class K0sSpecArgs:
             pulumi.set(__self__, "network", network)
         if pod_security_policy is not None:
             pulumi.set(__self__, "pod_security_policy", pod_security_policy)
+        if scheduler is not None:
+            pulumi.set(__self__, "scheduler", scheduler)
         if storage is not None:
             pulumi.set(__self__, "storage", storage)
         if telemetry is not None:
@@ -841,6 +878,15 @@ class K0sSpecArgs:
     @api.setter
     def api(self, value: Optional[pulumi.Input['APIArgs']]):
         pulumi.set(self, "api", value)
+
+    @property
+    @pulumi.getter(name="controllerManager")
+    def controller_manager(self) -> Optional[pulumi.Input['ControllerManagerArgs']]:
+        return pulumi.get(self, "controller_manager")
+
+    @controller_manager.setter
+    def controller_manager(self, value: Optional[pulumi.Input['ControllerManagerArgs']]):
+        pulumi.set(self, "controller_manager", value)
 
     @property
     @pulumi.getter
@@ -886,6 +932,15 @@ class K0sSpecArgs:
     @pod_security_policy.setter
     def pod_security_policy(self, value: Optional[pulumi.Input['PodSecurityPolicyArgs']]):
         pulumi.set(self, "pod_security_policy", value)
+
+    @property
+    @pulumi.getter
+    def scheduler(self) -> Optional[pulumi.Input['SchedulerArgs']]:
+        return pulumi.get(self, "scheduler")
+
+    @scheduler.setter
+    def scheduler(self, value: Optional[pulumi.Input['SchedulerArgs']]):
+        pulumi.set(self, "scheduler", value)
 
     @property
     @pulumi.getter
@@ -1271,6 +1326,23 @@ class SSHArgs:
     @user.setter
     def user(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "user", value)
+
+
+@pulumi.input_type
+class SchedulerArgs:
+    def __init__(__self__, *,
+                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_args", value)
 
 
 @pulumi.input_type

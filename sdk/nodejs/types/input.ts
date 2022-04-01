@@ -7,6 +7,7 @@ import { input as inputs, output as outputs } from "../types";
 export interface APIArgs {
     address?: pulumi.Input<string>;
     externalAddress?: pulumi.Input<string>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     k0sApiPort?: pulumi.Input<number>;
     port?: pulumi.Input<number>;
     sans?: pulumi.Input<pulumi.Input<string>[]>;
@@ -31,6 +32,10 @@ export interface ConfigArgs {
 export interface ContainerImageArgs {
     image?: pulumi.Input<string>;
     version?: pulumi.Input<string>;
+}
+
+export interface ControllerManagerArgs {
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
 }
 
 export interface DualStackArgs {
@@ -112,11 +117,13 @@ export interface K0sArgs {
 
 export interface K0sSpecArgs {
     api?: pulumi.Input<inputs.APIArgs>;
+    controllerManager?: pulumi.Input<inputs.ControllerManagerArgs>;
     images?: pulumi.Input<inputs.ImagesArgs>;
     installConfig?: pulumi.Input<inputs.InstallConfigArgs>;
     konnectivity?: pulumi.Input<inputs.KonnectivityArgs>;
     network?: pulumi.Input<inputs.NetworkArgs>;
     podSecurityPolicy?: pulumi.Input<inputs.PodSecurityPolicyArgs>;
+    scheduler?: pulumi.Input<inputs.SchedulerArgs>;
     storage?: pulumi.Input<inputs.StorageArgs>;
     telemetry?: pulumi.Input<inputs.TelemetryArgs>;
 }
@@ -167,6 +174,10 @@ export interface SSHArgs {
     keyPath?: pulumi.Input<string>;
     port?: pulumi.Input<number>;
     user?: pulumi.Input<string>;
+}
+
+export interface SchedulerArgs {
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
 }
 
 export interface SpecArgs {

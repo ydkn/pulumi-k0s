@@ -15,6 +15,9 @@ namespace Pulumi.K0s.Inputs
         [Input("api")]
         public Input<Inputs.APIArgs>? Api { get; set; }
 
+        [Input("controllerManager")]
+        public Input<Inputs.ControllerManagerArgs>? ControllerManager { get; set; }
+
         [Input("images")]
         public Input<Inputs.ImagesArgs>? Images { get; set; }
 
@@ -29,6 +32,9 @@ namespace Pulumi.K0s.Inputs
 
         [Input("podSecurityPolicy")]
         public Input<Inputs.PodSecurityPolicyArgs>? PodSecurityPolicy { get; set; }
+
+        [Input("scheduler")]
+        public Input<Inputs.SchedulerArgs>? Scheduler { get; set; }
 
         [Input("storage")]
         public Input<Inputs.StorageArgs>? Storage { get; set; }

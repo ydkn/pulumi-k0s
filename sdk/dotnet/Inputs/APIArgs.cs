@@ -18,6 +18,14 @@ namespace Pulumi.K0s.Inputs
         [Input("externalAddress")]
         public Input<string>? ExternalAddress { get; set; }
 
+        [Input("extraArgs")]
+        private InputMap<string>? _extraArgs;
+        public InputMap<string> ExtraArgs
+        {
+            get => _extraArgs ?? (_extraArgs = new InputMap<string>());
+            set => _extraArgs = value;
+        }
+
         [Input("k0sApiPort")]
         public Input<double>? K0sApiPort { get; set; }
 

@@ -7,6 +7,7 @@ import { input as inputs, output as outputs } from "../types";
 export interface API {
     address?: string;
     externalAddress?: string;
+    extraArgs?: {[key: string]: string};
     k0sApiPort?: number;
     port?: number;
     sans?: string[];
@@ -31,6 +32,10 @@ export interface Config {
 export interface ContainerImage {
     image?: string;
     version?: string;
+}
+
+export interface ControllerManager {
+    extraArgs?: {[key: string]: string};
 }
 
 export interface DualStack {
@@ -112,11 +117,13 @@ export interface K0s {
 
 export interface K0sSpec {
     api?: outputs.API;
+    controllerManager?: outputs.ControllerManager;
     images?: outputs.Images;
     installConfig?: outputs.InstallConfig;
     konnectivity?: outputs.Konnectivity;
     network?: outputs.Network;
     podSecurityPolicy?: outputs.PodSecurityPolicy;
+    scheduler?: outputs.Scheduler;
     storage?: outputs.Storage;
     telemetry?: outputs.Telemetry;
 }
@@ -169,6 +176,10 @@ export interface SSH {
     user?: string;
 }
 
+export interface Scheduler {
+    extraArgs?: {[key: string]: string};
+}
+
 export interface Spec {
     hosts: outputs.Host[];
     k0s?: outputs.K0s;
@@ -208,4 +219,3 @@ export interface WinRM {
     useNTLM?: boolean;
     user?: string;
 }
-

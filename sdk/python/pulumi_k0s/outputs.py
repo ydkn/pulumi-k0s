@@ -14,6 +14,7 @@ __all__ = [
     'Calico',
     'Config',
     'ContainerImage',
+    'ControllerManager',
     'DualStack',
     'Etcd',
     'Hook',
@@ -34,6 +35,7 @@ __all__ = [
     'Network',
     'PodSecurityPolicy',
     'SSH',
+    'Scheduler',
     'Spec',
     'Storage',
     'Telemetry',
@@ -48,6 +50,8 @@ class API(dict):
         suggest = None
         if key == "externalAddress":
             suggest = "external_address"
+        elif key == "extraArgs":
+            suggest = "extra_args"
         elif key == "k0sApiPort":
             suggest = "k0s_api_port"
 
@@ -65,6 +69,7 @@ class API(dict):
     def __init__(__self__, *,
                  address: Optional[str] = None,
                  external_address: Optional[str] = None,
+                 extra_args: Optional[Mapping[str, str]] = None,
                  k0s_api_port: Optional[float] = None,
                  port: Optional[float] = None,
                  sans: Optional[Sequence[str]] = None):
@@ -72,6 +77,8 @@ class API(dict):
             pulumi.set(__self__, "address", address)
         if external_address is not None:
             pulumi.set(__self__, "external_address", external_address)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
         if k0s_api_port is not None:
             pulumi.set(__self__, "k0s_api_port", k0s_api_port)
         if port is not None:
@@ -88,6 +95,11 @@ class API(dict):
     @pulumi.getter(name="externalAddress")
     def external_address(self) -> Optional[str]:
         return pulumi.get(self, "external_address")
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "extra_args")
 
     @property
     @pulumi.getter(name="k0sApiPort")
@@ -237,6 +249,36 @@ class ContainerImage(dict):
     @pulumi.getter
     def version(self) -> Optional[str]:
         return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class ControllerManager(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "extraArgs":
+            suggest = "extra_args"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ControllerManager. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ControllerManager.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ControllerManager.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 extra_args: Optional[Mapping[str, str]] = None):
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "extra_args")
 
 
 @pulumi.output_type
@@ -772,7 +814,9 @@ class K0sSpec(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "installConfig":
+        if key == "controllerManager":
+            suggest = "controller_manager"
+        elif key == "installConfig":
             suggest = "install_config"
         elif key == "podSecurityPolicy":
             suggest = "pod_security_policy"
@@ -790,15 +834,19 @@ class K0sSpec(dict):
 
     def __init__(__self__, *,
                  api: Optional['outputs.API'] = None,
+                 controller_manager: Optional['outputs.ControllerManager'] = None,
                  images: Optional['outputs.Images'] = None,
                  install_config: Optional['outputs.InstallConfig'] = None,
                  konnectivity: Optional['outputs.Konnectivity'] = None,
                  network: Optional['outputs.Network'] = None,
                  pod_security_policy: Optional['outputs.PodSecurityPolicy'] = None,
+                 scheduler: Optional['outputs.Scheduler'] = None,
                  storage: Optional['outputs.Storage'] = None,
                  telemetry: Optional['outputs.Telemetry'] = None):
         if api is not None:
             pulumi.set(__self__, "api", api)
+        if controller_manager is not None:
+            pulumi.set(__self__, "controller_manager", controller_manager)
         if images is not None:
             pulumi.set(__self__, "images", images)
         if install_config is not None:
@@ -809,6 +857,8 @@ class K0sSpec(dict):
             pulumi.set(__self__, "network", network)
         if pod_security_policy is not None:
             pulumi.set(__self__, "pod_security_policy", pod_security_policy)
+        if scheduler is not None:
+            pulumi.set(__self__, "scheduler", scheduler)
         if storage is not None:
             pulumi.set(__self__, "storage", storage)
         if telemetry is not None:
@@ -818,6 +868,11 @@ class K0sSpec(dict):
     @pulumi.getter
     def api(self) -> Optional['outputs.API']:
         return pulumi.get(self, "api")
+
+    @property
+    @pulumi.getter(name="controllerManager")
+    def controller_manager(self) -> Optional['outputs.ControllerManager']:
+        return pulumi.get(self, "controller_manager")
 
     @property
     @pulumi.getter
@@ -843,6 +898,11 @@ class K0sSpec(dict):
     @pulumi.getter(name="podSecurityPolicy")
     def pod_security_policy(self) -> Optional['outputs.PodSecurityPolicy']:
         return pulumi.get(self, "pod_security_policy")
+
+    @property
+    @pulumi.getter
+    def scheduler(self) -> Optional['outputs.Scheduler']:
+        return pulumi.get(self, "scheduler")
 
     @property
     @pulumi.getter
@@ -1182,6 +1242,36 @@ class SSH(dict):
     @pulumi.getter
     def user(self) -> Optional[str]:
         return pulumi.get(self, "user")
+
+
+@pulumi.output_type
+class Scheduler(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "extraArgs":
+            suggest = "extra_args"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Scheduler. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Scheduler.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Scheduler.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 extra_args: Optional[Mapping[str, str]] = None):
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "extra_args")
 
 
 @pulumi.output_type

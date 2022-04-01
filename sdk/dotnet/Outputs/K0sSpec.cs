@@ -14,17 +14,21 @@ namespace Pulumi.K0s.Outputs
     public sealed class K0sSpec
     {
         public readonly Outputs.API? Api;
+        public readonly Outputs.ControllerManager? ControllerManager;
         public readonly Outputs.Images? Images;
         public readonly Outputs.InstallConfig? InstallConfig;
         public readonly Outputs.Konnectivity? Konnectivity;
         public readonly Outputs.Network? Network;
         public readonly Outputs.PodSecurityPolicy? PodSecurityPolicy;
+        public readonly Outputs.Scheduler? Scheduler;
         public readonly Outputs.Storage? Storage;
         public readonly Outputs.Telemetry? Telemetry;
 
         [OutputConstructor]
         private K0sSpec(
             Outputs.API? api,
+
+            Outputs.ControllerManager? controllerManager,
 
             Outputs.Images? images,
 
@@ -36,16 +40,20 @@ namespace Pulumi.K0s.Outputs
 
             Outputs.PodSecurityPolicy? podSecurityPolicy,
 
+            Outputs.Scheduler? scheduler,
+
             Outputs.Storage? storage,
 
             Outputs.Telemetry? telemetry)
         {
             Api = api;
+            ControllerManager = controllerManager;
             Images = images;
             InstallConfig = installConfig;
             Konnectivity = konnectivity;
             Network = network;
             PodSecurityPolicy = podSecurityPolicy;
+            Scheduler = scheduler;
             Storage = storage;
             Telemetry = telemetry;
         }

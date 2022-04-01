@@ -1,6 +1,6 @@
 {
   "name": "k0s",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A Pulumi package for creating and managing k0s clusters.",
   "keywords": ["pulumi", "k0s"],
   "publisher": "Florian Schwab",
@@ -526,6 +526,12 @@
         "podSecurityPolicy": {
           "$ref": "#/types/k0s:index:PodSecurityPolicy"
         },
+        "controllerManager": {
+          "$ref": "#/types/k0s:index:ControllerManager"
+        },
+        "scheduler": {
+          "$ref": "#/types/k0s:index:Scheduler"
+        },
         "storage": {
           "$ref": "#/types/k0s:index:Storage"
         },
@@ -552,6 +558,12 @@
         },
         "podSecurityPolicy": {
           "$ref": "#/types/k0s:index:PodSecurityPolicy"
+        },
+        "controllerManager": {
+          "$ref": "#/types/k0s:index:ControllerManager"
+        },
+        "scheduler": {
+          "$ref": "#/types/k0s:index:Scheduler"
         },
         "storage": {
           "$ref": "#/types/k0s:index:Storage"
@@ -582,6 +594,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "extraArgs": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
         }
       },
       "required": [],
@@ -603,6 +619,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "extraArgs": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
         }
       },
       "requiredInputs": []
@@ -1002,6 +1022,40 @@
       "inputProperties": {
         "defaultPolicy": {
           "type": "string"
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:ControllerManager": {
+      "type": "object",
+      "properties": {
+        "extraArgs": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "extraArgs": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "requiredInputs": []
+    },
+    "k0s:index:Scheduler": {
+      "type": "object",
+      "properties": {
+        "extraArgs": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": [],
+      "inputProperties": {
+        "extraArgs": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
         }
       },
       "requiredInputs": []
