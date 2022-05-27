@@ -53,7 +53,7 @@ namespace Pulumi.K0s
         {
             var dst = src ?? new global::Pulumi.InvokeOptions{};
             dst.Version = src?.Version ?? Version;
-            dst.PluginDownloadURL = src?.PluginDownloadURL ?? "https://download.ydkn.io/pulumi-k0s";
+            dst.PluginDownloadURL = src?.PluginDownloadURL ?? "https://repo.ydkn.io/pulumi-k0s";
             return dst;
         }
 

@@ -1,6 +1,6 @@
 {
   "name": "k0s",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A Pulumi package for creating and managing k0s clusters.",
   "keywords": ["pulumi", "k0s"],
   "publisher": "Florian Schwab",
@@ -9,7 +9,7 @@
   "attribution": "This Pulumi package is based on [`k0sctl`](https://github.com/k0sproject/k0sctl).",
   "repository": "https://github.com/ydkn/pulumi-k0s",
   "logoUrl": "https://k0sproject.io/images/k0s-logo.svg",
-  "pluginDownloadURL": "https://download.ydkn.io/pulumi-k0s",
+  "pluginDownloadURL": "https://repo.ydkn.io/pulumi-k0s",
   "config": {
     "variables": {
       "skipDowngradeCheck": {

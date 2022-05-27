@@ -1,5 +1,5 @@
 {
   "resource": true,
   "name": "k0s",
-  "server": "https://download.ydkn.io/pulumi-k0s"
+  "server": "https://repo.ydkn.io/pulumi-k0s"
 }

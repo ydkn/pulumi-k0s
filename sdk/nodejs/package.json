@@ -20,6 +20,6 @@
   },
   "pulumi": {
     "resource": true,
-    "pluginDownloadURL": "https://download.ydkn.io/pulumi-k0s"
+    "pluginDownloadURL": "https://repo.ydkn.io/pulumi-k0s"
   }
 }
