@@ -20,7 +20,7 @@ import (
 
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 
-	pbempty "google.golang.org/protobuf/types/known/emptypb"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type k0sProvider struct {
@@ -272,15 +272,18 @@ func (p *k0sProvider) Create(ctx context.Context, req *pulumirpc.CreateRequest) 
 		return nil, err
 	}
 
-	cluster, err = k0sctl.Apply(cluster,
-		k0sctl.ApplyConfig{SkipDowngradeCheck: p.skipDowngradeCheck, NoDrain: p.noDrain})
-	if err != nil {
-		return nil, err
-	}
+	// do not apply changes in preview mode
+	if !req.Preview {
+		cluster, err = k0sctl.Apply(cluster,
+			k0sctl.ApplyConfig{SkipDowngradeCheck: p.skipDowngradeCheck, NoDrain: p.noDrain})
+		if err != nil {
+			return nil, err
+		}
 
-	cluster, err = k0sctl.KubeConfig(cluster)
-	if err != nil {
-		return nil, err
+		cluster, err = k0sctl.KubeConfig(cluster)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	outputProperties, err := plugin.MarshalProperties(
@@ -329,15 +332,18 @@ func (p *k0sProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) 
 		return nil, err
 	}
 
-	cluster, err = k0sctl.Apply(cluster,
-		k0sctl.ApplyConfig{SkipDowngradeCheck: p.skipDowngradeCheck, NoDrain: p.noDrain})
-	if err != nil {
-		return nil, err
-	}
+	// do not apply changes in preview mode
+	if !req.Preview {
+		cluster, err = k0sctl.Apply(cluster,
+			k0sctl.ApplyConfig{SkipDowngradeCheck: p.skipDowngradeCheck, NoDrain: p.noDrain})
+		if err != nil {
+			return nil, err
+		}
 
-	cluster, err = k0sctl.KubeConfig(cluster)
-	if err != nil {
-		return nil, err
+		cluster, err = k0sctl.KubeConfig(cluster)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	outputProperties, err := plugin.MarshalProperties(
@@ -355,7 +361,7 @@ func (p *k0sProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) 
 
 // Delete tears down an existing resource with the given ID. If it fails, the resource is assumed
 // to still exist.
-func (p *k0sProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
+func (p *k0sProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*emptypb.Empty, error) {
 	urn := resource.URN(req.GetUrn())
 	ty := urn.Type()
 	if ty != "k0s:index:Cluster" {
@@ -378,11 +384,11 @@ func (p *k0sProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) 
 		return nil, err
 	}
 
-	return &pbempty.Empty{}, nil
+	return &emptypb.Empty{}, nil
 }
 
 // GetPluginInfo returns generic information about this plugin, like its version.
-func (p *k0sProvider) GetPluginInfo(context.Context, *pbempty.Empty) (*pulumirpc.PluginInfo, error) {
+func (p *k0sProvider) GetPluginInfo(context.Context, *emptypb.Empty) (*pulumirpc.PluginInfo, error) {
 	return &pulumirpc.PluginInfo{
 		Version: p.version,
 	}, nil
@@ -402,8 +408,13 @@ func (p *k0sProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaReq
 // creation error or an initialization error). Since Cancel is advisory and non-blocking, it is up
 // to the host to decide how long to wait after Cancel is called before (e.g.)
 // hard-closing any gRPC connection.
-func (p *k0sProvider) Cancel(context.Context, *pbempty.Empty) (*pbempty.Empty, error) {
-	return &pbempty.Empty{}, nil
+func (p *k0sProvider) Cancel(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
+	return &emptypb.Empty{}, nil
+}
+
+// Attach sends the engine address to an already running plugin.
+func (p *k0sProvider) Attach(context.Context, *pulumirpc.PluginAttach) (*emptypb.Empty, error) {
+	return &emptypb.Empty{}, nil
 }
 
 func checkpointObject(inputs resource.PropertyMap, cluster *k0sctl.Cluster) resource.PropertyMap {
