@@ -14,7 +14,7 @@ import (
 	"github.com/k0sproject/k0sctl/integration/github"
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1"
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1/cluster"
-	"sigs.k8s.io/yaml"
+	"gopkg.in/yaml.v3"
 )
 
 const k0sVersionCacheTTL = 1 * time.Hour

@@ -2,7 +2,7 @@ package k0sctl
 
 import (
 	"github.com/k0sproject/k0sctl/phase"
-	"sigs.k8s.io/yaml"
+	"gopkg.in/yaml.v3"
 )
 
 type ApplyConfig struct {

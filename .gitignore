@@ -4,6 +4,7 @@
 **/node_modules/
 **/version.txt
 **/.vs
+**/.vscode
 **/.idea
 **/.ionide
 .pulumi

@@ -1,6 +1,6 @@
 {
   "name": "k0s",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A Pulumi package for creating and managing k0s clusters.",
   "keywords": ["pulumi", "k0s"],
   "publisher": "Florian Schwab",
