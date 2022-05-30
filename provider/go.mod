@@ -6,14 +6,14 @@ require (
 	github.com/creasty/defaults v1.6.0
 	github.com/imdario/mergo v0.3.13
 	github.com/k0sproject/dig v0.2.0
-	github.com/k0sproject/k0sctl v0.13.0-rc.2
+	github.com/k0sproject/k0sctl v0.13.0-rc.3.0.20220527121921-9e46423832d6
 	github.com/k0sproject/rig v0.6.2
 	github.com/pulumi/pulumi/pkg/v3 v3.33.2
 	github.com/pulumi/pulumi/sdk/v3 v3.33.2
 	github.com/sirupsen/logrus v1.8.1
 	google.golang.org/grpc v1.46.2
 	google.golang.org/protobuf v1.28.0
-	gopkg.in/yaml.v3 v3.0.1
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
@@ -223,7 +223,7 @@ require (
 	gopkg.in/src-d/go-billy.v4 v4.3.2 // indirect
 	gopkg.in/src-d/go-git.v4 v4.13.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.24.1 // indirect
 	k8s.io/client-go v0.24.1 // indirect
 	k8s.io/klog/v2 v2.60.1 // indirect

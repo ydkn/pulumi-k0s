@@ -7,7 +7,7 @@ import (
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1"
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1/cluster"
 	"github.com/k0sproject/rig"
-	"gopkg.in/yaml.v3"
+	"gopkg.in/yaml.v2"
 )
 
 type Cluster struct {
@@ -238,6 +238,5 @@ type K0s struct {
 }
 
 func (o *K0s) K0sCtlObject() *cluster.K0s {
-	// TODO: add dynamic config
-	return &cluster.K0s{Version: o.Version, Config: o.Config}
+	return &cluster.K0s{Version: o.Version, DynamicConfig: o.DynamicConfig, Config: o.Config}
 }

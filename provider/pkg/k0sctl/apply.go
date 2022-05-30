@@ -2,7 +2,7 @@ package k0sctl
 
 import (
 	"github.com/k0sproject/k0sctl/phase"
-	"gopkg.in/yaml.v3"
+	"gopkg.in/yaml.v2"
 )
 
 type ApplyConfig struct {
@@ -13,9 +13,12 @@ type ApplyConfig struct {
 func Apply(cluster *Cluster, config ApplyConfig) (*Cluster, error) {
 	manager := phase.Manager{Config: cluster.K0sCtlObject()}
 
+	lockPhase := &phase.Lock{}
+
 	manager.AddPhase(
 		&phase.Connect{},
 		&phase.DetectOS{},
+		lockPhase,
 		&phase.PrepareHosts{},
 		&phase.GatherFacts{},
 		&phase.DownloadBinaries{},
@@ -35,6 +38,7 @@ func Apply(cluster *Cluster, config ApplyConfig) (*Cluster, error) {
 		&phase.UpgradeControllers{},
 		&phase.UpgradeWorkers{NoDrain: config.NoDrain},
 		&phase.RunHooks{Stage: "after", Action: "apply"},
+		&phase.Unlock{Cancel: lockPhase.Cancel},
 		&phase.Disconnect{},
 	)
 

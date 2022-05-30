@@ -721,8 +721,8 @@ github.com/julienschmidt/httprouter v1.2.0/go.mod h1:SYymIcj16QtmaHHD7aYtjjsJG7V
 github.com/jung-kurt/gofpdf v1.0.3-0.20190309125859-24315acbbda5/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+r32jIOes=
 github.com/k0sproject/dig v0.2.0 h1:cNxEIl96g9kqSMfPSZLhpnZ0P8bWXKv08nxvsMHop5w=
 github.com/k0sproject/dig v0.2.0/go.mod h1:rBcqaQlJpcKdt2x/OE/lPvhGU50u/e95CSm5g/r4s78=
-github.com/k0sproject/k0sctl v0.13.0-rc.2 h1:oPMbxY5N8IpkkdtyNf9uB/Dq9UQgZGYXI0hT06+vjOc=
-github.com/k0sproject/k0sctl v0.13.0-rc.2/go.mod h1:WAJqbAq5QCTiz6rkrhUrXAHBqVSdHadW1ES9Xa+MGD0=
+github.com/k0sproject/k0sctl v0.13.0-rc.3.0.20220527121921-9e46423832d6 h1:dhtAXYE4MxyYgMgMSvsPOKtCKxfMUA7iEyoTxrn8i20=
+github.com/k0sproject/k0sctl v0.13.0-rc.3.0.20220527121921-9e46423832d6/go.mod h1:yXK+cZVyFrzFyi4gQxu9sItxva2ihijzbSkeIJy7duc=
 github.com/k0sproject/rig v0.6.2 h1:/Ud+Vj+jC70OWQZvGZNoJN34iP0BBppFMBCpDBWi9E0=
 github.com/k0sproject/rig v0.6.2/go.mod h1:7x0Qph3bTFKLkR5OiGt0h4kF4Se/B6CepTYJDEVkp6c=
 github.com/k0sproject/version v0.3.0 h1:6HAn8C29+WVksGCzbQvQ9feEJpUZ0iHD8GebIQMiftQ=
