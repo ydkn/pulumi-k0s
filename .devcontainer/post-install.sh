@@ -4,10 +4,12 @@
 # =====================================
 git config --global --add safe.directory /workspaces
 
+# setup twine
+# ===========
+pip install twine
 
 # install pulumi
 # ==============
-
 curl -fsSL https://get.pulumi.com | sh
 
 cat <<EOT >>"${HOME}/.profile"
@@ -22,7 +24,6 @@ echo "source ${HOME}/.profile" >>"${HOME}/.zshrc"
 
 # install pulumictl
 # =================
-
 PULUMICTL_VERSION="0.0.32"
 
 PULUMITCTL_URL="https://github.com/pulumi/pulumictl/releases/download/v${PULUMICTL_VERSION}/pulumictl-v${PULUMICTL_VERSION}-linux-$(dpkg --print-architecture).tar.gz"
