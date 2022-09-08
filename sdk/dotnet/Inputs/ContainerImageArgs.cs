@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class ContainerImageArgs : Pulumi.ResourceArgs
+    public sealed class ContainerImageArgs : global::Pulumi.ResourceArgs
     {
         [Input("image")]
         public Input<string>? Image { get; set; }
@@ -21,5 +21,6 @@ namespace Pulumi.K0s.Inputs
         public ContainerImageArgs()
         {
         }
+        public static new ContainerImageArgs Empty => new ContainerImageArgs();
     }
 }

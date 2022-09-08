@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class ImagesArgs : Pulumi.ResourceArgs
+    public sealed class ImagesArgs : global::Pulumi.ResourceArgs
     {
         [Input("calico")]
         public Input<Inputs.ImagesCalicoArgs>? Calico { get; set; }
@@ -36,5 +36,6 @@ namespace Pulumi.K0s.Inputs
         public ImagesArgs()
         {
         }
+        public static new ImagesArgs Empty => new ImagesArgs();
     }
 }

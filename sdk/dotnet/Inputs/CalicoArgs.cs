@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class CalicoArgs : Pulumi.ResourceArgs
+    public sealed class CalicoArgs : global::Pulumi.ResourceArgs
     {
         [Input("flexVolumeDriverPath")]
         public Input<string>? FlexVolumeDriverPath { get; set; }
@@ -39,5 +39,6 @@ namespace Pulumi.K0s.Inputs
         public CalicoArgs()
         {
         }
+        public static new CalicoArgs Empty => new CalicoArgs();
     }
 }

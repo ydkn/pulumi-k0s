@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class UploadFileArgs : Pulumi.ResourceArgs
+    public sealed class UploadFileArgs : global::Pulumi.ResourceArgs
     {
         [Input("dirPerm")]
         public Input<double>? DirPerm { get; set; }
@@ -39,5 +39,6 @@ namespace Pulumi.K0s.Inputs
         public UploadFileArgs()
         {
         }
+        public static new UploadFileArgs Empty => new UploadFileArgs();
     }
 }

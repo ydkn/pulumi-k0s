@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class PodSecurityPolicyArgs : Pulumi.ResourceArgs
+    public sealed class PodSecurityPolicyArgs : global::Pulumi.ResourceArgs
     {
         [Input("defaultPolicy")]
         public Input<string>? DefaultPolicy { get; set; }
@@ -18,5 +18,6 @@ namespace Pulumi.K0s.Inputs
         public PodSecurityPolicyArgs()
         {
         }
+        public static new PodSecurityPolicyArgs Empty => new PodSecurityPolicyArgs();
     }
 }

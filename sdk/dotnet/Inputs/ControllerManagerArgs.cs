@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class ControllerManagerArgs : Pulumi.ResourceArgs
+    public sealed class ControllerManagerArgs : global::Pulumi.ResourceArgs
     {
         [Input("extraArgs")]
         private InputMap<string>? _extraArgs;
@@ -23,5 +23,6 @@ namespace Pulumi.K0s.Inputs
         public ControllerManagerArgs()
         {
         }
+        public static new ControllerManagerArgs Empty => new ControllerManagerArgs();
     }
 }

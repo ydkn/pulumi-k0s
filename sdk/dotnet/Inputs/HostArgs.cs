@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class HostArgs : Pulumi.ResourceArgs
+    public sealed class HostArgs : global::Pulumi.ResourceArgs
     {
         [Input("environment")]
         private InputMap<string>? _environment;
@@ -48,6 +48,9 @@ namespace Pulumi.K0s.Inputs
         [Input("localhost")]
         public Input<Inputs.LocalhostArgs>? Localhost { get; set; }
 
+        [Input("noTaints")]
+        public Input<bool>? NoTaints { get; set; }
+
         [Input("os")]
         public Input<string>? Os { get; set; }
 
@@ -72,5 +75,6 @@ namespace Pulumi.K0s.Inputs
         public HostArgs()
         {
         }
+        public static new HostArgs Empty => new HostArgs();
     }
 }

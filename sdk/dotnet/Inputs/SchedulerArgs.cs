@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class SchedulerArgs : Pulumi.ResourceArgs
+    public sealed class SchedulerArgs : global::Pulumi.ResourceArgs
     {
         [Input("extraArgs")]
         private InputMap<string>? _extraArgs;
@@ -23,5 +23,6 @@ namespace Pulumi.K0s.Inputs
         public SchedulerArgs()
         {
         }
+        public static new SchedulerArgs Empty => new SchedulerArgs();
     }
 }

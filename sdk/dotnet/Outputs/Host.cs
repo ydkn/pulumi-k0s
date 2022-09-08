@@ -20,6 +20,7 @@ namespace Pulumi.K0s.Outputs
         public readonly ImmutableArray<string> InstallFlags;
         public readonly string? K0sBinaryPath;
         public readonly Outputs.Localhost? Localhost;
+        public readonly bool? NoTaints;
         public readonly string? Os;
         public readonly string? PrivateAddress;
         public readonly string? PrivateInterface;
@@ -44,6 +45,8 @@ namespace Pulumi.K0s.Outputs
 
             Outputs.Localhost? localhost,
 
+            bool? noTaints,
+
             string? os,
 
             string? privateAddress,
@@ -65,6 +68,7 @@ namespace Pulumi.K0s.Outputs
             InstallFlags = installFlags;
             K0sBinaryPath = k0sBinaryPath;
             Localhost = localhost;
+            NoTaints = noTaints;
             Os = os;
             PrivateAddress = privateAddress;
             PrivateInterface = privateInterface;

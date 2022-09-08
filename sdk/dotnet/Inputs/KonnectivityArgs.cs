@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class KonnectivityArgs : Pulumi.ResourceArgs
+    public sealed class KonnectivityArgs : global::Pulumi.ResourceArgs
     {
         [Input("adminPort")]
         public Input<double>? AdminPort { get; set; }
@@ -21,5 +21,6 @@ namespace Pulumi.K0s.Inputs
         public KonnectivityArgs()
         {
         }
+        public static new KonnectivityArgs Empty => new KonnectivityArgs();
     }
 }

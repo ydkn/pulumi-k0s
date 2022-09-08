@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class SpecArgs : Pulumi.ResourceArgs
+    public sealed class SpecArgs : global::Pulumi.ResourceArgs
     {
         [Input("hosts", required: true)]
         private InputList<Inputs.HostArgs>? _hosts;
@@ -26,5 +26,6 @@ namespace Pulumi.K0s.Inputs
         public SpecArgs()
         {
         }
+        public static new SpecArgs Empty => new SpecArgs();
     }
 }

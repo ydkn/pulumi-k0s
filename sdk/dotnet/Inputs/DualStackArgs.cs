@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class DualStackArgs : Pulumi.ResourceArgs
+    public sealed class DualStackArgs : global::Pulumi.ResourceArgs
     {
         [Input("IPv6podCIDR")]
         public Input<string>? IPv6podCIDR { get; set; }
@@ -24,5 +24,6 @@ namespace Pulumi.K0s.Inputs
         public DualStackArgs()
         {
         }
+        public static new DualStackArgs Empty => new DualStackArgs();
     }
 }

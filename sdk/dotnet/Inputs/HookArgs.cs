@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class HookArgs : Pulumi.ResourceArgs
+    public sealed class HookArgs : global::Pulumi.ResourceArgs
     {
         [Input("after")]
         private InputList<string>? _after;
@@ -31,5 +31,6 @@ namespace Pulumi.K0s.Inputs
         public HookArgs()
         {
         }
+        public static new HookArgs Empty => new HookArgs();
     }
 }

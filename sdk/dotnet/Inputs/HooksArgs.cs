@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class HooksArgs : Pulumi.ResourceArgs
+    public sealed class HooksArgs : global::Pulumi.ResourceArgs
     {
         [Input("apply")]
         public Input<Inputs.HookArgs>? Apply { get; set; }
@@ -24,5 +24,6 @@ namespace Pulumi.K0s.Inputs
         public HooksArgs()
         {
         }
+        public static new HooksArgs Empty => new HooksArgs();
     }
 }

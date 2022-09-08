@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class EtcdArgs : Pulumi.ResourceArgs
+    public sealed class EtcdArgs : global::Pulumi.ResourceArgs
     {
         [Input("peerAddress")]
         public Input<string>? PeerAddress { get; set; }
@@ -18,5 +18,6 @@ namespace Pulumi.K0s.Inputs
         public EtcdArgs()
         {
         }
+        public static new EtcdArgs Empty => new EtcdArgs();
     }
 }

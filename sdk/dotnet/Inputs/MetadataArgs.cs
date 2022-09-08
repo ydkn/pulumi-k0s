@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class MetadataArgs : Pulumi.ResourceArgs
+    public sealed class MetadataArgs : global::Pulumi.ResourceArgs
     {
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
@@ -18,5 +18,6 @@ namespace Pulumi.K0s.Inputs
         public MetadataArgs()
         {
         }
+        public static new MetadataArgs Empty => new MetadataArgs();
     }
 }

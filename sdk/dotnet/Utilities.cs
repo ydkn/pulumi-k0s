@@ -75,7 +75,7 @@ namespace Pulumi.K0s
         }
     }
 
-    internal sealed class K0sResourceTypeAttribute : Pulumi.ResourceTypeAttribute
+    internal sealed class K0sResourceTypeAttribute : global::Pulumi.ResourceTypeAttribute
     {
         public K0sResourceTypeAttribute(string type) : base(type, Utilities.Version)
         {

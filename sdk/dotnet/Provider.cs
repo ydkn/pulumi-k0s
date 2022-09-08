@@ -13,7 +13,7 @@ namespace Pulumi.K0s
     /// The provider type for the k0s package.
     /// </summary>
     [K0sResourceType("pulumi:providers:k0s")]
-    public partial class Provider : Pulumi.ProviderResource
+    public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
         /// Create a Provider resource with the given unique name, arguments, and options.
@@ -41,7 +41,7 @@ namespace Pulumi.K0s
         }
     }
 
-    public sealed class ProviderArgs : Pulumi.ResourceArgs
+    public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         [Input("noDrain", json: true)]
         public Input<bool>? NoDrain { get; set; }
@@ -52,5 +52,6 @@ namespace Pulumi.K0s
         public ProviderArgs()
         {
         }
+        public static new ProviderArgs Empty => new ProviderArgs();
     }
 }

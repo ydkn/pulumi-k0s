@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class ImagesKubeRouterArgs : Pulumi.ResourceArgs
+    public sealed class ImagesKubeRouterArgs : global::Pulumi.ResourceArgs
     {
         [Input("cni")]
         public Input<Inputs.ContainerImageArgs>? Cni { get; set; }
@@ -21,5 +21,6 @@ namespace Pulumi.K0s.Inputs
         public ImagesKubeRouterArgs()
         {
         }
+        public static new ImagesKubeRouterArgs Empty => new ImagesKubeRouterArgs();
     }
 }

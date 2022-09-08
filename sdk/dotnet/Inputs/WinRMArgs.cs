@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class WinRMArgs : Pulumi.ResourceArgs
+    public sealed class WinRMArgs : global::Pulumi.ResourceArgs
     {
         [Input("address", required: true)]
         public Input<string> Address { get; set; } = null!;
@@ -51,5 +51,6 @@ namespace Pulumi.K0s.Inputs
         public WinRMArgs()
         {
         }
+        public static new WinRMArgs Empty => new WinRMArgs();
     }
 }

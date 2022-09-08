@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s
 {
     [K0sResourceType("k0s:index:Cluster")]
-    public partial class Cluster : Pulumi.CustomResource
+    public partial class Cluster : global::Pulumi.CustomResource
     {
         [Output("kubeconfig")]
         public Output<string> Kubeconfig { get; private set; } = null!;
@@ -65,7 +65,7 @@ namespace Pulumi.K0s
         }
     }
 
-    public sealed class ClusterArgs : Pulumi.ResourceArgs
+    public sealed class ClusterArgs : global::Pulumi.ResourceArgs
     {
         [Input("metadata", required: true)]
         public Input<Inputs.MetadataArgs> Metadata { get; set; } = null!;
@@ -76,5 +76,6 @@ namespace Pulumi.K0s
         public ClusterArgs()
         {
         }
+        public static new ClusterArgs Empty => new ClusterArgs();
     }
 }

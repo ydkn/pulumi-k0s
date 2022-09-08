@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class K0sArgs : Pulumi.ResourceArgs
+    public sealed class K0sArgs : global::Pulumi.ResourceArgs
     {
         [Input("config")]
         public Input<Inputs.ConfigArgs>? Config { get; set; }
@@ -24,5 +24,6 @@ namespace Pulumi.K0s.Inputs
         public K0sArgs()
         {
         }
+        public static new K0sArgs Empty => new K0sArgs();
     }
 }

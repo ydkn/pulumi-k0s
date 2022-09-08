@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class LocalhostArgs : Pulumi.ResourceArgs
+    public sealed class LocalhostArgs : global::Pulumi.ResourceArgs
     {
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -18,5 +18,6 @@ namespace Pulumi.K0s.Inputs
         public LocalhostArgs()
         {
         }
+        public static new LocalhostArgs Empty => new LocalhostArgs();
     }
 }

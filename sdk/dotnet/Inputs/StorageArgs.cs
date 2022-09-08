@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class StorageArgs : Pulumi.ResourceArgs
+    public sealed class StorageArgs : global::Pulumi.ResourceArgs
     {
         [Input("etcd")]
         public Input<Inputs.EtcdArgs>? Etcd { get; set; }
@@ -21,5 +21,6 @@ namespace Pulumi.K0s.Inputs
         public StorageArgs()
         {
         }
+        public static new StorageArgs Empty => new StorageArgs();
     }
 }

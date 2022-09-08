@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class TelemetryArgs : Pulumi.ResourceArgs
+    public sealed class TelemetryArgs : global::Pulumi.ResourceArgs
     {
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -18,5 +18,6 @@ namespace Pulumi.K0s.Inputs
         public TelemetryArgs()
         {
         }
+        public static new TelemetryArgs Empty => new TelemetryArgs();
     }
 }

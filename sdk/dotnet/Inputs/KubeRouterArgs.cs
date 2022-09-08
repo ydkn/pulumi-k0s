@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class KubeRouterArgs : Pulumi.ResourceArgs
+    public sealed class KubeRouterArgs : global::Pulumi.ResourceArgs
     {
         [Input("autoMTU")]
         public Input<bool>? AutoMTU { get; set; }
@@ -27,5 +27,6 @@ namespace Pulumi.K0s.Inputs
         public KubeRouterArgs()
         {
         }
+        public static new KubeRouterArgs Empty => new KubeRouterArgs();
     }
 }

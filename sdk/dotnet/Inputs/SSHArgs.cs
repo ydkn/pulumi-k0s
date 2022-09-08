@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class SSHArgs : Pulumi.ResourceArgs
+    public sealed class SSHArgs : global::Pulumi.ResourceArgs
     {
         [Input("address", required: true)]
         public Input<string> Address { get; set; } = null!;
@@ -33,5 +33,6 @@ namespace Pulumi.K0s.Inputs
         public SSHArgs()
         {
         }
+        public static new SSHArgs Empty => new SSHArgs();
     }
 }

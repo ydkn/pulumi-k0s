@@ -2,7 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "../types";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 
 export interface API {
     address?: string;
@@ -67,6 +68,7 @@ export interface Host {
     installFlags?: string[];
     k0sBinaryPath?: string;
     localhost?: outputs.Localhost;
+    noTaints?: boolean;
     os?: string;
     privateAddress?: string;
     privateInterface?: string;
@@ -219,3 +221,4 @@ export interface WinRM {
     useNTLM?: boolean;
     user?: string;
 }
+

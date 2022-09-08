@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class KubeProxyArgs : Pulumi.ResourceArgs
+    public sealed class KubeProxyArgs : global::Pulumi.ResourceArgs
     {
         [Input("disabled")]
         public Input<bool>? Disabled { get; set; }
@@ -21,5 +21,6 @@ namespace Pulumi.K0s.Inputs
         public KubeProxyArgs()
         {
         }
+        public static new KubeProxyArgs Empty => new KubeProxyArgs();
     }
 }

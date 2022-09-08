@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.K0s.Inputs
 {
 
-    public sealed class InstallConfigArgs : Pulumi.ResourceArgs
+    public sealed class InstallConfigArgs : global::Pulumi.ResourceArgs
     {
         [Input("users")]
         public Input<Inputs.InstallConfigUsersArgs>? Users { get; set; }
@@ -18,5 +18,6 @@ namespace Pulumi.K0s.Inputs
         public InstallConfigArgs()
         {
         }
+        public static new InstallConfigArgs Empty => new InstallConfigArgs();
     }
 }
