@@ -1,0 +1,12 @@
+{
+  "name": "pulumi-k0s",
+  "image": "mcr.microsoft.com/vscode/devcontainers/universal:2",
+  "remoteUser": "codespace",
+  "onCreateCommand": ".devcontainer/post-install.sh",
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": ["esbenp.prettier-vscode", "golang.go"]
+    }
+  }
+}

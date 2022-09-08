@@ -57,10 +57,10 @@ nodejs_sdk::
 	mv ${PACKDIR}/nodejs/package.json.new ${PACKDIR}/nodejs/package.json
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
-		yarn run tsc
-	cp -r README.md LICENSE ${PACKDIR}/nodejs/scripts ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
-	rm ${PACKDIR}/nodejs/bin/package.json.bak
+		yarn run tsc && \
+		cp -r ../../README.md ../../LICENSE ./scripts ./package.json ./yarn.lock ./bin/ && \
+		sed 's/$${VERSION}/$(VERSION)/g' ./bin/package.json > /tmp/nodejs-package.json && \
+		mv /tmp/nodejs-package.json ./bin/package.json
 
 python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
 python_sdk::
@@ -70,8 +70,8 @@ python_sdk::
 	cd ${PACKDIR}/python/ && \
 		python3 setup.py clean --all 2>/dev/null && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
-		sed -i.bak -e 's/^VERSION = .*/VERSION = "$(PYPI_VERSION)"/g' -e 's/^PLUGIN_VERSION = .*/PLUGIN_VERSION = "$(VERSION)"/g' ./bin/setup.py && \
-		rm ./bin/setup.py.bak && \
+		sed -e 's/^VERSION = .*/VERSION = "$(PYPI_VERSION)"/g' -e 's/^PLUGIN_VERSION = .*/PLUGIN_VERSION = "$(VERSION)"/g' ./bin/setup.py > /tmp/python-setup.py && \
+		mv /tmp/python-setup.py ./bin/setup.py && \
 		cd ./bin && python3 setup.py build sdist
 
 .PHONY: build
