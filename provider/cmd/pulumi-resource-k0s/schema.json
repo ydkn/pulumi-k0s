@@ -151,6 +151,9 @@
         },
         "localhost": {
           "$ref": "#/types/k0s:index:Localhost"
+        },
+        "noTaints": {
+          "type": "boolean"
         }
       },
       "required": ["role"],
@@ -203,6 +206,9 @@
         },
         "localhost": {
           "$ref": "#/types/k0s:index:Localhost"
+        },
+        "noTaints": {
+          "type": "boolean"
         }
       },
       "requiredInputs": ["role"]
