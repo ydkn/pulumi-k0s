@@ -2961,6 +2961,139 @@ func (o K0sSpecPtrOutput) Telemetry() TelemetryPtrOutput {
 	}).(TelemetryPtrOutput)
 }
 
+type Kine struct {
+	DataSource string `pulumi:"dataSource"`
+}
+
+// KineInput is an input type that accepts KineArgs and KineOutput values.
+// You can construct a concrete instance of `KineInput` via:
+//
+//	KineArgs{...}
+type KineInput interface {
+	pulumi.Input
+
+	ToKineOutput() KineOutput
+	ToKineOutputWithContext(context.Context) KineOutput
+}
+
+type KineArgs struct {
+	DataSource pulumi.StringInput `pulumi:"dataSource"`
+}
+
+func (KineArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Kine)(nil)).Elem()
+}
+
+func (i KineArgs) ToKineOutput() KineOutput {
+	return i.ToKineOutputWithContext(context.Background())
+}
+
+func (i KineArgs) ToKineOutputWithContext(ctx context.Context) KineOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(KineOutput)
+}
+
+func (i KineArgs) ToKinePtrOutput() KinePtrOutput {
+	return i.ToKinePtrOutputWithContext(context.Background())
+}
+
+func (i KineArgs) ToKinePtrOutputWithContext(ctx context.Context) KinePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(KineOutput).ToKinePtrOutputWithContext(ctx)
+}
+
+// KinePtrInput is an input type that accepts KineArgs, KinePtr and KinePtrOutput values.
+// You can construct a concrete instance of `KinePtrInput` via:
+//
+//	        KineArgs{...}
+//
+//	or:
+//
+//	        nil
+type KinePtrInput interface {
+	pulumi.Input
+
+	ToKinePtrOutput() KinePtrOutput
+	ToKinePtrOutputWithContext(context.Context) KinePtrOutput
+}
+
+type kinePtrType KineArgs
+
+func KinePtr(v *KineArgs) KinePtrInput {
+	return (*kinePtrType)(v)
+}
+
+func (*kinePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Kine)(nil)).Elem()
+}
+
+func (i *kinePtrType) ToKinePtrOutput() KinePtrOutput {
+	return i.ToKinePtrOutputWithContext(context.Background())
+}
+
+func (i *kinePtrType) ToKinePtrOutputWithContext(ctx context.Context) KinePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(KinePtrOutput)
+}
+
+type KineOutput struct{ *pulumi.OutputState }
+
+func (KineOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Kine)(nil)).Elem()
+}
+
+func (o KineOutput) ToKineOutput() KineOutput {
+	return o
+}
+
+func (o KineOutput) ToKineOutputWithContext(ctx context.Context) KineOutput {
+	return o
+}
+
+func (o KineOutput) ToKinePtrOutput() KinePtrOutput {
+	return o.ToKinePtrOutputWithContext(context.Background())
+}
+
+func (o KineOutput) ToKinePtrOutputWithContext(ctx context.Context) KinePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Kine) *Kine {
+		return &v
+	}).(KinePtrOutput)
+}
+
+func (o KineOutput) DataSource() pulumi.StringOutput {
+	return o.ApplyT(func(v Kine) string { return v.DataSource }).(pulumi.StringOutput)
+}
+
+type KinePtrOutput struct{ *pulumi.OutputState }
+
+func (KinePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Kine)(nil)).Elem()
+}
+
+func (o KinePtrOutput) ToKinePtrOutput() KinePtrOutput {
+	return o
+}
+
+func (o KinePtrOutput) ToKinePtrOutputWithContext(ctx context.Context) KinePtrOutput {
+	return o
+}
+
+func (o KinePtrOutput) Elem() KineOutput {
+	return o.ApplyT(func(v *Kine) Kine {
+		if v != nil {
+			return *v
+		}
+		var ret Kine
+		return ret
+	}).(KineOutput)
+}
+
+func (o KinePtrOutput) DataSource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Kine) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DataSource
+	}).(pulumi.StringPtrOutput)
+}
+
 type Konnectivity struct {
 	AdminPort *float64 `pulumi:"adminPort"`
 	AgentPort *float64 `pulumi:"agentPort"`
@@ -4455,6 +4588,7 @@ func (o SpecOutput) K0s() K0sPtrOutput {
 
 type Storage struct {
 	Etcd *Etcd   `pulumi:"etcd"`
+	Kine *Kine   `pulumi:"kine"`
 	Type *string `pulumi:"type"`
 }
 
@@ -4471,6 +4605,7 @@ type StorageInput interface {
 
 type StorageArgs struct {
 	Etcd EtcdPtrInput          `pulumi:"etcd"`
+	Kine KinePtrInput          `pulumi:"kine"`
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -4555,6 +4690,10 @@ func (o StorageOutput) Etcd() EtcdPtrOutput {
 	return o.ApplyT(func(v Storage) *Etcd { return v.Etcd }).(EtcdPtrOutput)
 }
 
+func (o StorageOutput) Kine() KinePtrOutput {
+	return o.ApplyT(func(v Storage) *Kine { return v.Kine }).(KinePtrOutput)
+}
+
 func (o StorageOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Storage) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -4590,6 +4729,15 @@ func (o StoragePtrOutput) Etcd() EtcdPtrOutput {
 		}
 		return v.Etcd
 	}).(EtcdPtrOutput)
+}
+
+func (o StoragePtrOutput) Kine() KinePtrOutput {
+	return o.ApplyT(func(v *Storage) *Kine {
+		if v == nil {
+			return nil
+		}
+		return v.Kine
+	}).(KinePtrOutput)
 }
 
 func (o StoragePtrOutput) Type() pulumi.StringPtrOutput {
@@ -5203,6 +5351,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*K0sPtrInput)(nil)).Elem(), K0sArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*K0sSpecInput)(nil)).Elem(), K0sSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*K0sSpecPtrInput)(nil)).Elem(), K0sSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KineInput)(nil)).Elem(), KineArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KinePtrInput)(nil)).Elem(), KineArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*KonnectivityInput)(nil)).Elem(), KonnectivityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*KonnectivityPtrInput)(nil)).Elem(), KonnectivityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*KubeProxyInput)(nil)).Elem(), KubeProxyArgs{})
@@ -5264,6 +5414,8 @@ func init() {
 	pulumi.RegisterOutputType(K0sPtrOutput{})
 	pulumi.RegisterOutputType(K0sSpecOutput{})
 	pulumi.RegisterOutputType(K0sSpecPtrOutput{})
+	pulumi.RegisterOutputType(KineOutput{})
+	pulumi.RegisterOutputType(KinePtrOutput{})
 	pulumi.RegisterOutputType(KonnectivityOutput{})
 	pulumi.RegisterOutputType(KonnectivityPtrOutput{})
 	pulumi.RegisterOutputType(KubeProxyOutput{})

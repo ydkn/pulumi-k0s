@@ -11,23 +11,14 @@ namespace Pulumi.K0s.Outputs
 {
 
     [OutputType]
-    public sealed class Storage
+    public sealed class Kine
     {
-        public readonly Outputs.Etcd? Etcd;
-        public readonly Outputs.Kine? Kine;
-        public readonly string? Type;
+        public readonly string DataSource;
 
         [OutputConstructor]
-        private Storage(
-            Outputs.Etcd? etcd,
-
-            Outputs.Kine? kine,
-
-            string? type)
+        private Kine(string dataSource)
         {
-            Etcd = etcd;
-            Kine = kine;
-            Type = type;
+            DataSource = dataSource;
         }
     }
 }

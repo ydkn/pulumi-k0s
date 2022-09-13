@@ -130,6 +130,10 @@ export interface K0sSpec {
     telemetry?: outputs.Telemetry;
 }
 
+export interface Kine {
+    dataSource: string;
+}
+
 export interface Konnectivity {
     adminPort?: number;
     agentPort?: number;
@@ -189,6 +193,7 @@ export interface Spec {
 
 export interface Storage {
     etcd?: outputs.Etcd;
+    kine?: outputs.Kine;
     type?: string;
 }
 

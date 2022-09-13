@@ -15,6 +15,9 @@ namespace Pulumi.K0s.Inputs
         [Input("etcd")]
         public Input<Inputs.EtcdArgs>? Etcd { get; set; }
 
+        [Input("kine")]
+        public Input<Inputs.KineArgs>? Kine { get; set; }
+
         [Input("type")]
         public Input<string>? Type { get; set; }
 

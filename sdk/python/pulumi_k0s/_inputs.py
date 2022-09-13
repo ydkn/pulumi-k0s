@@ -27,6 +27,7 @@ __all__ = [
     'InstallConfigArgs',
     'K0sSpecArgs',
     'K0sArgs',
+    'KineArgs',
     'KonnectivityArgs',
     'KubeProxyArgs',
     'KubeRouterArgs',
@@ -1016,6 +1017,22 @@ class K0sArgs:
 
 
 @pulumi.input_type
+class KineArgs:
+    def __init__(__self__, *,
+                 data_source: pulumi.Input[str]):
+        pulumi.set(__self__, "data_source", data_source)
+
+    @property
+    @pulumi.getter(name="dataSource")
+    def data_source(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "data_source")
+
+    @data_source.setter
+    def data_source(self, value: pulumi.Input[str]):
+        pulumi.set(self, "data_source", value)
+
+
+@pulumi.input_type
 class KonnectivityArgs:
     def __init__(__self__, *,
                  admin_port: Optional[pulumi.Input[float]] = None,
@@ -1390,9 +1407,12 @@ class SpecArgs:
 class StorageArgs:
     def __init__(__self__, *,
                  etcd: Optional[pulumi.Input['EtcdArgs']] = None,
+                 kine: Optional[pulumi.Input['KineArgs']] = None,
                  type: Optional[pulumi.Input[str]] = None):
         if etcd is not None:
             pulumi.set(__self__, "etcd", etcd)
+        if kine is not None:
+            pulumi.set(__self__, "kine", kine)
         if type is not None:
             pulumi.set(__self__, "type", type)
 
@@ -1404,6 +1424,15 @@ class StorageArgs:
     @etcd.setter
     def etcd(self, value: Optional[pulumi.Input['EtcdArgs']]):
         pulumi.set(self, "etcd", value)
+
+    @property
+    @pulumi.getter
+    def kine(self) -> Optional[pulumi.Input['KineArgs']]:
+        return pulumi.get(self, "kine")
+
+    @kine.setter
+    def kine(self, value: Optional[pulumi.Input['KineArgs']]):
+        pulumi.set(self, "kine", value)
 
     @property
     @pulumi.getter

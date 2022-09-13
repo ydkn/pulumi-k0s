@@ -28,6 +28,7 @@ __all__ = [
     'InstallConfigUsers',
     'K0s',
     'K0sSpec',
+    'Kine',
     'Konnectivity',
     'KubeProxy',
     'KubeRouter',
@@ -927,6 +928,35 @@ class K0sSpec(dict):
 
 
 @pulumi.output_type
+class Kine(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "dataSource":
+            suggest = "data_source"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Kine. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Kine.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Kine.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 data_source: str):
+        pulumi.set(__self__, "data_source", data_source)
+
+    @property
+    @pulumi.getter(name="dataSource")
+    def data_source(self) -> str:
+        return pulumi.get(self, "data_source")
+
+
+@pulumi.output_type
 class Konnectivity(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1309,9 +1339,12 @@ class Spec(dict):
 class Storage(dict):
     def __init__(__self__, *,
                  etcd: Optional['outputs.Etcd'] = None,
+                 kine: Optional['outputs.Kine'] = None,
                  type: Optional[str] = None):
         if etcd is not None:
             pulumi.set(__self__, "etcd", etcd)
+        if kine is not None:
+            pulumi.set(__self__, "kine", kine)
         if type is not None:
             pulumi.set(__self__, "type", type)
 
@@ -1319,6 +1352,11 @@ class Storage(dict):
     @pulumi.getter
     def etcd(self) -> Optional['outputs.Etcd']:
         return pulumi.get(self, "etcd")
+
+    @property
+    @pulumi.getter
+    def kine(self) -> Optional['outputs.Kine']:
+        return pulumi.get(self, "kine")
 
     @property
     @pulumi.getter

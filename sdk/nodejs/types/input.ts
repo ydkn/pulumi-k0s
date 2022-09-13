@@ -130,6 +130,10 @@ export interface K0sSpecArgs {
     telemetry?: pulumi.Input<inputs.TelemetryArgs>;
 }
 
+export interface KineArgs {
+    dataSource: pulumi.Input<string>;
+}
+
 export interface KonnectivityArgs {
     adminPort?: pulumi.Input<number>;
     agentPort?: pulumi.Input<number>;
@@ -189,6 +193,7 @@ export interface SpecArgs {
 
 export interface StorageArgs {
     etcd?: pulumi.Input<inputs.EtcdArgs>;
+    kine?: pulumi.Input<inputs.KineArgs>;
     type?: pulumi.Input<string>;
 }
 
