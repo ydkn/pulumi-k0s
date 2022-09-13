@@ -1074,6 +1074,9 @@
         },
         "etcd": {
           "$ref": "#/types/k0s:index:Etcd"
+        },
+        "kine": {
+          "$ref": "#/types/k0s:index:Kine"
         }
       },
       "required": [],
@@ -1083,6 +1086,9 @@
         },
         "etcd": {
           "$ref": "#/types/k0s:index:Etcd"
+        },
+        "kine": {
+          "$ref": "#/types/k0s:index:Kine"
         }
       },
       "requiredInputs": []
@@ -1101,6 +1107,21 @@
         }
       },
       "requiredInputs": []
+    },
+    "k0s:index:Kine": {
+      "type": "object",
+      "properties": {
+        "dataSource": {
+          "type": "string"
+        }
+      },
+      "required": ["dataSource"],
+      "inputProperties": {
+        "dataSource": {
+          "type": "string"
+        }
+      },
+      "requiredInputs": ["dataSource"]
     },
     "k0s:index:Telemetry": {
       "type": "object",
