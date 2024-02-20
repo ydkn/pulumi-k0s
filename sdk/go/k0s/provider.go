@@ -13,6 +13,11 @@ import (
 
 type Provider struct {
 	pulumi.ProviderResourceState
+
+	// Do not drain nodes before upgrades/updates.
+	NoDrain pulumi.StringPtrOutput `pulumi:"noDrain"`
+	// Do not check if a downgrade would be performed.
+	SkipDowngradeCheck pulumi.StringPtrOutput `pulumi:"skipDowngradeCheck"`
 }
 
 // NewProvider registers a new resource with the given unique name, arguments, and options.
@@ -23,13 +28,13 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.NoDrain == nil {
-		if d := internal.GetEnvOrDefault(false, internal.ParseEnvBool, "PULUMI_K0S_NO_DRAIN"); d != nil {
-			args.NoDrain = pulumi.BoolPtr(d.(bool))
+		if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_NO_DRAIN"); d != nil {
+			args.NoDrain = pulumi.StringPtr(d.(string))
 		}
 	}
 	if args.SkipDowngradeCheck == nil {
-		if d := internal.GetEnvOrDefault(false, internal.ParseEnvBool, "PULUMI_K0S_SKIP_DOWNGRADE_CHECK"); d != nil {
-			args.SkipDowngradeCheck = pulumi.BoolPtr(d.(bool))
+		if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_SKIP_DOWNGRADE_CHECK"); d != nil {
+			args.SkipDowngradeCheck = pulumi.StringPtr(d.(string))
 		}
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
@@ -43,17 +48,17 @@ func NewProvider(ctx *pulumi.Context,
 
 type providerArgs struct {
 	// Do not drain nodes before upgrades/updates.
-	NoDrain *bool `pulumi:"noDrain"`
+	NoDrain *string `pulumi:"noDrain"`
 	// Do not check if a downgrade would be performed.
-	SkipDowngradeCheck *bool `pulumi:"skipDowngradeCheck"`
+	SkipDowngradeCheck *string `pulumi:"skipDowngradeCheck"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
 	// Do not drain nodes before upgrades/updates.
-	NoDrain pulumi.BoolPtrInput
+	NoDrain pulumi.StringPtrInput
 	// Do not check if a downgrade would be performed.
-	SkipDowngradeCheck pulumi.BoolPtrInput
+	SkipDowngradeCheck pulumi.StringPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {
@@ -91,6 +96,16 @@ func (o ProviderOutput) ToProviderOutput() ProviderOutput {
 
 func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) ProviderOutput {
 	return o
+}
+
+// Do not drain nodes before upgrades/updates.
+func (o ProviderOutput) NoDrain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.NoDrain }).(pulumi.StringPtrOutput)
+}
+
+// Do not check if a downgrade would be performed.
+func (o ProviderOutput) SkipDowngradeCheck() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.SkipDowngradeCheck }).(pulumi.StringPtrOutput)
 }
 
 func init() {

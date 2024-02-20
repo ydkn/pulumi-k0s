@@ -7,7 +7,7 @@ return await Deployment.RunAsync(() =>
 {
     var myProvider = new K0s.Provider("myProvider", new()
     {
-        NoDrain = true,
+        NoDrain = "true",
     });
 
     var myCluster = new K0s.Cluster("myCluster", new()

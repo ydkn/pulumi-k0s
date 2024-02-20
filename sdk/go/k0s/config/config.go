@@ -12,27 +12,27 @@ import (
 var _ = internal.GetEnvOrDefault
 
 // Do not drain nodes before upgrades/updates.
-func GetNoDrain(ctx *pulumi.Context) bool {
-	v, err := config.TryBool(ctx, "k0s:noDrain")
+func GetNoDrain(ctx *pulumi.Context) string {
+	v, err := config.Try(ctx, "k0s:noDrain")
 	if err == nil {
 		return v
 	}
-	var value bool
-	if d := internal.GetEnvOrDefault(false, internal.ParseEnvBool, "PULUMI_K0S_NO_DRAIN"); d != nil {
-		value = d.(bool)
+	var value string
+	if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_NO_DRAIN"); d != nil {
+		value = d.(string)
 	}
 	return value
 }
 
 // Do not check if a downgrade would be performed.
-func GetSkipDowngradeCheck(ctx *pulumi.Context) bool {
-	v, err := config.TryBool(ctx, "k0s:skipDowngradeCheck")
+func GetSkipDowngradeCheck(ctx *pulumi.Context) string {
+	v, err := config.Try(ctx, "k0s:skipDowngradeCheck")
 	if err == nil {
 		return v
 	}
-	var value bool
-	if d := internal.GetEnvOrDefault(false, internal.ParseEnvBool, "PULUMI_K0S_SKIP_DOWNGRADE_CHECK"); d != nil {
-		value = d.(bool)
+	var value string
+	if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_SKIP_DOWNGRADE_CHECK"); d != nil {
+		value = d.(string)
 	}
 	return value
 }

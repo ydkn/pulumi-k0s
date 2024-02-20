@@ -1,106 +1,48 @@
-# Pulumi Native Provider Boilerplate
+[![Actions Status](https://github.com/ydkn/pulumi-k0s/workflows/master/badge.svg)](https://github.com/ydkn/pulumi-k0s/actions)
+[![NPM version](https://badge.fury.io/js/%40ydkn%2Fpulumi-k0s.svg)](https://www.npmjs.com/package/@ydkn/pulumi-k0s)
+[![Python version](https://badge.fury.io/py/pulumi-k0s.svg)](https://pypi.org/project/pulumi-k0s)
+[![NuGet version](https://badge.fury.io/nu/pulumi.k0s.svg)](https://badge.fury.io/nu/pulumi.k0s)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/ydkn/pulumi-k0s/sdk/go)](https://pkg.go.dev/github.com/ydkn/pulumi-k0s/sdk/go)
 
-This repository is a boilerplate showing how to create and locally test a native Pulumi provider.
+# k0s Pulumi Provider
 
-## Authoring a Pulumi Native Provider
+Pulumi provider for [k0s](https://k0sproject.io) based on [k0sctl](https://github.com/k0sproject/k0sctl).
 
-This boilerplate creates a working Pulumi-owned provider named `xyz`.
-It implements a random number generator that you can [build and test out for yourself](#test-against-the-example) and then replace the Random code with code specific to your provider.
+## Installing
 
+This package is available in many languages in the standard packaging formats.
 
-### Prerequisites
+### Node.js (Java/TypeScript)
 
-Prerequisites for this repository are already satisfied by the [Pulumi Devcontainer](https://github.com/pulumi/devcontainer) if you are using Github Codespaces, or VSCode.
+To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
-If you are not using VSCode, you will need to ensure the following tools are installed and present in your `$PATH`:
+    $ npm install @ydkn/pulumi-k0s
 
-* [`pulumictl`](https://github.com/pulumi/pulumictl#installation)
-* [Go 1.21](https://golang.org/dl/) or 1.latest
-* [NodeJS](https://nodejs.org/en/) 14.x.  We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage NodeJS installations.
-* [Yarn](https://yarnpkg.com/)
-* [TypeScript](https://www.typescriptlang.org/)
-* [Python](https://www.python.org/downloads/) (called as `python3`).  For recent versions of MacOS, the system-installed version is fine.
-* [.NET](https://dotnet.microsoft.com/download)
+or `yarn`:
 
+    $ yarn add @ydkn/pulumi-k0s
 
-### Build & test the boilerplate XYZ provider
+### Python
 
-1. Create a new Github CodeSpaces environment using this repository.
-1. Open a terminal in the CodeSpaces environment.
-1. Run `make build install` to build and install the provider.
-1. Run `make gen_examples` to generate the example programs in `examples/` off of the source `examples/yaml` example program.
-1. Run `make up` to run the example program in `examples/yaml`.
-1. Run `make down` to tear down the example program.
+To use from Python, install using `pip`:
 
-### Creating a new provider repository
+    $ pip install pulumi_k0s
 
-Pulumi offers this repository as a [GitHub template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) for convenience.  From this repository:
+### Go
 
-1. Click "Use this template".
-1. Set the following options:
-   * Owner: pulumi 
-   * Repository name: pulumi-xyz-native (replace "xyz" with the name of your provider)
-   * Description: Pulumi provider for xyz
-   * Repository type: Public
-1. Clone the generated repository.
+To use from Go, use `go get` to grab the latest version of the library
 
-From the templated repository:
+    $ go get github.com/ydkn/pulumi-k0s/sdk
 
-1. Search-replace `xyz` with the name of your desired provider.
+### .NET
 
-#### Build the provider and install the plugin
+To use from .NET, install using `dotnet add package`:
 
-   ```bash
-   $ make build install
-   ```
-   
-This will:
+    $ dotnet add package Pulumi.K0s
 
-1. Create the SDK codegen binary and place it in a `./bin` folder (gitignored)
-2. Create the provider binary and place it in the `./bin` folder (gitignored)
-3. Generate the dotnet, Go, Node, and Python SDKs and place them in the `./sdk` folder
-4. Install the provider on your machine.
+## Configuration
 
-#### Test against the example
-   
-```bash
-$ cd examples/simple
-$ yarn link @pulumi/xyz
-$ yarn install
-$ pulumi stack init test
-$ pulumi up
-```
+The following provider configuration options are available:
 
-Now that you have completed all of the above steps, you have a working provider that generates a random string for you.
-
-#### A brief repository overview
-
-You now have:
-
-1. A `provider/` folder containing the building and implementation logic
-    1. `cmd/pulumi-resource-xyz/main.go` - holds the provider's sample implementation logic.
-2. `deployment-templates` - a set of files to help you around deployment and publication
-3. `sdk` - holds the generated code libraries created by `pulumi-gen-xyz/main.go`
-4. `examples` a folder of Pulumi programs to try locally and/or use in CI.
-5. A `Makefile` and this `README`.
-
-#### Additional Details
-
-This repository depends on the pulumi-go-provider library. For more details on building providers, please check
-the [Pulumi Go Provider docs](https://github.com/pulumi/pulumi-go-provider).
-
-### Build Examples
-
-Create an example program using the resources defined in your provider, and place it in the `examples/` folder.
-
-You can now repeat the steps for [build, install, and test](#test-against-the-example).
-
-## Configuring CI and releases
-
-1. Follow the instructions laid out in the [deployment templates](./deployment-templates/README-DEPLOYMENT.md).
-
-## References
-
-Other resources/examples for implementing providers:
-* [Pulumi Command provider](https://github.com/pulumi/pulumi-command/blob/master/provider/pkg/provider/provider.go)
-* [Pulumi Go Provider repository](https://github.com/pulumi/pulumi-go-provider)
+- `skipDowngradeCheck` - Do not check if a downgrade would be performed.
+- `noDrain` - Do not drain nodes before upgrades/updates.

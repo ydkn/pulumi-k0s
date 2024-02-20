@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Pulumi" Version="3.*" />
-		<PackageReference Include="Pulumi.K0s" Version="0.0.1-alpha.1706660091+c752bae2.dirty" />
+		<PackageReference Include="Pulumi.K0s" Version="0.2.0" />
 	</ItemGroup>
 
 </Project>

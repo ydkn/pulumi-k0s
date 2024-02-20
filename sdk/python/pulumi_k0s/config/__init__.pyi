@@ -9,12 +9,12 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
-noDrain: bool
+noDrain: str
 """
 Do not drain nodes before upgrades/updates.
 """
 
-skipDowngradeCheck: bool
+skipDowngradeCheck: str
 """
 Do not check if a downgrade would be performed.
 """

@@ -10,10 +10,10 @@ const __config = new pulumi.Config("k0s");
 /**
  * Do not drain nodes before upgrades/updates.
  */
-export declare const noDrain: boolean;
+export declare const noDrain: string;
 Object.defineProperty(exports, "noDrain", {
     get() {
-        return __config.getObject<boolean>("noDrain") ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_DRAIN") || false);
+        return __config.get("noDrain") ?? (utilities.getEnv("PULUMI_K0S_NO_DRAIN") || "false");
     },
     enumerable: true,
 });
@@ -21,10 +21,10 @@ Object.defineProperty(exports, "noDrain", {
 /**
  * Do not check if a downgrade would be performed.
  */
-export declare const skipDowngradeCheck: boolean;
+export declare const skipDowngradeCheck: string;
 Object.defineProperty(exports, "skipDowngradeCheck", {
     get() {
-        return __config.getObject<boolean>("skipDowngradeCheck") ?? (utilities.getEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || false);
+        return __config.get("skipDowngradeCheck") ?? (utilities.getEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || "false");
     },
     enumerable: true,
 });

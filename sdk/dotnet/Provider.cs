@@ -13,6 +13,19 @@ namespace Pulumi.K0s
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
+        /// Do not drain nodes before upgrades/updates.
+        /// </summary>
+        [Output("noDrain")]
+        public Output<string?> NoDrain { get; private set; } = null!;
+
+        /// <summary>
+        /// Do not check if a downgrade would be performed.
+        /// </summary>
+        [Output("skipDowngradeCheck")]
+        public Output<string?> SkipDowngradeCheck { get; private set; } = null!;
+
+
+        /// <summary>
         /// Create a Provider resource with the given unique name, arguments, and options.
         /// </summary>
         ///
@@ -42,19 +55,19 @@ namespace Pulumi.K0s
         /// <summary>
         /// Do not drain nodes before upgrades/updates.
         /// </summary>
-        [Input("noDrain", json: true)]
-        public Input<bool>? NoDrain { get; set; }
+        [Input("noDrain")]
+        public Input<string>? NoDrain { get; set; }
 
         /// <summary>
         /// Do not check if a downgrade would be performed.
         /// </summary>
-        [Input("skipDowngradeCheck", json: true)]
-        public Input<bool>? SkipDowngradeCheck { get; set; }
+        [Input("skipDowngradeCheck")]
+        public Input<string>? SkipDowngradeCheck { get; set; }
 
         public ProviderArgs()
         {
-            NoDrain = Utilities.GetEnvBoolean("PULUMI_K0S_NO_DRAIN") ?? false;
-            SkipDowngradeCheck = Utilities.GetEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") ?? false;
+            NoDrain = Utilities.GetEnv("PULUMI_K0S_NO_DRAIN") ?? "false";
+            SkipDowngradeCheck = Utilities.GetEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") ?? "false";
         }
         public static new ProviderArgs Empty => new ProviderArgs();
     }

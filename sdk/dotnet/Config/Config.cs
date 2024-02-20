@@ -32,21 +32,21 @@ namespace Pulumi.K0s
 
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("k0s");
 
-        private static readonly __Value<bool?> _noDrain = new __Value<bool?>(() => __config.GetBoolean("noDrain") ?? Utilities.GetEnvBoolean("PULUMI_K0S_NO_DRAIN") ?? false);
+        private static readonly __Value<string?> _noDrain = new __Value<string?>(() => __config.Get("noDrain") ?? Utilities.GetEnv("PULUMI_K0S_NO_DRAIN") ?? "false");
         /// <summary>
         /// Do not drain nodes before upgrades/updates.
         /// </summary>
-        public static bool? NoDrain
+        public static string? NoDrain
         {
             get => _noDrain.Get();
             set => _noDrain.Set(value);
         }
 
-        private static readonly __Value<bool?> _skipDowngradeCheck = new __Value<bool?>(() => __config.GetBoolean("skipDowngradeCheck") ?? Utilities.GetEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") ?? false);
+        private static readonly __Value<string?> _skipDowngradeCheck = new __Value<string?>(() => __config.Get("skipDowngradeCheck") ?? Utilities.GetEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") ?? "false");
         /// <summary>
         /// Do not check if a downgrade would be performed.
         /// </summary>
-        public static bool? SkipDowngradeCheck
+        public static string? SkipDowngradeCheck
         {
             get => _skipDowngradeCheck.Get();
             set => _skipDowngradeCheck.Set(value);

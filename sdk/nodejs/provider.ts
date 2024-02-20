@@ -19,6 +19,14 @@ export class Provider extends pulumi.ProviderResource {
         return obj['__pulumiType'] === "pulumi:providers:" + Provider.__pulumiType;
     }
 
+    /**
+     * Do not drain nodes before upgrades/updates.
+     */
+    public readonly noDrain!: pulumi.Output<string | undefined>;
+    /**
+     * Do not check if a downgrade would be performed.
+     */
+    public readonly skipDowngradeCheck!: pulumi.Output<string | undefined>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -31,8 +39,8 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["noDrain"] = pulumi.output((args ? args.noDrain : undefined) ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_DRAIN") || false)).apply(JSON.stringify);
-            resourceInputs["skipDowngradeCheck"] = pulumi.output((args ? args.skipDowngradeCheck : undefined) ?? (utilities.getEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || false)).apply(JSON.stringify);
+            resourceInputs["noDrain"] = (args ? args.noDrain : undefined) ?? (utilities.getEnv("PULUMI_K0S_NO_DRAIN") || "false");
+            resourceInputs["skipDowngradeCheck"] = (args ? args.skipDowngradeCheck : undefined) ?? (utilities.getEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || "false");
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
@@ -46,9 +54,9 @@ export interface ProviderArgs {
     /**
      * Do not drain nodes before upgrades/updates.
      */
-    noDrain?: pulumi.Input<boolean>;
+    noDrain?: pulumi.Input<string>;
     /**
      * Do not check if a downgrade would be performed.
      */
-    skipDowngradeCheck?: pulumi.Input<boolean>;
+    skipDowngradeCheck?: pulumi.Input<string>;
 }

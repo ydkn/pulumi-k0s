@@ -14,44 +14,44 @@ __all__ = ['ProviderArgs', 'Provider']
 @pulumi.input_type
 class ProviderArgs:
     def __init__(__self__, *,
-                 no_drain: Optional[pulumi.Input[bool]] = None,
-                 skip_downgrade_check: Optional[pulumi.Input[bool]] = None):
+                 no_drain: Optional[pulumi.Input[str]] = None,
+                 skip_downgrade_check: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Provider resource.
-        :param pulumi.Input[bool] no_drain: Do not drain nodes before upgrades/updates.
-        :param pulumi.Input[bool] skip_downgrade_check: Do not check if a downgrade would be performed.
+        :param pulumi.Input[str] no_drain: Do not drain nodes before upgrades/updates.
+        :param pulumi.Input[str] skip_downgrade_check: Do not check if a downgrade would be performed.
         """
         if no_drain is None:
-            no_drain = (_utilities.get_env_bool('PULUMI_K0S_NO_DRAIN') or False)
+            no_drain = (_utilities.get_env('PULUMI_K0S_NO_DRAIN') or 'false')
         if no_drain is not None:
             pulumi.set(__self__, "no_drain", no_drain)
         if skip_downgrade_check is None:
-            skip_downgrade_check = (_utilities.get_env_bool('PULUMI_K0S_SKIP_DOWNGRADE_CHECK') or False)
+            skip_downgrade_check = (_utilities.get_env('PULUMI_K0S_SKIP_DOWNGRADE_CHECK') or 'false')
         if skip_downgrade_check is not None:
             pulumi.set(__self__, "skip_downgrade_check", skip_downgrade_check)
 
     @property
     @pulumi.getter(name="noDrain")
-    def no_drain(self) -> Optional[pulumi.Input[bool]]:
+    def no_drain(self) -> Optional[pulumi.Input[str]]:
         """
         Do not drain nodes before upgrades/updates.
         """
         return pulumi.get(self, "no_drain")
 
     @no_drain.setter
-    def no_drain(self, value: Optional[pulumi.Input[bool]]):
+    def no_drain(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "no_drain", value)
 
     @property
     @pulumi.getter(name="skipDowngradeCheck")
-    def skip_downgrade_check(self) -> Optional[pulumi.Input[bool]]:
+    def skip_downgrade_check(self) -> Optional[pulumi.Input[str]]:
         """
         Do not check if a downgrade would be performed.
         """
         return pulumi.get(self, "skip_downgrade_check")
 
     @skip_downgrade_check.setter
-    def skip_downgrade_check(self, value: Optional[pulumi.Input[bool]]):
+    def skip_downgrade_check(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "skip_downgrade_check", value)
 
 
@@ -60,15 +60,15 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 no_drain: Optional[pulumi.Input[bool]] = None,
-                 skip_downgrade_check: Optional[pulumi.Input[bool]] = None,
+                 no_drain: Optional[pulumi.Input[str]] = None,
+                 skip_downgrade_check: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a K0s resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] no_drain: Do not drain nodes before upgrades/updates.
-        :param pulumi.Input[bool] skip_downgrade_check: Do not check if a downgrade would be performed.
+        :param pulumi.Input[str] no_drain: Do not drain nodes before upgrades/updates.
+        :param pulumi.Input[str] skip_downgrade_check: Do not check if a downgrade would be performed.
         """
         ...
     @overload
@@ -93,8 +93,8 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 no_drain: Optional[pulumi.Input[bool]] = None,
-                 skip_downgrade_check: Optional[pulumi.Input[bool]] = None,
+                 no_drain: Optional[pulumi.Input[str]] = None,
+                 skip_downgrade_check: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -105,14 +105,30 @@ class Provider(pulumi.ProviderResource):
             __props__ = ProviderArgs.__new__(ProviderArgs)
 
             if no_drain is None:
-                no_drain = (_utilities.get_env_bool('PULUMI_K0S_NO_DRAIN') or False)
-            __props__.__dict__["no_drain"] = pulumi.Output.from_input(no_drain).apply(pulumi.runtime.to_json) if no_drain is not None else None
+                no_drain = (_utilities.get_env('PULUMI_K0S_NO_DRAIN') or 'false')
+            __props__.__dict__["no_drain"] = no_drain
             if skip_downgrade_check is None:
-                skip_downgrade_check = (_utilities.get_env_bool('PULUMI_K0S_SKIP_DOWNGRADE_CHECK') or False)
-            __props__.__dict__["skip_downgrade_check"] = pulumi.Output.from_input(skip_downgrade_check).apply(pulumi.runtime.to_json) if skip_downgrade_check is not None else None
+                skip_downgrade_check = (_utilities.get_env('PULUMI_K0S_SKIP_DOWNGRADE_CHECK') or 'false')
+            __props__.__dict__["skip_downgrade_check"] = skip_downgrade_check
         super(Provider, __self__).__init__(
             'k0s',
             resource_name,
             __props__,
             opts)
+
+    @property
+    @pulumi.getter(name="noDrain")
+    def no_drain(self) -> pulumi.Output[Optional[str]]:
+        """
+        Do not drain nodes before upgrades/updates.
+        """
+        return pulumi.get(self, "no_drain")
+
+    @property
+    @pulumi.getter(name="skipDowngradeCheck")
+    def skip_downgrade_check(self) -> pulumi.Output[Optional[str]]:
+        """
+        Do not check if a downgrade would be performed.
+        """
+        return pulumi.get(self, "skip_downgrade_check")
 

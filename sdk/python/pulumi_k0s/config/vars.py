@@ -16,16 +16,16 @@ __config__ = pulumi.Config('k0s')
 
 class _ExportableConfig(types.ModuleType):
     @property
-    def no_drain(self) -> bool:
+    def no_drain(self) -> str:
         """
         Do not drain nodes before upgrades/updates.
         """
-        return __config__.get_bool('noDrain') or (_utilities.get_env_bool('PULUMI_K0S_NO_DRAIN') or False)
+        return __config__.get('noDrain') or (_utilities.get_env('PULUMI_K0S_NO_DRAIN') or 'false')
 
     @property
-    def skip_downgrade_check(self) -> bool:
+    def skip_downgrade_check(self) -> str:
         """
         Do not check if a downgrade would be performed.
         """
-        return __config__.get_bool('skipDowngradeCheck') or (_utilities.get_env_bool('PULUMI_K0S_SKIP_DOWNGRADE_CHECK') or False)
+        return __config__.get('skipDowngradeCheck') or (_utilities.get_env('PULUMI_K0S_SKIP_DOWNGRADE_CHECK') or 'false')
 

@@ -1,6 +1,8 @@
 package provider
 
 import (
+	"strings"
+
 	"github.com/TwiN/deepmerge"
 	"github.com/k0sproject/dig"
 	"github.com/k0sproject/rig"
@@ -440,11 +442,11 @@ func clusterApply(
 	config := infer.GetConfig[Config](ctx)
 
 	if config.SkipDowngradeCheck != nil {
-		applyConfig.SkipDowngradeCheck = *config.SkipDowngradeCheck
+		applyConfig.SkipDowngradeCheck = strings.ToLower(*config.SkipDowngradeCheck) == "true"
 	}
 
 	if config.SkipDowngradeCheck != nil {
-		applyConfig.NoDrain = *config.NoDrain
+		applyConfig.NoDrain = strings.ToLower(*config.NoDrain) == "true"
 	}
 
 	if state == nil {
