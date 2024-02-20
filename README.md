@@ -42,7 +42,7 @@ To use from .NET, install using `dotnet add package`:
 
 ## Configuration
 
-The following configuration points are available:
+The following provider configuration options are available:
 
-- `k0s:skipDowngradeCheck` - Do not check if a downgrade would be performed.
-- `k0s:noDrain` - Do not drain nodes before upgrades/updates.
+- `skipDowngradeCheck` - Do not check if a downgrade would be performed.
+- `noDrain` - Do not drain nodes before upgrades/updates.

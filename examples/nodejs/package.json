@@ -1,0 +1,11 @@
+{
+	"name": "provider-k0s",
+	"devDependencies": {
+		"@types/node": "^14"
+	},
+	"dependencies": {
+		"typescript": "^4.0.0",
+		"@pulumi/pulumi": "^3.0.0",
+		"@pulumi/k0s": "0.0.1-alpha.1706660091+c752bae2.dirty"
+	}
+}

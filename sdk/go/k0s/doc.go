@@ -1,3 +1,2 @@
-// A Pulumi package for creating and managing k0s clusters.
-
+// Package k0s exports types, functions, subpackages for provisioning k0s resources.
 package k0s
