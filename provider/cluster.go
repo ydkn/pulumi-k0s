@@ -6,13 +6,15 @@ import (
 	"github.com/k0sproject/rig"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/ydkn/pulumi-k0s/provider/internal/introspect"
 	"github.com/ydkn/pulumi-k0s/provider/internal/k0sctl"
 	"gopkg.in/yaml.v2"
 )
 
 type ClusterArgs struct {
-	APIVersion string           `pulumi:"apiVersion,optional" yaml:"apiVersion,omitempty"`
-	Kind       string           `pulumi:"kind,optional" yaml:"kind,omitempty"`
+	APIVersion *string          `pulumi:"apiVersion,optional" yaml:"apiVersion,omitempty"`
+	Kind       *string          `pulumi:"kind,optional" yaml:"kind,omitempty"`
 	Metadata   *ClusterMetadata `pulumi:"metadata,optional" yaml:"metadata,omitempty"`
 	Spec       *ClusterSpec     `pulumi:"spec,optional" yaml:"spec,omitempty"`
 }
@@ -318,29 +320,40 @@ func (c Cluster) Diff(ctx p.Context, name string, state ClusterState, args Clust
 		_ = cleanupTempFiles(name)
 	}()
 
-	diffResponse := p.DiffResponse{DeleteBeforeReplace: true}
+	diffResponse := p.DiffResponse{
+		DeleteBeforeReplace: true,
+		HasChanges:          false,
+		DetailedDiff:        map[string]p.PropertyDiff{},
+	}
 
-	_, cluster, err := clusterArgsToK0sCtlCluster(name, &state.ClusterArgs)
+	_, cluster, err := clusterArgsToK0sCtlCluster(name, &args)
 	if err != nil {
 		return diffResponse, err
 	}
 
-	bytesState, err := yaml.Marshal(cluster)
-	if err != nil {
-		return diffResponse, err
+	if args.Spec != nil && args.Spec.K0s != nil && args.Spec.K0s.Version == nil {
+		version := cluster.Spec.K0s.Version.String()
+		args.Spec.K0s.Version = &version
 	}
 
-	_, cluster, err = clusterArgsToK0sCtlCluster(name, &args)
+	stateProps, err := introspect.NewPropertiesMap(state)
 	if err != nil {
-		return diffResponse, err
+		return p.DiffResponse{}, err
 	}
 
-	bytesArgs, err := yaml.Marshal(cluster)
+	argsProps, err := introspect.NewPropertiesMap(args)
 	if err != nil {
-		return diffResponse, err
+		return p.DiffResponse{}, err
 	}
 
-	if string(bytesArgs) != string(bytesState) {
+	for key := range propertyMapDiff(stateProps, argsProps, []resource.PropertyKey{"kubeconfig"}) {
+		diffResponse.DetailedDiff[string(key)] = p.PropertyDiff{
+			Kind:      p.Update,
+			InputDiff: true,
+		}
+	}
+
+	if len(diffResponse.DetailedDiff) > 0 {
 		diffResponse.HasChanges = true
 	}
 
@@ -418,7 +431,21 @@ func clusterApply(
 		_ = cleanupTempFiles(name)
 	}()
 
+	applyConfig := k0sctl.ApplyConfig{
+		SkipDowngradeCheck: false,
+		NoDrain:            false,
+		RestoreFrom:        "",
+	}
+
 	config := infer.GetConfig[Config](ctx)
+
+	if config.SkipDowngradeCheck != nil {
+		applyConfig.SkipDowngradeCheck = *config.SkipDowngradeCheck
+	}
+
+	if config.SkipDowngradeCheck != nil {
+		applyConfig.NoDrain = *config.NoDrain
+	}
 
 	if state == nil {
 		state = &ClusterState{}
@@ -435,10 +462,7 @@ func clusterApply(
 		return state, nil
 	}
 
-	cluster, err = k0sctl.Apply(cluster, k0sctl.ApplyConfig{
-		SkipDowngradeCheck: *config.SkipDowngradeCheck,
-		NoDrain:            *config.NoDrain},
-	)
+	cluster, err = k0sctl.Apply(cluster, applyConfig)
 	if err != nil {
 		return state, err
 	}
@@ -477,6 +501,22 @@ func clusterArgsToK0sCtlCluster(name string, clusterArgs *ClusterArgs) (*Cluster
 		return clusterArgs, nil, err
 	}
 
+	if clusterArgs.APIVersion == nil || *clusterArgs.APIVersion == "" {
+		clusterArgs.APIVersion = &cluster.APIVersion
+	}
+
+	if clusterArgs.Kind == nil || *clusterArgs.Kind == "" {
+		clusterArgs.Kind = &cluster.Kind
+	}
+
+	if clusterArgs.Metadata == nil {
+		clusterArgs.Metadata = &ClusterMetadata{}
+	}
+
+	if clusterArgs.Metadata.Name == nil {
+		clusterArgs.Metadata.Name = &name
+	}
+
 	if clusterArgs.Spec == nil {
 		clusterArgs.Spec = &ClusterSpec{}
 	}
@@ -488,6 +528,22 @@ func clusterArgsToK0sCtlCluster(name string, clusterArgs *ClusterArgs) (*Cluster
 	if clusterArgs.Spec.K0s.Version == nil {
 		version := cluster.Spec.K0s.Version.String()
 		clusterArgs.Spec.K0s.Version = &version
+	}
+
+	if clusterArgs.Spec.K0s.Config == nil {
+		clusterArgs.Spec.K0s.Config = &ClusterK0sConfig{}
+	}
+
+	if clusterArgs.Spec.K0s.Config.Metadata == nil {
+		clusterArgs.Spec.K0s.Config.Metadata = &ClusterMetadata{}
+	}
+
+	if clusterArgs.Spec.K0s.Config.Metadata.Name == nil {
+		clusterArgs.Spec.K0s.Config.Metadata.Name = clusterArgs.Metadata.Name
+	}
+
+	if _, ok := cluster.Spec.K0s.Config["metadata"]; !ok {
+		cluster.Spec.K0s.Config["metadata"] = dig.Mapping{}
 	}
 
 	if metadata, ok := cluster.Spec.K0s.Config["metadata"]; ok {
@@ -517,7 +573,7 @@ func clusterReplaceHosts(name string, hosts []ClusterHost, cluster *k0sctl.Clust
 
 		if host.WinRM != nil {
 			if host.WinRM.CaCert != nil {
-				filename, err := contentToTempFile(name, *host.WinRM.CaCert)
+				filename, err := contentToTempFile(name, *host.WinRM.CaCert, true)
 				if err != nil {
 					return err
 				}
@@ -526,7 +582,7 @@ func clusterReplaceHosts(name string, hosts []ClusterHost, cluster *k0sctl.Clust
 			}
 
 			if host.WinRM.Cert != nil {
-				filename, err := contentToTempFile(name, *host.WinRM.Cert)
+				filename, err := contentToTempFile(name, *host.WinRM.Cert, true)
 				if err != nil {
 					return err
 				}
@@ -535,7 +591,7 @@ func clusterReplaceHosts(name string, hosts []ClusterHost, cluster *k0sctl.Clust
 			}
 
 			if host.WinRM.Key != nil {
-				filename, err := contentToTempFile(name, *host.WinRM.Key)
+				filename, err := contentToTempFile(name, *host.WinRM.Key, true)
 				if err != nil {
 					return err
 				}
@@ -554,7 +610,7 @@ func clusterReplaceHosts(name string, hosts []ClusterHost, cluster *k0sctl.Clust
 
 func clusterHostsReplaceSSHKey(name string, sshArgs *ClusterSSH, k0sctlSSHArgs *rig.SSH) error {
 	if sshArgs.Key != nil {
-		filename, err := contentToTempFile(name, *sshArgs.Key)
+		filename, err := contentToTempFile(name, *sshArgs.Key, true)
 		if err != nil {
 			return err
 		}
@@ -595,7 +651,7 @@ func clusterExternalEtcdReplace(name string, clusterArgs *ClusterArgs, cluster *
 	}
 
 	if externalCluster.CA != nil {
-		filename, err := contentToTempFile(name, *externalCluster.CA)
+		filename, err := contentToTempFile(name, *externalCluster.CA, true)
 		if err != nil {
 			return err
 		}
@@ -606,7 +662,7 @@ func clusterExternalEtcdReplace(name string, clusterArgs *ClusterArgs, cluster *
 	}
 
 	if externalCluster.ClientCert != nil {
-		filename, err := contentToTempFile(name, *externalCluster.ClientCert)
+		filename, err := contentToTempFile(name, *externalCluster.ClientCert, true)
 		if err != nil {
 			return err
 		}
@@ -617,7 +673,7 @@ func clusterExternalEtcdReplace(name string, clusterArgs *ClusterArgs, cluster *
 	}
 
 	if externalCluster.ClientKey != nil {
-		filename, err := contentToTempFile(name, *externalCluster.ClientKey)
+		filename, err := contentToTempFile(name, *externalCluster.ClientKey, true)
 		if err != nil {
 			return err
 		}

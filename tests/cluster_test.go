@@ -12,7 +12,7 @@ import (
 func TestClusterCreatePreview(t *testing.T) {
 	prov := integrationServer()
 	name := "test-cluster"
-	validPropertyKeys := []resource.PropertyKey{"apiVersion", "kind", "spec", "kubeconfig"}
+	validPropertyKeys := []resource.PropertyKey{"apiVersion", "kind", "metadata", "spec", "kubeconfig"}
 
 	response, err := prov.Create(p.CreateRequest{
 		Urn:        urn("Cluster", name),

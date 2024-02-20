@@ -68,4 +68,5 @@ func TestMergeConfigs(t *testing.T) {
 	if !ok || telemetryEnabled != falseValue {
 		t.Errorf("cluster.Spec.K0s.Config.Spec.Telemetry.Enabled: want: %t; got: %t", *args.Spec.K0s.Config.Spec.Telemetry.Enabled, telemetryEnabled)
 	}
+
 }
