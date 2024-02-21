@@ -1,6 +1,14 @@
 {
     "name": "@ydkn/pulumi-k0s",
     "version": "${VERSION}",
+    "keywords": [
+        "pulumi",
+        "kubernetes",
+        "k0s"
+    ],
+    "homepage": "https://github.com/ydkn/pulumi-k0s",
+    "repository": "https://github.com/ydkn/pulumi-k0s",
+    "license": "Apache-2.0",
     "scripts": {
         "build": "tsc"
     },
@@ -13,6 +21,7 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "k0s"
+        "name": "k0s",
+        "server": "https://repo.ydkn.io/pulumi-k0s"
     }
 }

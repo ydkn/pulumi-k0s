@@ -6,6 +6,7 @@ import (
 	"github.com/k0sproject/rig"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
+	"github.com/pulumi/pulumi-go-provider/middleware/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/sirupsen/logrus"
 )
@@ -27,6 +28,17 @@ func Provider() p.Provider {
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"provider": "index",
+		},
+		Metadata: schema.Metadata{
+			DisplayName:       "k0s",
+			Description:       "A Pulumi package for creating and managing k0s clusters.",
+			Keywords:          []string{"pulumi", "kubernetes", "k0s"},
+			Homepage:          "https://github.com/ydkn/pulumi-k0s",
+			Repository:        "https://github.com/ydkn/pulumi-k0s",
+			Publisher:         "Florian Schwab",
+			LogoURL:           "https://k0sproject.io/images/k0s-logo.png",
+			License:           "Apache-2.0",
+			PluginDownloadURL: "https://repo.ydkn.io/pulumi-k0s",
 		},
 	})
 }
