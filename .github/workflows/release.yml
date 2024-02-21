@@ -92,7 +92,7 @@ jobs:
       - name: Build
         id: build
         run: |
-          make build
+          make provider
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
