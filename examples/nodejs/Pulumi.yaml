@@ -1,0 +1,6 @@
+name: provider-k0s
+runtime: nodejs
+plugins:
+  providers:
+    - name: k0s
+      path: ../../bin

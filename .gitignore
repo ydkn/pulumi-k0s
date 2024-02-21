@@ -2,9 +2,7 @@
 **/bin/
 **/obj/
 **/node_modules/
-**/version.txt
 **/.vs
-**/.vscode
 **/.idea
 **/.ionide
 .pulumi
@@ -12,4 +10,4 @@ Pulumi.*.yaml
 yarn.lock
 ci-scripts
 /nuget/
-/dist/
+provider/**/schema-embed.json

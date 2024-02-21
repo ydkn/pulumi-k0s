@@ -1,0 +1,6 @@
+name: provider-k0s
+runtime: dotnet
+plugins:
+  providers:
+    - name: k0s
+      path: ../../bin

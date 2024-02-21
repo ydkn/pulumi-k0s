@@ -2,17 +2,16 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Florian Schwab</Authors>
-    <Company>Florian Schwab</Company>
-    <Description>A Pulumi package for creating and managing k0s clusters.</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/ydkn/pulumi-k0s</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ydkn/pulumi-k0s</RepositoryUrl>
+    <Authors>Pulumi Corp.</Authors>
+    <Company>Pulumi Corp.</Company>
+    <Description></Description>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl></RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
 
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <UseSharedCompilation>false</UseSharedCompilation>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -39,13 +38,13 @@
     <None Include="version.txt" Pack="True" PackagePath="content" />
   </ItemGroup>
 
-   <ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="pulumi-plugin.json" />
     <None Include="pulumi-plugin.json" Pack="True" PackagePath="content" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Pulumi" Version="3.*" />
+    <PackageReference Include="Pulumi" Version="[3.54.1.0,4)" />
   </ItemGroup>
 
   <ItemGroup>

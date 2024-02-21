@@ -1,0 +1,6 @@
+name: provider-k0s
+runtime: go
+plugins:
+  providers:
+    - name: k0s
+      path: ../../bin
