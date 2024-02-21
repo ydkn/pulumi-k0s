@@ -52,6 +52,19 @@ jobs:
         with:
           args: -p 3 release --clean
           version: latest
+      - name: Create provider packages
+        uses: osiegmar/s3-publisher-action@v1
+        env:
+          AWS_REGION: "${{ secrets.AWS_REGION }}"
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+        with:
+          bucket: "${{ secrets.AWS_S3_BUCKET }}"
+          prefix: pulumi-k0s/
+          dir: dist
+          includes: |
+            pulumi-resource-*.tar.gz
+          delete-orphaned: false
     strategy:
       fail-fast: true
       matrix:
@@ -76,12 +89,6 @@ jobs:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v2.0.0
-      - name: Unshallow clone for tags
-        id: tags
-        run: |
-          sudo chown -R $(whoami) /__w/pulumi-k0s/pulumi-k0s
-          git config --global --add safe.directory /__w/pulumi-k0s/pulumi-k0s
-          git fetch --prune --unshallow --tags
       - name: Build
         id: build
         run: |
