@@ -1,8 +1,6 @@
 package provider
 
 import (
-	"strings"
-
 	"github.com/TwiN/deepmerge"
 	"github.com/k0sproject/dig"
 	"github.com/k0sproject/rig"
@@ -11,7 +9,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/ydkn/pulumi-k0s/provider/internal/introspect"
 	"github.com/ydkn/pulumi-k0s/provider/internal/k0sctl"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 type ClusterArgs struct {
@@ -433,20 +431,11 @@ func clusterApply(
 		_ = cleanupTempFiles(name)
 	}()
 
-	applyConfig := k0sctl.ApplyConfig{
-		SkipDowngradeCheck: false,
-		NoDrain:            false,
-		RestoreFrom:        "",
-	}
-
 	config := infer.GetConfig[Config](ctx)
 
-	if config.SkipDowngradeCheck != nil {
-		applyConfig.SkipDowngradeCheck = strings.ToLower(*config.SkipDowngradeCheck) == "true"
-	}
-
-	if config.SkipDowngradeCheck != nil {
-		applyConfig.NoDrain = strings.ToLower(*config.NoDrain) == "true"
+	applyConfig, err := k0sctlApplyConfigFromConfig(&config)
+	if err != nil {
+		return state, err
 	}
 
 	if state == nil {

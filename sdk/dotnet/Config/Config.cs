@@ -32,9 +32,29 @@ namespace Pulumi.K0s
 
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("k0s");
 
+        private static readonly __Value<string?> _concurrency = new __Value<string?>(() => __config.Get("concurrency") ?? Utilities.GetEnv("PULUMI_K0S_CONCURRENCY") ?? "30");
+        /// <summary>
+        /// Maximum number of hosts to configure in parallel, set to 0 for unlimited
+        /// </summary>
+        public static string? Concurrency
+        {
+            get => _concurrency.Get();
+            set => _concurrency.Set(value);
+        }
+
+        private static readonly __Value<string?> _concurrentUploads = new __Value<string?>(() => __config.Get("concurrentUploads") ?? Utilities.GetEnv("PULUMI_K0S_CONCURRENT_UPLOADS") ?? "5");
+        /// <summary>
+        /// Maximum number of files to upload in parallel, set to 0 for unlimited
+        /// </summary>
+        public static string? ConcurrentUploads
+        {
+            get => _concurrentUploads.Get();
+            set => _concurrentUploads.Set(value);
+        }
+
         private static readonly __Value<string?> _noDrain = new __Value<string?>(() => __config.Get("noDrain") ?? Utilities.GetEnv("PULUMI_K0S_NO_DRAIN") ?? "false");
         /// <summary>
-        /// Do not drain nodes before upgrades/updates.
+        /// Do not drain worker nodes when upgrading
         /// </summary>
         public static string? NoDrain
         {
@@ -42,9 +62,19 @@ namespace Pulumi.K0s
             set => _noDrain.Set(value);
         }
 
+        private static readonly __Value<string?> _noWait = new __Value<string?>(() => __config.Get("noWait") ?? Utilities.GetEnv("PULUMI_K0S_NO_WAIT") ?? "false");
+        /// <summary>
+        /// Do not wait for worker nodes to join
+        /// </summary>
+        public static string? NoWait
+        {
+            get => _noWait.Get();
+            set => _noWait.Set(value);
+        }
+
         private static readonly __Value<string?> _skipDowngradeCheck = new __Value<string?>(() => __config.Get("skipDowngradeCheck") ?? Utilities.GetEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") ?? "false");
         /// <summary>
-        /// Do not check if a downgrade would be performed.
+        /// Skip downgrade check
         /// </summary>
         public static string? SkipDowngradeCheck
         {

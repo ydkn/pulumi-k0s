@@ -4,7 +4,7 @@
 // - https://code.visualstudio.com/docs/getstarted/settings
 {
   "name": "pulumi",
-  "image": "ghcr.io/pulumi/devcontainer",
+  "image": "ghcr.io/pulumi/devcontainer:extra",
   "customizations": {
     "vscode": {
       "settings": [
@@ -60,9 +60,7 @@
         "dockerDashComposeVersion": "v2"
     }
   },
-  "postCreateCommand": "git submodule update --init --recursive",
   "remoteUser": "vscode",
   "forwardPorts": [1313],
   "runArgs": ["--network=host"]
 }
-

@@ -6,9 +6,11 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/ydkn/pulumi-k0s/provider/internal/k0sctl"
 )
 
 func contentToTempFile(name, content string, ensureNewline bool) (string, error) {
@@ -74,4 +76,46 @@ func propertyMapDiff(a, b resource.PropertyMap, ignoreKeys []resource.PropertyKe
 	}
 
 	return changedProperties
+}
+
+func k0sctlApplyConfigFromConfig(config *Config) (k0sctl.ApplyConfig, error) {
+	applyConfig := k0sctl.ApplyConfig{
+		SkipDowngradeCheck: false,
+		NoDrain:            false,
+		NoWait:             false,
+		Concurrency:        30,
+		ConcurrentUploads:  5,
+	}
+
+	if config.SkipDowngradeCheck != nil {
+		applyConfig.SkipDowngradeCheck = strings.ToLower(*config.SkipDowngradeCheck) == "true"
+	}
+
+	if config.NoDrain != nil {
+		applyConfig.NoDrain = strings.ToLower(*config.NoDrain) == "true"
+	}
+
+	if config.NoWait != nil {
+		applyConfig.NoWait = strings.ToLower(*config.NoWait) == "true"
+	}
+
+	if config.Concurrency != nil {
+		concurrency, err := strconv.ParseUint(*config.Concurrency, 10, 64)
+		if err != nil {
+			return applyConfig, err
+		}
+
+		applyConfig.Concurrency = concurrency
+	}
+
+	if config.ConcurrentUploads != nil {
+		concurrentUploads, err := strconv.ParseUint(*config.ConcurrentUploads, 10, 64)
+		if err != nil {
+			return applyConfig, err
+		}
+
+		applyConfig.ConcurrentUploads = concurrentUploads
+	}
+
+	return applyConfig, nil
 }

@@ -10,9 +10,9 @@ require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/pulumi/pulumi-go-provider v0.14.0
 	github.com/pulumi/pulumi-go-provider/integration v0.10.0
-	github.com/pulumi/pulumi/sdk/v3 v3.106.0
+	github.com/pulumi/pulumi/sdk/v3 v3.107.0
 	github.com/stretchr/testify v1.8.4
-	github.com/ydkn/pulumi-k0s/provider v0.0.0-00010101000000-000000000000
+	github.com/ydkn/pulumi-k0s/provider v0.0.0-20240221091553-f4628a5f9e4b
 )
 
 require (
@@ -86,7 +86,7 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/k0sproject/dig v0.2.0 // indirect
 	github.com/k0sproject/k0sctl v0.17.4 // indirect
-	github.com/k0sproject/rig v0.17.5 // indirect
+	github.com/k0sproject/rig v0.18.0 // indirect
 	github.com/k0sproject/version v0.6.0 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
@@ -121,7 +121,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.8.2 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.106.0 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.107.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
@@ -160,8 +160,8 @@ require (
 	golang.org/x/time v0.5.0 // indirect
 	golang.org/x/tools v0.18.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240213162025-012b6fc9bca9 // indirect
-	google.golang.org/grpc v1.61.1 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20240221002015-b0ce06bbee7c // indirect
+	google.golang.org/grpc v1.62.0 // indirect
 	google.golang.org/protobuf v1.32.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect

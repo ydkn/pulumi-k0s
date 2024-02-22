@@ -52,7 +52,7 @@ jobs:
         with:
           args: -p 3 release --clean
           version: latest
-      - name: Create provider packages
+      - name: Publish provider packages
         uses: osiegmar/s3-publisher-action@v1
         env:
           AWS_REGION: "${{ secrets.AWS_REGION }}"

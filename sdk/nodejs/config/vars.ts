@@ -8,7 +8,29 @@ declare var exports: any;
 const __config = new pulumi.Config("k0s");
 
 /**
- * Do not drain nodes before upgrades/updates.
+ * Maximum number of hosts to configure in parallel, set to 0 for unlimited
+ */
+export declare const concurrency: string;
+Object.defineProperty(exports, "concurrency", {
+    get() {
+        return __config.get("concurrency") ?? (utilities.getEnv("PULUMI_K0S_CONCURRENCY") || "30");
+    },
+    enumerable: true,
+});
+
+/**
+ * Maximum number of files to upload in parallel, set to 0 for unlimited
+ */
+export declare const concurrentUploads: string;
+Object.defineProperty(exports, "concurrentUploads", {
+    get() {
+        return __config.get("concurrentUploads") ?? (utilities.getEnv("PULUMI_K0S_CONCURRENT_UPLOADS") || "5");
+    },
+    enumerable: true,
+});
+
+/**
+ * Do not drain worker nodes when upgrading
  */
 export declare const noDrain: string;
 Object.defineProperty(exports, "noDrain", {
@@ -19,7 +41,18 @@ Object.defineProperty(exports, "noDrain", {
 });
 
 /**
- * Do not check if a downgrade would be performed.
+ * Do not wait for worker nodes to join
+ */
+export declare const noWait: string;
+Object.defineProperty(exports, "noWait", {
+    get() {
+        return __config.get("noWait") ?? (utilities.getEnv("PULUMI_K0S_NO_WAIT") || "false");
+    },
+    enumerable: true,
+});
+
+/**
+ * Skip downgrade check
  */
 export declare const skipDowngradeCheck: string;
 Object.defineProperty(exports, "skipDowngradeCheck", {

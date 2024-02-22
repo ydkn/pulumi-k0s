@@ -8,13 +8,19 @@ import (
 type ApplyConfig struct {
 	SkipDowngradeCheck bool
 	NoDrain            bool
-	RestoreFrom        string
+	NoWait             bool
+	Concurrency        uint64
+	ConcurrentUploads  uint64
 }
 
 func Apply(cluster *Cluster, config ApplyConfig) (*Cluster, error) {
 	clt := v1beta1.Cluster(*cluster)
 
 	manager := phase.Manager{Config: &clt}
+	manager.Concurrency = int(config.Concurrency)
+	manager.ConcurrentUploads = int(config.ConcurrentUploads)
+
+	phase.NoWait = config.NoWait
 
 	lockPhase := &phase.Lock{}
 
@@ -35,7 +41,7 @@ func Apply(cluster *Cluster, config ApplyConfig) (*Cluster, error) {
 		&phase.InstallBinaries{},
 		&phase.PrepareArm{},
 		&phase.ConfigureK0s{},
-		&phase.Restore{RestoreFrom: config.RestoreFrom},
+		&phase.Restore{RestoreFrom: ""},
 		&phase.RunHooks{Stage: "before", Action: "apply"},
 		&phase.InitializeK0s{},
 		&phase.InstallControllers{},

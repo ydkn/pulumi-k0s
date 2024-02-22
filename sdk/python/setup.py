@@ -19,7 +19,7 @@ def readme():
 
 
 setup(name='pulumi_k0s',
-      python_requires='>=3.8',
+      python_requires='>=3.7',
       version=VERSION,
       description="A Pulumi package for creating and managing k0s clusters.",
       long_description=readme(),
@@ -38,6 +38,7 @@ setup(name='pulumi_k0s',
           ]
       },
       install_requires=[
+          'importlib-metadata>=6.0.0,<7.0.0; python_version < "3.8"',
           'parver>=0.2.1',
           'pulumi',
           'semver>=2.8.1'

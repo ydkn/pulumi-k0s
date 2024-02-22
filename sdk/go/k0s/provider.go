@@ -14,9 +14,15 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
-	// Do not drain nodes before upgrades/updates.
+	// Maximum number of hosts to configure in parallel, set to 0 for unlimited
+	Concurrency pulumi.StringPtrOutput `pulumi:"concurrency"`
+	// Maximum number of files to upload in parallel, set to 0 for unlimited
+	ConcurrentUploads pulumi.StringPtrOutput `pulumi:"concurrentUploads"`
+	// Do not drain worker nodes when upgrading
 	NoDrain pulumi.StringPtrOutput `pulumi:"noDrain"`
-	// Do not check if a downgrade would be performed.
+	// Do not wait for worker nodes to join
+	NoWait pulumi.StringPtrOutput `pulumi:"noWait"`
+	// Skip downgrade check
 	SkipDowngradeCheck pulumi.StringPtrOutput `pulumi:"skipDowngradeCheck"`
 }
 
@@ -27,9 +33,24 @@ func NewProvider(ctx *pulumi.Context,
 		args = &ProviderArgs{}
 	}
 
+	if args.Concurrency == nil {
+		if d := internal.GetEnvOrDefault("30", nil, "PULUMI_K0S_CONCURRENCY"); d != nil {
+			args.Concurrency = pulumi.StringPtr(d.(string))
+		}
+	}
+	if args.ConcurrentUploads == nil {
+		if d := internal.GetEnvOrDefault("5", nil, "PULUMI_K0S_CONCURRENT_UPLOADS"); d != nil {
+			args.ConcurrentUploads = pulumi.StringPtr(d.(string))
+		}
+	}
 	if args.NoDrain == nil {
 		if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_NO_DRAIN"); d != nil {
 			args.NoDrain = pulumi.StringPtr(d.(string))
+		}
+	}
+	if args.NoWait == nil {
+		if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_NO_WAIT"); d != nil {
+			args.NoWait = pulumi.StringPtr(d.(string))
 		}
 	}
 	if args.SkipDowngradeCheck == nil {
@@ -47,17 +68,29 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
-	// Do not drain nodes before upgrades/updates.
+	// Maximum number of hosts to configure in parallel, set to 0 for unlimited
+	Concurrency *string `pulumi:"concurrency"`
+	// Maximum number of files to upload in parallel, set to 0 for unlimited
+	ConcurrentUploads *string `pulumi:"concurrentUploads"`
+	// Do not drain worker nodes when upgrading
 	NoDrain *string `pulumi:"noDrain"`
-	// Do not check if a downgrade would be performed.
+	// Do not wait for worker nodes to join
+	NoWait *string `pulumi:"noWait"`
+	// Skip downgrade check
 	SkipDowngradeCheck *string `pulumi:"skipDowngradeCheck"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
-	// Do not drain nodes before upgrades/updates.
+	// Maximum number of hosts to configure in parallel, set to 0 for unlimited
+	Concurrency pulumi.StringPtrInput
+	// Maximum number of files to upload in parallel, set to 0 for unlimited
+	ConcurrentUploads pulumi.StringPtrInput
+	// Do not drain worker nodes when upgrading
 	NoDrain pulumi.StringPtrInput
-	// Do not check if a downgrade would be performed.
+	// Do not wait for worker nodes to join
+	NoWait pulumi.StringPtrInput
+	// Skip downgrade check
 	SkipDowngradeCheck pulumi.StringPtrInput
 }
 
@@ -98,12 +131,27 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
-// Do not drain nodes before upgrades/updates.
+// Maximum number of hosts to configure in parallel, set to 0 for unlimited
+func (o ProviderOutput) Concurrency() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Concurrency }).(pulumi.StringPtrOutput)
+}
+
+// Maximum number of files to upload in parallel, set to 0 for unlimited
+func (o ProviderOutput) ConcurrentUploads() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ConcurrentUploads }).(pulumi.StringPtrOutput)
+}
+
+// Do not drain worker nodes when upgrading
 func (o ProviderOutput) NoDrain() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.NoDrain }).(pulumi.StringPtrOutput)
 }
 
-// Do not check if a downgrade would be performed.
+// Do not wait for worker nodes to join
+func (o ProviderOutput) NoWait() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.NoWait }).(pulumi.StringPtrOutput)
+}
+
+// Skip downgrade check
 func (o ProviderOutput) SkipDowngradeCheck() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.SkipDowngradeCheck }).(pulumi.StringPtrOutput)
 }

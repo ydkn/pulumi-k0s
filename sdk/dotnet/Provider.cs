@@ -13,13 +13,31 @@ namespace Pulumi.K0s
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
-        /// Do not drain nodes before upgrades/updates.
+        /// Maximum number of hosts to configure in parallel, set to 0 for unlimited
+        /// </summary>
+        [Output("concurrency")]
+        public Output<string?> Concurrency { get; private set; } = null!;
+
+        /// <summary>
+        /// Maximum number of files to upload in parallel, set to 0 for unlimited
+        /// </summary>
+        [Output("concurrentUploads")]
+        public Output<string?> ConcurrentUploads { get; private set; } = null!;
+
+        /// <summary>
+        /// Do not drain worker nodes when upgrading
         /// </summary>
         [Output("noDrain")]
         public Output<string?> NoDrain { get; private set; } = null!;
 
         /// <summary>
-        /// Do not check if a downgrade would be performed.
+        /// Do not wait for worker nodes to join
+        /// </summary>
+        [Output("noWait")]
+        public Output<string?> NoWait { get; private set; } = null!;
+
+        /// <summary>
+        /// Skip downgrade check
         /// </summary>
         [Output("skipDowngradeCheck")]
         public Output<string?> SkipDowngradeCheck { get; private set; } = null!;
@@ -54,20 +72,41 @@ namespace Pulumi.K0s
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Do not drain nodes before upgrades/updates.
+        /// Maximum number of hosts to configure in parallel, set to 0 for unlimited
+        /// </summary>
+        [Input("concurrency")]
+        public Input<string>? Concurrency { get; set; }
+
+        /// <summary>
+        /// Maximum number of files to upload in parallel, set to 0 for unlimited
+        /// </summary>
+        [Input("concurrentUploads")]
+        public Input<string>? ConcurrentUploads { get; set; }
+
+        /// <summary>
+        /// Do not drain worker nodes when upgrading
         /// </summary>
         [Input("noDrain")]
         public Input<string>? NoDrain { get; set; }
 
         /// <summary>
-        /// Do not check if a downgrade would be performed.
+        /// Do not wait for worker nodes to join
+        /// </summary>
+        [Input("noWait")]
+        public Input<string>? NoWait { get; set; }
+
+        /// <summary>
+        /// Skip downgrade check
         /// </summary>
         [Input("skipDowngradeCheck")]
         public Input<string>? SkipDowngradeCheck { get; set; }
 
         public ProviderArgs()
         {
+            Concurrency = Utilities.GetEnv("PULUMI_K0S_CONCURRENCY") ?? "30";
+            ConcurrentUploads = Utilities.GetEnv("PULUMI_K0S_CONCURRENT_UPLOADS") ?? "5";
             NoDrain = Utilities.GetEnv("PULUMI_K0S_NO_DRAIN") ?? "false";
+            NoWait = Utilities.GetEnv("PULUMI_K0S_NO_WAIT") ?? "false";
             SkipDowngradeCheck = Utilities.GetEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") ?? "false";
         }
         public static new ProviderArgs Empty => new ProviderArgs();

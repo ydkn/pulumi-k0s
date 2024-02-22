@@ -20,11 +20,23 @@ export class Provider extends pulumi.ProviderResource {
     }
 
     /**
-     * Do not drain nodes before upgrades/updates.
+     * Maximum number of hosts to configure in parallel, set to 0 for unlimited
+     */
+    public readonly concurrency!: pulumi.Output<string | undefined>;
+    /**
+     * Maximum number of files to upload in parallel, set to 0 for unlimited
+     */
+    public readonly concurrentUploads!: pulumi.Output<string | undefined>;
+    /**
+     * Do not drain worker nodes when upgrading
      */
     public readonly noDrain!: pulumi.Output<string | undefined>;
     /**
-     * Do not check if a downgrade would be performed.
+     * Do not wait for worker nodes to join
+     */
+    public readonly noWait!: pulumi.Output<string | undefined>;
+    /**
+     * Skip downgrade check
      */
     public readonly skipDowngradeCheck!: pulumi.Output<string | undefined>;
 
@@ -39,7 +51,10 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
+            resourceInputs["concurrency"] = (args ? args.concurrency : undefined) ?? (utilities.getEnv("PULUMI_K0S_CONCURRENCY") || "30");
+            resourceInputs["concurrentUploads"] = (args ? args.concurrentUploads : undefined) ?? (utilities.getEnv("PULUMI_K0S_CONCURRENT_UPLOADS") || "5");
             resourceInputs["noDrain"] = (args ? args.noDrain : undefined) ?? (utilities.getEnv("PULUMI_K0S_NO_DRAIN") || "false");
+            resourceInputs["noWait"] = (args ? args.noWait : undefined) ?? (utilities.getEnv("PULUMI_K0S_NO_WAIT") || "false");
             resourceInputs["skipDowngradeCheck"] = (args ? args.skipDowngradeCheck : undefined) ?? (utilities.getEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || "false");
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -52,11 +67,23 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * Do not drain nodes before upgrades/updates.
+     * Maximum number of hosts to configure in parallel, set to 0 for unlimited
+     */
+    concurrency?: pulumi.Input<string>;
+    /**
+     * Maximum number of files to upload in parallel, set to 0 for unlimited
+     */
+    concurrentUploads?: pulumi.Input<string>;
+    /**
+     * Do not drain worker nodes when upgrading
      */
     noDrain?: pulumi.Input<string>;
     /**
-     * Do not check if a downgrade would be performed.
+     * Do not wait for worker nodes to join
+     */
+    noWait?: pulumi.Input<string>;
+    /**
+     * Skip downgrade check
      */
     skipDowngradeCheck?: pulumi.Input<string>;
 }
