@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: docker://ghcr.io/pulumi/devcontainer:latest
+      image: docker://ghcr.io/pulumi/devcontainer:base
       options: --user root
     permissions:
       contents: read
