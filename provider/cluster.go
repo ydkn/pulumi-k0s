@@ -360,6 +360,26 @@ func (c Cluster) Diff(ctx p.Context, name string, state ClusterState, args Clust
 	return diffResponse, nil
 }
 
+func (c Cluster) Check(
+	ctx p.Context,
+	name string,
+	state ClusterState,
+	args ClusterArgs,
+) (ClusterArgs, []p.CheckFailure, error) {
+	failures := []p.CheckFailure{}
+
+	_, cluster, err := clusterArgsToK0sCtlCluster(name, &args)
+	if err != nil {
+		return args, failures, err
+	}
+
+	if err := k0sctl.Validate(cluster); err != nil {
+		failures = append(failures, p.CheckFailure{Reason: err.Error()})
+	}
+
+	return args, failures, nil
+}
+
 func (c Cluster) Create(ctx p.Context, name string, args ClusterArgs, preview bool) (string, ClusterState, error) {
 	newState, err := clusterApply(ctx, name, nil, &args, preview)
 	if err != nil {
