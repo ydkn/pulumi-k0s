@@ -11,3 +11,4 @@ yarn.lock
 ci-scripts
 /nuget/
 provider/**/schema-embed.json
+go.work.sum
