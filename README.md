@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/ydkn/pulumi-k0s/workflows/master/badge.svg)](https://github.com/ydkn/pulumi-k0s/actions)
+[![Actions Status](https://github.com/ydkn/pulumi-k0s/actions/workflows/makefile.yaml/badge.svg)](https://github.com/ydkn/pulumi-k0s/actions)
 [![NPM version](https://badge.fury.io/js/%40ydkn%2Fpulumi-k0s.svg)](https://www.npmjs.com/package/@ydkn/pulumi-k0s)
 [![Python version](https://badge.fury.io/py/pulumi-k0s.svg)](https://pypi.org/project/pulumi-k0s)
 [![NuGet version](https://badge.fury.io/nu/pulumi.k0s.svg)](https://badge.fury.io/nu/pulumi.k0s)
