@@ -24,7 +24,7 @@ func Provider() p.Provider {
 	return infer.Provider(infer.Options{
 		Config: infer.Config[Config](),
 		Resources: []infer.InferredResource{
-			infer.Resource[Cluster, ClusterArgs, ClusterState](),
+			infer.Resource[Cluster, ClusterInputs, ClusterOutputs](),
 		},
 		ModuleMap: map[tokens.ModuleName]tokens.ModuleName{
 			"provider": "index",

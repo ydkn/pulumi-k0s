@@ -13,1581 +13,6 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-type ClusterAPI struct {
-	Address         *string           `pulumi:"address"`
-	ExternalAddress *string           `pulumi:"externalAddress"`
-	ExtraArgs       map[string]string `pulumi:"extraArgs"`
-	K0sApiPort      *int              `pulumi:"k0sApiPort"`
-	Port            *int              `pulumi:"port"`
-	Sans            []string          `pulumi:"sans"`
-}
-
-// ClusterAPIInput is an input type that accepts ClusterAPIArgs and ClusterAPIOutput values.
-// You can construct a concrete instance of `ClusterAPIInput` via:
-//
-//	ClusterAPIArgs{...}
-type ClusterAPIInput interface {
-	pulumi.Input
-
-	ToClusterAPIOutput() ClusterAPIOutput
-	ToClusterAPIOutputWithContext(context.Context) ClusterAPIOutput
-}
-
-type ClusterAPIArgs struct {
-	Address         pulumi.StringPtrInput   `pulumi:"address"`
-	ExternalAddress pulumi.StringPtrInput   `pulumi:"externalAddress"`
-	ExtraArgs       pulumi.StringMapInput   `pulumi:"extraArgs"`
-	K0sApiPort      pulumi.IntPtrInput      `pulumi:"k0sApiPort"`
-	Port            pulumi.IntPtrInput      `pulumi:"port"`
-	Sans            pulumi.StringArrayInput `pulumi:"sans"`
-}
-
-func (ClusterAPIArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterAPI)(nil)).Elem()
-}
-
-func (i ClusterAPIArgs) ToClusterAPIOutput() ClusterAPIOutput {
-	return i.ToClusterAPIOutputWithContext(context.Background())
-}
-
-func (i ClusterAPIArgs) ToClusterAPIOutputWithContext(ctx context.Context) ClusterAPIOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterAPIOutput)
-}
-
-func (i ClusterAPIArgs) ToClusterAPIPtrOutput() ClusterAPIPtrOutput {
-	return i.ToClusterAPIPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterAPIArgs) ToClusterAPIPtrOutputWithContext(ctx context.Context) ClusterAPIPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterAPIOutput).ToClusterAPIPtrOutputWithContext(ctx)
-}
-
-// ClusterAPIPtrInput is an input type that accepts ClusterAPIArgs, ClusterAPIPtr and ClusterAPIPtrOutput values.
-// You can construct a concrete instance of `ClusterAPIPtrInput` via:
-//
-//	        ClusterAPIArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterAPIPtrInput interface {
-	pulumi.Input
-
-	ToClusterAPIPtrOutput() ClusterAPIPtrOutput
-	ToClusterAPIPtrOutputWithContext(context.Context) ClusterAPIPtrOutput
-}
-
-type clusterAPIPtrType ClusterAPIArgs
-
-func ClusterAPIPtr(v *ClusterAPIArgs) ClusterAPIPtrInput {
-	return (*clusterAPIPtrType)(v)
-}
-
-func (*clusterAPIPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterAPI)(nil)).Elem()
-}
-
-func (i *clusterAPIPtrType) ToClusterAPIPtrOutput() ClusterAPIPtrOutput {
-	return i.ToClusterAPIPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterAPIPtrType) ToClusterAPIPtrOutputWithContext(ctx context.Context) ClusterAPIPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterAPIPtrOutput)
-}
-
-type ClusterAPIOutput struct{ *pulumi.OutputState }
-
-func (ClusterAPIOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterAPI)(nil)).Elem()
-}
-
-func (o ClusterAPIOutput) ToClusterAPIOutput() ClusterAPIOutput {
-	return o
-}
-
-func (o ClusterAPIOutput) ToClusterAPIOutputWithContext(ctx context.Context) ClusterAPIOutput {
-	return o
-}
-
-func (o ClusterAPIOutput) ToClusterAPIPtrOutput() ClusterAPIPtrOutput {
-	return o.ToClusterAPIPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterAPIOutput) ToClusterAPIPtrOutputWithContext(ctx context.Context) ClusterAPIPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterAPI) *ClusterAPI {
-		return &v
-	}).(ClusterAPIPtrOutput)
-}
-
-func (o ClusterAPIOutput) Address() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterAPI) *string { return v.Address }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterAPIOutput) ExternalAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterAPI) *string { return v.ExternalAddress }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterAPIOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ClusterAPI) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
-}
-
-func (o ClusterAPIOutput) K0sApiPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterAPI) *int { return v.K0sApiPort }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterAPIOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterAPI) *int { return v.Port }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterAPIOutput) Sans() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterAPI) []string { return v.Sans }).(pulumi.StringArrayOutput)
-}
-
-type ClusterAPIPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterAPIPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterAPI)(nil)).Elem()
-}
-
-func (o ClusterAPIPtrOutput) ToClusterAPIPtrOutput() ClusterAPIPtrOutput {
-	return o
-}
-
-func (o ClusterAPIPtrOutput) ToClusterAPIPtrOutputWithContext(ctx context.Context) ClusterAPIPtrOutput {
-	return o
-}
-
-func (o ClusterAPIPtrOutput) Elem() ClusterAPIOutput {
-	return o.ApplyT(func(v *ClusterAPI) ClusterAPI {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterAPI
-		return ret
-	}).(ClusterAPIOutput)
-}
-
-func (o ClusterAPIPtrOutput) Address() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterAPI) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Address
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterAPIPtrOutput) ExternalAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterAPI) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ExternalAddress
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterAPIPtrOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *ClusterAPI) map[string]string {
-		if v == nil {
-			return nil
-		}
-		return v.ExtraArgs
-	}).(pulumi.StringMapOutput)
-}
-
-func (o ClusterAPIPtrOutput) K0sApiPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterAPI) *int {
-		if v == nil {
-			return nil
-		}
-		return v.K0sApiPort
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterAPIPtrOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterAPI) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Port
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterAPIPtrOutput) Sans() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *ClusterAPI) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Sans
-	}).(pulumi.StringArrayOutput)
-}
-
-type ClusterCalico struct {
-	EnvVars               map[string]string `pulumi:"envVars"`
-	FlexVolumeDriverPath  *string           `pulumi:"flexVolumeDriverPath"`
-	IpAutodetectionMethod *string           `pulumi:"ipAutodetectionMethod"`
-	Mode                  *string           `pulumi:"mode"`
-	Mtu                   *int              `pulumi:"mtu"`
-	Overlay               *string           `pulumi:"overlay"`
-	VxlanPort             *int              `pulumi:"vxlanPort"`
-	VxlanVNI              *int              `pulumi:"vxlanVNI"`
-	Wireguard             *bool             `pulumi:"wireguard"`
-}
-
-// ClusterCalicoInput is an input type that accepts ClusterCalicoArgs and ClusterCalicoOutput values.
-// You can construct a concrete instance of `ClusterCalicoInput` via:
-//
-//	ClusterCalicoArgs{...}
-type ClusterCalicoInput interface {
-	pulumi.Input
-
-	ToClusterCalicoOutput() ClusterCalicoOutput
-	ToClusterCalicoOutputWithContext(context.Context) ClusterCalicoOutput
-}
-
-type ClusterCalicoArgs struct {
-	EnvVars               pulumi.StringMapInput `pulumi:"envVars"`
-	FlexVolumeDriverPath  pulumi.StringPtrInput `pulumi:"flexVolumeDriverPath"`
-	IpAutodetectionMethod pulumi.StringPtrInput `pulumi:"ipAutodetectionMethod"`
-	Mode                  pulumi.StringPtrInput `pulumi:"mode"`
-	Mtu                   pulumi.IntPtrInput    `pulumi:"mtu"`
-	Overlay               pulumi.StringPtrInput `pulumi:"overlay"`
-	VxlanPort             pulumi.IntPtrInput    `pulumi:"vxlanPort"`
-	VxlanVNI              pulumi.IntPtrInput    `pulumi:"vxlanVNI"`
-	Wireguard             pulumi.BoolPtrInput   `pulumi:"wireguard"`
-}
-
-func (ClusterCalicoArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterCalico)(nil)).Elem()
-}
-
-func (i ClusterCalicoArgs) ToClusterCalicoOutput() ClusterCalicoOutput {
-	return i.ToClusterCalicoOutputWithContext(context.Background())
-}
-
-func (i ClusterCalicoArgs) ToClusterCalicoOutputWithContext(ctx context.Context) ClusterCalicoOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterCalicoOutput)
-}
-
-func (i ClusterCalicoArgs) ToClusterCalicoPtrOutput() ClusterCalicoPtrOutput {
-	return i.ToClusterCalicoPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterCalicoArgs) ToClusterCalicoPtrOutputWithContext(ctx context.Context) ClusterCalicoPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterCalicoOutput).ToClusterCalicoPtrOutputWithContext(ctx)
-}
-
-// ClusterCalicoPtrInput is an input type that accepts ClusterCalicoArgs, ClusterCalicoPtr and ClusterCalicoPtrOutput values.
-// You can construct a concrete instance of `ClusterCalicoPtrInput` via:
-//
-//	        ClusterCalicoArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterCalicoPtrInput interface {
-	pulumi.Input
-
-	ToClusterCalicoPtrOutput() ClusterCalicoPtrOutput
-	ToClusterCalicoPtrOutputWithContext(context.Context) ClusterCalicoPtrOutput
-}
-
-type clusterCalicoPtrType ClusterCalicoArgs
-
-func ClusterCalicoPtr(v *ClusterCalicoArgs) ClusterCalicoPtrInput {
-	return (*clusterCalicoPtrType)(v)
-}
-
-func (*clusterCalicoPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterCalico)(nil)).Elem()
-}
-
-func (i *clusterCalicoPtrType) ToClusterCalicoPtrOutput() ClusterCalicoPtrOutput {
-	return i.ToClusterCalicoPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterCalicoPtrType) ToClusterCalicoPtrOutputWithContext(ctx context.Context) ClusterCalicoPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterCalicoPtrOutput)
-}
-
-type ClusterCalicoOutput struct{ *pulumi.OutputState }
-
-func (ClusterCalicoOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterCalico)(nil)).Elem()
-}
-
-func (o ClusterCalicoOutput) ToClusterCalicoOutput() ClusterCalicoOutput {
-	return o
-}
-
-func (o ClusterCalicoOutput) ToClusterCalicoOutputWithContext(ctx context.Context) ClusterCalicoOutput {
-	return o
-}
-
-func (o ClusterCalicoOutput) ToClusterCalicoPtrOutput() ClusterCalicoPtrOutput {
-	return o.ToClusterCalicoPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterCalicoOutput) ToClusterCalicoPtrOutputWithContext(ctx context.Context) ClusterCalicoPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterCalico) *ClusterCalico {
-		return &v
-	}).(ClusterCalicoPtrOutput)
-}
-
-func (o ClusterCalicoOutput) EnvVars() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ClusterCalico) map[string]string { return v.EnvVars }).(pulumi.StringMapOutput)
-}
-
-func (o ClusterCalicoOutput) FlexVolumeDriverPath() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterCalico) *string { return v.FlexVolumeDriverPath }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterCalicoOutput) IpAutodetectionMethod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterCalico) *string { return v.IpAutodetectionMethod }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterCalicoOutput) Mode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterCalico) *string { return v.Mode }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterCalicoOutput) Mtu() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterCalico) *int { return v.Mtu }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterCalicoOutput) Overlay() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterCalico) *string { return v.Overlay }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterCalicoOutput) VxlanPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterCalico) *int { return v.VxlanPort }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterCalicoOutput) VxlanVNI() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterCalico) *int { return v.VxlanVNI }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterCalicoOutput) Wireguard() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterCalico) *bool { return v.Wireguard }).(pulumi.BoolPtrOutput)
-}
-
-type ClusterCalicoPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterCalicoPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterCalico)(nil)).Elem()
-}
-
-func (o ClusterCalicoPtrOutput) ToClusterCalicoPtrOutput() ClusterCalicoPtrOutput {
-	return o
-}
-
-func (o ClusterCalicoPtrOutput) ToClusterCalicoPtrOutputWithContext(ctx context.Context) ClusterCalicoPtrOutput {
-	return o
-}
-
-func (o ClusterCalicoPtrOutput) Elem() ClusterCalicoOutput {
-	return o.ApplyT(func(v *ClusterCalico) ClusterCalico {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterCalico
-		return ret
-	}).(ClusterCalicoOutput)
-}
-
-func (o ClusterCalicoPtrOutput) EnvVars() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *ClusterCalico) map[string]string {
-		if v == nil {
-			return nil
-		}
-		return v.EnvVars
-	}).(pulumi.StringMapOutput)
-}
-
-func (o ClusterCalicoPtrOutput) FlexVolumeDriverPath() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterCalico) *string {
-		if v == nil {
-			return nil
-		}
-		return v.FlexVolumeDriverPath
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterCalicoPtrOutput) IpAutodetectionMethod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterCalico) *string {
-		if v == nil {
-			return nil
-		}
-		return v.IpAutodetectionMethod
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterCalicoPtrOutput) Mode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterCalico) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Mode
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterCalicoPtrOutput) Mtu() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterCalico) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Mtu
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterCalicoPtrOutput) Overlay() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterCalico) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Overlay
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterCalicoPtrOutput) VxlanPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterCalico) *int {
-		if v == nil {
-			return nil
-		}
-		return v.VxlanPort
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterCalicoPtrOutput) VxlanVNI() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterCalico) *int {
-		if v == nil {
-			return nil
-		}
-		return v.VxlanVNI
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterCalicoPtrOutput) Wireguard() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterCalico) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Wireguard
-	}).(pulumi.BoolPtrOutput)
-}
-
-type ClusterCalicoImage struct {
-	Cni             *ClusterImage `pulumi:"cni"`
-	Flexvolume      *ClusterImage `pulumi:"flexvolume"`
-	Kubecontrollers *ClusterImage `pulumi:"kubecontrollers"`
-	Node            *ClusterImage `pulumi:"node"`
-}
-
-// ClusterCalicoImageInput is an input type that accepts ClusterCalicoImageArgs and ClusterCalicoImageOutput values.
-// You can construct a concrete instance of `ClusterCalicoImageInput` via:
-//
-//	ClusterCalicoImageArgs{...}
-type ClusterCalicoImageInput interface {
-	pulumi.Input
-
-	ToClusterCalicoImageOutput() ClusterCalicoImageOutput
-	ToClusterCalicoImageOutputWithContext(context.Context) ClusterCalicoImageOutput
-}
-
-type ClusterCalicoImageArgs struct {
-	Cni             ClusterImagePtrInput `pulumi:"cni"`
-	Flexvolume      ClusterImagePtrInput `pulumi:"flexvolume"`
-	Kubecontrollers ClusterImagePtrInput `pulumi:"kubecontrollers"`
-	Node            ClusterImagePtrInput `pulumi:"node"`
-}
-
-func (ClusterCalicoImageArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterCalicoImage)(nil)).Elem()
-}
-
-func (i ClusterCalicoImageArgs) ToClusterCalicoImageOutput() ClusterCalicoImageOutput {
-	return i.ToClusterCalicoImageOutputWithContext(context.Background())
-}
-
-func (i ClusterCalicoImageArgs) ToClusterCalicoImageOutputWithContext(ctx context.Context) ClusterCalicoImageOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterCalicoImageOutput)
-}
-
-func (i ClusterCalicoImageArgs) ToClusterCalicoImagePtrOutput() ClusterCalicoImagePtrOutput {
-	return i.ToClusterCalicoImagePtrOutputWithContext(context.Background())
-}
-
-func (i ClusterCalicoImageArgs) ToClusterCalicoImagePtrOutputWithContext(ctx context.Context) ClusterCalicoImagePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterCalicoImageOutput).ToClusterCalicoImagePtrOutputWithContext(ctx)
-}
-
-// ClusterCalicoImagePtrInput is an input type that accepts ClusterCalicoImageArgs, ClusterCalicoImagePtr and ClusterCalicoImagePtrOutput values.
-// You can construct a concrete instance of `ClusterCalicoImagePtrInput` via:
-//
-//	        ClusterCalicoImageArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterCalicoImagePtrInput interface {
-	pulumi.Input
-
-	ToClusterCalicoImagePtrOutput() ClusterCalicoImagePtrOutput
-	ToClusterCalicoImagePtrOutputWithContext(context.Context) ClusterCalicoImagePtrOutput
-}
-
-type clusterCalicoImagePtrType ClusterCalicoImageArgs
-
-func ClusterCalicoImagePtr(v *ClusterCalicoImageArgs) ClusterCalicoImagePtrInput {
-	return (*clusterCalicoImagePtrType)(v)
-}
-
-func (*clusterCalicoImagePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterCalicoImage)(nil)).Elem()
-}
-
-func (i *clusterCalicoImagePtrType) ToClusterCalicoImagePtrOutput() ClusterCalicoImagePtrOutput {
-	return i.ToClusterCalicoImagePtrOutputWithContext(context.Background())
-}
-
-func (i *clusterCalicoImagePtrType) ToClusterCalicoImagePtrOutputWithContext(ctx context.Context) ClusterCalicoImagePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterCalicoImagePtrOutput)
-}
-
-type ClusterCalicoImageOutput struct{ *pulumi.OutputState }
-
-func (ClusterCalicoImageOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterCalicoImage)(nil)).Elem()
-}
-
-func (o ClusterCalicoImageOutput) ToClusterCalicoImageOutput() ClusterCalicoImageOutput {
-	return o
-}
-
-func (o ClusterCalicoImageOutput) ToClusterCalicoImageOutputWithContext(ctx context.Context) ClusterCalicoImageOutput {
-	return o
-}
-
-func (o ClusterCalicoImageOutput) ToClusterCalicoImagePtrOutput() ClusterCalicoImagePtrOutput {
-	return o.ToClusterCalicoImagePtrOutputWithContext(context.Background())
-}
-
-func (o ClusterCalicoImageOutput) ToClusterCalicoImagePtrOutputWithContext(ctx context.Context) ClusterCalicoImagePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterCalicoImage) *ClusterCalicoImage {
-		return &v
-	}).(ClusterCalicoImagePtrOutput)
-}
-
-func (o ClusterCalicoImageOutput) Cni() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterCalicoImage) *ClusterImage { return v.Cni }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterCalicoImageOutput) Flexvolume() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterCalicoImage) *ClusterImage { return v.Flexvolume }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterCalicoImageOutput) Kubecontrollers() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterCalicoImage) *ClusterImage { return v.Kubecontrollers }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterCalicoImageOutput) Node() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterCalicoImage) *ClusterImage { return v.Node }).(ClusterImagePtrOutput)
-}
-
-type ClusterCalicoImagePtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterCalicoImagePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterCalicoImage)(nil)).Elem()
-}
-
-func (o ClusterCalicoImagePtrOutput) ToClusterCalicoImagePtrOutput() ClusterCalicoImagePtrOutput {
-	return o
-}
-
-func (o ClusterCalicoImagePtrOutput) ToClusterCalicoImagePtrOutputWithContext(ctx context.Context) ClusterCalicoImagePtrOutput {
-	return o
-}
-
-func (o ClusterCalicoImagePtrOutput) Elem() ClusterCalicoImageOutput {
-	return o.ApplyT(func(v *ClusterCalicoImage) ClusterCalicoImage {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterCalicoImage
-		return ret
-	}).(ClusterCalicoImageOutput)
-}
-
-func (o ClusterCalicoImagePtrOutput) Cni() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterCalicoImage) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Cni
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterCalicoImagePtrOutput) Flexvolume() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterCalicoImage) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Flexvolume
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterCalicoImagePtrOutput) Kubecontrollers() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterCalicoImage) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Kubecontrollers
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterCalicoImagePtrOutput) Node() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterCalicoImage) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Node
-	}).(ClusterImagePtrOutput)
-}
-
-type ClusterControllerManager struct {
-	ExtraArgs map[string]string `pulumi:"extraArgs"`
-}
-
-// ClusterControllerManagerInput is an input type that accepts ClusterControllerManagerArgs and ClusterControllerManagerOutput values.
-// You can construct a concrete instance of `ClusterControllerManagerInput` via:
-//
-//	ClusterControllerManagerArgs{...}
-type ClusterControllerManagerInput interface {
-	pulumi.Input
-
-	ToClusterControllerManagerOutput() ClusterControllerManagerOutput
-	ToClusterControllerManagerOutputWithContext(context.Context) ClusterControllerManagerOutput
-}
-
-type ClusterControllerManagerArgs struct {
-	ExtraArgs pulumi.StringMapInput `pulumi:"extraArgs"`
-}
-
-func (ClusterControllerManagerArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterControllerManager)(nil)).Elem()
-}
-
-func (i ClusterControllerManagerArgs) ToClusterControllerManagerOutput() ClusterControllerManagerOutput {
-	return i.ToClusterControllerManagerOutputWithContext(context.Background())
-}
-
-func (i ClusterControllerManagerArgs) ToClusterControllerManagerOutputWithContext(ctx context.Context) ClusterControllerManagerOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterControllerManagerOutput)
-}
-
-func (i ClusterControllerManagerArgs) ToClusterControllerManagerPtrOutput() ClusterControllerManagerPtrOutput {
-	return i.ToClusterControllerManagerPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterControllerManagerArgs) ToClusterControllerManagerPtrOutputWithContext(ctx context.Context) ClusterControllerManagerPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterControllerManagerOutput).ToClusterControllerManagerPtrOutputWithContext(ctx)
-}
-
-// ClusterControllerManagerPtrInput is an input type that accepts ClusterControllerManagerArgs, ClusterControllerManagerPtr and ClusterControllerManagerPtrOutput values.
-// You can construct a concrete instance of `ClusterControllerManagerPtrInput` via:
-//
-//	        ClusterControllerManagerArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterControllerManagerPtrInput interface {
-	pulumi.Input
-
-	ToClusterControllerManagerPtrOutput() ClusterControllerManagerPtrOutput
-	ToClusterControllerManagerPtrOutputWithContext(context.Context) ClusterControllerManagerPtrOutput
-}
-
-type clusterControllerManagerPtrType ClusterControllerManagerArgs
-
-func ClusterControllerManagerPtr(v *ClusterControllerManagerArgs) ClusterControllerManagerPtrInput {
-	return (*clusterControllerManagerPtrType)(v)
-}
-
-func (*clusterControllerManagerPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterControllerManager)(nil)).Elem()
-}
-
-func (i *clusterControllerManagerPtrType) ToClusterControllerManagerPtrOutput() ClusterControllerManagerPtrOutput {
-	return i.ToClusterControllerManagerPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterControllerManagerPtrType) ToClusterControllerManagerPtrOutputWithContext(ctx context.Context) ClusterControllerManagerPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterControllerManagerPtrOutput)
-}
-
-type ClusterControllerManagerOutput struct{ *pulumi.OutputState }
-
-func (ClusterControllerManagerOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterControllerManager)(nil)).Elem()
-}
-
-func (o ClusterControllerManagerOutput) ToClusterControllerManagerOutput() ClusterControllerManagerOutput {
-	return o
-}
-
-func (o ClusterControllerManagerOutput) ToClusterControllerManagerOutputWithContext(ctx context.Context) ClusterControllerManagerOutput {
-	return o
-}
-
-func (o ClusterControllerManagerOutput) ToClusterControllerManagerPtrOutput() ClusterControllerManagerPtrOutput {
-	return o.ToClusterControllerManagerPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterControllerManagerOutput) ToClusterControllerManagerPtrOutputWithContext(ctx context.Context) ClusterControllerManagerPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterControllerManager) *ClusterControllerManager {
-		return &v
-	}).(ClusterControllerManagerPtrOutput)
-}
-
-func (o ClusterControllerManagerOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ClusterControllerManager) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
-}
-
-type ClusterControllerManagerPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterControllerManagerPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterControllerManager)(nil)).Elem()
-}
-
-func (o ClusterControllerManagerPtrOutput) ToClusterControllerManagerPtrOutput() ClusterControllerManagerPtrOutput {
-	return o
-}
-
-func (o ClusterControllerManagerPtrOutput) ToClusterControllerManagerPtrOutputWithContext(ctx context.Context) ClusterControllerManagerPtrOutput {
-	return o
-}
-
-func (o ClusterControllerManagerPtrOutput) Elem() ClusterControllerManagerOutput {
-	return o.ApplyT(func(v *ClusterControllerManager) ClusterControllerManager {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterControllerManager
-		return ret
-	}).(ClusterControllerManagerOutput)
-}
-
-func (o ClusterControllerManagerPtrOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *ClusterControllerManager) map[string]string {
-		if v == nil {
-			return nil
-		}
-		return v.ExtraArgs
-	}).(pulumi.StringMapOutput)
-}
-
-type ClusterDualStack struct {
-	IPv6podCIDR     *string `pulumi:"IPv6podCIDR"`
-	IPv6serviceCIDR *string `pulumi:"IPv6serviceCIDR"`
-	Enabled         *bool   `pulumi:"enabled"`
-}
-
-// ClusterDualStackInput is an input type that accepts ClusterDualStackArgs and ClusterDualStackOutput values.
-// You can construct a concrete instance of `ClusterDualStackInput` via:
-//
-//	ClusterDualStackArgs{...}
-type ClusterDualStackInput interface {
-	pulumi.Input
-
-	ToClusterDualStackOutput() ClusterDualStackOutput
-	ToClusterDualStackOutputWithContext(context.Context) ClusterDualStackOutput
-}
-
-type ClusterDualStackArgs struct {
-	IPv6podCIDR     pulumi.StringPtrInput `pulumi:"IPv6podCIDR"`
-	IPv6serviceCIDR pulumi.StringPtrInput `pulumi:"IPv6serviceCIDR"`
-	Enabled         pulumi.BoolPtrInput   `pulumi:"enabled"`
-}
-
-func (ClusterDualStackArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterDualStack)(nil)).Elem()
-}
-
-func (i ClusterDualStackArgs) ToClusterDualStackOutput() ClusterDualStackOutput {
-	return i.ToClusterDualStackOutputWithContext(context.Background())
-}
-
-func (i ClusterDualStackArgs) ToClusterDualStackOutputWithContext(ctx context.Context) ClusterDualStackOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterDualStackOutput)
-}
-
-func (i ClusterDualStackArgs) ToClusterDualStackPtrOutput() ClusterDualStackPtrOutput {
-	return i.ToClusterDualStackPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterDualStackArgs) ToClusterDualStackPtrOutputWithContext(ctx context.Context) ClusterDualStackPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterDualStackOutput).ToClusterDualStackPtrOutputWithContext(ctx)
-}
-
-// ClusterDualStackPtrInput is an input type that accepts ClusterDualStackArgs, ClusterDualStackPtr and ClusterDualStackPtrOutput values.
-// You can construct a concrete instance of `ClusterDualStackPtrInput` via:
-//
-//	        ClusterDualStackArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterDualStackPtrInput interface {
-	pulumi.Input
-
-	ToClusterDualStackPtrOutput() ClusterDualStackPtrOutput
-	ToClusterDualStackPtrOutputWithContext(context.Context) ClusterDualStackPtrOutput
-}
-
-type clusterDualStackPtrType ClusterDualStackArgs
-
-func ClusterDualStackPtr(v *ClusterDualStackArgs) ClusterDualStackPtrInput {
-	return (*clusterDualStackPtrType)(v)
-}
-
-func (*clusterDualStackPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterDualStack)(nil)).Elem()
-}
-
-func (i *clusterDualStackPtrType) ToClusterDualStackPtrOutput() ClusterDualStackPtrOutput {
-	return i.ToClusterDualStackPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterDualStackPtrType) ToClusterDualStackPtrOutputWithContext(ctx context.Context) ClusterDualStackPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterDualStackPtrOutput)
-}
-
-type ClusterDualStackOutput struct{ *pulumi.OutputState }
-
-func (ClusterDualStackOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterDualStack)(nil)).Elem()
-}
-
-func (o ClusterDualStackOutput) ToClusterDualStackOutput() ClusterDualStackOutput {
-	return o
-}
-
-func (o ClusterDualStackOutput) ToClusterDualStackOutputWithContext(ctx context.Context) ClusterDualStackOutput {
-	return o
-}
-
-func (o ClusterDualStackOutput) ToClusterDualStackPtrOutput() ClusterDualStackPtrOutput {
-	return o.ToClusterDualStackPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterDualStackOutput) ToClusterDualStackPtrOutputWithContext(ctx context.Context) ClusterDualStackPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterDualStack) *ClusterDualStack {
-		return &v
-	}).(ClusterDualStackPtrOutput)
-}
-
-func (o ClusterDualStackOutput) IPv6podCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterDualStack) *string { return v.IPv6podCIDR }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterDualStackOutput) IPv6serviceCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterDualStack) *string { return v.IPv6serviceCIDR }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterDualStackOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterDualStack) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
-}
-
-type ClusterDualStackPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterDualStackPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterDualStack)(nil)).Elem()
-}
-
-func (o ClusterDualStackPtrOutput) ToClusterDualStackPtrOutput() ClusterDualStackPtrOutput {
-	return o
-}
-
-func (o ClusterDualStackPtrOutput) ToClusterDualStackPtrOutputWithContext(ctx context.Context) ClusterDualStackPtrOutput {
-	return o
-}
-
-func (o ClusterDualStackPtrOutput) Elem() ClusterDualStackOutput {
-	return o.ApplyT(func(v *ClusterDualStack) ClusterDualStack {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterDualStack
-		return ret
-	}).(ClusterDualStackOutput)
-}
-
-func (o ClusterDualStackPtrOutput) IPv6podCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterDualStack) *string {
-		if v == nil {
-			return nil
-		}
-		return v.IPv6podCIDR
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterDualStackPtrOutput) IPv6serviceCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterDualStack) *string {
-		if v == nil {
-			return nil
-		}
-		return v.IPv6serviceCIDR
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterDualStackPtrOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterDualStack) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Enabled
-	}).(pulumi.BoolPtrOutput)
-}
-
-type ClusterEnvoyProxy struct {
-	ApiServerBindPort          *int    `pulumi:"apiServerBindPort"`
-	Image                      *string `pulumi:"image"`
-	ImagePullPolicy            *string `pulumi:"imagePullPolicy"`
-	KonnectivityServerBindPort *int    `pulumi:"konnectivityServerBindPort"`
-}
-
-// ClusterEnvoyProxyInput is an input type that accepts ClusterEnvoyProxyArgs and ClusterEnvoyProxyOutput values.
-// You can construct a concrete instance of `ClusterEnvoyProxyInput` via:
-//
-//	ClusterEnvoyProxyArgs{...}
-type ClusterEnvoyProxyInput interface {
-	pulumi.Input
-
-	ToClusterEnvoyProxyOutput() ClusterEnvoyProxyOutput
-	ToClusterEnvoyProxyOutputWithContext(context.Context) ClusterEnvoyProxyOutput
-}
-
-type ClusterEnvoyProxyArgs struct {
-	ApiServerBindPort          pulumi.IntPtrInput    `pulumi:"apiServerBindPort"`
-	Image                      pulumi.StringPtrInput `pulumi:"image"`
-	ImagePullPolicy            pulumi.StringPtrInput `pulumi:"imagePullPolicy"`
-	KonnectivityServerBindPort pulumi.IntPtrInput    `pulumi:"konnectivityServerBindPort"`
-}
-
-func (ClusterEnvoyProxyArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterEnvoyProxy)(nil)).Elem()
-}
-
-func (i ClusterEnvoyProxyArgs) ToClusterEnvoyProxyOutput() ClusterEnvoyProxyOutput {
-	return i.ToClusterEnvoyProxyOutputWithContext(context.Background())
-}
-
-func (i ClusterEnvoyProxyArgs) ToClusterEnvoyProxyOutputWithContext(ctx context.Context) ClusterEnvoyProxyOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEnvoyProxyOutput)
-}
-
-func (i ClusterEnvoyProxyArgs) ToClusterEnvoyProxyPtrOutput() ClusterEnvoyProxyPtrOutput {
-	return i.ToClusterEnvoyProxyPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterEnvoyProxyArgs) ToClusterEnvoyProxyPtrOutputWithContext(ctx context.Context) ClusterEnvoyProxyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEnvoyProxyOutput).ToClusterEnvoyProxyPtrOutputWithContext(ctx)
-}
-
-// ClusterEnvoyProxyPtrInput is an input type that accepts ClusterEnvoyProxyArgs, ClusterEnvoyProxyPtr and ClusterEnvoyProxyPtrOutput values.
-// You can construct a concrete instance of `ClusterEnvoyProxyPtrInput` via:
-//
-//	        ClusterEnvoyProxyArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterEnvoyProxyPtrInput interface {
-	pulumi.Input
-
-	ToClusterEnvoyProxyPtrOutput() ClusterEnvoyProxyPtrOutput
-	ToClusterEnvoyProxyPtrOutputWithContext(context.Context) ClusterEnvoyProxyPtrOutput
-}
-
-type clusterEnvoyProxyPtrType ClusterEnvoyProxyArgs
-
-func ClusterEnvoyProxyPtr(v *ClusterEnvoyProxyArgs) ClusterEnvoyProxyPtrInput {
-	return (*clusterEnvoyProxyPtrType)(v)
-}
-
-func (*clusterEnvoyProxyPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterEnvoyProxy)(nil)).Elem()
-}
-
-func (i *clusterEnvoyProxyPtrType) ToClusterEnvoyProxyPtrOutput() ClusterEnvoyProxyPtrOutput {
-	return i.ToClusterEnvoyProxyPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterEnvoyProxyPtrType) ToClusterEnvoyProxyPtrOutputWithContext(ctx context.Context) ClusterEnvoyProxyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEnvoyProxyPtrOutput)
-}
-
-type ClusterEnvoyProxyOutput struct{ *pulumi.OutputState }
-
-func (ClusterEnvoyProxyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterEnvoyProxy)(nil)).Elem()
-}
-
-func (o ClusterEnvoyProxyOutput) ToClusterEnvoyProxyOutput() ClusterEnvoyProxyOutput {
-	return o
-}
-
-func (o ClusterEnvoyProxyOutput) ToClusterEnvoyProxyOutputWithContext(ctx context.Context) ClusterEnvoyProxyOutput {
-	return o
-}
-
-func (o ClusterEnvoyProxyOutput) ToClusterEnvoyProxyPtrOutput() ClusterEnvoyProxyPtrOutput {
-	return o.ToClusterEnvoyProxyPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterEnvoyProxyOutput) ToClusterEnvoyProxyPtrOutputWithContext(ctx context.Context) ClusterEnvoyProxyPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterEnvoyProxy) *ClusterEnvoyProxy {
-		return &v
-	}).(ClusterEnvoyProxyPtrOutput)
-}
-
-func (o ClusterEnvoyProxyOutput) ApiServerBindPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterEnvoyProxy) *int { return v.ApiServerBindPort }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterEnvoyProxyOutput) Image() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterEnvoyProxy) *string { return v.Image }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEnvoyProxyOutput) ImagePullPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterEnvoyProxy) *string { return v.ImagePullPolicy }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEnvoyProxyOutput) KonnectivityServerBindPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterEnvoyProxy) *int { return v.KonnectivityServerBindPort }).(pulumi.IntPtrOutput)
-}
-
-type ClusterEnvoyProxyPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterEnvoyProxyPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterEnvoyProxy)(nil)).Elem()
-}
-
-func (o ClusterEnvoyProxyPtrOutput) ToClusterEnvoyProxyPtrOutput() ClusterEnvoyProxyPtrOutput {
-	return o
-}
-
-func (o ClusterEnvoyProxyPtrOutput) ToClusterEnvoyProxyPtrOutputWithContext(ctx context.Context) ClusterEnvoyProxyPtrOutput {
-	return o
-}
-
-func (o ClusterEnvoyProxyPtrOutput) Elem() ClusterEnvoyProxyOutput {
-	return o.ApplyT(func(v *ClusterEnvoyProxy) ClusterEnvoyProxy {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterEnvoyProxy
-		return ret
-	}).(ClusterEnvoyProxyOutput)
-}
-
-func (o ClusterEnvoyProxyPtrOutput) ApiServerBindPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterEnvoyProxy) *int {
-		if v == nil {
-			return nil
-		}
-		return v.ApiServerBindPort
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterEnvoyProxyPtrOutput) Image() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterEnvoyProxy) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Image
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEnvoyProxyPtrOutput) ImagePullPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterEnvoyProxy) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ImagePullPolicy
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEnvoyProxyPtrOutput) KonnectivityServerBindPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterEnvoyProxy) *int {
-		if v == nil {
-			return nil
-		}
-		return v.KonnectivityServerBindPort
-	}).(pulumi.IntPtrOutput)
-}
-
-type ClusterEtcd struct {
-	ExternalCluster *ClusterEtcdExternalCluster `pulumi:"externalCluster"`
-	ExtraArgs       map[string]string           `pulumi:"extraArgs"`
-	PeerAddress     *string                     `pulumi:"peerAddress"`
-}
-
-// ClusterEtcdInput is an input type that accepts ClusterEtcdArgs and ClusterEtcdOutput values.
-// You can construct a concrete instance of `ClusterEtcdInput` via:
-//
-//	ClusterEtcdArgs{...}
-type ClusterEtcdInput interface {
-	pulumi.Input
-
-	ToClusterEtcdOutput() ClusterEtcdOutput
-	ToClusterEtcdOutputWithContext(context.Context) ClusterEtcdOutput
-}
-
-type ClusterEtcdArgs struct {
-	ExternalCluster ClusterEtcdExternalClusterPtrInput `pulumi:"externalCluster"`
-	ExtraArgs       pulumi.StringMapInput              `pulumi:"extraArgs"`
-	PeerAddress     pulumi.StringPtrInput              `pulumi:"peerAddress"`
-}
-
-func (ClusterEtcdArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterEtcd)(nil)).Elem()
-}
-
-func (i ClusterEtcdArgs) ToClusterEtcdOutput() ClusterEtcdOutput {
-	return i.ToClusterEtcdOutputWithContext(context.Background())
-}
-
-func (i ClusterEtcdArgs) ToClusterEtcdOutputWithContext(ctx context.Context) ClusterEtcdOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEtcdOutput)
-}
-
-func (i ClusterEtcdArgs) ToClusterEtcdPtrOutput() ClusterEtcdPtrOutput {
-	return i.ToClusterEtcdPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterEtcdArgs) ToClusterEtcdPtrOutputWithContext(ctx context.Context) ClusterEtcdPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEtcdOutput).ToClusterEtcdPtrOutputWithContext(ctx)
-}
-
-// ClusterEtcdPtrInput is an input type that accepts ClusterEtcdArgs, ClusterEtcdPtr and ClusterEtcdPtrOutput values.
-// You can construct a concrete instance of `ClusterEtcdPtrInput` via:
-//
-//	        ClusterEtcdArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterEtcdPtrInput interface {
-	pulumi.Input
-
-	ToClusterEtcdPtrOutput() ClusterEtcdPtrOutput
-	ToClusterEtcdPtrOutputWithContext(context.Context) ClusterEtcdPtrOutput
-}
-
-type clusterEtcdPtrType ClusterEtcdArgs
-
-func ClusterEtcdPtr(v *ClusterEtcdArgs) ClusterEtcdPtrInput {
-	return (*clusterEtcdPtrType)(v)
-}
-
-func (*clusterEtcdPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterEtcd)(nil)).Elem()
-}
-
-func (i *clusterEtcdPtrType) ToClusterEtcdPtrOutput() ClusterEtcdPtrOutput {
-	return i.ToClusterEtcdPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterEtcdPtrType) ToClusterEtcdPtrOutputWithContext(ctx context.Context) ClusterEtcdPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEtcdPtrOutput)
-}
-
-type ClusterEtcdOutput struct{ *pulumi.OutputState }
-
-func (ClusterEtcdOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterEtcd)(nil)).Elem()
-}
-
-func (o ClusterEtcdOutput) ToClusterEtcdOutput() ClusterEtcdOutput {
-	return o
-}
-
-func (o ClusterEtcdOutput) ToClusterEtcdOutputWithContext(ctx context.Context) ClusterEtcdOutput {
-	return o
-}
-
-func (o ClusterEtcdOutput) ToClusterEtcdPtrOutput() ClusterEtcdPtrOutput {
-	return o.ToClusterEtcdPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterEtcdOutput) ToClusterEtcdPtrOutputWithContext(ctx context.Context) ClusterEtcdPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterEtcd) *ClusterEtcd {
-		return &v
-	}).(ClusterEtcdPtrOutput)
-}
-
-func (o ClusterEtcdOutput) ExternalCluster() ClusterEtcdExternalClusterPtrOutput {
-	return o.ApplyT(func(v ClusterEtcd) *ClusterEtcdExternalCluster { return v.ExternalCluster }).(ClusterEtcdExternalClusterPtrOutput)
-}
-
-func (o ClusterEtcdOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ClusterEtcd) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
-}
-
-func (o ClusterEtcdOutput) PeerAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterEtcd) *string { return v.PeerAddress }).(pulumi.StringPtrOutput)
-}
-
-type ClusterEtcdPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterEtcdPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterEtcd)(nil)).Elem()
-}
-
-func (o ClusterEtcdPtrOutput) ToClusterEtcdPtrOutput() ClusterEtcdPtrOutput {
-	return o
-}
-
-func (o ClusterEtcdPtrOutput) ToClusterEtcdPtrOutputWithContext(ctx context.Context) ClusterEtcdPtrOutput {
-	return o
-}
-
-func (o ClusterEtcdPtrOutput) Elem() ClusterEtcdOutput {
-	return o.ApplyT(func(v *ClusterEtcd) ClusterEtcd {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterEtcd
-		return ret
-	}).(ClusterEtcdOutput)
-}
-
-func (o ClusterEtcdPtrOutput) ExternalCluster() ClusterEtcdExternalClusterPtrOutput {
-	return o.ApplyT(func(v *ClusterEtcd) *ClusterEtcdExternalCluster {
-		if v == nil {
-			return nil
-		}
-		return v.ExternalCluster
-	}).(ClusterEtcdExternalClusterPtrOutput)
-}
-
-func (o ClusterEtcdPtrOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *ClusterEtcd) map[string]string {
-		if v == nil {
-			return nil
-		}
-		return v.ExtraArgs
-	}).(pulumi.StringMapOutput)
-}
-
-func (o ClusterEtcdPtrOutput) PeerAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterEtcd) *string {
-		if v == nil {
-			return nil
-		}
-		return v.PeerAddress
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterEtcdExternalCluster struct {
-	Ca         *string  `pulumi:"ca"`
-	ClientCert *string  `pulumi:"clientCert"`
-	ClientKey  *string  `pulumi:"clientKey"`
-	Endpoints  []string `pulumi:"endpoints"`
-	EtcdPrefix *string  `pulumi:"etcdPrefix"`
-}
-
-// ClusterEtcdExternalClusterInput is an input type that accepts ClusterEtcdExternalClusterArgs and ClusterEtcdExternalClusterOutput values.
-// You can construct a concrete instance of `ClusterEtcdExternalClusterInput` via:
-//
-//	ClusterEtcdExternalClusterArgs{...}
-type ClusterEtcdExternalClusterInput interface {
-	pulumi.Input
-
-	ToClusterEtcdExternalClusterOutput() ClusterEtcdExternalClusterOutput
-	ToClusterEtcdExternalClusterOutputWithContext(context.Context) ClusterEtcdExternalClusterOutput
-}
-
-type ClusterEtcdExternalClusterArgs struct {
-	Ca         pulumi.StringPtrInput   `pulumi:"ca"`
-	ClientCert pulumi.StringPtrInput   `pulumi:"clientCert"`
-	ClientKey  pulumi.StringPtrInput   `pulumi:"clientKey"`
-	Endpoints  pulumi.StringArrayInput `pulumi:"endpoints"`
-	EtcdPrefix pulumi.StringPtrInput   `pulumi:"etcdPrefix"`
-}
-
-func (ClusterEtcdExternalClusterArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterEtcdExternalCluster)(nil)).Elem()
-}
-
-func (i ClusterEtcdExternalClusterArgs) ToClusterEtcdExternalClusterOutput() ClusterEtcdExternalClusterOutput {
-	return i.ToClusterEtcdExternalClusterOutputWithContext(context.Background())
-}
-
-func (i ClusterEtcdExternalClusterArgs) ToClusterEtcdExternalClusterOutputWithContext(ctx context.Context) ClusterEtcdExternalClusterOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEtcdExternalClusterOutput)
-}
-
-func (i ClusterEtcdExternalClusterArgs) ToClusterEtcdExternalClusterPtrOutput() ClusterEtcdExternalClusterPtrOutput {
-	return i.ToClusterEtcdExternalClusterPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterEtcdExternalClusterArgs) ToClusterEtcdExternalClusterPtrOutputWithContext(ctx context.Context) ClusterEtcdExternalClusterPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEtcdExternalClusterOutput).ToClusterEtcdExternalClusterPtrOutputWithContext(ctx)
-}
-
-// ClusterEtcdExternalClusterPtrInput is an input type that accepts ClusterEtcdExternalClusterArgs, ClusterEtcdExternalClusterPtr and ClusterEtcdExternalClusterPtrOutput values.
-// You can construct a concrete instance of `ClusterEtcdExternalClusterPtrInput` via:
-//
-//	        ClusterEtcdExternalClusterArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterEtcdExternalClusterPtrInput interface {
-	pulumi.Input
-
-	ToClusterEtcdExternalClusterPtrOutput() ClusterEtcdExternalClusterPtrOutput
-	ToClusterEtcdExternalClusterPtrOutputWithContext(context.Context) ClusterEtcdExternalClusterPtrOutput
-}
-
-type clusterEtcdExternalClusterPtrType ClusterEtcdExternalClusterArgs
-
-func ClusterEtcdExternalClusterPtr(v *ClusterEtcdExternalClusterArgs) ClusterEtcdExternalClusterPtrInput {
-	return (*clusterEtcdExternalClusterPtrType)(v)
-}
-
-func (*clusterEtcdExternalClusterPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterEtcdExternalCluster)(nil)).Elem()
-}
-
-func (i *clusterEtcdExternalClusterPtrType) ToClusterEtcdExternalClusterPtrOutput() ClusterEtcdExternalClusterPtrOutput {
-	return i.ToClusterEtcdExternalClusterPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterEtcdExternalClusterPtrType) ToClusterEtcdExternalClusterPtrOutputWithContext(ctx context.Context) ClusterEtcdExternalClusterPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterEtcdExternalClusterPtrOutput)
-}
-
-type ClusterEtcdExternalClusterOutput struct{ *pulumi.OutputState }
-
-func (ClusterEtcdExternalClusterOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterEtcdExternalCluster)(nil)).Elem()
-}
-
-func (o ClusterEtcdExternalClusterOutput) ToClusterEtcdExternalClusterOutput() ClusterEtcdExternalClusterOutput {
-	return o
-}
-
-func (o ClusterEtcdExternalClusterOutput) ToClusterEtcdExternalClusterOutputWithContext(ctx context.Context) ClusterEtcdExternalClusterOutput {
-	return o
-}
-
-func (o ClusterEtcdExternalClusterOutput) ToClusterEtcdExternalClusterPtrOutput() ClusterEtcdExternalClusterPtrOutput {
-	return o.ToClusterEtcdExternalClusterPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterEtcdExternalClusterOutput) ToClusterEtcdExternalClusterPtrOutputWithContext(ctx context.Context) ClusterEtcdExternalClusterPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterEtcdExternalCluster) *ClusterEtcdExternalCluster {
-		return &v
-	}).(ClusterEtcdExternalClusterPtrOutput)
-}
-
-func (o ClusterEtcdExternalClusterOutput) Ca() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterEtcdExternalCluster) *string { return v.Ca }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEtcdExternalClusterOutput) ClientCert() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterEtcdExternalCluster) *string { return v.ClientCert }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEtcdExternalClusterOutput) ClientKey() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterEtcdExternalCluster) *string { return v.ClientKey }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEtcdExternalClusterOutput) Endpoints() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterEtcdExternalCluster) []string { return v.Endpoints }).(pulumi.StringArrayOutput)
-}
-
-func (o ClusterEtcdExternalClusterOutput) EtcdPrefix() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterEtcdExternalCluster) *string { return v.EtcdPrefix }).(pulumi.StringPtrOutput)
-}
-
-type ClusterEtcdExternalClusterPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterEtcdExternalClusterPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterEtcdExternalCluster)(nil)).Elem()
-}
-
-func (o ClusterEtcdExternalClusterPtrOutput) ToClusterEtcdExternalClusterPtrOutput() ClusterEtcdExternalClusterPtrOutput {
-	return o
-}
-
-func (o ClusterEtcdExternalClusterPtrOutput) ToClusterEtcdExternalClusterPtrOutputWithContext(ctx context.Context) ClusterEtcdExternalClusterPtrOutput {
-	return o
-}
-
-func (o ClusterEtcdExternalClusterPtrOutput) Elem() ClusterEtcdExternalClusterOutput {
-	return o.ApplyT(func(v *ClusterEtcdExternalCluster) ClusterEtcdExternalCluster {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterEtcdExternalCluster
-		return ret
-	}).(ClusterEtcdExternalClusterOutput)
-}
-
-func (o ClusterEtcdExternalClusterPtrOutput) Ca() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterEtcdExternalCluster) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Ca
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEtcdExternalClusterPtrOutput) ClientCert() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterEtcdExternalCluster) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ClientCert
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEtcdExternalClusterPtrOutput) ClientKey() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterEtcdExternalCluster) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ClientKey
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterEtcdExternalClusterPtrOutput) Endpoints() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *ClusterEtcdExternalCluster) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Endpoints
-	}).(pulumi.StringArrayOutput)
-}
-
-func (o ClusterEtcdExternalClusterPtrOutput) EtcdPrefix() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterEtcdExternalCluster) *string {
-		if v == nil {
-			return nil
-		}
-		return v.EtcdPrefix
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterFeatureGate struct {
-	Components []string `pulumi:"components"`
-	Enabled    *bool    `pulumi:"enabled"`
-	Name       string   `pulumi:"name"`
-}
-
-// ClusterFeatureGateInput is an input type that accepts ClusterFeatureGateArgs and ClusterFeatureGateOutput values.
-// You can construct a concrete instance of `ClusterFeatureGateInput` via:
-//
-//	ClusterFeatureGateArgs{...}
-type ClusterFeatureGateInput interface {
-	pulumi.Input
-
-	ToClusterFeatureGateOutput() ClusterFeatureGateOutput
-	ToClusterFeatureGateOutputWithContext(context.Context) ClusterFeatureGateOutput
-}
-
-type ClusterFeatureGateArgs struct {
-	Components pulumi.StringArrayInput `pulumi:"components"`
-	Enabled    pulumi.BoolPtrInput     `pulumi:"enabled"`
-	Name       pulumi.StringInput      `pulumi:"name"`
-}
-
-func (ClusterFeatureGateArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterFeatureGate)(nil)).Elem()
-}
-
-func (i ClusterFeatureGateArgs) ToClusterFeatureGateOutput() ClusterFeatureGateOutput {
-	return i.ToClusterFeatureGateOutputWithContext(context.Background())
-}
-
-func (i ClusterFeatureGateArgs) ToClusterFeatureGateOutputWithContext(ctx context.Context) ClusterFeatureGateOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterFeatureGateOutput)
-}
-
-// ClusterFeatureGateArrayInput is an input type that accepts ClusterFeatureGateArray and ClusterFeatureGateArrayOutput values.
-// You can construct a concrete instance of `ClusterFeatureGateArrayInput` via:
-//
-//	ClusterFeatureGateArray{ ClusterFeatureGateArgs{...} }
-type ClusterFeatureGateArrayInput interface {
-	pulumi.Input
-
-	ToClusterFeatureGateArrayOutput() ClusterFeatureGateArrayOutput
-	ToClusterFeatureGateArrayOutputWithContext(context.Context) ClusterFeatureGateArrayOutput
-}
-
-type ClusterFeatureGateArray []ClusterFeatureGateInput
-
-func (ClusterFeatureGateArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterFeatureGate)(nil)).Elem()
-}
-
-func (i ClusterFeatureGateArray) ToClusterFeatureGateArrayOutput() ClusterFeatureGateArrayOutput {
-	return i.ToClusterFeatureGateArrayOutputWithContext(context.Background())
-}
-
-func (i ClusterFeatureGateArray) ToClusterFeatureGateArrayOutputWithContext(ctx context.Context) ClusterFeatureGateArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterFeatureGateArrayOutput)
-}
-
-type ClusterFeatureGateOutput struct{ *pulumi.OutputState }
-
-func (ClusterFeatureGateOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterFeatureGate)(nil)).Elem()
-}
-
-func (o ClusterFeatureGateOutput) ToClusterFeatureGateOutput() ClusterFeatureGateOutput {
-	return o
-}
-
-func (o ClusterFeatureGateOutput) ToClusterFeatureGateOutputWithContext(ctx context.Context) ClusterFeatureGateOutput {
-	return o
-}
-
-func (o ClusterFeatureGateOutput) Components() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ClusterFeatureGate) []string { return v.Components }).(pulumi.StringArrayOutput)
-}
-
-func (o ClusterFeatureGateOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterFeatureGate) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterFeatureGateOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v ClusterFeatureGate) string { return v.Name }).(pulumi.StringOutput)
-}
-
-type ClusterFeatureGateArrayOutput struct{ *pulumi.OutputState }
-
-func (ClusterFeatureGateArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterFeatureGate)(nil)).Elem()
-}
-
-func (o ClusterFeatureGateArrayOutput) ToClusterFeatureGateArrayOutput() ClusterFeatureGateArrayOutput {
-	return o
-}
-
-func (o ClusterFeatureGateArrayOutput) ToClusterFeatureGateArrayOutputWithContext(ctx context.Context) ClusterFeatureGateArrayOutput {
-	return o
-}
-
-func (o ClusterFeatureGateArrayOutput) Index(i pulumi.IntInput) ClusterFeatureGateOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterFeatureGate {
-		return vs[0].([]ClusterFeatureGate)[vs[1].(int)]
-	}).(ClusterFeatureGateOutput)
-}
-
 type ClusterFile struct {
 	DirPerm *string `pulumi:"dirPerm"`
 	Dst     *string `pulumi:"dst"`
@@ -2213,738 +638,11 @@ func (o ClusterHostArrayOutput) Index(i pulumi.IntInput) ClusterHostOutput {
 	}).(ClusterHostOutput)
 }
 
-type ClusterImage struct {
-	Image   *string `pulumi:"image"`
-	Version *string `pulumi:"version"`
-}
-
-// ClusterImageInput is an input type that accepts ClusterImageArgs and ClusterImageOutput values.
-// You can construct a concrete instance of `ClusterImageInput` via:
-//
-//	ClusterImageArgs{...}
-type ClusterImageInput interface {
-	pulumi.Input
-
-	ToClusterImageOutput() ClusterImageOutput
-	ToClusterImageOutputWithContext(context.Context) ClusterImageOutput
-}
-
-type ClusterImageArgs struct {
-	Image   pulumi.StringPtrInput `pulumi:"image"`
-	Version pulumi.StringPtrInput `pulumi:"version"`
-}
-
-func (ClusterImageArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterImage)(nil)).Elem()
-}
-
-func (i ClusterImageArgs) ToClusterImageOutput() ClusterImageOutput {
-	return i.ToClusterImageOutputWithContext(context.Background())
-}
-
-func (i ClusterImageArgs) ToClusterImageOutputWithContext(ctx context.Context) ClusterImageOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterImageOutput)
-}
-
-func (i ClusterImageArgs) ToClusterImagePtrOutput() ClusterImagePtrOutput {
-	return i.ToClusterImagePtrOutputWithContext(context.Background())
-}
-
-func (i ClusterImageArgs) ToClusterImagePtrOutputWithContext(ctx context.Context) ClusterImagePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterImageOutput).ToClusterImagePtrOutputWithContext(ctx)
-}
-
-// ClusterImagePtrInput is an input type that accepts ClusterImageArgs, ClusterImagePtr and ClusterImagePtrOutput values.
-// You can construct a concrete instance of `ClusterImagePtrInput` via:
-//
-//	        ClusterImageArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterImagePtrInput interface {
-	pulumi.Input
-
-	ToClusterImagePtrOutput() ClusterImagePtrOutput
-	ToClusterImagePtrOutputWithContext(context.Context) ClusterImagePtrOutput
-}
-
-type clusterImagePtrType ClusterImageArgs
-
-func ClusterImagePtr(v *ClusterImageArgs) ClusterImagePtrInput {
-	return (*clusterImagePtrType)(v)
-}
-
-func (*clusterImagePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterImage)(nil)).Elem()
-}
-
-func (i *clusterImagePtrType) ToClusterImagePtrOutput() ClusterImagePtrOutput {
-	return i.ToClusterImagePtrOutputWithContext(context.Background())
-}
-
-func (i *clusterImagePtrType) ToClusterImagePtrOutputWithContext(ctx context.Context) ClusterImagePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterImagePtrOutput)
-}
-
-type ClusterImageOutput struct{ *pulumi.OutputState }
-
-func (ClusterImageOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterImage)(nil)).Elem()
-}
-
-func (o ClusterImageOutput) ToClusterImageOutput() ClusterImageOutput {
-	return o
-}
-
-func (o ClusterImageOutput) ToClusterImageOutputWithContext(ctx context.Context) ClusterImageOutput {
-	return o
-}
-
-func (o ClusterImageOutput) ToClusterImagePtrOutput() ClusterImagePtrOutput {
-	return o.ToClusterImagePtrOutputWithContext(context.Background())
-}
-
-func (o ClusterImageOutput) ToClusterImagePtrOutputWithContext(ctx context.Context) ClusterImagePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterImage) *ClusterImage {
-		return &v
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImageOutput) Image() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterImage) *string { return v.Image }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterImageOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterImage) *string { return v.Version }).(pulumi.StringPtrOutput)
-}
-
-type ClusterImagePtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterImagePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterImage)(nil)).Elem()
-}
-
-func (o ClusterImagePtrOutput) ToClusterImagePtrOutput() ClusterImagePtrOutput {
-	return o
-}
-
-func (o ClusterImagePtrOutput) ToClusterImagePtrOutputWithContext(ctx context.Context) ClusterImagePtrOutput {
-	return o
-}
-
-func (o ClusterImagePtrOutput) Elem() ClusterImageOutput {
-	return o.ApplyT(func(v *ClusterImage) ClusterImage {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterImage
-		return ret
-	}).(ClusterImageOutput)
-}
-
-func (o ClusterImagePtrOutput) Image() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterImage) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Image
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterImagePtrOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterImage) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Version
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterImages struct {
-	Calico              *ClusterCalicoImage     `pulumi:"calico"`
-	Coredns             *ClusterImage           `pulumi:"coredns"`
-	Default_pull_policy *string                 `pulumi:"default_pull_policy"`
-	Konnectivity        *ClusterImage           `pulumi:"konnectivity"`
-	Kubeproxy           *ClusterImage           `pulumi:"kubeproxy"`
-	Kuberouter          *ClusterKubeRouterImage `pulumi:"kuberouter"`
-	Metricsserver       *ClusterImage           `pulumi:"metricsserver"`
-	Pause               *ClusterImage           `pulumi:"pause"`
-	Repository          *string                 `pulumi:"repository"`
-}
-
-// ClusterImagesInput is an input type that accepts ClusterImagesArgs and ClusterImagesOutput values.
-// You can construct a concrete instance of `ClusterImagesInput` via:
-//
-//	ClusterImagesArgs{...}
-type ClusterImagesInput interface {
-	pulumi.Input
-
-	ToClusterImagesOutput() ClusterImagesOutput
-	ToClusterImagesOutputWithContext(context.Context) ClusterImagesOutput
-}
-
-type ClusterImagesArgs struct {
-	Calico              ClusterCalicoImagePtrInput     `pulumi:"calico"`
-	Coredns             ClusterImagePtrInput           `pulumi:"coredns"`
-	Default_pull_policy pulumi.StringPtrInput          `pulumi:"default_pull_policy"`
-	Konnectivity        ClusterImagePtrInput           `pulumi:"konnectivity"`
-	Kubeproxy           ClusterImagePtrInput           `pulumi:"kubeproxy"`
-	Kuberouter          ClusterKubeRouterImagePtrInput `pulumi:"kuberouter"`
-	Metricsserver       ClusterImagePtrInput           `pulumi:"metricsserver"`
-	Pause               ClusterImagePtrInput           `pulumi:"pause"`
-	Repository          pulumi.StringPtrInput          `pulumi:"repository"`
-}
-
-func (ClusterImagesArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterImages)(nil)).Elem()
-}
-
-func (i ClusterImagesArgs) ToClusterImagesOutput() ClusterImagesOutput {
-	return i.ToClusterImagesOutputWithContext(context.Background())
-}
-
-func (i ClusterImagesArgs) ToClusterImagesOutputWithContext(ctx context.Context) ClusterImagesOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterImagesOutput)
-}
-
-func (i ClusterImagesArgs) ToClusterImagesPtrOutput() ClusterImagesPtrOutput {
-	return i.ToClusterImagesPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterImagesArgs) ToClusterImagesPtrOutputWithContext(ctx context.Context) ClusterImagesPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterImagesOutput).ToClusterImagesPtrOutputWithContext(ctx)
-}
-
-// ClusterImagesPtrInput is an input type that accepts ClusterImagesArgs, ClusterImagesPtr and ClusterImagesPtrOutput values.
-// You can construct a concrete instance of `ClusterImagesPtrInput` via:
-//
-//	        ClusterImagesArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterImagesPtrInput interface {
-	pulumi.Input
-
-	ToClusterImagesPtrOutput() ClusterImagesPtrOutput
-	ToClusterImagesPtrOutputWithContext(context.Context) ClusterImagesPtrOutput
-}
-
-type clusterImagesPtrType ClusterImagesArgs
-
-func ClusterImagesPtr(v *ClusterImagesArgs) ClusterImagesPtrInput {
-	return (*clusterImagesPtrType)(v)
-}
-
-func (*clusterImagesPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterImages)(nil)).Elem()
-}
-
-func (i *clusterImagesPtrType) ToClusterImagesPtrOutput() ClusterImagesPtrOutput {
-	return i.ToClusterImagesPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterImagesPtrType) ToClusterImagesPtrOutputWithContext(ctx context.Context) ClusterImagesPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterImagesPtrOutput)
-}
-
-type ClusterImagesOutput struct{ *pulumi.OutputState }
-
-func (ClusterImagesOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterImages)(nil)).Elem()
-}
-
-func (o ClusterImagesOutput) ToClusterImagesOutput() ClusterImagesOutput {
-	return o
-}
-
-func (o ClusterImagesOutput) ToClusterImagesOutputWithContext(ctx context.Context) ClusterImagesOutput {
-	return o
-}
-
-func (o ClusterImagesOutput) ToClusterImagesPtrOutput() ClusterImagesPtrOutput {
-	return o.ToClusterImagesPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterImagesOutput) ToClusterImagesPtrOutputWithContext(ctx context.Context) ClusterImagesPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterImages) *ClusterImages {
-		return &v
-	}).(ClusterImagesPtrOutput)
-}
-
-func (o ClusterImagesOutput) Calico() ClusterCalicoImagePtrOutput {
-	return o.ApplyT(func(v ClusterImages) *ClusterCalicoImage { return v.Calico }).(ClusterCalicoImagePtrOutput)
-}
-
-func (o ClusterImagesOutput) Coredns() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterImages) *ClusterImage { return v.Coredns }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesOutput) Default_pull_policy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterImages) *string { return v.Default_pull_policy }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterImagesOutput) Konnectivity() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterImages) *ClusterImage { return v.Konnectivity }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesOutput) Kubeproxy() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterImages) *ClusterImage { return v.Kubeproxy }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesOutput) Kuberouter() ClusterKubeRouterImagePtrOutput {
-	return o.ApplyT(func(v ClusterImages) *ClusterKubeRouterImage { return v.Kuberouter }).(ClusterKubeRouterImagePtrOutput)
-}
-
-func (o ClusterImagesOutput) Metricsserver() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterImages) *ClusterImage { return v.Metricsserver }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesOutput) Pause() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterImages) *ClusterImage { return v.Pause }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesOutput) Repository() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterImages) *string { return v.Repository }).(pulumi.StringPtrOutput)
-}
-
-type ClusterImagesPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterImagesPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterImages)(nil)).Elem()
-}
-
-func (o ClusterImagesPtrOutput) ToClusterImagesPtrOutput() ClusterImagesPtrOutput {
-	return o
-}
-
-func (o ClusterImagesPtrOutput) ToClusterImagesPtrOutputWithContext(ctx context.Context) ClusterImagesPtrOutput {
-	return o
-}
-
-func (o ClusterImagesPtrOutput) Elem() ClusterImagesOutput {
-	return o.ApplyT(func(v *ClusterImages) ClusterImages {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterImages
-		return ret
-	}).(ClusterImagesOutput)
-}
-
-func (o ClusterImagesPtrOutput) Calico() ClusterCalicoImagePtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *ClusterCalicoImage {
-		if v == nil {
-			return nil
-		}
-		return v.Calico
-	}).(ClusterCalicoImagePtrOutput)
-}
-
-func (o ClusterImagesPtrOutput) Coredns() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Coredns
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesPtrOutput) Default_pull_policy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Default_pull_policy
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterImagesPtrOutput) Konnectivity() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Konnectivity
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesPtrOutput) Kubeproxy() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Kubeproxy
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesPtrOutput) Kuberouter() ClusterKubeRouterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *ClusterKubeRouterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Kuberouter
-	}).(ClusterKubeRouterImagePtrOutput)
-}
-
-func (o ClusterImagesPtrOutput) Metricsserver() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Metricsserver
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesPtrOutput) Pause() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Pause
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterImagesPtrOutput) Repository() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterImages) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Repository
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterInstallConfig struct {
-	Users *ClusterInstallConfigUser `pulumi:"users"`
-}
-
-// ClusterInstallConfigInput is an input type that accepts ClusterInstallConfigArgs and ClusterInstallConfigOutput values.
-// You can construct a concrete instance of `ClusterInstallConfigInput` via:
-//
-//	ClusterInstallConfigArgs{...}
-type ClusterInstallConfigInput interface {
-	pulumi.Input
-
-	ToClusterInstallConfigOutput() ClusterInstallConfigOutput
-	ToClusterInstallConfigOutputWithContext(context.Context) ClusterInstallConfigOutput
-}
-
-type ClusterInstallConfigArgs struct {
-	Users ClusterInstallConfigUserPtrInput `pulumi:"users"`
-}
-
-func (ClusterInstallConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterInstallConfig)(nil)).Elem()
-}
-
-func (i ClusterInstallConfigArgs) ToClusterInstallConfigOutput() ClusterInstallConfigOutput {
-	return i.ToClusterInstallConfigOutputWithContext(context.Background())
-}
-
-func (i ClusterInstallConfigArgs) ToClusterInstallConfigOutputWithContext(ctx context.Context) ClusterInstallConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterInstallConfigOutput)
-}
-
-func (i ClusterInstallConfigArgs) ToClusterInstallConfigPtrOutput() ClusterInstallConfigPtrOutput {
-	return i.ToClusterInstallConfigPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterInstallConfigArgs) ToClusterInstallConfigPtrOutputWithContext(ctx context.Context) ClusterInstallConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterInstallConfigOutput).ToClusterInstallConfigPtrOutputWithContext(ctx)
-}
-
-// ClusterInstallConfigPtrInput is an input type that accepts ClusterInstallConfigArgs, ClusterInstallConfigPtr and ClusterInstallConfigPtrOutput values.
-// You can construct a concrete instance of `ClusterInstallConfigPtrInput` via:
-//
-//	        ClusterInstallConfigArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterInstallConfigPtrInput interface {
-	pulumi.Input
-
-	ToClusterInstallConfigPtrOutput() ClusterInstallConfigPtrOutput
-	ToClusterInstallConfigPtrOutputWithContext(context.Context) ClusterInstallConfigPtrOutput
-}
-
-type clusterInstallConfigPtrType ClusterInstallConfigArgs
-
-func ClusterInstallConfigPtr(v *ClusterInstallConfigArgs) ClusterInstallConfigPtrInput {
-	return (*clusterInstallConfigPtrType)(v)
-}
-
-func (*clusterInstallConfigPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterInstallConfig)(nil)).Elem()
-}
-
-func (i *clusterInstallConfigPtrType) ToClusterInstallConfigPtrOutput() ClusterInstallConfigPtrOutput {
-	return i.ToClusterInstallConfigPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterInstallConfigPtrType) ToClusterInstallConfigPtrOutputWithContext(ctx context.Context) ClusterInstallConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterInstallConfigPtrOutput)
-}
-
-type ClusterInstallConfigOutput struct{ *pulumi.OutputState }
-
-func (ClusterInstallConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterInstallConfig)(nil)).Elem()
-}
-
-func (o ClusterInstallConfigOutput) ToClusterInstallConfigOutput() ClusterInstallConfigOutput {
-	return o
-}
-
-func (o ClusterInstallConfigOutput) ToClusterInstallConfigOutputWithContext(ctx context.Context) ClusterInstallConfigOutput {
-	return o
-}
-
-func (o ClusterInstallConfigOutput) ToClusterInstallConfigPtrOutput() ClusterInstallConfigPtrOutput {
-	return o.ToClusterInstallConfigPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterInstallConfigOutput) ToClusterInstallConfigPtrOutputWithContext(ctx context.Context) ClusterInstallConfigPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterInstallConfig) *ClusterInstallConfig {
-		return &v
-	}).(ClusterInstallConfigPtrOutput)
-}
-
-func (o ClusterInstallConfigOutput) Users() ClusterInstallConfigUserPtrOutput {
-	return o.ApplyT(func(v ClusterInstallConfig) *ClusterInstallConfigUser { return v.Users }).(ClusterInstallConfigUserPtrOutput)
-}
-
-type ClusterInstallConfigPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterInstallConfigPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterInstallConfig)(nil)).Elem()
-}
-
-func (o ClusterInstallConfigPtrOutput) ToClusterInstallConfigPtrOutput() ClusterInstallConfigPtrOutput {
-	return o
-}
-
-func (o ClusterInstallConfigPtrOutput) ToClusterInstallConfigPtrOutputWithContext(ctx context.Context) ClusterInstallConfigPtrOutput {
-	return o
-}
-
-func (o ClusterInstallConfigPtrOutput) Elem() ClusterInstallConfigOutput {
-	return o.ApplyT(func(v *ClusterInstallConfig) ClusterInstallConfig {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterInstallConfig
-		return ret
-	}).(ClusterInstallConfigOutput)
-}
-
-func (o ClusterInstallConfigPtrOutput) Users() ClusterInstallConfigUserPtrOutput {
-	return o.ApplyT(func(v *ClusterInstallConfig) *ClusterInstallConfigUser {
-		if v == nil {
-			return nil
-		}
-		return v.Users
-	}).(ClusterInstallConfigUserPtrOutput)
-}
-
-type ClusterInstallConfigUser struct {
-	EtcdUser          *string `pulumi:"etcdUser"`
-	KineUser          *string `pulumi:"kineUser"`
-	KonnectivityUser  *string `pulumi:"konnectivityUser"`
-	KubeAPIserverUser *string `pulumi:"kubeAPIserverUser"`
-	KubeSchedulerUser *string `pulumi:"kubeSchedulerUser"`
-}
-
-// ClusterInstallConfigUserInput is an input type that accepts ClusterInstallConfigUserArgs and ClusterInstallConfigUserOutput values.
-// You can construct a concrete instance of `ClusterInstallConfigUserInput` via:
-//
-//	ClusterInstallConfigUserArgs{...}
-type ClusterInstallConfigUserInput interface {
-	pulumi.Input
-
-	ToClusterInstallConfigUserOutput() ClusterInstallConfigUserOutput
-	ToClusterInstallConfigUserOutputWithContext(context.Context) ClusterInstallConfigUserOutput
-}
-
-type ClusterInstallConfigUserArgs struct {
-	EtcdUser          pulumi.StringPtrInput `pulumi:"etcdUser"`
-	KineUser          pulumi.StringPtrInput `pulumi:"kineUser"`
-	KonnectivityUser  pulumi.StringPtrInput `pulumi:"konnectivityUser"`
-	KubeAPIserverUser pulumi.StringPtrInput `pulumi:"kubeAPIserverUser"`
-	KubeSchedulerUser pulumi.StringPtrInput `pulumi:"kubeSchedulerUser"`
-}
-
-func (ClusterInstallConfigUserArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterInstallConfigUser)(nil)).Elem()
-}
-
-func (i ClusterInstallConfigUserArgs) ToClusterInstallConfigUserOutput() ClusterInstallConfigUserOutput {
-	return i.ToClusterInstallConfigUserOutputWithContext(context.Background())
-}
-
-func (i ClusterInstallConfigUserArgs) ToClusterInstallConfigUserOutputWithContext(ctx context.Context) ClusterInstallConfigUserOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterInstallConfigUserOutput)
-}
-
-func (i ClusterInstallConfigUserArgs) ToClusterInstallConfigUserPtrOutput() ClusterInstallConfigUserPtrOutput {
-	return i.ToClusterInstallConfigUserPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterInstallConfigUserArgs) ToClusterInstallConfigUserPtrOutputWithContext(ctx context.Context) ClusterInstallConfigUserPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterInstallConfigUserOutput).ToClusterInstallConfigUserPtrOutputWithContext(ctx)
-}
-
-// ClusterInstallConfigUserPtrInput is an input type that accepts ClusterInstallConfigUserArgs, ClusterInstallConfigUserPtr and ClusterInstallConfigUserPtrOutput values.
-// You can construct a concrete instance of `ClusterInstallConfigUserPtrInput` via:
-//
-//	        ClusterInstallConfigUserArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterInstallConfigUserPtrInput interface {
-	pulumi.Input
-
-	ToClusterInstallConfigUserPtrOutput() ClusterInstallConfigUserPtrOutput
-	ToClusterInstallConfigUserPtrOutputWithContext(context.Context) ClusterInstallConfigUserPtrOutput
-}
-
-type clusterInstallConfigUserPtrType ClusterInstallConfigUserArgs
-
-func ClusterInstallConfigUserPtr(v *ClusterInstallConfigUserArgs) ClusterInstallConfigUserPtrInput {
-	return (*clusterInstallConfigUserPtrType)(v)
-}
-
-func (*clusterInstallConfigUserPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterInstallConfigUser)(nil)).Elem()
-}
-
-func (i *clusterInstallConfigUserPtrType) ToClusterInstallConfigUserPtrOutput() ClusterInstallConfigUserPtrOutput {
-	return i.ToClusterInstallConfigUserPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterInstallConfigUserPtrType) ToClusterInstallConfigUserPtrOutputWithContext(ctx context.Context) ClusterInstallConfigUserPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterInstallConfigUserPtrOutput)
-}
-
-type ClusterInstallConfigUserOutput struct{ *pulumi.OutputState }
-
-func (ClusterInstallConfigUserOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterInstallConfigUser)(nil)).Elem()
-}
-
-func (o ClusterInstallConfigUserOutput) ToClusterInstallConfigUserOutput() ClusterInstallConfigUserOutput {
-	return o
-}
-
-func (o ClusterInstallConfigUserOutput) ToClusterInstallConfigUserOutputWithContext(ctx context.Context) ClusterInstallConfigUserOutput {
-	return o
-}
-
-func (o ClusterInstallConfigUserOutput) ToClusterInstallConfigUserPtrOutput() ClusterInstallConfigUserPtrOutput {
-	return o.ToClusterInstallConfigUserPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterInstallConfigUserOutput) ToClusterInstallConfigUserPtrOutputWithContext(ctx context.Context) ClusterInstallConfigUserPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterInstallConfigUser) *ClusterInstallConfigUser {
-		return &v
-	}).(ClusterInstallConfigUserPtrOutput)
-}
-
-func (o ClusterInstallConfigUserOutput) EtcdUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterInstallConfigUser) *string { return v.EtcdUser }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterInstallConfigUserOutput) KineUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterInstallConfigUser) *string { return v.KineUser }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterInstallConfigUserOutput) KonnectivityUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterInstallConfigUser) *string { return v.KonnectivityUser }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterInstallConfigUserOutput) KubeAPIserverUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterInstallConfigUser) *string { return v.KubeAPIserverUser }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterInstallConfigUserOutput) KubeSchedulerUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterInstallConfigUser) *string { return v.KubeSchedulerUser }).(pulumi.StringPtrOutput)
-}
-
-type ClusterInstallConfigUserPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterInstallConfigUserPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterInstallConfigUser)(nil)).Elem()
-}
-
-func (o ClusterInstallConfigUserPtrOutput) ToClusterInstallConfigUserPtrOutput() ClusterInstallConfigUserPtrOutput {
-	return o
-}
-
-func (o ClusterInstallConfigUserPtrOutput) ToClusterInstallConfigUserPtrOutputWithContext(ctx context.Context) ClusterInstallConfigUserPtrOutput {
-	return o
-}
-
-func (o ClusterInstallConfigUserPtrOutput) Elem() ClusterInstallConfigUserOutput {
-	return o.ApplyT(func(v *ClusterInstallConfigUser) ClusterInstallConfigUser {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterInstallConfigUser
-		return ret
-	}).(ClusterInstallConfigUserOutput)
-}
-
-func (o ClusterInstallConfigUserPtrOutput) EtcdUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterInstallConfigUser) *string {
-		if v == nil {
-			return nil
-		}
-		return v.EtcdUser
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterInstallConfigUserPtrOutput) KineUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterInstallConfigUser) *string {
-		if v == nil {
-			return nil
-		}
-		return v.KineUser
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterInstallConfigUserPtrOutput) KonnectivityUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterInstallConfigUser) *string {
-		if v == nil {
-			return nil
-		}
-		return v.KonnectivityUser
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterInstallConfigUserPtrOutput) KubeAPIserverUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterInstallConfigUser) *string {
-		if v == nil {
-			return nil
-		}
-		return v.KubeAPIserverUser
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterInstallConfigUserPtrOutput) KubeSchedulerUser() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterInstallConfigUser) *string {
-		if v == nil {
-			return nil
-		}
-		return v.KubeSchedulerUser
-	}).(pulumi.StringPtrOutput)
-}
-
 type ClusterK0s struct {
-	Config         *ClusterK0sConfig `pulumi:"config"`
-	DynamicConfig  *bool             `pulumi:"dynamicConfig"`
-	Version        *string           `pulumi:"version"`
-	VersionChannel *string           `pulumi:"versionChannel"`
+	Config         *K0s    `pulumi:"config"`
+	DynamicConfig  *bool   `pulumi:"dynamicConfig"`
+	Version        *string `pulumi:"version"`
+	VersionChannel *string `pulumi:"versionChannel"`
 }
 
 // ClusterK0sInput is an input type that accepts ClusterK0sArgs and ClusterK0sOutput values.
@@ -2959,10 +657,10 @@ type ClusterK0sInput interface {
 }
 
 type ClusterK0sArgs struct {
-	Config         ClusterK0sConfigPtrInput `pulumi:"config"`
-	DynamicConfig  pulumi.BoolPtrInput      `pulumi:"dynamicConfig"`
-	Version        pulumi.StringPtrInput    `pulumi:"version"`
-	VersionChannel pulumi.StringPtrInput    `pulumi:"versionChannel"`
+	Config         K0sPtrInput           `pulumi:"config"`
+	DynamicConfig  pulumi.BoolPtrInput   `pulumi:"dynamicConfig"`
+	Version        pulumi.StringPtrInput `pulumi:"version"`
+	VersionChannel pulumi.StringPtrInput `pulumi:"versionChannel"`
 }
 
 func (ClusterK0sArgs) ElementType() reflect.Type {
@@ -3042,8 +740,8 @@ func (o ClusterK0sOutput) ToClusterK0sPtrOutputWithContext(ctx context.Context) 
 	}).(ClusterK0sPtrOutput)
 }
 
-func (o ClusterK0sOutput) Config() ClusterK0sConfigPtrOutput {
-	return o.ApplyT(func(v ClusterK0s) *ClusterK0sConfig { return v.Config }).(ClusterK0sConfigPtrOutput)
+func (o ClusterK0sOutput) Config() K0sPtrOutput {
+	return o.ApplyT(func(v ClusterK0s) *K0s { return v.Config }).(K0sPtrOutput)
 }
 
 func (o ClusterK0sOutput) DynamicConfig() pulumi.BoolPtrOutput {
@@ -3082,13 +780,13 @@ func (o ClusterK0sPtrOutput) Elem() ClusterK0sOutput {
 	}).(ClusterK0sOutput)
 }
 
-func (o ClusterK0sPtrOutput) Config() ClusterK0sConfigPtrOutput {
-	return o.ApplyT(func(v *ClusterK0s) *ClusterK0sConfig {
+func (o ClusterK0sPtrOutput) Config() K0sPtrOutput {
+	return o.ApplyT(func(v *ClusterK0s) *K0s {
 		if v == nil {
 			return nil
 		}
 		return v.Config
-	}).(ClusterK0sConfigPtrOutput)
+	}).(K0sPtrOutput)
 }
 
 func (o ClusterK0sPtrOutput) DynamicConfig() pulumi.BoolPtrOutput {
@@ -3116,1698 +814,6 @@ func (o ClusterK0sPtrOutput) VersionChannel() pulumi.StringPtrOutput {
 		}
 		return v.VersionChannel
 	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterK0sConfig struct {
-	Metadata *ClusterMetadata `pulumi:"metadata"`
-	Spec     *ClusterK0sSpec  `pulumi:"spec"`
-}
-
-// ClusterK0sConfigInput is an input type that accepts ClusterK0sConfigArgs and ClusterK0sConfigOutput values.
-// You can construct a concrete instance of `ClusterK0sConfigInput` via:
-//
-//	ClusterK0sConfigArgs{...}
-type ClusterK0sConfigInput interface {
-	pulumi.Input
-
-	ToClusterK0sConfigOutput() ClusterK0sConfigOutput
-	ToClusterK0sConfigOutputWithContext(context.Context) ClusterK0sConfigOutput
-}
-
-type ClusterK0sConfigArgs struct {
-	Metadata ClusterMetadataPtrInput `pulumi:"metadata"`
-	Spec     ClusterK0sSpecPtrInput  `pulumi:"spec"`
-}
-
-func (ClusterK0sConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterK0sConfig)(nil)).Elem()
-}
-
-func (i ClusterK0sConfigArgs) ToClusterK0sConfigOutput() ClusterK0sConfigOutput {
-	return i.ToClusterK0sConfigOutputWithContext(context.Background())
-}
-
-func (i ClusterK0sConfigArgs) ToClusterK0sConfigOutputWithContext(ctx context.Context) ClusterK0sConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterK0sConfigOutput)
-}
-
-func (i ClusterK0sConfigArgs) ToClusterK0sConfigPtrOutput() ClusterK0sConfigPtrOutput {
-	return i.ToClusterK0sConfigPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterK0sConfigArgs) ToClusterK0sConfigPtrOutputWithContext(ctx context.Context) ClusterK0sConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterK0sConfigOutput).ToClusterK0sConfigPtrOutputWithContext(ctx)
-}
-
-// ClusterK0sConfigPtrInput is an input type that accepts ClusterK0sConfigArgs, ClusterK0sConfigPtr and ClusterK0sConfigPtrOutput values.
-// You can construct a concrete instance of `ClusterK0sConfigPtrInput` via:
-//
-//	        ClusterK0sConfigArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterK0sConfigPtrInput interface {
-	pulumi.Input
-
-	ToClusterK0sConfigPtrOutput() ClusterK0sConfigPtrOutput
-	ToClusterK0sConfigPtrOutputWithContext(context.Context) ClusterK0sConfigPtrOutput
-}
-
-type clusterK0sConfigPtrType ClusterK0sConfigArgs
-
-func ClusterK0sConfigPtr(v *ClusterK0sConfigArgs) ClusterK0sConfigPtrInput {
-	return (*clusterK0sConfigPtrType)(v)
-}
-
-func (*clusterK0sConfigPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterK0sConfig)(nil)).Elem()
-}
-
-func (i *clusterK0sConfigPtrType) ToClusterK0sConfigPtrOutput() ClusterK0sConfigPtrOutput {
-	return i.ToClusterK0sConfigPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterK0sConfigPtrType) ToClusterK0sConfigPtrOutputWithContext(ctx context.Context) ClusterK0sConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterK0sConfigPtrOutput)
-}
-
-type ClusterK0sConfigOutput struct{ *pulumi.OutputState }
-
-func (ClusterK0sConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterK0sConfig)(nil)).Elem()
-}
-
-func (o ClusterK0sConfigOutput) ToClusterK0sConfigOutput() ClusterK0sConfigOutput {
-	return o
-}
-
-func (o ClusterK0sConfigOutput) ToClusterK0sConfigOutputWithContext(ctx context.Context) ClusterK0sConfigOutput {
-	return o
-}
-
-func (o ClusterK0sConfigOutput) ToClusterK0sConfigPtrOutput() ClusterK0sConfigPtrOutput {
-	return o.ToClusterK0sConfigPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterK0sConfigOutput) ToClusterK0sConfigPtrOutputWithContext(ctx context.Context) ClusterK0sConfigPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterK0sConfig) *ClusterK0sConfig {
-		return &v
-	}).(ClusterK0sConfigPtrOutput)
-}
-
-func (o ClusterK0sConfigOutput) Metadata() ClusterMetadataPtrOutput {
-	return o.ApplyT(func(v ClusterK0sConfig) *ClusterMetadata { return v.Metadata }).(ClusterMetadataPtrOutput)
-}
-
-func (o ClusterK0sConfigOutput) Spec() ClusterK0sSpecPtrOutput {
-	return o.ApplyT(func(v ClusterK0sConfig) *ClusterK0sSpec { return v.Spec }).(ClusterK0sSpecPtrOutput)
-}
-
-type ClusterK0sConfigPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterK0sConfigPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterK0sConfig)(nil)).Elem()
-}
-
-func (o ClusterK0sConfigPtrOutput) ToClusterK0sConfigPtrOutput() ClusterK0sConfigPtrOutput {
-	return o
-}
-
-func (o ClusterK0sConfigPtrOutput) ToClusterK0sConfigPtrOutputWithContext(ctx context.Context) ClusterK0sConfigPtrOutput {
-	return o
-}
-
-func (o ClusterK0sConfigPtrOutput) Elem() ClusterK0sConfigOutput {
-	return o.ApplyT(func(v *ClusterK0sConfig) ClusterK0sConfig {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterK0sConfig
-		return ret
-	}).(ClusterK0sConfigOutput)
-}
-
-func (o ClusterK0sConfigPtrOutput) Metadata() ClusterMetadataPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sConfig) *ClusterMetadata {
-		if v == nil {
-			return nil
-		}
-		return v.Metadata
-	}).(ClusterMetadataPtrOutput)
-}
-
-func (o ClusterK0sConfigPtrOutput) Spec() ClusterK0sSpecPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sConfig) *ClusterK0sSpec {
-		if v == nil {
-			return nil
-		}
-		return v.Spec
-	}).(ClusterK0sSpecPtrOutput)
-}
-
-type ClusterK0sSpec struct {
-	Api               *ClusterAPI               `pulumi:"api"`
-	ControllerManager *ClusterControllerManager `pulumi:"controllerManager"`
-	FeatureGates      []ClusterFeatureGate      `pulumi:"featureGates"`
-	Images            *ClusterImages            `pulumi:"images"`
-	InstallConfig     *ClusterInstallConfig     `pulumi:"installConfig"`
-	Konnectivity      *ClusterKonnectivity      `pulumi:"konnectivity"`
-	Network           *ClusterNetwork           `pulumi:"network"`
-	PodSecurityPolicy *ClusterPodSecurityPolicy `pulumi:"podSecurityPolicy"`
-	Scheduler         *ClusterScheduler         `pulumi:"scheduler"`
-	Storage           *ClusterStorage           `pulumi:"storage"`
-	Telemetry         *ClusterTelemetry         `pulumi:"telemetry"`
-	WorkerProfiles    []ClusterWorkerProfile    `pulumi:"workerProfiles"`
-}
-
-// ClusterK0sSpecInput is an input type that accepts ClusterK0sSpecArgs and ClusterK0sSpecOutput values.
-// You can construct a concrete instance of `ClusterK0sSpecInput` via:
-//
-//	ClusterK0sSpecArgs{...}
-type ClusterK0sSpecInput interface {
-	pulumi.Input
-
-	ToClusterK0sSpecOutput() ClusterK0sSpecOutput
-	ToClusterK0sSpecOutputWithContext(context.Context) ClusterK0sSpecOutput
-}
-
-type ClusterK0sSpecArgs struct {
-	Api               ClusterAPIPtrInput               `pulumi:"api"`
-	ControllerManager ClusterControllerManagerPtrInput `pulumi:"controllerManager"`
-	FeatureGates      ClusterFeatureGateArrayInput     `pulumi:"featureGates"`
-	Images            ClusterImagesPtrInput            `pulumi:"images"`
-	InstallConfig     ClusterInstallConfigPtrInput     `pulumi:"installConfig"`
-	Konnectivity      ClusterKonnectivityPtrInput      `pulumi:"konnectivity"`
-	Network           ClusterNetworkPtrInput           `pulumi:"network"`
-	PodSecurityPolicy ClusterPodSecurityPolicyPtrInput `pulumi:"podSecurityPolicy"`
-	Scheduler         ClusterSchedulerPtrInput         `pulumi:"scheduler"`
-	Storage           ClusterStoragePtrInput           `pulumi:"storage"`
-	Telemetry         ClusterTelemetryPtrInput         `pulumi:"telemetry"`
-	WorkerProfiles    ClusterWorkerProfileArrayInput   `pulumi:"workerProfiles"`
-}
-
-func (ClusterK0sSpecArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterK0sSpec)(nil)).Elem()
-}
-
-func (i ClusterK0sSpecArgs) ToClusterK0sSpecOutput() ClusterK0sSpecOutput {
-	return i.ToClusterK0sSpecOutputWithContext(context.Background())
-}
-
-func (i ClusterK0sSpecArgs) ToClusterK0sSpecOutputWithContext(ctx context.Context) ClusterK0sSpecOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterK0sSpecOutput)
-}
-
-func (i ClusterK0sSpecArgs) ToClusterK0sSpecPtrOutput() ClusterK0sSpecPtrOutput {
-	return i.ToClusterK0sSpecPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterK0sSpecArgs) ToClusterK0sSpecPtrOutputWithContext(ctx context.Context) ClusterK0sSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterK0sSpecOutput).ToClusterK0sSpecPtrOutputWithContext(ctx)
-}
-
-// ClusterK0sSpecPtrInput is an input type that accepts ClusterK0sSpecArgs, ClusterK0sSpecPtr and ClusterK0sSpecPtrOutput values.
-// You can construct a concrete instance of `ClusterK0sSpecPtrInput` via:
-//
-//	        ClusterK0sSpecArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterK0sSpecPtrInput interface {
-	pulumi.Input
-
-	ToClusterK0sSpecPtrOutput() ClusterK0sSpecPtrOutput
-	ToClusterK0sSpecPtrOutputWithContext(context.Context) ClusterK0sSpecPtrOutput
-}
-
-type clusterK0sSpecPtrType ClusterK0sSpecArgs
-
-func ClusterK0sSpecPtr(v *ClusterK0sSpecArgs) ClusterK0sSpecPtrInput {
-	return (*clusterK0sSpecPtrType)(v)
-}
-
-func (*clusterK0sSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterK0sSpec)(nil)).Elem()
-}
-
-func (i *clusterK0sSpecPtrType) ToClusterK0sSpecPtrOutput() ClusterK0sSpecPtrOutput {
-	return i.ToClusterK0sSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterK0sSpecPtrType) ToClusterK0sSpecPtrOutputWithContext(ctx context.Context) ClusterK0sSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterK0sSpecPtrOutput)
-}
-
-type ClusterK0sSpecOutput struct{ *pulumi.OutputState }
-
-func (ClusterK0sSpecOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterK0sSpec)(nil)).Elem()
-}
-
-func (o ClusterK0sSpecOutput) ToClusterK0sSpecOutput() ClusterK0sSpecOutput {
-	return o
-}
-
-func (o ClusterK0sSpecOutput) ToClusterK0sSpecOutputWithContext(ctx context.Context) ClusterK0sSpecOutput {
-	return o
-}
-
-func (o ClusterK0sSpecOutput) ToClusterK0sSpecPtrOutput() ClusterK0sSpecPtrOutput {
-	return o.ToClusterK0sSpecPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterK0sSpecOutput) ToClusterK0sSpecPtrOutputWithContext(ctx context.Context) ClusterK0sSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterK0sSpec) *ClusterK0sSpec {
-		return &v
-	}).(ClusterK0sSpecPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) Api() ClusterAPIPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterAPI { return v.Api }).(ClusterAPIPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) ControllerManager() ClusterControllerManagerPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterControllerManager { return v.ControllerManager }).(ClusterControllerManagerPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) FeatureGates() ClusterFeatureGateArrayOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) []ClusterFeatureGate { return v.FeatureGates }).(ClusterFeatureGateArrayOutput)
-}
-
-func (o ClusterK0sSpecOutput) Images() ClusterImagesPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterImages { return v.Images }).(ClusterImagesPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) InstallConfig() ClusterInstallConfigPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterInstallConfig { return v.InstallConfig }).(ClusterInstallConfigPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) Konnectivity() ClusterKonnectivityPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterKonnectivity { return v.Konnectivity }).(ClusterKonnectivityPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) Network() ClusterNetworkPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterNetwork { return v.Network }).(ClusterNetworkPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) PodSecurityPolicy() ClusterPodSecurityPolicyPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterPodSecurityPolicy { return v.PodSecurityPolicy }).(ClusterPodSecurityPolicyPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) Scheduler() ClusterSchedulerPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterScheduler { return v.Scheduler }).(ClusterSchedulerPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) Storage() ClusterStoragePtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterStorage { return v.Storage }).(ClusterStoragePtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) Telemetry() ClusterTelemetryPtrOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) *ClusterTelemetry { return v.Telemetry }).(ClusterTelemetryPtrOutput)
-}
-
-func (o ClusterK0sSpecOutput) WorkerProfiles() ClusterWorkerProfileArrayOutput {
-	return o.ApplyT(func(v ClusterK0sSpec) []ClusterWorkerProfile { return v.WorkerProfiles }).(ClusterWorkerProfileArrayOutput)
-}
-
-type ClusterK0sSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterK0sSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterK0sSpec)(nil)).Elem()
-}
-
-func (o ClusterK0sSpecPtrOutput) ToClusterK0sSpecPtrOutput() ClusterK0sSpecPtrOutput {
-	return o
-}
-
-func (o ClusterK0sSpecPtrOutput) ToClusterK0sSpecPtrOutputWithContext(ctx context.Context) ClusterK0sSpecPtrOutput {
-	return o
-}
-
-func (o ClusterK0sSpecPtrOutput) Elem() ClusterK0sSpecOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) ClusterK0sSpec {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterK0sSpec
-		return ret
-	}).(ClusterK0sSpecOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) Api() ClusterAPIPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterAPI {
-		if v == nil {
-			return nil
-		}
-		return v.Api
-	}).(ClusterAPIPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) ControllerManager() ClusterControllerManagerPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterControllerManager {
-		if v == nil {
-			return nil
-		}
-		return v.ControllerManager
-	}).(ClusterControllerManagerPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) FeatureGates() ClusterFeatureGateArrayOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) []ClusterFeatureGate {
-		if v == nil {
-			return nil
-		}
-		return v.FeatureGates
-	}).(ClusterFeatureGateArrayOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) Images() ClusterImagesPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterImages {
-		if v == nil {
-			return nil
-		}
-		return v.Images
-	}).(ClusterImagesPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) InstallConfig() ClusterInstallConfigPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterInstallConfig {
-		if v == nil {
-			return nil
-		}
-		return v.InstallConfig
-	}).(ClusterInstallConfigPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) Konnectivity() ClusterKonnectivityPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterKonnectivity {
-		if v == nil {
-			return nil
-		}
-		return v.Konnectivity
-	}).(ClusterKonnectivityPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) Network() ClusterNetworkPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterNetwork {
-		if v == nil {
-			return nil
-		}
-		return v.Network
-	}).(ClusterNetworkPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) PodSecurityPolicy() ClusterPodSecurityPolicyPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterPodSecurityPolicy {
-		if v == nil {
-			return nil
-		}
-		return v.PodSecurityPolicy
-	}).(ClusterPodSecurityPolicyPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) Scheduler() ClusterSchedulerPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterScheduler {
-		if v == nil {
-			return nil
-		}
-		return v.Scheduler
-	}).(ClusterSchedulerPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) Storage() ClusterStoragePtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterStorage {
-		if v == nil {
-			return nil
-		}
-		return v.Storage
-	}).(ClusterStoragePtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) Telemetry() ClusterTelemetryPtrOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) *ClusterTelemetry {
-		if v == nil {
-			return nil
-		}
-		return v.Telemetry
-	}).(ClusterTelemetryPtrOutput)
-}
-
-func (o ClusterK0sSpecPtrOutput) WorkerProfiles() ClusterWorkerProfileArrayOutput {
-	return o.ApplyT(func(v *ClusterK0sSpec) []ClusterWorkerProfile {
-		if v == nil {
-			return nil
-		}
-		return v.WorkerProfiles
-	}).(ClusterWorkerProfileArrayOutput)
-}
-
-type ClusterKine struct {
-	DataSource string `pulumi:"dataSource"`
-}
-
-// ClusterKineInput is an input type that accepts ClusterKineArgs and ClusterKineOutput values.
-// You can construct a concrete instance of `ClusterKineInput` via:
-//
-//	ClusterKineArgs{...}
-type ClusterKineInput interface {
-	pulumi.Input
-
-	ToClusterKineOutput() ClusterKineOutput
-	ToClusterKineOutputWithContext(context.Context) ClusterKineOutput
-}
-
-type ClusterKineArgs struct {
-	DataSource pulumi.StringInput `pulumi:"dataSource"`
-}
-
-func (ClusterKineArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKine)(nil)).Elem()
-}
-
-func (i ClusterKineArgs) ToClusterKineOutput() ClusterKineOutput {
-	return i.ToClusterKineOutputWithContext(context.Background())
-}
-
-func (i ClusterKineArgs) ToClusterKineOutputWithContext(ctx context.Context) ClusterKineOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKineOutput)
-}
-
-func (i ClusterKineArgs) ToClusterKinePtrOutput() ClusterKinePtrOutput {
-	return i.ToClusterKinePtrOutputWithContext(context.Background())
-}
-
-func (i ClusterKineArgs) ToClusterKinePtrOutputWithContext(ctx context.Context) ClusterKinePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKineOutput).ToClusterKinePtrOutputWithContext(ctx)
-}
-
-// ClusterKinePtrInput is an input type that accepts ClusterKineArgs, ClusterKinePtr and ClusterKinePtrOutput values.
-// You can construct a concrete instance of `ClusterKinePtrInput` via:
-//
-//	        ClusterKineArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterKinePtrInput interface {
-	pulumi.Input
-
-	ToClusterKinePtrOutput() ClusterKinePtrOutput
-	ToClusterKinePtrOutputWithContext(context.Context) ClusterKinePtrOutput
-}
-
-type clusterKinePtrType ClusterKineArgs
-
-func ClusterKinePtr(v *ClusterKineArgs) ClusterKinePtrInput {
-	return (*clusterKinePtrType)(v)
-}
-
-func (*clusterKinePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKine)(nil)).Elem()
-}
-
-func (i *clusterKinePtrType) ToClusterKinePtrOutput() ClusterKinePtrOutput {
-	return i.ToClusterKinePtrOutputWithContext(context.Background())
-}
-
-func (i *clusterKinePtrType) ToClusterKinePtrOutputWithContext(ctx context.Context) ClusterKinePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKinePtrOutput)
-}
-
-type ClusterKineOutput struct{ *pulumi.OutputState }
-
-func (ClusterKineOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKine)(nil)).Elem()
-}
-
-func (o ClusterKineOutput) ToClusterKineOutput() ClusterKineOutput {
-	return o
-}
-
-func (o ClusterKineOutput) ToClusterKineOutputWithContext(ctx context.Context) ClusterKineOutput {
-	return o
-}
-
-func (o ClusterKineOutput) ToClusterKinePtrOutput() ClusterKinePtrOutput {
-	return o.ToClusterKinePtrOutputWithContext(context.Background())
-}
-
-func (o ClusterKineOutput) ToClusterKinePtrOutputWithContext(ctx context.Context) ClusterKinePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterKine) *ClusterKine {
-		return &v
-	}).(ClusterKinePtrOutput)
-}
-
-func (o ClusterKineOutput) DataSource() pulumi.StringOutput {
-	return o.ApplyT(func(v ClusterKine) string { return v.DataSource }).(pulumi.StringOutput)
-}
-
-type ClusterKinePtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterKinePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKine)(nil)).Elem()
-}
-
-func (o ClusterKinePtrOutput) ToClusterKinePtrOutput() ClusterKinePtrOutput {
-	return o
-}
-
-func (o ClusterKinePtrOutput) ToClusterKinePtrOutputWithContext(ctx context.Context) ClusterKinePtrOutput {
-	return o
-}
-
-func (o ClusterKinePtrOutput) Elem() ClusterKineOutput {
-	return o.ApplyT(func(v *ClusterKine) ClusterKine {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterKine
-		return ret
-	}).(ClusterKineOutput)
-}
-
-func (o ClusterKinePtrOutput) DataSource() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKine) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.DataSource
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterKonnectivity struct {
-	AdminPort *int `pulumi:"adminPort"`
-	AgentPort *int `pulumi:"agentPort"`
-}
-
-// ClusterKonnectivityInput is an input type that accepts ClusterKonnectivityArgs and ClusterKonnectivityOutput values.
-// You can construct a concrete instance of `ClusterKonnectivityInput` via:
-//
-//	ClusterKonnectivityArgs{...}
-type ClusterKonnectivityInput interface {
-	pulumi.Input
-
-	ToClusterKonnectivityOutput() ClusterKonnectivityOutput
-	ToClusterKonnectivityOutputWithContext(context.Context) ClusterKonnectivityOutput
-}
-
-type ClusterKonnectivityArgs struct {
-	AdminPort pulumi.IntPtrInput `pulumi:"adminPort"`
-	AgentPort pulumi.IntPtrInput `pulumi:"agentPort"`
-}
-
-func (ClusterKonnectivityArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKonnectivity)(nil)).Elem()
-}
-
-func (i ClusterKonnectivityArgs) ToClusterKonnectivityOutput() ClusterKonnectivityOutput {
-	return i.ToClusterKonnectivityOutputWithContext(context.Background())
-}
-
-func (i ClusterKonnectivityArgs) ToClusterKonnectivityOutputWithContext(ctx context.Context) ClusterKonnectivityOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKonnectivityOutput)
-}
-
-func (i ClusterKonnectivityArgs) ToClusterKonnectivityPtrOutput() ClusterKonnectivityPtrOutput {
-	return i.ToClusterKonnectivityPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterKonnectivityArgs) ToClusterKonnectivityPtrOutputWithContext(ctx context.Context) ClusterKonnectivityPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKonnectivityOutput).ToClusterKonnectivityPtrOutputWithContext(ctx)
-}
-
-// ClusterKonnectivityPtrInput is an input type that accepts ClusterKonnectivityArgs, ClusterKonnectivityPtr and ClusterKonnectivityPtrOutput values.
-// You can construct a concrete instance of `ClusterKonnectivityPtrInput` via:
-//
-//	        ClusterKonnectivityArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterKonnectivityPtrInput interface {
-	pulumi.Input
-
-	ToClusterKonnectivityPtrOutput() ClusterKonnectivityPtrOutput
-	ToClusterKonnectivityPtrOutputWithContext(context.Context) ClusterKonnectivityPtrOutput
-}
-
-type clusterKonnectivityPtrType ClusterKonnectivityArgs
-
-func ClusterKonnectivityPtr(v *ClusterKonnectivityArgs) ClusterKonnectivityPtrInput {
-	return (*clusterKonnectivityPtrType)(v)
-}
-
-func (*clusterKonnectivityPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKonnectivity)(nil)).Elem()
-}
-
-func (i *clusterKonnectivityPtrType) ToClusterKonnectivityPtrOutput() ClusterKonnectivityPtrOutput {
-	return i.ToClusterKonnectivityPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterKonnectivityPtrType) ToClusterKonnectivityPtrOutputWithContext(ctx context.Context) ClusterKonnectivityPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKonnectivityPtrOutput)
-}
-
-type ClusterKonnectivityOutput struct{ *pulumi.OutputState }
-
-func (ClusterKonnectivityOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKonnectivity)(nil)).Elem()
-}
-
-func (o ClusterKonnectivityOutput) ToClusterKonnectivityOutput() ClusterKonnectivityOutput {
-	return o
-}
-
-func (o ClusterKonnectivityOutput) ToClusterKonnectivityOutputWithContext(ctx context.Context) ClusterKonnectivityOutput {
-	return o
-}
-
-func (o ClusterKonnectivityOutput) ToClusterKonnectivityPtrOutput() ClusterKonnectivityPtrOutput {
-	return o.ToClusterKonnectivityPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterKonnectivityOutput) ToClusterKonnectivityPtrOutputWithContext(ctx context.Context) ClusterKonnectivityPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterKonnectivity) *ClusterKonnectivity {
-		return &v
-	}).(ClusterKonnectivityPtrOutput)
-}
-
-func (o ClusterKonnectivityOutput) AdminPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterKonnectivity) *int { return v.AdminPort }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterKonnectivityOutput) AgentPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterKonnectivity) *int { return v.AgentPort }).(pulumi.IntPtrOutput)
-}
-
-type ClusterKonnectivityPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterKonnectivityPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKonnectivity)(nil)).Elem()
-}
-
-func (o ClusterKonnectivityPtrOutput) ToClusterKonnectivityPtrOutput() ClusterKonnectivityPtrOutput {
-	return o
-}
-
-func (o ClusterKonnectivityPtrOutput) ToClusterKonnectivityPtrOutputWithContext(ctx context.Context) ClusterKonnectivityPtrOutput {
-	return o
-}
-
-func (o ClusterKonnectivityPtrOutput) Elem() ClusterKonnectivityOutput {
-	return o.ApplyT(func(v *ClusterKonnectivity) ClusterKonnectivity {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterKonnectivity
-		return ret
-	}).(ClusterKonnectivityOutput)
-}
-
-func (o ClusterKonnectivityPtrOutput) AdminPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterKonnectivity) *int {
-		if v == nil {
-			return nil
-		}
-		return v.AdminPort
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterKonnectivityPtrOutput) AgentPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterKonnectivity) *int {
-		if v == nil {
-			return nil
-		}
-		return v.AgentPort
-	}).(pulumi.IntPtrOutput)
-}
-
-type ClusterKubeProxy struct {
-	Disabled          *bool                     `pulumi:"disabled"`
-	Iptables          *ClusterKubeProxyIPTables `pulumi:"iptables"`
-	Ipvs              *ClusterKubeProxyIPVS     `pulumi:"ipvs"`
-	Mode              *string                   `pulumi:"mode"`
-	NodePortAddresses *string                   `pulumi:"nodePortAddresses"`
-}
-
-// ClusterKubeProxyInput is an input type that accepts ClusterKubeProxyArgs and ClusterKubeProxyOutput values.
-// You can construct a concrete instance of `ClusterKubeProxyInput` via:
-//
-//	ClusterKubeProxyArgs{...}
-type ClusterKubeProxyInput interface {
-	pulumi.Input
-
-	ToClusterKubeProxyOutput() ClusterKubeProxyOutput
-	ToClusterKubeProxyOutputWithContext(context.Context) ClusterKubeProxyOutput
-}
-
-type ClusterKubeProxyArgs struct {
-	Disabled          pulumi.BoolPtrInput              `pulumi:"disabled"`
-	Iptables          ClusterKubeProxyIPTablesPtrInput `pulumi:"iptables"`
-	Ipvs              ClusterKubeProxyIPVSPtrInput     `pulumi:"ipvs"`
-	Mode              pulumi.StringPtrInput            `pulumi:"mode"`
-	NodePortAddresses pulumi.StringPtrInput            `pulumi:"nodePortAddresses"`
-}
-
-func (ClusterKubeProxyArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeProxy)(nil)).Elem()
-}
-
-func (i ClusterKubeProxyArgs) ToClusterKubeProxyOutput() ClusterKubeProxyOutput {
-	return i.ToClusterKubeProxyOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeProxyArgs) ToClusterKubeProxyOutputWithContext(ctx context.Context) ClusterKubeProxyOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyOutput)
-}
-
-func (i ClusterKubeProxyArgs) ToClusterKubeProxyPtrOutput() ClusterKubeProxyPtrOutput {
-	return i.ToClusterKubeProxyPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeProxyArgs) ToClusterKubeProxyPtrOutputWithContext(ctx context.Context) ClusterKubeProxyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyOutput).ToClusterKubeProxyPtrOutputWithContext(ctx)
-}
-
-// ClusterKubeProxyPtrInput is an input type that accepts ClusterKubeProxyArgs, ClusterKubeProxyPtr and ClusterKubeProxyPtrOutput values.
-// You can construct a concrete instance of `ClusterKubeProxyPtrInput` via:
-//
-//	        ClusterKubeProxyArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterKubeProxyPtrInput interface {
-	pulumi.Input
-
-	ToClusterKubeProxyPtrOutput() ClusterKubeProxyPtrOutput
-	ToClusterKubeProxyPtrOutputWithContext(context.Context) ClusterKubeProxyPtrOutput
-}
-
-type clusterKubeProxyPtrType ClusterKubeProxyArgs
-
-func ClusterKubeProxyPtr(v *ClusterKubeProxyArgs) ClusterKubeProxyPtrInput {
-	return (*clusterKubeProxyPtrType)(v)
-}
-
-func (*clusterKubeProxyPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeProxy)(nil)).Elem()
-}
-
-func (i *clusterKubeProxyPtrType) ToClusterKubeProxyPtrOutput() ClusterKubeProxyPtrOutput {
-	return i.ToClusterKubeProxyPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterKubeProxyPtrType) ToClusterKubeProxyPtrOutputWithContext(ctx context.Context) ClusterKubeProxyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyPtrOutput)
-}
-
-type ClusterKubeProxyOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeProxyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeProxy)(nil)).Elem()
-}
-
-func (o ClusterKubeProxyOutput) ToClusterKubeProxyOutput() ClusterKubeProxyOutput {
-	return o
-}
-
-func (o ClusterKubeProxyOutput) ToClusterKubeProxyOutputWithContext(ctx context.Context) ClusterKubeProxyOutput {
-	return o
-}
-
-func (o ClusterKubeProxyOutput) ToClusterKubeProxyPtrOutput() ClusterKubeProxyPtrOutput {
-	return o.ToClusterKubeProxyPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterKubeProxyOutput) ToClusterKubeProxyPtrOutputWithContext(ctx context.Context) ClusterKubeProxyPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterKubeProxy) *ClusterKubeProxy {
-		return &v
-	}).(ClusterKubeProxyPtrOutput)
-}
-
-func (o ClusterKubeProxyOutput) Disabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxy) *bool { return v.Disabled }).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeProxyOutput) Iptables() ClusterKubeProxyIPTablesPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxy) *ClusterKubeProxyIPTables { return v.Iptables }).(ClusterKubeProxyIPTablesPtrOutput)
-}
-
-func (o ClusterKubeProxyOutput) Ipvs() ClusterKubeProxyIPVSPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxy) *ClusterKubeProxyIPVS { return v.Ipvs }).(ClusterKubeProxyIPVSPtrOutput)
-}
-
-func (o ClusterKubeProxyOutput) Mode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxy) *string { return v.Mode }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyOutput) NodePortAddresses() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxy) *string { return v.NodePortAddresses }).(pulumi.StringPtrOutput)
-}
-
-type ClusterKubeProxyPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeProxyPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeProxy)(nil)).Elem()
-}
-
-func (o ClusterKubeProxyPtrOutput) ToClusterKubeProxyPtrOutput() ClusterKubeProxyPtrOutput {
-	return o
-}
-
-func (o ClusterKubeProxyPtrOutput) ToClusterKubeProxyPtrOutputWithContext(ctx context.Context) ClusterKubeProxyPtrOutput {
-	return o
-}
-
-func (o ClusterKubeProxyPtrOutput) Elem() ClusterKubeProxyOutput {
-	return o.ApplyT(func(v *ClusterKubeProxy) ClusterKubeProxy {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterKubeProxy
-		return ret
-	}).(ClusterKubeProxyOutput)
-}
-
-func (o ClusterKubeProxyPtrOutput) Disabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxy) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Disabled
-	}).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeProxyPtrOutput) Iptables() ClusterKubeProxyIPTablesPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxy) *ClusterKubeProxyIPTables {
-		if v == nil {
-			return nil
-		}
-		return v.Iptables
-	}).(ClusterKubeProxyIPTablesPtrOutput)
-}
-
-func (o ClusterKubeProxyPtrOutput) Ipvs() ClusterKubeProxyIPVSPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxy) *ClusterKubeProxyIPVS {
-		if v == nil {
-			return nil
-		}
-		return v.Ipvs
-	}).(ClusterKubeProxyIPVSPtrOutput)
-}
-
-func (o ClusterKubeProxyPtrOutput) Mode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxy) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Mode
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyPtrOutput) NodePortAddresses() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxy) *string {
-		if v == nil {
-			return nil
-		}
-		return v.NodePortAddresses
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterKubeProxyIPTables struct {
-	MasqueradeAll *bool   `pulumi:"masqueradeAll"`
-	MasqueradeBit *int    `pulumi:"masqueradeBit"`
-	MinSyncPeriod *string `pulumi:"minSyncPeriod"`
-	SyncPeriod    *string `pulumi:"syncPeriod"`
-}
-
-// ClusterKubeProxyIPTablesInput is an input type that accepts ClusterKubeProxyIPTablesArgs and ClusterKubeProxyIPTablesOutput values.
-// You can construct a concrete instance of `ClusterKubeProxyIPTablesInput` via:
-//
-//	ClusterKubeProxyIPTablesArgs{...}
-type ClusterKubeProxyIPTablesInput interface {
-	pulumi.Input
-
-	ToClusterKubeProxyIPTablesOutput() ClusterKubeProxyIPTablesOutput
-	ToClusterKubeProxyIPTablesOutputWithContext(context.Context) ClusterKubeProxyIPTablesOutput
-}
-
-type ClusterKubeProxyIPTablesArgs struct {
-	MasqueradeAll pulumi.BoolPtrInput   `pulumi:"masqueradeAll"`
-	MasqueradeBit pulumi.IntPtrInput    `pulumi:"masqueradeBit"`
-	MinSyncPeriod pulumi.StringPtrInput `pulumi:"minSyncPeriod"`
-	SyncPeriod    pulumi.StringPtrInput `pulumi:"syncPeriod"`
-}
-
-func (ClusterKubeProxyIPTablesArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeProxyIPTables)(nil)).Elem()
-}
-
-func (i ClusterKubeProxyIPTablesArgs) ToClusterKubeProxyIPTablesOutput() ClusterKubeProxyIPTablesOutput {
-	return i.ToClusterKubeProxyIPTablesOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeProxyIPTablesArgs) ToClusterKubeProxyIPTablesOutputWithContext(ctx context.Context) ClusterKubeProxyIPTablesOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyIPTablesOutput)
-}
-
-func (i ClusterKubeProxyIPTablesArgs) ToClusterKubeProxyIPTablesPtrOutput() ClusterKubeProxyIPTablesPtrOutput {
-	return i.ToClusterKubeProxyIPTablesPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeProxyIPTablesArgs) ToClusterKubeProxyIPTablesPtrOutputWithContext(ctx context.Context) ClusterKubeProxyIPTablesPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyIPTablesOutput).ToClusterKubeProxyIPTablesPtrOutputWithContext(ctx)
-}
-
-// ClusterKubeProxyIPTablesPtrInput is an input type that accepts ClusterKubeProxyIPTablesArgs, ClusterKubeProxyIPTablesPtr and ClusterKubeProxyIPTablesPtrOutput values.
-// You can construct a concrete instance of `ClusterKubeProxyIPTablesPtrInput` via:
-//
-//	        ClusterKubeProxyIPTablesArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterKubeProxyIPTablesPtrInput interface {
-	pulumi.Input
-
-	ToClusterKubeProxyIPTablesPtrOutput() ClusterKubeProxyIPTablesPtrOutput
-	ToClusterKubeProxyIPTablesPtrOutputWithContext(context.Context) ClusterKubeProxyIPTablesPtrOutput
-}
-
-type clusterKubeProxyIPTablesPtrType ClusterKubeProxyIPTablesArgs
-
-func ClusterKubeProxyIPTablesPtr(v *ClusterKubeProxyIPTablesArgs) ClusterKubeProxyIPTablesPtrInput {
-	return (*clusterKubeProxyIPTablesPtrType)(v)
-}
-
-func (*clusterKubeProxyIPTablesPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeProxyIPTables)(nil)).Elem()
-}
-
-func (i *clusterKubeProxyIPTablesPtrType) ToClusterKubeProxyIPTablesPtrOutput() ClusterKubeProxyIPTablesPtrOutput {
-	return i.ToClusterKubeProxyIPTablesPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterKubeProxyIPTablesPtrType) ToClusterKubeProxyIPTablesPtrOutputWithContext(ctx context.Context) ClusterKubeProxyIPTablesPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyIPTablesPtrOutput)
-}
-
-type ClusterKubeProxyIPTablesOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeProxyIPTablesOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeProxyIPTables)(nil)).Elem()
-}
-
-func (o ClusterKubeProxyIPTablesOutput) ToClusterKubeProxyIPTablesOutput() ClusterKubeProxyIPTablesOutput {
-	return o
-}
-
-func (o ClusterKubeProxyIPTablesOutput) ToClusterKubeProxyIPTablesOutputWithContext(ctx context.Context) ClusterKubeProxyIPTablesOutput {
-	return o
-}
-
-func (o ClusterKubeProxyIPTablesOutput) ToClusterKubeProxyIPTablesPtrOutput() ClusterKubeProxyIPTablesPtrOutput {
-	return o.ToClusterKubeProxyIPTablesPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterKubeProxyIPTablesOutput) ToClusterKubeProxyIPTablesPtrOutputWithContext(ctx context.Context) ClusterKubeProxyIPTablesPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterKubeProxyIPTables) *ClusterKubeProxyIPTables {
-		return &v
-	}).(ClusterKubeProxyIPTablesPtrOutput)
-}
-
-func (o ClusterKubeProxyIPTablesOutput) MasqueradeAll() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPTables) *bool { return v.MasqueradeAll }).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeProxyIPTablesOutput) MasqueradeBit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPTables) *int { return v.MasqueradeBit }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterKubeProxyIPTablesOutput) MinSyncPeriod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPTables) *string { return v.MinSyncPeriod }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPTablesOutput) SyncPeriod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPTables) *string { return v.SyncPeriod }).(pulumi.StringPtrOutput)
-}
-
-type ClusterKubeProxyIPTablesPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeProxyIPTablesPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeProxyIPTables)(nil)).Elem()
-}
-
-func (o ClusterKubeProxyIPTablesPtrOutput) ToClusterKubeProxyIPTablesPtrOutput() ClusterKubeProxyIPTablesPtrOutput {
-	return o
-}
-
-func (o ClusterKubeProxyIPTablesPtrOutput) ToClusterKubeProxyIPTablesPtrOutputWithContext(ctx context.Context) ClusterKubeProxyIPTablesPtrOutput {
-	return o
-}
-
-func (o ClusterKubeProxyIPTablesPtrOutput) Elem() ClusterKubeProxyIPTablesOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPTables) ClusterKubeProxyIPTables {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterKubeProxyIPTables
-		return ret
-	}).(ClusterKubeProxyIPTablesOutput)
-}
-
-func (o ClusterKubeProxyIPTablesPtrOutput) MasqueradeAll() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPTables) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.MasqueradeAll
-	}).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeProxyIPTablesPtrOutput) MasqueradeBit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPTables) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MasqueradeBit
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterKubeProxyIPTablesPtrOutput) MinSyncPeriod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPTables) *string {
-		if v == nil {
-			return nil
-		}
-		return v.MinSyncPeriod
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPTablesPtrOutput) SyncPeriod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPTables) *string {
-		if v == nil {
-			return nil
-		}
-		return v.SyncPeriod
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterKubeProxyIPVS struct {
-	ExcludeCIDRs  *string `pulumi:"excludeCIDRs"`
-	MinSyncPeriod *string `pulumi:"minSyncPeriod"`
-	Scheduler     *string `pulumi:"scheduler"`
-	StrictARP     *bool   `pulumi:"strictARP"`
-	SyncPeriod    *string `pulumi:"syncPeriod"`
-	TcpFinTimeout *string `pulumi:"tcpFinTimeout"`
-	TcpTimeout    *string `pulumi:"tcpTimeout"`
-	UdpTimeout    *string `pulumi:"udpTimeout"`
-}
-
-// ClusterKubeProxyIPVSInput is an input type that accepts ClusterKubeProxyIPVSArgs and ClusterKubeProxyIPVSOutput values.
-// You can construct a concrete instance of `ClusterKubeProxyIPVSInput` via:
-//
-//	ClusterKubeProxyIPVSArgs{...}
-type ClusterKubeProxyIPVSInput interface {
-	pulumi.Input
-
-	ToClusterKubeProxyIPVSOutput() ClusterKubeProxyIPVSOutput
-	ToClusterKubeProxyIPVSOutputWithContext(context.Context) ClusterKubeProxyIPVSOutput
-}
-
-type ClusterKubeProxyIPVSArgs struct {
-	ExcludeCIDRs  pulumi.StringPtrInput `pulumi:"excludeCIDRs"`
-	MinSyncPeriod pulumi.StringPtrInput `pulumi:"minSyncPeriod"`
-	Scheduler     pulumi.StringPtrInput `pulumi:"scheduler"`
-	StrictARP     pulumi.BoolPtrInput   `pulumi:"strictARP"`
-	SyncPeriod    pulumi.StringPtrInput `pulumi:"syncPeriod"`
-	TcpFinTimeout pulumi.StringPtrInput `pulumi:"tcpFinTimeout"`
-	TcpTimeout    pulumi.StringPtrInput `pulumi:"tcpTimeout"`
-	UdpTimeout    pulumi.StringPtrInput `pulumi:"udpTimeout"`
-}
-
-func (ClusterKubeProxyIPVSArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeProxyIPVS)(nil)).Elem()
-}
-
-func (i ClusterKubeProxyIPVSArgs) ToClusterKubeProxyIPVSOutput() ClusterKubeProxyIPVSOutput {
-	return i.ToClusterKubeProxyIPVSOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeProxyIPVSArgs) ToClusterKubeProxyIPVSOutputWithContext(ctx context.Context) ClusterKubeProxyIPVSOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyIPVSOutput)
-}
-
-func (i ClusterKubeProxyIPVSArgs) ToClusterKubeProxyIPVSPtrOutput() ClusterKubeProxyIPVSPtrOutput {
-	return i.ToClusterKubeProxyIPVSPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeProxyIPVSArgs) ToClusterKubeProxyIPVSPtrOutputWithContext(ctx context.Context) ClusterKubeProxyIPVSPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyIPVSOutput).ToClusterKubeProxyIPVSPtrOutputWithContext(ctx)
-}
-
-// ClusterKubeProxyIPVSPtrInput is an input type that accepts ClusterKubeProxyIPVSArgs, ClusterKubeProxyIPVSPtr and ClusterKubeProxyIPVSPtrOutput values.
-// You can construct a concrete instance of `ClusterKubeProxyIPVSPtrInput` via:
-//
-//	        ClusterKubeProxyIPVSArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterKubeProxyIPVSPtrInput interface {
-	pulumi.Input
-
-	ToClusterKubeProxyIPVSPtrOutput() ClusterKubeProxyIPVSPtrOutput
-	ToClusterKubeProxyIPVSPtrOutputWithContext(context.Context) ClusterKubeProxyIPVSPtrOutput
-}
-
-type clusterKubeProxyIPVSPtrType ClusterKubeProxyIPVSArgs
-
-func ClusterKubeProxyIPVSPtr(v *ClusterKubeProxyIPVSArgs) ClusterKubeProxyIPVSPtrInput {
-	return (*clusterKubeProxyIPVSPtrType)(v)
-}
-
-func (*clusterKubeProxyIPVSPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeProxyIPVS)(nil)).Elem()
-}
-
-func (i *clusterKubeProxyIPVSPtrType) ToClusterKubeProxyIPVSPtrOutput() ClusterKubeProxyIPVSPtrOutput {
-	return i.ToClusterKubeProxyIPVSPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterKubeProxyIPVSPtrType) ToClusterKubeProxyIPVSPtrOutputWithContext(ctx context.Context) ClusterKubeProxyIPVSPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeProxyIPVSPtrOutput)
-}
-
-type ClusterKubeProxyIPVSOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeProxyIPVSOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeProxyIPVS)(nil)).Elem()
-}
-
-func (o ClusterKubeProxyIPVSOutput) ToClusterKubeProxyIPVSOutput() ClusterKubeProxyIPVSOutput {
-	return o
-}
-
-func (o ClusterKubeProxyIPVSOutput) ToClusterKubeProxyIPVSOutputWithContext(ctx context.Context) ClusterKubeProxyIPVSOutput {
-	return o
-}
-
-func (o ClusterKubeProxyIPVSOutput) ToClusterKubeProxyIPVSPtrOutput() ClusterKubeProxyIPVSPtrOutput {
-	return o.ToClusterKubeProxyIPVSPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterKubeProxyIPVSOutput) ToClusterKubeProxyIPVSPtrOutputWithContext(ctx context.Context) ClusterKubeProxyIPVSPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterKubeProxyIPVS) *ClusterKubeProxyIPVS {
-		return &v
-	}).(ClusterKubeProxyIPVSPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSOutput) ExcludeCIDRs() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPVS) *string { return v.ExcludeCIDRs }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSOutput) MinSyncPeriod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPVS) *string { return v.MinSyncPeriod }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSOutput) Scheduler() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPVS) *string { return v.Scheduler }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSOutput) StrictARP() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPVS) *bool { return v.StrictARP }).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSOutput) SyncPeriod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPVS) *string { return v.SyncPeriod }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSOutput) TcpFinTimeout() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPVS) *string { return v.TcpFinTimeout }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSOutput) TcpTimeout() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPVS) *string { return v.TcpTimeout }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSOutput) UdpTimeout() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeProxyIPVS) *string { return v.UdpTimeout }).(pulumi.StringPtrOutput)
-}
-
-type ClusterKubeProxyIPVSPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeProxyIPVSPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeProxyIPVS)(nil)).Elem()
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) ToClusterKubeProxyIPVSPtrOutput() ClusterKubeProxyIPVSPtrOutput {
-	return o
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) ToClusterKubeProxyIPVSPtrOutputWithContext(ctx context.Context) ClusterKubeProxyIPVSPtrOutput {
-	return o
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) Elem() ClusterKubeProxyIPVSOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) ClusterKubeProxyIPVS {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterKubeProxyIPVS
-		return ret
-	}).(ClusterKubeProxyIPVSOutput)
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) ExcludeCIDRs() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ExcludeCIDRs
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) MinSyncPeriod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) *string {
-		if v == nil {
-			return nil
-		}
-		return v.MinSyncPeriod
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) Scheduler() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Scheduler
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) StrictARP() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.StrictARP
-	}).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) SyncPeriod() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) *string {
-		if v == nil {
-			return nil
-		}
-		return v.SyncPeriod
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) TcpFinTimeout() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) *string {
-		if v == nil {
-			return nil
-		}
-		return v.TcpFinTimeout
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) TcpTimeout() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) *string {
-		if v == nil {
-			return nil
-		}
-		return v.TcpTimeout
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeProxyIPVSPtrOutput) UdpTimeout() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeProxyIPVS) *string {
-		if v == nil {
-			return nil
-		}
-		return v.UdpTimeout
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterKubeRouter struct {
-	AutoMTU     *bool             `pulumi:"autoMTU"`
-	ExtraArgs   map[string]string `pulumi:"extraArgs"`
-	Hairpin     *string           `pulumi:"hairpin"`
-	IpMasq      *bool             `pulumi:"ipMasq"`
-	MetricsPort *int              `pulumi:"metricsPort"`
-	Mtu         *int              `pulumi:"mtu"`
-}
-
-// ClusterKubeRouterInput is an input type that accepts ClusterKubeRouterArgs and ClusterKubeRouterOutput values.
-// You can construct a concrete instance of `ClusterKubeRouterInput` via:
-//
-//	ClusterKubeRouterArgs{...}
-type ClusterKubeRouterInput interface {
-	pulumi.Input
-
-	ToClusterKubeRouterOutput() ClusterKubeRouterOutput
-	ToClusterKubeRouterOutputWithContext(context.Context) ClusterKubeRouterOutput
-}
-
-type ClusterKubeRouterArgs struct {
-	AutoMTU     pulumi.BoolPtrInput   `pulumi:"autoMTU"`
-	ExtraArgs   pulumi.StringMapInput `pulumi:"extraArgs"`
-	Hairpin     pulumi.StringPtrInput `pulumi:"hairpin"`
-	IpMasq      pulumi.BoolPtrInput   `pulumi:"ipMasq"`
-	MetricsPort pulumi.IntPtrInput    `pulumi:"metricsPort"`
-	Mtu         pulumi.IntPtrInput    `pulumi:"mtu"`
-}
-
-func (ClusterKubeRouterArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeRouter)(nil)).Elem()
-}
-
-func (i ClusterKubeRouterArgs) ToClusterKubeRouterOutput() ClusterKubeRouterOutput {
-	return i.ToClusterKubeRouterOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeRouterArgs) ToClusterKubeRouterOutputWithContext(ctx context.Context) ClusterKubeRouterOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeRouterOutput)
-}
-
-func (i ClusterKubeRouterArgs) ToClusterKubeRouterPtrOutput() ClusterKubeRouterPtrOutput {
-	return i.ToClusterKubeRouterPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeRouterArgs) ToClusterKubeRouterPtrOutputWithContext(ctx context.Context) ClusterKubeRouterPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeRouterOutput).ToClusterKubeRouterPtrOutputWithContext(ctx)
-}
-
-// ClusterKubeRouterPtrInput is an input type that accepts ClusterKubeRouterArgs, ClusterKubeRouterPtr and ClusterKubeRouterPtrOutput values.
-// You can construct a concrete instance of `ClusterKubeRouterPtrInput` via:
-//
-//	        ClusterKubeRouterArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterKubeRouterPtrInput interface {
-	pulumi.Input
-
-	ToClusterKubeRouterPtrOutput() ClusterKubeRouterPtrOutput
-	ToClusterKubeRouterPtrOutputWithContext(context.Context) ClusterKubeRouterPtrOutput
-}
-
-type clusterKubeRouterPtrType ClusterKubeRouterArgs
-
-func ClusterKubeRouterPtr(v *ClusterKubeRouterArgs) ClusterKubeRouterPtrInput {
-	return (*clusterKubeRouterPtrType)(v)
-}
-
-func (*clusterKubeRouterPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeRouter)(nil)).Elem()
-}
-
-func (i *clusterKubeRouterPtrType) ToClusterKubeRouterPtrOutput() ClusterKubeRouterPtrOutput {
-	return i.ToClusterKubeRouterPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterKubeRouterPtrType) ToClusterKubeRouterPtrOutputWithContext(ctx context.Context) ClusterKubeRouterPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeRouterPtrOutput)
-}
-
-type ClusterKubeRouterOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeRouterOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeRouter)(nil)).Elem()
-}
-
-func (o ClusterKubeRouterOutput) ToClusterKubeRouterOutput() ClusterKubeRouterOutput {
-	return o
-}
-
-func (o ClusterKubeRouterOutput) ToClusterKubeRouterOutputWithContext(ctx context.Context) ClusterKubeRouterOutput {
-	return o
-}
-
-func (o ClusterKubeRouterOutput) ToClusterKubeRouterPtrOutput() ClusterKubeRouterPtrOutput {
-	return o.ToClusterKubeRouterPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterKubeRouterOutput) ToClusterKubeRouterPtrOutputWithContext(ctx context.Context) ClusterKubeRouterPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterKubeRouter) *ClusterKubeRouter {
-		return &v
-	}).(ClusterKubeRouterPtrOutput)
-}
-
-func (o ClusterKubeRouterOutput) AutoMTU() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterKubeRouter) *bool { return v.AutoMTU }).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeRouterOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ClusterKubeRouter) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
-}
-
-func (o ClusterKubeRouterOutput) Hairpin() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterKubeRouter) *string { return v.Hairpin }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeRouterOutput) IpMasq() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterKubeRouter) *bool { return v.IpMasq }).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeRouterOutput) MetricsPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterKubeRouter) *int { return v.MetricsPort }).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterKubeRouterOutput) Mtu() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ClusterKubeRouter) *int { return v.Mtu }).(pulumi.IntPtrOutput)
-}
-
-type ClusterKubeRouterPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeRouterPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeRouter)(nil)).Elem()
-}
-
-func (o ClusterKubeRouterPtrOutput) ToClusterKubeRouterPtrOutput() ClusterKubeRouterPtrOutput {
-	return o
-}
-
-func (o ClusterKubeRouterPtrOutput) ToClusterKubeRouterPtrOutputWithContext(ctx context.Context) ClusterKubeRouterPtrOutput {
-	return o
-}
-
-func (o ClusterKubeRouterPtrOutput) Elem() ClusterKubeRouterOutput {
-	return o.ApplyT(func(v *ClusterKubeRouter) ClusterKubeRouter {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterKubeRouter
-		return ret
-	}).(ClusterKubeRouterOutput)
-}
-
-func (o ClusterKubeRouterPtrOutput) AutoMTU() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeRouter) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.AutoMTU
-	}).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeRouterPtrOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *ClusterKubeRouter) map[string]string {
-		if v == nil {
-			return nil
-		}
-		return v.ExtraArgs
-	}).(pulumi.StringMapOutput)
-}
-
-func (o ClusterKubeRouterPtrOutput) Hairpin() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeRouter) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Hairpin
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterKubeRouterPtrOutput) IpMasq() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeRouter) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.IpMasq
-	}).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterKubeRouterPtrOutput) MetricsPort() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeRouter) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MetricsPort
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o ClusterKubeRouterPtrOutput) Mtu() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ClusterKubeRouter) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Mtu
-	}).(pulumi.IntPtrOutput)
-}
-
-type ClusterKubeRouterImage struct {
-	Cni          *ClusterImage `pulumi:"cni"`
-	CniInstaller *ClusterImage `pulumi:"cniInstaller"`
-}
-
-// ClusterKubeRouterImageInput is an input type that accepts ClusterKubeRouterImageArgs and ClusterKubeRouterImageOutput values.
-// You can construct a concrete instance of `ClusterKubeRouterImageInput` via:
-//
-//	ClusterKubeRouterImageArgs{...}
-type ClusterKubeRouterImageInput interface {
-	pulumi.Input
-
-	ToClusterKubeRouterImageOutput() ClusterKubeRouterImageOutput
-	ToClusterKubeRouterImageOutputWithContext(context.Context) ClusterKubeRouterImageOutput
-}
-
-type ClusterKubeRouterImageArgs struct {
-	Cni          ClusterImagePtrInput `pulumi:"cni"`
-	CniInstaller ClusterImagePtrInput `pulumi:"cniInstaller"`
-}
-
-func (ClusterKubeRouterImageArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeRouterImage)(nil)).Elem()
-}
-
-func (i ClusterKubeRouterImageArgs) ToClusterKubeRouterImageOutput() ClusterKubeRouterImageOutput {
-	return i.ToClusterKubeRouterImageOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeRouterImageArgs) ToClusterKubeRouterImageOutputWithContext(ctx context.Context) ClusterKubeRouterImageOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeRouterImageOutput)
-}
-
-func (i ClusterKubeRouterImageArgs) ToClusterKubeRouterImagePtrOutput() ClusterKubeRouterImagePtrOutput {
-	return i.ToClusterKubeRouterImagePtrOutputWithContext(context.Background())
-}
-
-func (i ClusterKubeRouterImageArgs) ToClusterKubeRouterImagePtrOutputWithContext(ctx context.Context) ClusterKubeRouterImagePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeRouterImageOutput).ToClusterKubeRouterImagePtrOutputWithContext(ctx)
-}
-
-// ClusterKubeRouterImagePtrInput is an input type that accepts ClusterKubeRouterImageArgs, ClusterKubeRouterImagePtr and ClusterKubeRouterImagePtrOutput values.
-// You can construct a concrete instance of `ClusterKubeRouterImagePtrInput` via:
-//
-//	        ClusterKubeRouterImageArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterKubeRouterImagePtrInput interface {
-	pulumi.Input
-
-	ToClusterKubeRouterImagePtrOutput() ClusterKubeRouterImagePtrOutput
-	ToClusterKubeRouterImagePtrOutputWithContext(context.Context) ClusterKubeRouterImagePtrOutput
-}
-
-type clusterKubeRouterImagePtrType ClusterKubeRouterImageArgs
-
-func ClusterKubeRouterImagePtr(v *ClusterKubeRouterImageArgs) ClusterKubeRouterImagePtrInput {
-	return (*clusterKubeRouterImagePtrType)(v)
-}
-
-func (*clusterKubeRouterImagePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeRouterImage)(nil)).Elem()
-}
-
-func (i *clusterKubeRouterImagePtrType) ToClusterKubeRouterImagePtrOutput() ClusterKubeRouterImagePtrOutput {
-	return i.ToClusterKubeRouterImagePtrOutputWithContext(context.Background())
-}
-
-func (i *clusterKubeRouterImagePtrType) ToClusterKubeRouterImagePtrOutputWithContext(ctx context.Context) ClusterKubeRouterImagePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterKubeRouterImagePtrOutput)
-}
-
-type ClusterKubeRouterImageOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeRouterImageOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterKubeRouterImage)(nil)).Elem()
-}
-
-func (o ClusterKubeRouterImageOutput) ToClusterKubeRouterImageOutput() ClusterKubeRouterImageOutput {
-	return o
-}
-
-func (o ClusterKubeRouterImageOutput) ToClusterKubeRouterImageOutputWithContext(ctx context.Context) ClusterKubeRouterImageOutput {
-	return o
-}
-
-func (o ClusterKubeRouterImageOutput) ToClusterKubeRouterImagePtrOutput() ClusterKubeRouterImagePtrOutput {
-	return o.ToClusterKubeRouterImagePtrOutputWithContext(context.Background())
-}
-
-func (o ClusterKubeRouterImageOutput) ToClusterKubeRouterImagePtrOutputWithContext(ctx context.Context) ClusterKubeRouterImagePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterKubeRouterImage) *ClusterKubeRouterImage {
-		return &v
-	}).(ClusterKubeRouterImagePtrOutput)
-}
-
-func (o ClusterKubeRouterImageOutput) Cni() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterKubeRouterImage) *ClusterImage { return v.Cni }).(ClusterImagePtrOutput)
-}
-
-func (o ClusterKubeRouterImageOutput) CniInstaller() ClusterImagePtrOutput {
-	return o.ApplyT(func(v ClusterKubeRouterImage) *ClusterImage { return v.CniInstaller }).(ClusterImagePtrOutput)
-}
-
-type ClusterKubeRouterImagePtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterKubeRouterImagePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterKubeRouterImage)(nil)).Elem()
-}
-
-func (o ClusterKubeRouterImagePtrOutput) ToClusterKubeRouterImagePtrOutput() ClusterKubeRouterImagePtrOutput {
-	return o
-}
-
-func (o ClusterKubeRouterImagePtrOutput) ToClusterKubeRouterImagePtrOutputWithContext(ctx context.Context) ClusterKubeRouterImagePtrOutput {
-	return o
-}
-
-func (o ClusterKubeRouterImagePtrOutput) Elem() ClusterKubeRouterImageOutput {
-	return o.ApplyT(func(v *ClusterKubeRouterImage) ClusterKubeRouterImage {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterKubeRouterImage
-		return ret
-	}).(ClusterKubeRouterImageOutput)
-}
-
-func (o ClusterKubeRouterImagePtrOutput) Cni() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterKubeRouterImage) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.Cni
-	}).(ClusterImagePtrOutput)
-}
-
-func (o ClusterKubeRouterImagePtrOutput) CniInstaller() ClusterImagePtrOutput {
-	return o.ApplyT(func(v *ClusterKubeRouterImage) *ClusterImage {
-		if v == nil {
-			return nil
-		}
-		return v.CniInstaller
-	}).(ClusterImagePtrOutput)
 }
 
 type ClusterLocalhost struct {
@@ -5076,555 +1082,6 @@ func (o ClusterMetadataPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-type ClusterNetwork struct {
-	Calico                 *ClusterCalico                 `pulumi:"calico"`
-	ClusterDomain          *string                        `pulumi:"clusterDomain"`
-	DualStack              *ClusterDualStack              `pulumi:"dualStack"`
-	KubeProxy              *ClusterKubeProxy              `pulumi:"kubeProxy"`
-	Kuberouter             *ClusterKubeRouter             `pulumi:"kuberouter"`
-	NodeLocalLoadBalancing *ClusterNodeLocalLoadBalancing `pulumi:"nodeLocalLoadBalancing"`
-	PodCIDR                *string                        `pulumi:"podCIDR"`
-	Provider               *string                        `pulumi:"provider"`
-	ServiceCIDR            *string                        `pulumi:"serviceCIDR"`
-}
-
-// ClusterNetworkInput is an input type that accepts ClusterNetworkArgs and ClusterNetworkOutput values.
-// You can construct a concrete instance of `ClusterNetworkInput` via:
-//
-//	ClusterNetworkArgs{...}
-type ClusterNetworkInput interface {
-	pulumi.Input
-
-	ToClusterNetworkOutput() ClusterNetworkOutput
-	ToClusterNetworkOutputWithContext(context.Context) ClusterNetworkOutput
-}
-
-type ClusterNetworkArgs struct {
-	Calico                 ClusterCalicoPtrInput                 `pulumi:"calico"`
-	ClusterDomain          pulumi.StringPtrInput                 `pulumi:"clusterDomain"`
-	DualStack              ClusterDualStackPtrInput              `pulumi:"dualStack"`
-	KubeProxy              ClusterKubeProxyPtrInput              `pulumi:"kubeProxy"`
-	Kuberouter             ClusterKubeRouterPtrInput             `pulumi:"kuberouter"`
-	NodeLocalLoadBalancing ClusterNodeLocalLoadBalancingPtrInput `pulumi:"nodeLocalLoadBalancing"`
-	PodCIDR                pulumi.StringPtrInput                 `pulumi:"podCIDR"`
-	Provider               pulumi.StringPtrInput                 `pulumi:"provider"`
-	ServiceCIDR            pulumi.StringPtrInput                 `pulumi:"serviceCIDR"`
-}
-
-func (ClusterNetworkArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNetwork)(nil)).Elem()
-}
-
-func (i ClusterNetworkArgs) ToClusterNetworkOutput() ClusterNetworkOutput {
-	return i.ToClusterNetworkOutputWithContext(context.Background())
-}
-
-func (i ClusterNetworkArgs) ToClusterNetworkOutputWithContext(ctx context.Context) ClusterNetworkOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNetworkOutput)
-}
-
-func (i ClusterNetworkArgs) ToClusterNetworkPtrOutput() ClusterNetworkPtrOutput {
-	return i.ToClusterNetworkPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterNetworkArgs) ToClusterNetworkPtrOutputWithContext(ctx context.Context) ClusterNetworkPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNetworkOutput).ToClusterNetworkPtrOutputWithContext(ctx)
-}
-
-// ClusterNetworkPtrInput is an input type that accepts ClusterNetworkArgs, ClusterNetworkPtr and ClusterNetworkPtrOutput values.
-// You can construct a concrete instance of `ClusterNetworkPtrInput` via:
-//
-//	        ClusterNetworkArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterNetworkPtrInput interface {
-	pulumi.Input
-
-	ToClusterNetworkPtrOutput() ClusterNetworkPtrOutput
-	ToClusterNetworkPtrOutputWithContext(context.Context) ClusterNetworkPtrOutput
-}
-
-type clusterNetworkPtrType ClusterNetworkArgs
-
-func ClusterNetworkPtr(v *ClusterNetworkArgs) ClusterNetworkPtrInput {
-	return (*clusterNetworkPtrType)(v)
-}
-
-func (*clusterNetworkPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterNetwork)(nil)).Elem()
-}
-
-func (i *clusterNetworkPtrType) ToClusterNetworkPtrOutput() ClusterNetworkPtrOutput {
-	return i.ToClusterNetworkPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterNetworkPtrType) ToClusterNetworkPtrOutputWithContext(ctx context.Context) ClusterNetworkPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNetworkPtrOutput)
-}
-
-type ClusterNetworkOutput struct{ *pulumi.OutputState }
-
-func (ClusterNetworkOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNetwork)(nil)).Elem()
-}
-
-func (o ClusterNetworkOutput) ToClusterNetworkOutput() ClusterNetworkOutput {
-	return o
-}
-
-func (o ClusterNetworkOutput) ToClusterNetworkOutputWithContext(ctx context.Context) ClusterNetworkOutput {
-	return o
-}
-
-func (o ClusterNetworkOutput) ToClusterNetworkPtrOutput() ClusterNetworkPtrOutput {
-	return o.ToClusterNetworkPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterNetworkOutput) ToClusterNetworkPtrOutputWithContext(ctx context.Context) ClusterNetworkPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterNetwork) *ClusterNetwork {
-		return &v
-	}).(ClusterNetworkPtrOutput)
-}
-
-func (o ClusterNetworkOutput) Calico() ClusterCalicoPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *ClusterCalico { return v.Calico }).(ClusterCalicoPtrOutput)
-}
-
-func (o ClusterNetworkOutput) ClusterDomain() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *string { return v.ClusterDomain }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterNetworkOutput) DualStack() ClusterDualStackPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *ClusterDualStack { return v.DualStack }).(ClusterDualStackPtrOutput)
-}
-
-func (o ClusterNetworkOutput) KubeProxy() ClusterKubeProxyPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *ClusterKubeProxy { return v.KubeProxy }).(ClusterKubeProxyPtrOutput)
-}
-
-func (o ClusterNetworkOutput) Kuberouter() ClusterKubeRouterPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *ClusterKubeRouter { return v.Kuberouter }).(ClusterKubeRouterPtrOutput)
-}
-
-func (o ClusterNetworkOutput) NodeLocalLoadBalancing() ClusterNodeLocalLoadBalancingPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *ClusterNodeLocalLoadBalancing { return v.NodeLocalLoadBalancing }).(ClusterNodeLocalLoadBalancingPtrOutput)
-}
-
-func (o ClusterNetworkOutput) PodCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *string { return v.PodCIDR }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterNetworkOutput) Provider() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *string { return v.Provider }).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterNetworkOutput) ServiceCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNetwork) *string { return v.ServiceCIDR }).(pulumi.StringPtrOutput)
-}
-
-type ClusterNetworkPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterNetworkPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterNetwork)(nil)).Elem()
-}
-
-func (o ClusterNetworkPtrOutput) ToClusterNetworkPtrOutput() ClusterNetworkPtrOutput {
-	return o
-}
-
-func (o ClusterNetworkPtrOutput) ToClusterNetworkPtrOutputWithContext(ctx context.Context) ClusterNetworkPtrOutput {
-	return o
-}
-
-func (o ClusterNetworkPtrOutput) Elem() ClusterNetworkOutput {
-	return o.ApplyT(func(v *ClusterNetwork) ClusterNetwork {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterNetwork
-		return ret
-	}).(ClusterNetworkOutput)
-}
-
-func (o ClusterNetworkPtrOutput) Calico() ClusterCalicoPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *ClusterCalico {
-		if v == nil {
-			return nil
-		}
-		return v.Calico
-	}).(ClusterCalicoPtrOutput)
-}
-
-func (o ClusterNetworkPtrOutput) ClusterDomain() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ClusterDomain
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterNetworkPtrOutput) DualStack() ClusterDualStackPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *ClusterDualStack {
-		if v == nil {
-			return nil
-		}
-		return v.DualStack
-	}).(ClusterDualStackPtrOutput)
-}
-
-func (o ClusterNetworkPtrOutput) KubeProxy() ClusterKubeProxyPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *ClusterKubeProxy {
-		if v == nil {
-			return nil
-		}
-		return v.KubeProxy
-	}).(ClusterKubeProxyPtrOutput)
-}
-
-func (o ClusterNetworkPtrOutput) Kuberouter() ClusterKubeRouterPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *ClusterKubeRouter {
-		if v == nil {
-			return nil
-		}
-		return v.Kuberouter
-	}).(ClusterKubeRouterPtrOutput)
-}
-
-func (o ClusterNetworkPtrOutput) NodeLocalLoadBalancing() ClusterNodeLocalLoadBalancingPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *ClusterNodeLocalLoadBalancing {
-		if v == nil {
-			return nil
-		}
-		return v.NodeLocalLoadBalancing
-	}).(ClusterNodeLocalLoadBalancingPtrOutput)
-}
-
-func (o ClusterNetworkPtrOutput) PodCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *string {
-		if v == nil {
-			return nil
-		}
-		return v.PodCIDR
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterNetworkPtrOutput) Provider() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Provider
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o ClusterNetworkPtrOutput) ServiceCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterNetwork) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ServiceCIDR
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterNodeLocalLoadBalancing struct {
-	Enabled    *bool              `pulumi:"enabled"`
-	EnvoyProxy *ClusterEnvoyProxy `pulumi:"envoyProxy"`
-	Type       *string            `pulumi:"type"`
-}
-
-// ClusterNodeLocalLoadBalancingInput is an input type that accepts ClusterNodeLocalLoadBalancingArgs and ClusterNodeLocalLoadBalancingOutput values.
-// You can construct a concrete instance of `ClusterNodeLocalLoadBalancingInput` via:
-//
-//	ClusterNodeLocalLoadBalancingArgs{...}
-type ClusterNodeLocalLoadBalancingInput interface {
-	pulumi.Input
-
-	ToClusterNodeLocalLoadBalancingOutput() ClusterNodeLocalLoadBalancingOutput
-	ToClusterNodeLocalLoadBalancingOutputWithContext(context.Context) ClusterNodeLocalLoadBalancingOutput
-}
-
-type ClusterNodeLocalLoadBalancingArgs struct {
-	Enabled    pulumi.BoolPtrInput       `pulumi:"enabled"`
-	EnvoyProxy ClusterEnvoyProxyPtrInput `pulumi:"envoyProxy"`
-	Type       pulumi.StringPtrInput     `pulumi:"type"`
-}
-
-func (ClusterNodeLocalLoadBalancingArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeLocalLoadBalancing)(nil)).Elem()
-}
-
-func (i ClusterNodeLocalLoadBalancingArgs) ToClusterNodeLocalLoadBalancingOutput() ClusterNodeLocalLoadBalancingOutput {
-	return i.ToClusterNodeLocalLoadBalancingOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeLocalLoadBalancingArgs) ToClusterNodeLocalLoadBalancingOutputWithContext(ctx context.Context) ClusterNodeLocalLoadBalancingOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeLocalLoadBalancingOutput)
-}
-
-func (i ClusterNodeLocalLoadBalancingArgs) ToClusterNodeLocalLoadBalancingPtrOutput() ClusterNodeLocalLoadBalancingPtrOutput {
-	return i.ToClusterNodeLocalLoadBalancingPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterNodeLocalLoadBalancingArgs) ToClusterNodeLocalLoadBalancingPtrOutputWithContext(ctx context.Context) ClusterNodeLocalLoadBalancingPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeLocalLoadBalancingOutput).ToClusterNodeLocalLoadBalancingPtrOutputWithContext(ctx)
-}
-
-// ClusterNodeLocalLoadBalancingPtrInput is an input type that accepts ClusterNodeLocalLoadBalancingArgs, ClusterNodeLocalLoadBalancingPtr and ClusterNodeLocalLoadBalancingPtrOutput values.
-// You can construct a concrete instance of `ClusterNodeLocalLoadBalancingPtrInput` via:
-//
-//	        ClusterNodeLocalLoadBalancingArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterNodeLocalLoadBalancingPtrInput interface {
-	pulumi.Input
-
-	ToClusterNodeLocalLoadBalancingPtrOutput() ClusterNodeLocalLoadBalancingPtrOutput
-	ToClusterNodeLocalLoadBalancingPtrOutputWithContext(context.Context) ClusterNodeLocalLoadBalancingPtrOutput
-}
-
-type clusterNodeLocalLoadBalancingPtrType ClusterNodeLocalLoadBalancingArgs
-
-func ClusterNodeLocalLoadBalancingPtr(v *ClusterNodeLocalLoadBalancingArgs) ClusterNodeLocalLoadBalancingPtrInput {
-	return (*clusterNodeLocalLoadBalancingPtrType)(v)
-}
-
-func (*clusterNodeLocalLoadBalancingPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterNodeLocalLoadBalancing)(nil)).Elem()
-}
-
-func (i *clusterNodeLocalLoadBalancingPtrType) ToClusterNodeLocalLoadBalancingPtrOutput() ClusterNodeLocalLoadBalancingPtrOutput {
-	return i.ToClusterNodeLocalLoadBalancingPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterNodeLocalLoadBalancingPtrType) ToClusterNodeLocalLoadBalancingPtrOutputWithContext(ctx context.Context) ClusterNodeLocalLoadBalancingPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterNodeLocalLoadBalancingPtrOutput)
-}
-
-type ClusterNodeLocalLoadBalancingOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeLocalLoadBalancingOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterNodeLocalLoadBalancing)(nil)).Elem()
-}
-
-func (o ClusterNodeLocalLoadBalancingOutput) ToClusterNodeLocalLoadBalancingOutput() ClusterNodeLocalLoadBalancingOutput {
-	return o
-}
-
-func (o ClusterNodeLocalLoadBalancingOutput) ToClusterNodeLocalLoadBalancingOutputWithContext(ctx context.Context) ClusterNodeLocalLoadBalancingOutput {
-	return o
-}
-
-func (o ClusterNodeLocalLoadBalancingOutput) ToClusterNodeLocalLoadBalancingPtrOutput() ClusterNodeLocalLoadBalancingPtrOutput {
-	return o.ToClusterNodeLocalLoadBalancingPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterNodeLocalLoadBalancingOutput) ToClusterNodeLocalLoadBalancingPtrOutputWithContext(ctx context.Context) ClusterNodeLocalLoadBalancingPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterNodeLocalLoadBalancing) *ClusterNodeLocalLoadBalancing {
-		return &v
-	}).(ClusterNodeLocalLoadBalancingPtrOutput)
-}
-
-func (o ClusterNodeLocalLoadBalancingOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterNodeLocalLoadBalancing) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterNodeLocalLoadBalancingOutput) EnvoyProxy() ClusterEnvoyProxyPtrOutput {
-	return o.ApplyT(func(v ClusterNodeLocalLoadBalancing) *ClusterEnvoyProxy { return v.EnvoyProxy }).(ClusterEnvoyProxyPtrOutput)
-}
-
-func (o ClusterNodeLocalLoadBalancingOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterNodeLocalLoadBalancing) *string { return v.Type }).(pulumi.StringPtrOutput)
-}
-
-type ClusterNodeLocalLoadBalancingPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterNodeLocalLoadBalancingPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterNodeLocalLoadBalancing)(nil)).Elem()
-}
-
-func (o ClusterNodeLocalLoadBalancingPtrOutput) ToClusterNodeLocalLoadBalancingPtrOutput() ClusterNodeLocalLoadBalancingPtrOutput {
-	return o
-}
-
-func (o ClusterNodeLocalLoadBalancingPtrOutput) ToClusterNodeLocalLoadBalancingPtrOutputWithContext(ctx context.Context) ClusterNodeLocalLoadBalancingPtrOutput {
-	return o
-}
-
-func (o ClusterNodeLocalLoadBalancingPtrOutput) Elem() ClusterNodeLocalLoadBalancingOutput {
-	return o.ApplyT(func(v *ClusterNodeLocalLoadBalancing) ClusterNodeLocalLoadBalancing {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterNodeLocalLoadBalancing
-		return ret
-	}).(ClusterNodeLocalLoadBalancingOutput)
-}
-
-func (o ClusterNodeLocalLoadBalancingPtrOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterNodeLocalLoadBalancing) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Enabled
-	}).(pulumi.BoolPtrOutput)
-}
-
-func (o ClusterNodeLocalLoadBalancingPtrOutput) EnvoyProxy() ClusterEnvoyProxyPtrOutput {
-	return o.ApplyT(func(v *ClusterNodeLocalLoadBalancing) *ClusterEnvoyProxy {
-		if v == nil {
-			return nil
-		}
-		return v.EnvoyProxy
-	}).(ClusterEnvoyProxyPtrOutput)
-}
-
-func (o ClusterNodeLocalLoadBalancingPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterNodeLocalLoadBalancing) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Type
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterPodSecurityPolicy struct {
-	DefaultPolicy *string `pulumi:"defaultPolicy"`
-}
-
-// ClusterPodSecurityPolicyInput is an input type that accepts ClusterPodSecurityPolicyArgs and ClusterPodSecurityPolicyOutput values.
-// You can construct a concrete instance of `ClusterPodSecurityPolicyInput` via:
-//
-//	ClusterPodSecurityPolicyArgs{...}
-type ClusterPodSecurityPolicyInput interface {
-	pulumi.Input
-
-	ToClusterPodSecurityPolicyOutput() ClusterPodSecurityPolicyOutput
-	ToClusterPodSecurityPolicyOutputWithContext(context.Context) ClusterPodSecurityPolicyOutput
-}
-
-type ClusterPodSecurityPolicyArgs struct {
-	DefaultPolicy pulumi.StringPtrInput `pulumi:"defaultPolicy"`
-}
-
-func (ClusterPodSecurityPolicyArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterPodSecurityPolicy)(nil)).Elem()
-}
-
-func (i ClusterPodSecurityPolicyArgs) ToClusterPodSecurityPolicyOutput() ClusterPodSecurityPolicyOutput {
-	return i.ToClusterPodSecurityPolicyOutputWithContext(context.Background())
-}
-
-func (i ClusterPodSecurityPolicyArgs) ToClusterPodSecurityPolicyOutputWithContext(ctx context.Context) ClusterPodSecurityPolicyOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterPodSecurityPolicyOutput)
-}
-
-func (i ClusterPodSecurityPolicyArgs) ToClusterPodSecurityPolicyPtrOutput() ClusterPodSecurityPolicyPtrOutput {
-	return i.ToClusterPodSecurityPolicyPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterPodSecurityPolicyArgs) ToClusterPodSecurityPolicyPtrOutputWithContext(ctx context.Context) ClusterPodSecurityPolicyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterPodSecurityPolicyOutput).ToClusterPodSecurityPolicyPtrOutputWithContext(ctx)
-}
-
-// ClusterPodSecurityPolicyPtrInput is an input type that accepts ClusterPodSecurityPolicyArgs, ClusterPodSecurityPolicyPtr and ClusterPodSecurityPolicyPtrOutput values.
-// You can construct a concrete instance of `ClusterPodSecurityPolicyPtrInput` via:
-//
-//	        ClusterPodSecurityPolicyArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterPodSecurityPolicyPtrInput interface {
-	pulumi.Input
-
-	ToClusterPodSecurityPolicyPtrOutput() ClusterPodSecurityPolicyPtrOutput
-	ToClusterPodSecurityPolicyPtrOutputWithContext(context.Context) ClusterPodSecurityPolicyPtrOutput
-}
-
-type clusterPodSecurityPolicyPtrType ClusterPodSecurityPolicyArgs
-
-func ClusterPodSecurityPolicyPtr(v *ClusterPodSecurityPolicyArgs) ClusterPodSecurityPolicyPtrInput {
-	return (*clusterPodSecurityPolicyPtrType)(v)
-}
-
-func (*clusterPodSecurityPolicyPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterPodSecurityPolicy)(nil)).Elem()
-}
-
-func (i *clusterPodSecurityPolicyPtrType) ToClusterPodSecurityPolicyPtrOutput() ClusterPodSecurityPolicyPtrOutput {
-	return i.ToClusterPodSecurityPolicyPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterPodSecurityPolicyPtrType) ToClusterPodSecurityPolicyPtrOutputWithContext(ctx context.Context) ClusterPodSecurityPolicyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterPodSecurityPolicyPtrOutput)
-}
-
-type ClusterPodSecurityPolicyOutput struct{ *pulumi.OutputState }
-
-func (ClusterPodSecurityPolicyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterPodSecurityPolicy)(nil)).Elem()
-}
-
-func (o ClusterPodSecurityPolicyOutput) ToClusterPodSecurityPolicyOutput() ClusterPodSecurityPolicyOutput {
-	return o
-}
-
-func (o ClusterPodSecurityPolicyOutput) ToClusterPodSecurityPolicyOutputWithContext(ctx context.Context) ClusterPodSecurityPolicyOutput {
-	return o
-}
-
-func (o ClusterPodSecurityPolicyOutput) ToClusterPodSecurityPolicyPtrOutput() ClusterPodSecurityPolicyPtrOutput {
-	return o.ToClusterPodSecurityPolicyPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterPodSecurityPolicyOutput) ToClusterPodSecurityPolicyPtrOutputWithContext(ctx context.Context) ClusterPodSecurityPolicyPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterPodSecurityPolicy) *ClusterPodSecurityPolicy {
-		return &v
-	}).(ClusterPodSecurityPolicyPtrOutput)
-}
-
-func (o ClusterPodSecurityPolicyOutput) DefaultPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterPodSecurityPolicy) *string { return v.DefaultPolicy }).(pulumi.StringPtrOutput)
-}
-
-type ClusterPodSecurityPolicyPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterPodSecurityPolicyPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterPodSecurityPolicy)(nil)).Elem()
-}
-
-func (o ClusterPodSecurityPolicyPtrOutput) ToClusterPodSecurityPolicyPtrOutput() ClusterPodSecurityPolicyPtrOutput {
-	return o
-}
-
-func (o ClusterPodSecurityPolicyPtrOutput) ToClusterPodSecurityPolicyPtrOutputWithContext(ctx context.Context) ClusterPodSecurityPolicyPtrOutput {
-	return o
-}
-
-func (o ClusterPodSecurityPolicyPtrOutput) Elem() ClusterPodSecurityPolicyOutput {
-	return o.ApplyT(func(v *ClusterPodSecurityPolicy) ClusterPodSecurityPolicy {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterPodSecurityPolicy
-		return ret
-	}).(ClusterPodSecurityPolicyOutput)
-}
-
-func (o ClusterPodSecurityPolicyPtrOutput) DefaultPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterPodSecurityPolicy) *string {
-		if v == nil {
-			return nil
-		}
-		return v.DefaultPolicy
-	}).(pulumi.StringPtrOutput)
-}
-
 type ClusterSSH struct {
 	Address string      `pulumi:"address"`
 	Bastion *ClusterSSH `pulumi:"bastion"`
@@ -5833,139 +1290,6 @@ func (o ClusterSSHPtrOutput) User() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-type ClusterScheduler struct {
-	ExtraArgs map[string]string `pulumi:"extraArgs"`
-}
-
-// ClusterSchedulerInput is an input type that accepts ClusterSchedulerArgs and ClusterSchedulerOutput values.
-// You can construct a concrete instance of `ClusterSchedulerInput` via:
-//
-//	ClusterSchedulerArgs{...}
-type ClusterSchedulerInput interface {
-	pulumi.Input
-
-	ToClusterSchedulerOutput() ClusterSchedulerOutput
-	ToClusterSchedulerOutputWithContext(context.Context) ClusterSchedulerOutput
-}
-
-type ClusterSchedulerArgs struct {
-	ExtraArgs pulumi.StringMapInput `pulumi:"extraArgs"`
-}
-
-func (ClusterSchedulerArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterScheduler)(nil)).Elem()
-}
-
-func (i ClusterSchedulerArgs) ToClusterSchedulerOutput() ClusterSchedulerOutput {
-	return i.ToClusterSchedulerOutputWithContext(context.Background())
-}
-
-func (i ClusterSchedulerArgs) ToClusterSchedulerOutputWithContext(ctx context.Context) ClusterSchedulerOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterSchedulerOutput)
-}
-
-func (i ClusterSchedulerArgs) ToClusterSchedulerPtrOutput() ClusterSchedulerPtrOutput {
-	return i.ToClusterSchedulerPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterSchedulerArgs) ToClusterSchedulerPtrOutputWithContext(ctx context.Context) ClusterSchedulerPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterSchedulerOutput).ToClusterSchedulerPtrOutputWithContext(ctx)
-}
-
-// ClusterSchedulerPtrInput is an input type that accepts ClusterSchedulerArgs, ClusterSchedulerPtr and ClusterSchedulerPtrOutput values.
-// You can construct a concrete instance of `ClusterSchedulerPtrInput` via:
-//
-//	        ClusterSchedulerArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterSchedulerPtrInput interface {
-	pulumi.Input
-
-	ToClusterSchedulerPtrOutput() ClusterSchedulerPtrOutput
-	ToClusterSchedulerPtrOutputWithContext(context.Context) ClusterSchedulerPtrOutput
-}
-
-type clusterSchedulerPtrType ClusterSchedulerArgs
-
-func ClusterSchedulerPtr(v *ClusterSchedulerArgs) ClusterSchedulerPtrInput {
-	return (*clusterSchedulerPtrType)(v)
-}
-
-func (*clusterSchedulerPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterScheduler)(nil)).Elem()
-}
-
-func (i *clusterSchedulerPtrType) ToClusterSchedulerPtrOutput() ClusterSchedulerPtrOutput {
-	return i.ToClusterSchedulerPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterSchedulerPtrType) ToClusterSchedulerPtrOutputWithContext(ctx context.Context) ClusterSchedulerPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterSchedulerPtrOutput)
-}
-
-type ClusterSchedulerOutput struct{ *pulumi.OutputState }
-
-func (ClusterSchedulerOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterScheduler)(nil)).Elem()
-}
-
-func (o ClusterSchedulerOutput) ToClusterSchedulerOutput() ClusterSchedulerOutput {
-	return o
-}
-
-func (o ClusterSchedulerOutput) ToClusterSchedulerOutputWithContext(ctx context.Context) ClusterSchedulerOutput {
-	return o
-}
-
-func (o ClusterSchedulerOutput) ToClusterSchedulerPtrOutput() ClusterSchedulerPtrOutput {
-	return o.ToClusterSchedulerPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterSchedulerOutput) ToClusterSchedulerPtrOutputWithContext(ctx context.Context) ClusterSchedulerPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterScheduler) *ClusterScheduler {
-		return &v
-	}).(ClusterSchedulerPtrOutput)
-}
-
-func (o ClusterSchedulerOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ClusterScheduler) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
-}
-
-type ClusterSchedulerPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterSchedulerPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterScheduler)(nil)).Elem()
-}
-
-func (o ClusterSchedulerPtrOutput) ToClusterSchedulerPtrOutput() ClusterSchedulerPtrOutput {
-	return o
-}
-
-func (o ClusterSchedulerPtrOutput) ToClusterSchedulerPtrOutputWithContext(ctx context.Context) ClusterSchedulerPtrOutput {
-	return o
-}
-
-func (o ClusterSchedulerPtrOutput) Elem() ClusterSchedulerOutput {
-	return o.ApplyT(func(v *ClusterScheduler) ClusterScheduler {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterScheduler
-		return ret
-	}).(ClusterSchedulerOutput)
-}
-
-func (o ClusterSchedulerPtrOutput) ExtraArgs() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *ClusterScheduler) map[string]string {
-		if v == nil {
-			return nil
-		}
-		return v.ExtraArgs
-	}).(pulumi.StringMapOutput)
-}
-
 type ClusterSpec struct {
 	Hosts []ClusterHost `pulumi:"hosts"`
 	K0s   *ClusterK0s   `pulumi:"k0s"`
@@ -6112,302 +1436,6 @@ func (o ClusterSpecPtrOutput) K0s() ClusterK0sPtrOutput {
 		}
 		return v.K0s
 	}).(ClusterK0sPtrOutput)
-}
-
-type ClusterStorage struct {
-	Etcd *ClusterEtcd `pulumi:"etcd"`
-	Kine *ClusterKine `pulumi:"kine"`
-	Type *string      `pulumi:"type"`
-}
-
-// ClusterStorageInput is an input type that accepts ClusterStorageArgs and ClusterStorageOutput values.
-// You can construct a concrete instance of `ClusterStorageInput` via:
-//
-//	ClusterStorageArgs{...}
-type ClusterStorageInput interface {
-	pulumi.Input
-
-	ToClusterStorageOutput() ClusterStorageOutput
-	ToClusterStorageOutputWithContext(context.Context) ClusterStorageOutput
-}
-
-type ClusterStorageArgs struct {
-	Etcd ClusterEtcdPtrInput   `pulumi:"etcd"`
-	Kine ClusterKinePtrInput   `pulumi:"kine"`
-	Type pulumi.StringPtrInput `pulumi:"type"`
-}
-
-func (ClusterStorageArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterStorage)(nil)).Elem()
-}
-
-func (i ClusterStorageArgs) ToClusterStorageOutput() ClusterStorageOutput {
-	return i.ToClusterStorageOutputWithContext(context.Background())
-}
-
-func (i ClusterStorageArgs) ToClusterStorageOutputWithContext(ctx context.Context) ClusterStorageOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterStorageOutput)
-}
-
-func (i ClusterStorageArgs) ToClusterStoragePtrOutput() ClusterStoragePtrOutput {
-	return i.ToClusterStoragePtrOutputWithContext(context.Background())
-}
-
-func (i ClusterStorageArgs) ToClusterStoragePtrOutputWithContext(ctx context.Context) ClusterStoragePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterStorageOutput).ToClusterStoragePtrOutputWithContext(ctx)
-}
-
-// ClusterStoragePtrInput is an input type that accepts ClusterStorageArgs, ClusterStoragePtr and ClusterStoragePtrOutput values.
-// You can construct a concrete instance of `ClusterStoragePtrInput` via:
-//
-//	        ClusterStorageArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterStoragePtrInput interface {
-	pulumi.Input
-
-	ToClusterStoragePtrOutput() ClusterStoragePtrOutput
-	ToClusterStoragePtrOutputWithContext(context.Context) ClusterStoragePtrOutput
-}
-
-type clusterStoragePtrType ClusterStorageArgs
-
-func ClusterStoragePtr(v *ClusterStorageArgs) ClusterStoragePtrInput {
-	return (*clusterStoragePtrType)(v)
-}
-
-func (*clusterStoragePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterStorage)(nil)).Elem()
-}
-
-func (i *clusterStoragePtrType) ToClusterStoragePtrOutput() ClusterStoragePtrOutput {
-	return i.ToClusterStoragePtrOutputWithContext(context.Background())
-}
-
-func (i *clusterStoragePtrType) ToClusterStoragePtrOutputWithContext(ctx context.Context) ClusterStoragePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterStoragePtrOutput)
-}
-
-type ClusterStorageOutput struct{ *pulumi.OutputState }
-
-func (ClusterStorageOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterStorage)(nil)).Elem()
-}
-
-func (o ClusterStorageOutput) ToClusterStorageOutput() ClusterStorageOutput {
-	return o
-}
-
-func (o ClusterStorageOutput) ToClusterStorageOutputWithContext(ctx context.Context) ClusterStorageOutput {
-	return o
-}
-
-func (o ClusterStorageOutput) ToClusterStoragePtrOutput() ClusterStoragePtrOutput {
-	return o.ToClusterStoragePtrOutputWithContext(context.Background())
-}
-
-func (o ClusterStorageOutput) ToClusterStoragePtrOutputWithContext(ctx context.Context) ClusterStoragePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterStorage) *ClusterStorage {
-		return &v
-	}).(ClusterStoragePtrOutput)
-}
-
-func (o ClusterStorageOutput) Etcd() ClusterEtcdPtrOutput {
-	return o.ApplyT(func(v ClusterStorage) *ClusterEtcd { return v.Etcd }).(ClusterEtcdPtrOutput)
-}
-
-func (o ClusterStorageOutput) Kine() ClusterKinePtrOutput {
-	return o.ApplyT(func(v ClusterStorage) *ClusterKine { return v.Kine }).(ClusterKinePtrOutput)
-}
-
-func (o ClusterStorageOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterStorage) *string { return v.Type }).(pulumi.StringPtrOutput)
-}
-
-type ClusterStoragePtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterStoragePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterStorage)(nil)).Elem()
-}
-
-func (o ClusterStoragePtrOutput) ToClusterStoragePtrOutput() ClusterStoragePtrOutput {
-	return o
-}
-
-func (o ClusterStoragePtrOutput) ToClusterStoragePtrOutputWithContext(ctx context.Context) ClusterStoragePtrOutput {
-	return o
-}
-
-func (o ClusterStoragePtrOutput) Elem() ClusterStorageOutput {
-	return o.ApplyT(func(v *ClusterStorage) ClusterStorage {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterStorage
-		return ret
-	}).(ClusterStorageOutput)
-}
-
-func (o ClusterStoragePtrOutput) Etcd() ClusterEtcdPtrOutput {
-	return o.ApplyT(func(v *ClusterStorage) *ClusterEtcd {
-		if v == nil {
-			return nil
-		}
-		return v.Etcd
-	}).(ClusterEtcdPtrOutput)
-}
-
-func (o ClusterStoragePtrOutput) Kine() ClusterKinePtrOutput {
-	return o.ApplyT(func(v *ClusterStorage) *ClusterKine {
-		if v == nil {
-			return nil
-		}
-		return v.Kine
-	}).(ClusterKinePtrOutput)
-}
-
-func (o ClusterStoragePtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterStorage) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Type
-	}).(pulumi.StringPtrOutput)
-}
-
-type ClusterTelemetry struct {
-	Enabled *bool `pulumi:"enabled"`
-}
-
-// ClusterTelemetryInput is an input type that accepts ClusterTelemetryArgs and ClusterTelemetryOutput values.
-// You can construct a concrete instance of `ClusterTelemetryInput` via:
-//
-//	ClusterTelemetryArgs{...}
-type ClusterTelemetryInput interface {
-	pulumi.Input
-
-	ToClusterTelemetryOutput() ClusterTelemetryOutput
-	ToClusterTelemetryOutputWithContext(context.Context) ClusterTelemetryOutput
-}
-
-type ClusterTelemetryArgs struct {
-	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
-}
-
-func (ClusterTelemetryArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterTelemetry)(nil)).Elem()
-}
-
-func (i ClusterTelemetryArgs) ToClusterTelemetryOutput() ClusterTelemetryOutput {
-	return i.ToClusterTelemetryOutputWithContext(context.Background())
-}
-
-func (i ClusterTelemetryArgs) ToClusterTelemetryOutputWithContext(ctx context.Context) ClusterTelemetryOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterTelemetryOutput)
-}
-
-func (i ClusterTelemetryArgs) ToClusterTelemetryPtrOutput() ClusterTelemetryPtrOutput {
-	return i.ToClusterTelemetryPtrOutputWithContext(context.Background())
-}
-
-func (i ClusterTelemetryArgs) ToClusterTelemetryPtrOutputWithContext(ctx context.Context) ClusterTelemetryPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterTelemetryOutput).ToClusterTelemetryPtrOutputWithContext(ctx)
-}
-
-// ClusterTelemetryPtrInput is an input type that accepts ClusterTelemetryArgs, ClusterTelemetryPtr and ClusterTelemetryPtrOutput values.
-// You can construct a concrete instance of `ClusterTelemetryPtrInput` via:
-//
-//	        ClusterTelemetryArgs{...}
-//
-//	or:
-//
-//	        nil
-type ClusterTelemetryPtrInput interface {
-	pulumi.Input
-
-	ToClusterTelemetryPtrOutput() ClusterTelemetryPtrOutput
-	ToClusterTelemetryPtrOutputWithContext(context.Context) ClusterTelemetryPtrOutput
-}
-
-type clusterTelemetryPtrType ClusterTelemetryArgs
-
-func ClusterTelemetryPtr(v *ClusterTelemetryArgs) ClusterTelemetryPtrInput {
-	return (*clusterTelemetryPtrType)(v)
-}
-
-func (*clusterTelemetryPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterTelemetry)(nil)).Elem()
-}
-
-func (i *clusterTelemetryPtrType) ToClusterTelemetryPtrOutput() ClusterTelemetryPtrOutput {
-	return i.ToClusterTelemetryPtrOutputWithContext(context.Background())
-}
-
-func (i *clusterTelemetryPtrType) ToClusterTelemetryPtrOutputWithContext(ctx context.Context) ClusterTelemetryPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterTelemetryPtrOutput)
-}
-
-type ClusterTelemetryOutput struct{ *pulumi.OutputState }
-
-func (ClusterTelemetryOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterTelemetry)(nil)).Elem()
-}
-
-func (o ClusterTelemetryOutput) ToClusterTelemetryOutput() ClusterTelemetryOutput {
-	return o
-}
-
-func (o ClusterTelemetryOutput) ToClusterTelemetryOutputWithContext(ctx context.Context) ClusterTelemetryOutput {
-	return o
-}
-
-func (o ClusterTelemetryOutput) ToClusterTelemetryPtrOutput() ClusterTelemetryPtrOutput {
-	return o.ToClusterTelemetryPtrOutputWithContext(context.Background())
-}
-
-func (o ClusterTelemetryOutput) ToClusterTelemetryPtrOutputWithContext(ctx context.Context) ClusterTelemetryPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterTelemetry) *ClusterTelemetry {
-		return &v
-	}).(ClusterTelemetryPtrOutput)
-}
-
-func (o ClusterTelemetryOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ClusterTelemetry) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
-}
-
-type ClusterTelemetryPtrOutput struct{ *pulumi.OutputState }
-
-func (ClusterTelemetryPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ClusterTelemetry)(nil)).Elem()
-}
-
-func (o ClusterTelemetryPtrOutput) ToClusterTelemetryPtrOutput() ClusterTelemetryPtrOutput {
-	return o
-}
-
-func (o ClusterTelemetryPtrOutput) ToClusterTelemetryPtrOutputWithContext(ctx context.Context) ClusterTelemetryPtrOutput {
-	return o
-}
-
-func (o ClusterTelemetryPtrOutput) Elem() ClusterTelemetryOutput {
-	return o.ApplyT(func(v *ClusterTelemetry) ClusterTelemetry {
-		if v != nil {
-			return *v
-		}
-		var ret ClusterTelemetry
-		return ret
-	}).(ClusterTelemetryOutput)
-}
-
-func (o ClusterTelemetryPtrOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ClusterTelemetry) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Enabled
-	}).(pulumi.BoolPtrOutput)
 }
 
 type ClusterWinRM struct {
@@ -6708,125 +1736,5242 @@ func (o ClusterWinRMPtrOutput) User() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-type ClusterWorkerProfile struct {
+type K0s struct {
+	ApiVersion *string      `pulumi:"apiVersion"`
+	Kind       *string      `pulumi:"kind"`
+	Metadata   *K0sMetadata `pulumi:"metadata"`
+	Spec       *K0sSpec     `pulumi:"spec"`
+}
+
+// K0sInput is an input type that accepts K0sArgs and K0sOutput values.
+// You can construct a concrete instance of `K0sInput` via:
+//
+//	K0sArgs{...}
+type K0sInput interface {
+	pulumi.Input
+
+	ToK0sOutput() K0sOutput
+	ToK0sOutputWithContext(context.Context) K0sOutput
+}
+
+type K0sArgs struct {
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	Kind       pulumi.StringPtrInput `pulumi:"kind"`
+	Metadata   K0sMetadataPtrInput   `pulumi:"metadata"`
+	Spec       K0sSpecPtrInput       `pulumi:"spec"`
+}
+
+func (K0sArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0s)(nil)).Elem()
+}
+
+func (i K0sArgs) ToK0sOutput() K0sOutput {
+	return i.ToK0sOutputWithContext(context.Background())
+}
+
+func (i K0sArgs) ToK0sOutputWithContext(ctx context.Context) K0sOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sOutput)
+}
+
+func (i K0sArgs) ToK0sPtrOutput() K0sPtrOutput {
+	return i.ToK0sPtrOutputWithContext(context.Background())
+}
+
+func (i K0sArgs) ToK0sPtrOutputWithContext(ctx context.Context) K0sPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sOutput).ToK0sPtrOutputWithContext(ctx)
+}
+
+// K0sPtrInput is an input type that accepts K0sArgs, K0sPtr and K0sPtrOutput values.
+// You can construct a concrete instance of `K0sPtrInput` via:
+//
+//	        K0sArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sPtrInput interface {
+	pulumi.Input
+
+	ToK0sPtrOutput() K0sPtrOutput
+	ToK0sPtrOutputWithContext(context.Context) K0sPtrOutput
+}
+
+type k0sPtrType K0sArgs
+
+func K0sPtr(v *K0sArgs) K0sPtrInput {
+	return (*k0sPtrType)(v)
+}
+
+func (*k0sPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0s)(nil)).Elem()
+}
+
+func (i *k0sPtrType) ToK0sPtrOutput() K0sPtrOutput {
+	return i.ToK0sPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sPtrType) ToK0sPtrOutputWithContext(ctx context.Context) K0sPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sPtrOutput)
+}
+
+type K0sOutput struct{ *pulumi.OutputState }
+
+func (K0sOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0s)(nil)).Elem()
+}
+
+func (o K0sOutput) ToK0sOutput() K0sOutput {
+	return o
+}
+
+func (o K0sOutput) ToK0sOutputWithContext(ctx context.Context) K0sOutput {
+	return o
+}
+
+func (o K0sOutput) ToK0sPtrOutput() K0sPtrOutput {
+	return o.ToK0sPtrOutputWithContext(context.Background())
+}
+
+func (o K0sOutput) ToK0sPtrOutputWithContext(ctx context.Context) K0sPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0s) *K0s {
+		return &v
+	}).(K0sPtrOutput)
+}
+
+func (o K0sOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0s) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0s) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sOutput) Metadata() K0sMetadataPtrOutput {
+	return o.ApplyT(func(v K0s) *K0sMetadata { return v.Metadata }).(K0sMetadataPtrOutput)
+}
+
+func (o K0sOutput) Spec() K0sSpecPtrOutput {
+	return o.ApplyT(func(v K0s) *K0sSpec { return v.Spec }).(K0sSpecPtrOutput)
+}
+
+type K0sPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0s)(nil)).Elem()
+}
+
+func (o K0sPtrOutput) ToK0sPtrOutput() K0sPtrOutput {
+	return o
+}
+
+func (o K0sPtrOutput) ToK0sPtrOutputWithContext(ctx context.Context) K0sPtrOutput {
+	return o
+}
+
+func (o K0sPtrOutput) Elem() K0sOutput {
+	return o.ApplyT(func(v *K0s) K0s {
+		if v != nil {
+			return *v
+		}
+		var ret K0s
+		return ret
+	}).(K0sOutput)
+}
+
+func (o K0sPtrOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0s) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiVersion
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sPtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0s) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Kind
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sPtrOutput) Metadata() K0sMetadataPtrOutput {
+	return o.ApplyT(func(v *K0s) *K0sMetadata {
+		if v == nil {
+			return nil
+		}
+		return v.Metadata
+	}).(K0sMetadataPtrOutput)
+}
+
+func (o K0sPtrOutput) Spec() K0sSpecPtrOutput {
+	return o.ApplyT(func(v *K0s) *K0sSpec {
+		if v == nil {
+			return nil
+		}
+		return v.Spec
+	}).(K0sSpecPtrOutput)
+}
+
+type K0sAPI struct {
+	Address         *string           `pulumi:"address"`
+	ExternalAddress *string           `pulumi:"externalAddress"`
+	ExtraArgs       map[string]string `pulumi:"extraArgs"`
+	K0sApiPort      *int              `pulumi:"k0sApiPort"`
+	Port            *int              `pulumi:"port"`
+	Sans            []string          `pulumi:"sans"`
+}
+
+// K0sAPIInput is an input type that accepts K0sAPIArgs and K0sAPIOutput values.
+// You can construct a concrete instance of `K0sAPIInput` via:
+//
+//	K0sAPIArgs{...}
+type K0sAPIInput interface {
+	pulumi.Input
+
+	ToK0sAPIOutput() K0sAPIOutput
+	ToK0sAPIOutputWithContext(context.Context) K0sAPIOutput
+}
+
+type K0sAPIArgs struct {
+	Address         pulumi.StringPtrInput   `pulumi:"address"`
+	ExternalAddress pulumi.StringPtrInput   `pulumi:"externalAddress"`
+	ExtraArgs       pulumi.StringMapInput   `pulumi:"extraArgs"`
+	K0sApiPort      pulumi.IntPtrInput      `pulumi:"k0sApiPort"`
+	Port            pulumi.IntPtrInput      `pulumi:"port"`
+	Sans            pulumi.StringArrayInput `pulumi:"sans"`
+}
+
+func (K0sAPIArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sAPI)(nil)).Elem()
+}
+
+func (i K0sAPIArgs) ToK0sAPIOutput() K0sAPIOutput {
+	return i.ToK0sAPIOutputWithContext(context.Background())
+}
+
+func (i K0sAPIArgs) ToK0sAPIOutputWithContext(ctx context.Context) K0sAPIOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sAPIOutput)
+}
+
+func (i K0sAPIArgs) ToK0sAPIPtrOutput() K0sAPIPtrOutput {
+	return i.ToK0sAPIPtrOutputWithContext(context.Background())
+}
+
+func (i K0sAPIArgs) ToK0sAPIPtrOutputWithContext(ctx context.Context) K0sAPIPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sAPIOutput).ToK0sAPIPtrOutputWithContext(ctx)
+}
+
+// K0sAPIPtrInput is an input type that accepts K0sAPIArgs, K0sAPIPtr and K0sAPIPtrOutput values.
+// You can construct a concrete instance of `K0sAPIPtrInput` via:
+//
+//	        K0sAPIArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sAPIPtrInput interface {
+	pulumi.Input
+
+	ToK0sAPIPtrOutput() K0sAPIPtrOutput
+	ToK0sAPIPtrOutputWithContext(context.Context) K0sAPIPtrOutput
+}
+
+type k0sAPIPtrType K0sAPIArgs
+
+func K0sAPIPtr(v *K0sAPIArgs) K0sAPIPtrInput {
+	return (*k0sAPIPtrType)(v)
+}
+
+func (*k0sAPIPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sAPI)(nil)).Elem()
+}
+
+func (i *k0sAPIPtrType) ToK0sAPIPtrOutput() K0sAPIPtrOutput {
+	return i.ToK0sAPIPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sAPIPtrType) ToK0sAPIPtrOutputWithContext(ctx context.Context) K0sAPIPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sAPIPtrOutput)
+}
+
+type K0sAPIOutput struct{ *pulumi.OutputState }
+
+func (K0sAPIOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sAPI)(nil)).Elem()
+}
+
+func (o K0sAPIOutput) ToK0sAPIOutput() K0sAPIOutput {
+	return o
+}
+
+func (o K0sAPIOutput) ToK0sAPIOutputWithContext(ctx context.Context) K0sAPIOutput {
+	return o
+}
+
+func (o K0sAPIOutput) ToK0sAPIPtrOutput() K0sAPIPtrOutput {
+	return o.ToK0sAPIPtrOutputWithContext(context.Background())
+}
+
+func (o K0sAPIOutput) ToK0sAPIPtrOutputWithContext(ctx context.Context) K0sAPIPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sAPI) *K0sAPI {
+		return &v
+	}).(K0sAPIPtrOutput)
+}
+
+func (o K0sAPIOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sAPI) *string { return v.Address }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sAPIOutput) ExternalAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sAPI) *string { return v.ExternalAddress }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sAPIOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v K0sAPI) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
+}
+
+func (o K0sAPIOutput) K0sApiPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sAPI) *int { return v.K0sApiPort }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sAPIOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sAPI) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sAPIOutput) Sans() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v K0sAPI) []string { return v.Sans }).(pulumi.StringArrayOutput)
+}
+
+type K0sAPIPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sAPIPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sAPI)(nil)).Elem()
+}
+
+func (o K0sAPIPtrOutput) ToK0sAPIPtrOutput() K0sAPIPtrOutput {
+	return o
+}
+
+func (o K0sAPIPtrOutput) ToK0sAPIPtrOutputWithContext(ctx context.Context) K0sAPIPtrOutput {
+	return o
+}
+
+func (o K0sAPIPtrOutput) Elem() K0sAPIOutput {
+	return o.ApplyT(func(v *K0sAPI) K0sAPI {
+		if v != nil {
+			return *v
+		}
+		var ret K0sAPI
+		return ret
+	}).(K0sAPIOutput)
+}
+
+func (o K0sAPIPtrOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sAPI) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Address
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sAPIPtrOutput) ExternalAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sAPI) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ExternalAddress
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sAPIPtrOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *K0sAPI) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(pulumi.StringMapOutput)
+}
+
+func (o K0sAPIPtrOutput) K0sApiPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sAPI) *int {
+		if v == nil {
+			return nil
+		}
+		return v.K0sApiPort
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sAPIPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sAPI) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sAPIPtrOutput) Sans() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *K0sAPI) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Sans
+	}).(pulumi.StringArrayOutput)
+}
+
+type K0sCalico struct {
+	EnvVars               map[string]string `pulumi:"envVars"`
+	FlexVolumeDriverPath  *string           `pulumi:"flexVolumeDriverPath"`
+	IpAutodetectionMethod *string           `pulumi:"ipAutodetectionMethod"`
+	Mode                  *string           `pulumi:"mode"`
+	Mtu                   *int              `pulumi:"mtu"`
+	Overlay               *string           `pulumi:"overlay"`
+	VxlanPort             *int              `pulumi:"vxlanPort"`
+	VxlanVNI              *int              `pulumi:"vxlanVNI"`
+	Wireguard             *bool             `pulumi:"wireguard"`
+}
+
+// K0sCalicoInput is an input type that accepts K0sCalicoArgs and K0sCalicoOutput values.
+// You can construct a concrete instance of `K0sCalicoInput` via:
+//
+//	K0sCalicoArgs{...}
+type K0sCalicoInput interface {
+	pulumi.Input
+
+	ToK0sCalicoOutput() K0sCalicoOutput
+	ToK0sCalicoOutputWithContext(context.Context) K0sCalicoOutput
+}
+
+type K0sCalicoArgs struct {
+	EnvVars               pulumi.StringMapInput `pulumi:"envVars"`
+	FlexVolumeDriverPath  pulumi.StringPtrInput `pulumi:"flexVolumeDriverPath"`
+	IpAutodetectionMethod pulumi.StringPtrInput `pulumi:"ipAutodetectionMethod"`
+	Mode                  pulumi.StringPtrInput `pulumi:"mode"`
+	Mtu                   pulumi.IntPtrInput    `pulumi:"mtu"`
+	Overlay               pulumi.StringPtrInput `pulumi:"overlay"`
+	VxlanPort             pulumi.IntPtrInput    `pulumi:"vxlanPort"`
+	VxlanVNI              pulumi.IntPtrInput    `pulumi:"vxlanVNI"`
+	Wireguard             pulumi.BoolPtrInput   `pulumi:"wireguard"`
+}
+
+func (K0sCalicoArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sCalico)(nil)).Elem()
+}
+
+func (i K0sCalicoArgs) ToK0sCalicoOutput() K0sCalicoOutput {
+	return i.ToK0sCalicoOutputWithContext(context.Background())
+}
+
+func (i K0sCalicoArgs) ToK0sCalicoOutputWithContext(ctx context.Context) K0sCalicoOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sCalicoOutput)
+}
+
+func (i K0sCalicoArgs) ToK0sCalicoPtrOutput() K0sCalicoPtrOutput {
+	return i.ToK0sCalicoPtrOutputWithContext(context.Background())
+}
+
+func (i K0sCalicoArgs) ToK0sCalicoPtrOutputWithContext(ctx context.Context) K0sCalicoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sCalicoOutput).ToK0sCalicoPtrOutputWithContext(ctx)
+}
+
+// K0sCalicoPtrInput is an input type that accepts K0sCalicoArgs, K0sCalicoPtr and K0sCalicoPtrOutput values.
+// You can construct a concrete instance of `K0sCalicoPtrInput` via:
+//
+//	        K0sCalicoArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sCalicoPtrInput interface {
+	pulumi.Input
+
+	ToK0sCalicoPtrOutput() K0sCalicoPtrOutput
+	ToK0sCalicoPtrOutputWithContext(context.Context) K0sCalicoPtrOutput
+}
+
+type k0sCalicoPtrType K0sCalicoArgs
+
+func K0sCalicoPtr(v *K0sCalicoArgs) K0sCalicoPtrInput {
+	return (*k0sCalicoPtrType)(v)
+}
+
+func (*k0sCalicoPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sCalico)(nil)).Elem()
+}
+
+func (i *k0sCalicoPtrType) ToK0sCalicoPtrOutput() K0sCalicoPtrOutput {
+	return i.ToK0sCalicoPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sCalicoPtrType) ToK0sCalicoPtrOutputWithContext(ctx context.Context) K0sCalicoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sCalicoPtrOutput)
+}
+
+type K0sCalicoOutput struct{ *pulumi.OutputState }
+
+func (K0sCalicoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sCalico)(nil)).Elem()
+}
+
+func (o K0sCalicoOutput) ToK0sCalicoOutput() K0sCalicoOutput {
+	return o
+}
+
+func (o K0sCalicoOutput) ToK0sCalicoOutputWithContext(ctx context.Context) K0sCalicoOutput {
+	return o
+}
+
+func (o K0sCalicoOutput) ToK0sCalicoPtrOutput() K0sCalicoPtrOutput {
+	return o.ToK0sCalicoPtrOutputWithContext(context.Background())
+}
+
+func (o K0sCalicoOutput) ToK0sCalicoPtrOutputWithContext(ctx context.Context) K0sCalicoPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sCalico) *K0sCalico {
+		return &v
+	}).(K0sCalicoPtrOutput)
+}
+
+func (o K0sCalicoOutput) EnvVars() pulumi.StringMapOutput {
+	return o.ApplyT(func(v K0sCalico) map[string]string { return v.EnvVars }).(pulumi.StringMapOutput)
+}
+
+func (o K0sCalicoOutput) FlexVolumeDriverPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sCalico) *string { return v.FlexVolumeDriverPath }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sCalicoOutput) IpAutodetectionMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sCalico) *string { return v.IpAutodetectionMethod }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sCalicoOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sCalico) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sCalicoOutput) Mtu() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sCalico) *int { return v.Mtu }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sCalicoOutput) Overlay() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sCalico) *string { return v.Overlay }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sCalicoOutput) VxlanPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sCalico) *int { return v.VxlanPort }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sCalicoOutput) VxlanVNI() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sCalico) *int { return v.VxlanVNI }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sCalicoOutput) Wireguard() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sCalico) *bool { return v.Wireguard }).(pulumi.BoolPtrOutput)
+}
+
+type K0sCalicoPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sCalicoPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sCalico)(nil)).Elem()
+}
+
+func (o K0sCalicoPtrOutput) ToK0sCalicoPtrOutput() K0sCalicoPtrOutput {
+	return o
+}
+
+func (o K0sCalicoPtrOutput) ToK0sCalicoPtrOutputWithContext(ctx context.Context) K0sCalicoPtrOutput {
+	return o
+}
+
+func (o K0sCalicoPtrOutput) Elem() K0sCalicoOutput {
+	return o.ApplyT(func(v *K0sCalico) K0sCalico {
+		if v != nil {
+			return *v
+		}
+		var ret K0sCalico
+		return ret
+	}).(K0sCalicoOutput)
+}
+
+func (o K0sCalicoPtrOutput) EnvVars() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *K0sCalico) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.EnvVars
+	}).(pulumi.StringMapOutput)
+}
+
+func (o K0sCalicoPtrOutput) FlexVolumeDriverPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sCalico) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FlexVolumeDriverPath
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sCalicoPtrOutput) IpAutodetectionMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sCalico) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpAutodetectionMethod
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sCalicoPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sCalico) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sCalicoPtrOutput) Mtu() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sCalico) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Mtu
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sCalicoPtrOutput) Overlay() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sCalico) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Overlay
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sCalicoPtrOutput) VxlanPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sCalico) *int {
+		if v == nil {
+			return nil
+		}
+		return v.VxlanPort
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sCalicoPtrOutput) VxlanVNI() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sCalico) *int {
+		if v == nil {
+			return nil
+		}
+		return v.VxlanVNI
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sCalicoPtrOutput) Wireguard() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sCalico) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Wireguard
+	}).(pulumi.BoolPtrOutput)
+}
+
+type K0sCalicoImage struct {
+	Cni             *K0sImage `pulumi:"cni"`
+	Flexvolume      *K0sImage `pulumi:"flexvolume"`
+	Kubecontrollers *K0sImage `pulumi:"kubecontrollers"`
+	Node            *K0sImage `pulumi:"node"`
+}
+
+// K0sCalicoImageInput is an input type that accepts K0sCalicoImageArgs and K0sCalicoImageOutput values.
+// You can construct a concrete instance of `K0sCalicoImageInput` via:
+//
+//	K0sCalicoImageArgs{...}
+type K0sCalicoImageInput interface {
+	pulumi.Input
+
+	ToK0sCalicoImageOutput() K0sCalicoImageOutput
+	ToK0sCalicoImageOutputWithContext(context.Context) K0sCalicoImageOutput
+}
+
+type K0sCalicoImageArgs struct {
+	Cni             K0sImagePtrInput `pulumi:"cni"`
+	Flexvolume      K0sImagePtrInput `pulumi:"flexvolume"`
+	Kubecontrollers K0sImagePtrInput `pulumi:"kubecontrollers"`
+	Node            K0sImagePtrInput `pulumi:"node"`
+}
+
+func (K0sCalicoImageArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sCalicoImage)(nil)).Elem()
+}
+
+func (i K0sCalicoImageArgs) ToK0sCalicoImageOutput() K0sCalicoImageOutput {
+	return i.ToK0sCalicoImageOutputWithContext(context.Background())
+}
+
+func (i K0sCalicoImageArgs) ToK0sCalicoImageOutputWithContext(ctx context.Context) K0sCalicoImageOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sCalicoImageOutput)
+}
+
+func (i K0sCalicoImageArgs) ToK0sCalicoImagePtrOutput() K0sCalicoImagePtrOutput {
+	return i.ToK0sCalicoImagePtrOutputWithContext(context.Background())
+}
+
+func (i K0sCalicoImageArgs) ToK0sCalicoImagePtrOutputWithContext(ctx context.Context) K0sCalicoImagePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sCalicoImageOutput).ToK0sCalicoImagePtrOutputWithContext(ctx)
+}
+
+// K0sCalicoImagePtrInput is an input type that accepts K0sCalicoImageArgs, K0sCalicoImagePtr and K0sCalicoImagePtrOutput values.
+// You can construct a concrete instance of `K0sCalicoImagePtrInput` via:
+//
+//	        K0sCalicoImageArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sCalicoImagePtrInput interface {
+	pulumi.Input
+
+	ToK0sCalicoImagePtrOutput() K0sCalicoImagePtrOutput
+	ToK0sCalicoImagePtrOutputWithContext(context.Context) K0sCalicoImagePtrOutput
+}
+
+type k0sCalicoImagePtrType K0sCalicoImageArgs
+
+func K0sCalicoImagePtr(v *K0sCalicoImageArgs) K0sCalicoImagePtrInput {
+	return (*k0sCalicoImagePtrType)(v)
+}
+
+func (*k0sCalicoImagePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sCalicoImage)(nil)).Elem()
+}
+
+func (i *k0sCalicoImagePtrType) ToK0sCalicoImagePtrOutput() K0sCalicoImagePtrOutput {
+	return i.ToK0sCalicoImagePtrOutputWithContext(context.Background())
+}
+
+func (i *k0sCalicoImagePtrType) ToK0sCalicoImagePtrOutputWithContext(ctx context.Context) K0sCalicoImagePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sCalicoImagePtrOutput)
+}
+
+type K0sCalicoImageOutput struct{ *pulumi.OutputState }
+
+func (K0sCalicoImageOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sCalicoImage)(nil)).Elem()
+}
+
+func (o K0sCalicoImageOutput) ToK0sCalicoImageOutput() K0sCalicoImageOutput {
+	return o
+}
+
+func (o K0sCalicoImageOutput) ToK0sCalicoImageOutputWithContext(ctx context.Context) K0sCalicoImageOutput {
+	return o
+}
+
+func (o K0sCalicoImageOutput) ToK0sCalicoImagePtrOutput() K0sCalicoImagePtrOutput {
+	return o.ToK0sCalicoImagePtrOutputWithContext(context.Background())
+}
+
+func (o K0sCalicoImageOutput) ToK0sCalicoImagePtrOutputWithContext(ctx context.Context) K0sCalicoImagePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sCalicoImage) *K0sCalicoImage {
+		return &v
+	}).(K0sCalicoImagePtrOutput)
+}
+
+func (o K0sCalicoImageOutput) Cni() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sCalicoImage) *K0sImage { return v.Cni }).(K0sImagePtrOutput)
+}
+
+func (o K0sCalicoImageOutput) Flexvolume() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sCalicoImage) *K0sImage { return v.Flexvolume }).(K0sImagePtrOutput)
+}
+
+func (o K0sCalicoImageOutput) Kubecontrollers() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sCalicoImage) *K0sImage { return v.Kubecontrollers }).(K0sImagePtrOutput)
+}
+
+func (o K0sCalicoImageOutput) Node() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sCalicoImage) *K0sImage { return v.Node }).(K0sImagePtrOutput)
+}
+
+type K0sCalicoImagePtrOutput struct{ *pulumi.OutputState }
+
+func (K0sCalicoImagePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sCalicoImage)(nil)).Elem()
+}
+
+func (o K0sCalicoImagePtrOutput) ToK0sCalicoImagePtrOutput() K0sCalicoImagePtrOutput {
+	return o
+}
+
+func (o K0sCalicoImagePtrOutput) ToK0sCalicoImagePtrOutputWithContext(ctx context.Context) K0sCalicoImagePtrOutput {
+	return o
+}
+
+func (o K0sCalicoImagePtrOutput) Elem() K0sCalicoImageOutput {
+	return o.ApplyT(func(v *K0sCalicoImage) K0sCalicoImage {
+		if v != nil {
+			return *v
+		}
+		var ret K0sCalicoImage
+		return ret
+	}).(K0sCalicoImageOutput)
+}
+
+func (o K0sCalicoImagePtrOutput) Cni() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sCalicoImage) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Cni
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sCalicoImagePtrOutput) Flexvolume() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sCalicoImage) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Flexvolume
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sCalicoImagePtrOutput) Kubecontrollers() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sCalicoImage) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Kubecontrollers
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sCalicoImagePtrOutput) Node() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sCalicoImage) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Node
+	}).(K0sImagePtrOutput)
+}
+
+type K0sControllerManager struct {
+	ExtraArgs map[string]string `pulumi:"extraArgs"`
+}
+
+// K0sControllerManagerInput is an input type that accepts K0sControllerManagerArgs and K0sControllerManagerOutput values.
+// You can construct a concrete instance of `K0sControllerManagerInput` via:
+//
+//	K0sControllerManagerArgs{...}
+type K0sControllerManagerInput interface {
+	pulumi.Input
+
+	ToK0sControllerManagerOutput() K0sControllerManagerOutput
+	ToK0sControllerManagerOutputWithContext(context.Context) K0sControllerManagerOutput
+}
+
+type K0sControllerManagerArgs struct {
+	ExtraArgs pulumi.StringMapInput `pulumi:"extraArgs"`
+}
+
+func (K0sControllerManagerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sControllerManager)(nil)).Elem()
+}
+
+func (i K0sControllerManagerArgs) ToK0sControllerManagerOutput() K0sControllerManagerOutput {
+	return i.ToK0sControllerManagerOutputWithContext(context.Background())
+}
+
+func (i K0sControllerManagerArgs) ToK0sControllerManagerOutputWithContext(ctx context.Context) K0sControllerManagerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sControllerManagerOutput)
+}
+
+func (i K0sControllerManagerArgs) ToK0sControllerManagerPtrOutput() K0sControllerManagerPtrOutput {
+	return i.ToK0sControllerManagerPtrOutputWithContext(context.Background())
+}
+
+func (i K0sControllerManagerArgs) ToK0sControllerManagerPtrOutputWithContext(ctx context.Context) K0sControllerManagerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sControllerManagerOutput).ToK0sControllerManagerPtrOutputWithContext(ctx)
+}
+
+// K0sControllerManagerPtrInput is an input type that accepts K0sControllerManagerArgs, K0sControllerManagerPtr and K0sControllerManagerPtrOutput values.
+// You can construct a concrete instance of `K0sControllerManagerPtrInput` via:
+//
+//	        K0sControllerManagerArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sControllerManagerPtrInput interface {
+	pulumi.Input
+
+	ToK0sControllerManagerPtrOutput() K0sControllerManagerPtrOutput
+	ToK0sControllerManagerPtrOutputWithContext(context.Context) K0sControllerManagerPtrOutput
+}
+
+type k0sControllerManagerPtrType K0sControllerManagerArgs
+
+func K0sControllerManagerPtr(v *K0sControllerManagerArgs) K0sControllerManagerPtrInput {
+	return (*k0sControllerManagerPtrType)(v)
+}
+
+func (*k0sControllerManagerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sControllerManager)(nil)).Elem()
+}
+
+func (i *k0sControllerManagerPtrType) ToK0sControllerManagerPtrOutput() K0sControllerManagerPtrOutput {
+	return i.ToK0sControllerManagerPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sControllerManagerPtrType) ToK0sControllerManagerPtrOutputWithContext(ctx context.Context) K0sControllerManagerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sControllerManagerPtrOutput)
+}
+
+type K0sControllerManagerOutput struct{ *pulumi.OutputState }
+
+func (K0sControllerManagerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sControllerManager)(nil)).Elem()
+}
+
+func (o K0sControllerManagerOutput) ToK0sControllerManagerOutput() K0sControllerManagerOutput {
+	return o
+}
+
+func (o K0sControllerManagerOutput) ToK0sControllerManagerOutputWithContext(ctx context.Context) K0sControllerManagerOutput {
+	return o
+}
+
+func (o K0sControllerManagerOutput) ToK0sControllerManagerPtrOutput() K0sControllerManagerPtrOutput {
+	return o.ToK0sControllerManagerPtrOutputWithContext(context.Background())
+}
+
+func (o K0sControllerManagerOutput) ToK0sControllerManagerPtrOutputWithContext(ctx context.Context) K0sControllerManagerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sControllerManager) *K0sControllerManager {
+		return &v
+	}).(K0sControllerManagerPtrOutput)
+}
+
+func (o K0sControllerManagerOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v K0sControllerManager) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
+}
+
+type K0sControllerManagerPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sControllerManagerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sControllerManager)(nil)).Elem()
+}
+
+func (o K0sControllerManagerPtrOutput) ToK0sControllerManagerPtrOutput() K0sControllerManagerPtrOutput {
+	return o
+}
+
+func (o K0sControllerManagerPtrOutput) ToK0sControllerManagerPtrOutputWithContext(ctx context.Context) K0sControllerManagerPtrOutput {
+	return o
+}
+
+func (o K0sControllerManagerPtrOutput) Elem() K0sControllerManagerOutput {
+	return o.ApplyT(func(v *K0sControllerManager) K0sControllerManager {
+		if v != nil {
+			return *v
+		}
+		var ret K0sControllerManager
+		return ret
+	}).(K0sControllerManagerOutput)
+}
+
+func (o K0sControllerManagerPtrOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *K0sControllerManager) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(pulumi.StringMapOutput)
+}
+
+type K0sDualStack struct {
+	IPv6podCIDR     *string `pulumi:"IPv6podCIDR"`
+	IPv6serviceCIDR *string `pulumi:"IPv6serviceCIDR"`
+	Enabled         *bool   `pulumi:"enabled"`
+}
+
+// K0sDualStackInput is an input type that accepts K0sDualStackArgs and K0sDualStackOutput values.
+// You can construct a concrete instance of `K0sDualStackInput` via:
+//
+//	K0sDualStackArgs{...}
+type K0sDualStackInput interface {
+	pulumi.Input
+
+	ToK0sDualStackOutput() K0sDualStackOutput
+	ToK0sDualStackOutputWithContext(context.Context) K0sDualStackOutput
+}
+
+type K0sDualStackArgs struct {
+	IPv6podCIDR     pulumi.StringPtrInput `pulumi:"IPv6podCIDR"`
+	IPv6serviceCIDR pulumi.StringPtrInput `pulumi:"IPv6serviceCIDR"`
+	Enabled         pulumi.BoolPtrInput   `pulumi:"enabled"`
+}
+
+func (K0sDualStackArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sDualStack)(nil)).Elem()
+}
+
+func (i K0sDualStackArgs) ToK0sDualStackOutput() K0sDualStackOutput {
+	return i.ToK0sDualStackOutputWithContext(context.Background())
+}
+
+func (i K0sDualStackArgs) ToK0sDualStackOutputWithContext(ctx context.Context) K0sDualStackOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sDualStackOutput)
+}
+
+func (i K0sDualStackArgs) ToK0sDualStackPtrOutput() K0sDualStackPtrOutput {
+	return i.ToK0sDualStackPtrOutputWithContext(context.Background())
+}
+
+func (i K0sDualStackArgs) ToK0sDualStackPtrOutputWithContext(ctx context.Context) K0sDualStackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sDualStackOutput).ToK0sDualStackPtrOutputWithContext(ctx)
+}
+
+// K0sDualStackPtrInput is an input type that accepts K0sDualStackArgs, K0sDualStackPtr and K0sDualStackPtrOutput values.
+// You can construct a concrete instance of `K0sDualStackPtrInput` via:
+//
+//	        K0sDualStackArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sDualStackPtrInput interface {
+	pulumi.Input
+
+	ToK0sDualStackPtrOutput() K0sDualStackPtrOutput
+	ToK0sDualStackPtrOutputWithContext(context.Context) K0sDualStackPtrOutput
+}
+
+type k0sDualStackPtrType K0sDualStackArgs
+
+func K0sDualStackPtr(v *K0sDualStackArgs) K0sDualStackPtrInput {
+	return (*k0sDualStackPtrType)(v)
+}
+
+func (*k0sDualStackPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sDualStack)(nil)).Elem()
+}
+
+func (i *k0sDualStackPtrType) ToK0sDualStackPtrOutput() K0sDualStackPtrOutput {
+	return i.ToK0sDualStackPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sDualStackPtrType) ToK0sDualStackPtrOutputWithContext(ctx context.Context) K0sDualStackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sDualStackPtrOutput)
+}
+
+type K0sDualStackOutput struct{ *pulumi.OutputState }
+
+func (K0sDualStackOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sDualStack)(nil)).Elem()
+}
+
+func (o K0sDualStackOutput) ToK0sDualStackOutput() K0sDualStackOutput {
+	return o
+}
+
+func (o K0sDualStackOutput) ToK0sDualStackOutputWithContext(ctx context.Context) K0sDualStackOutput {
+	return o
+}
+
+func (o K0sDualStackOutput) ToK0sDualStackPtrOutput() K0sDualStackPtrOutput {
+	return o.ToK0sDualStackPtrOutputWithContext(context.Background())
+}
+
+func (o K0sDualStackOutput) ToK0sDualStackPtrOutputWithContext(ctx context.Context) K0sDualStackPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sDualStack) *K0sDualStack {
+		return &v
+	}).(K0sDualStackPtrOutput)
+}
+
+func (o K0sDualStackOutput) IPv6podCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sDualStack) *string { return v.IPv6podCIDR }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sDualStackOutput) IPv6serviceCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sDualStack) *string { return v.IPv6serviceCIDR }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sDualStackOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sDualStack) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type K0sDualStackPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sDualStackPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sDualStack)(nil)).Elem()
+}
+
+func (o K0sDualStackPtrOutput) ToK0sDualStackPtrOutput() K0sDualStackPtrOutput {
+	return o
+}
+
+func (o K0sDualStackPtrOutput) ToK0sDualStackPtrOutputWithContext(ctx context.Context) K0sDualStackPtrOutput {
+	return o
+}
+
+func (o K0sDualStackPtrOutput) Elem() K0sDualStackOutput {
+	return o.ApplyT(func(v *K0sDualStack) K0sDualStack {
+		if v != nil {
+			return *v
+		}
+		var ret K0sDualStack
+		return ret
+	}).(K0sDualStackOutput)
+}
+
+func (o K0sDualStackPtrOutput) IPv6podCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sDualStack) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IPv6podCIDR
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sDualStackPtrOutput) IPv6serviceCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sDualStack) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IPv6serviceCIDR
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sDualStackPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sDualStack) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type K0sEnvoyProxy struct {
+	ApiServerBindPort          *int    `pulumi:"apiServerBindPort"`
+	Image                      *string `pulumi:"image"`
+	ImagePullPolicy            *string `pulumi:"imagePullPolicy"`
+	KonnectivityServerBindPort *int    `pulumi:"konnectivityServerBindPort"`
+}
+
+// K0sEnvoyProxyInput is an input type that accepts K0sEnvoyProxyArgs and K0sEnvoyProxyOutput values.
+// You can construct a concrete instance of `K0sEnvoyProxyInput` via:
+//
+//	K0sEnvoyProxyArgs{...}
+type K0sEnvoyProxyInput interface {
+	pulumi.Input
+
+	ToK0sEnvoyProxyOutput() K0sEnvoyProxyOutput
+	ToK0sEnvoyProxyOutputWithContext(context.Context) K0sEnvoyProxyOutput
+}
+
+type K0sEnvoyProxyArgs struct {
+	ApiServerBindPort          pulumi.IntPtrInput    `pulumi:"apiServerBindPort"`
+	Image                      pulumi.StringPtrInput `pulumi:"image"`
+	ImagePullPolicy            pulumi.StringPtrInput `pulumi:"imagePullPolicy"`
+	KonnectivityServerBindPort pulumi.IntPtrInput    `pulumi:"konnectivityServerBindPort"`
+}
+
+func (K0sEnvoyProxyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sEnvoyProxy)(nil)).Elem()
+}
+
+func (i K0sEnvoyProxyArgs) ToK0sEnvoyProxyOutput() K0sEnvoyProxyOutput {
+	return i.ToK0sEnvoyProxyOutputWithContext(context.Background())
+}
+
+func (i K0sEnvoyProxyArgs) ToK0sEnvoyProxyOutputWithContext(ctx context.Context) K0sEnvoyProxyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEnvoyProxyOutput)
+}
+
+func (i K0sEnvoyProxyArgs) ToK0sEnvoyProxyPtrOutput() K0sEnvoyProxyPtrOutput {
+	return i.ToK0sEnvoyProxyPtrOutputWithContext(context.Background())
+}
+
+func (i K0sEnvoyProxyArgs) ToK0sEnvoyProxyPtrOutputWithContext(ctx context.Context) K0sEnvoyProxyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEnvoyProxyOutput).ToK0sEnvoyProxyPtrOutputWithContext(ctx)
+}
+
+// K0sEnvoyProxyPtrInput is an input type that accepts K0sEnvoyProxyArgs, K0sEnvoyProxyPtr and K0sEnvoyProxyPtrOutput values.
+// You can construct a concrete instance of `K0sEnvoyProxyPtrInput` via:
+//
+//	        K0sEnvoyProxyArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sEnvoyProxyPtrInput interface {
+	pulumi.Input
+
+	ToK0sEnvoyProxyPtrOutput() K0sEnvoyProxyPtrOutput
+	ToK0sEnvoyProxyPtrOutputWithContext(context.Context) K0sEnvoyProxyPtrOutput
+}
+
+type k0sEnvoyProxyPtrType K0sEnvoyProxyArgs
+
+func K0sEnvoyProxyPtr(v *K0sEnvoyProxyArgs) K0sEnvoyProxyPtrInput {
+	return (*k0sEnvoyProxyPtrType)(v)
+}
+
+func (*k0sEnvoyProxyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sEnvoyProxy)(nil)).Elem()
+}
+
+func (i *k0sEnvoyProxyPtrType) ToK0sEnvoyProxyPtrOutput() K0sEnvoyProxyPtrOutput {
+	return i.ToK0sEnvoyProxyPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sEnvoyProxyPtrType) ToK0sEnvoyProxyPtrOutputWithContext(ctx context.Context) K0sEnvoyProxyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEnvoyProxyPtrOutput)
+}
+
+type K0sEnvoyProxyOutput struct{ *pulumi.OutputState }
+
+func (K0sEnvoyProxyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sEnvoyProxy)(nil)).Elem()
+}
+
+func (o K0sEnvoyProxyOutput) ToK0sEnvoyProxyOutput() K0sEnvoyProxyOutput {
+	return o
+}
+
+func (o K0sEnvoyProxyOutput) ToK0sEnvoyProxyOutputWithContext(ctx context.Context) K0sEnvoyProxyOutput {
+	return o
+}
+
+func (o K0sEnvoyProxyOutput) ToK0sEnvoyProxyPtrOutput() K0sEnvoyProxyPtrOutput {
+	return o.ToK0sEnvoyProxyPtrOutputWithContext(context.Background())
+}
+
+func (o K0sEnvoyProxyOutput) ToK0sEnvoyProxyPtrOutputWithContext(ctx context.Context) K0sEnvoyProxyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sEnvoyProxy) *K0sEnvoyProxy {
+		return &v
+	}).(K0sEnvoyProxyPtrOutput)
+}
+
+func (o K0sEnvoyProxyOutput) ApiServerBindPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sEnvoyProxy) *int { return v.ApiServerBindPort }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sEnvoyProxyOutput) Image() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sEnvoyProxy) *string { return v.Image }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEnvoyProxyOutput) ImagePullPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sEnvoyProxy) *string { return v.ImagePullPolicy }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEnvoyProxyOutput) KonnectivityServerBindPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sEnvoyProxy) *int { return v.KonnectivityServerBindPort }).(pulumi.IntPtrOutput)
+}
+
+type K0sEnvoyProxyPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sEnvoyProxyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sEnvoyProxy)(nil)).Elem()
+}
+
+func (o K0sEnvoyProxyPtrOutput) ToK0sEnvoyProxyPtrOutput() K0sEnvoyProxyPtrOutput {
+	return o
+}
+
+func (o K0sEnvoyProxyPtrOutput) ToK0sEnvoyProxyPtrOutputWithContext(ctx context.Context) K0sEnvoyProxyPtrOutput {
+	return o
+}
+
+func (o K0sEnvoyProxyPtrOutput) Elem() K0sEnvoyProxyOutput {
+	return o.ApplyT(func(v *K0sEnvoyProxy) K0sEnvoyProxy {
+		if v != nil {
+			return *v
+		}
+		var ret K0sEnvoyProxy
+		return ret
+	}).(K0sEnvoyProxyOutput)
+}
+
+func (o K0sEnvoyProxyPtrOutput) ApiServerBindPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sEnvoyProxy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ApiServerBindPort
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sEnvoyProxyPtrOutput) Image() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sEnvoyProxy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Image
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEnvoyProxyPtrOutput) ImagePullPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sEnvoyProxy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ImagePullPolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEnvoyProxyPtrOutput) KonnectivityServerBindPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sEnvoyProxy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.KonnectivityServerBindPort
+	}).(pulumi.IntPtrOutput)
+}
+
+type K0sEtcd struct {
+	ExternalCluster *K0sEtcdExternalCluster `pulumi:"externalCluster"`
+	ExtraArgs       map[string]string       `pulumi:"extraArgs"`
+	PeerAddress     *string                 `pulumi:"peerAddress"`
+}
+
+// K0sEtcdInput is an input type that accepts K0sEtcdArgs and K0sEtcdOutput values.
+// You can construct a concrete instance of `K0sEtcdInput` via:
+//
+//	K0sEtcdArgs{...}
+type K0sEtcdInput interface {
+	pulumi.Input
+
+	ToK0sEtcdOutput() K0sEtcdOutput
+	ToK0sEtcdOutputWithContext(context.Context) K0sEtcdOutput
+}
+
+type K0sEtcdArgs struct {
+	ExternalCluster K0sEtcdExternalClusterPtrInput `pulumi:"externalCluster"`
+	ExtraArgs       pulumi.StringMapInput          `pulumi:"extraArgs"`
+	PeerAddress     pulumi.StringPtrInput          `pulumi:"peerAddress"`
+}
+
+func (K0sEtcdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sEtcd)(nil)).Elem()
+}
+
+func (i K0sEtcdArgs) ToK0sEtcdOutput() K0sEtcdOutput {
+	return i.ToK0sEtcdOutputWithContext(context.Background())
+}
+
+func (i K0sEtcdArgs) ToK0sEtcdOutputWithContext(ctx context.Context) K0sEtcdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEtcdOutput)
+}
+
+func (i K0sEtcdArgs) ToK0sEtcdPtrOutput() K0sEtcdPtrOutput {
+	return i.ToK0sEtcdPtrOutputWithContext(context.Background())
+}
+
+func (i K0sEtcdArgs) ToK0sEtcdPtrOutputWithContext(ctx context.Context) K0sEtcdPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEtcdOutput).ToK0sEtcdPtrOutputWithContext(ctx)
+}
+
+// K0sEtcdPtrInput is an input type that accepts K0sEtcdArgs, K0sEtcdPtr and K0sEtcdPtrOutput values.
+// You can construct a concrete instance of `K0sEtcdPtrInput` via:
+//
+//	        K0sEtcdArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sEtcdPtrInput interface {
+	pulumi.Input
+
+	ToK0sEtcdPtrOutput() K0sEtcdPtrOutput
+	ToK0sEtcdPtrOutputWithContext(context.Context) K0sEtcdPtrOutput
+}
+
+type k0sEtcdPtrType K0sEtcdArgs
+
+func K0sEtcdPtr(v *K0sEtcdArgs) K0sEtcdPtrInput {
+	return (*k0sEtcdPtrType)(v)
+}
+
+func (*k0sEtcdPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sEtcd)(nil)).Elem()
+}
+
+func (i *k0sEtcdPtrType) ToK0sEtcdPtrOutput() K0sEtcdPtrOutput {
+	return i.ToK0sEtcdPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sEtcdPtrType) ToK0sEtcdPtrOutputWithContext(ctx context.Context) K0sEtcdPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEtcdPtrOutput)
+}
+
+type K0sEtcdOutput struct{ *pulumi.OutputState }
+
+func (K0sEtcdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sEtcd)(nil)).Elem()
+}
+
+func (o K0sEtcdOutput) ToK0sEtcdOutput() K0sEtcdOutput {
+	return o
+}
+
+func (o K0sEtcdOutput) ToK0sEtcdOutputWithContext(ctx context.Context) K0sEtcdOutput {
+	return o
+}
+
+func (o K0sEtcdOutput) ToK0sEtcdPtrOutput() K0sEtcdPtrOutput {
+	return o.ToK0sEtcdPtrOutputWithContext(context.Background())
+}
+
+func (o K0sEtcdOutput) ToK0sEtcdPtrOutputWithContext(ctx context.Context) K0sEtcdPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sEtcd) *K0sEtcd {
+		return &v
+	}).(K0sEtcdPtrOutput)
+}
+
+func (o K0sEtcdOutput) ExternalCluster() K0sEtcdExternalClusterPtrOutput {
+	return o.ApplyT(func(v K0sEtcd) *K0sEtcdExternalCluster { return v.ExternalCluster }).(K0sEtcdExternalClusterPtrOutput)
+}
+
+func (o K0sEtcdOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v K0sEtcd) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
+}
+
+func (o K0sEtcdOutput) PeerAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sEtcd) *string { return v.PeerAddress }).(pulumi.StringPtrOutput)
+}
+
+type K0sEtcdPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sEtcdPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sEtcd)(nil)).Elem()
+}
+
+func (o K0sEtcdPtrOutput) ToK0sEtcdPtrOutput() K0sEtcdPtrOutput {
+	return o
+}
+
+func (o K0sEtcdPtrOutput) ToK0sEtcdPtrOutputWithContext(ctx context.Context) K0sEtcdPtrOutput {
+	return o
+}
+
+func (o K0sEtcdPtrOutput) Elem() K0sEtcdOutput {
+	return o.ApplyT(func(v *K0sEtcd) K0sEtcd {
+		if v != nil {
+			return *v
+		}
+		var ret K0sEtcd
+		return ret
+	}).(K0sEtcdOutput)
+}
+
+func (o K0sEtcdPtrOutput) ExternalCluster() K0sEtcdExternalClusterPtrOutput {
+	return o.ApplyT(func(v *K0sEtcd) *K0sEtcdExternalCluster {
+		if v == nil {
+			return nil
+		}
+		return v.ExternalCluster
+	}).(K0sEtcdExternalClusterPtrOutput)
+}
+
+func (o K0sEtcdPtrOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *K0sEtcd) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(pulumi.StringMapOutput)
+}
+
+func (o K0sEtcdPtrOutput) PeerAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sEtcd) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PeerAddress
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sEtcdExternalCluster struct {
+	Ca         *string  `pulumi:"ca"`
+	ClientCert *string  `pulumi:"clientCert"`
+	ClientKey  *string  `pulumi:"clientKey"`
+	Endpoints  []string `pulumi:"endpoints"`
+	EtcdPrefix *string  `pulumi:"etcdPrefix"`
+}
+
+// K0sEtcdExternalClusterInput is an input type that accepts K0sEtcdExternalClusterArgs and K0sEtcdExternalClusterOutput values.
+// You can construct a concrete instance of `K0sEtcdExternalClusterInput` via:
+//
+//	K0sEtcdExternalClusterArgs{...}
+type K0sEtcdExternalClusterInput interface {
+	pulumi.Input
+
+	ToK0sEtcdExternalClusterOutput() K0sEtcdExternalClusterOutput
+	ToK0sEtcdExternalClusterOutputWithContext(context.Context) K0sEtcdExternalClusterOutput
+}
+
+type K0sEtcdExternalClusterArgs struct {
+	Ca         pulumi.StringPtrInput   `pulumi:"ca"`
+	ClientCert pulumi.StringPtrInput   `pulumi:"clientCert"`
+	ClientKey  pulumi.StringPtrInput   `pulumi:"clientKey"`
+	Endpoints  pulumi.StringArrayInput `pulumi:"endpoints"`
+	EtcdPrefix pulumi.StringPtrInput   `pulumi:"etcdPrefix"`
+}
+
+func (K0sEtcdExternalClusterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sEtcdExternalCluster)(nil)).Elem()
+}
+
+func (i K0sEtcdExternalClusterArgs) ToK0sEtcdExternalClusterOutput() K0sEtcdExternalClusterOutput {
+	return i.ToK0sEtcdExternalClusterOutputWithContext(context.Background())
+}
+
+func (i K0sEtcdExternalClusterArgs) ToK0sEtcdExternalClusterOutputWithContext(ctx context.Context) K0sEtcdExternalClusterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEtcdExternalClusterOutput)
+}
+
+func (i K0sEtcdExternalClusterArgs) ToK0sEtcdExternalClusterPtrOutput() K0sEtcdExternalClusterPtrOutput {
+	return i.ToK0sEtcdExternalClusterPtrOutputWithContext(context.Background())
+}
+
+func (i K0sEtcdExternalClusterArgs) ToK0sEtcdExternalClusterPtrOutputWithContext(ctx context.Context) K0sEtcdExternalClusterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEtcdExternalClusterOutput).ToK0sEtcdExternalClusterPtrOutputWithContext(ctx)
+}
+
+// K0sEtcdExternalClusterPtrInput is an input type that accepts K0sEtcdExternalClusterArgs, K0sEtcdExternalClusterPtr and K0sEtcdExternalClusterPtrOutput values.
+// You can construct a concrete instance of `K0sEtcdExternalClusterPtrInput` via:
+//
+//	        K0sEtcdExternalClusterArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sEtcdExternalClusterPtrInput interface {
+	pulumi.Input
+
+	ToK0sEtcdExternalClusterPtrOutput() K0sEtcdExternalClusterPtrOutput
+	ToK0sEtcdExternalClusterPtrOutputWithContext(context.Context) K0sEtcdExternalClusterPtrOutput
+}
+
+type k0sEtcdExternalClusterPtrType K0sEtcdExternalClusterArgs
+
+func K0sEtcdExternalClusterPtr(v *K0sEtcdExternalClusterArgs) K0sEtcdExternalClusterPtrInput {
+	return (*k0sEtcdExternalClusterPtrType)(v)
+}
+
+func (*k0sEtcdExternalClusterPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sEtcdExternalCluster)(nil)).Elem()
+}
+
+func (i *k0sEtcdExternalClusterPtrType) ToK0sEtcdExternalClusterPtrOutput() K0sEtcdExternalClusterPtrOutput {
+	return i.ToK0sEtcdExternalClusterPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sEtcdExternalClusterPtrType) ToK0sEtcdExternalClusterPtrOutputWithContext(ctx context.Context) K0sEtcdExternalClusterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sEtcdExternalClusterPtrOutput)
+}
+
+type K0sEtcdExternalClusterOutput struct{ *pulumi.OutputState }
+
+func (K0sEtcdExternalClusterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sEtcdExternalCluster)(nil)).Elem()
+}
+
+func (o K0sEtcdExternalClusterOutput) ToK0sEtcdExternalClusterOutput() K0sEtcdExternalClusterOutput {
+	return o
+}
+
+func (o K0sEtcdExternalClusterOutput) ToK0sEtcdExternalClusterOutputWithContext(ctx context.Context) K0sEtcdExternalClusterOutput {
+	return o
+}
+
+func (o K0sEtcdExternalClusterOutput) ToK0sEtcdExternalClusterPtrOutput() K0sEtcdExternalClusterPtrOutput {
+	return o.ToK0sEtcdExternalClusterPtrOutputWithContext(context.Background())
+}
+
+func (o K0sEtcdExternalClusterOutput) ToK0sEtcdExternalClusterPtrOutputWithContext(ctx context.Context) K0sEtcdExternalClusterPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sEtcdExternalCluster) *K0sEtcdExternalCluster {
+		return &v
+	}).(K0sEtcdExternalClusterPtrOutput)
+}
+
+func (o K0sEtcdExternalClusterOutput) Ca() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sEtcdExternalCluster) *string { return v.Ca }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEtcdExternalClusterOutput) ClientCert() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sEtcdExternalCluster) *string { return v.ClientCert }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEtcdExternalClusterOutput) ClientKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sEtcdExternalCluster) *string { return v.ClientKey }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEtcdExternalClusterOutput) Endpoints() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v K0sEtcdExternalCluster) []string { return v.Endpoints }).(pulumi.StringArrayOutput)
+}
+
+func (o K0sEtcdExternalClusterOutput) EtcdPrefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sEtcdExternalCluster) *string { return v.EtcdPrefix }).(pulumi.StringPtrOutput)
+}
+
+type K0sEtcdExternalClusterPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sEtcdExternalClusterPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sEtcdExternalCluster)(nil)).Elem()
+}
+
+func (o K0sEtcdExternalClusterPtrOutput) ToK0sEtcdExternalClusterPtrOutput() K0sEtcdExternalClusterPtrOutput {
+	return o
+}
+
+func (o K0sEtcdExternalClusterPtrOutput) ToK0sEtcdExternalClusterPtrOutputWithContext(ctx context.Context) K0sEtcdExternalClusterPtrOutput {
+	return o
+}
+
+func (o K0sEtcdExternalClusterPtrOutput) Elem() K0sEtcdExternalClusterOutput {
+	return o.ApplyT(func(v *K0sEtcdExternalCluster) K0sEtcdExternalCluster {
+		if v != nil {
+			return *v
+		}
+		var ret K0sEtcdExternalCluster
+		return ret
+	}).(K0sEtcdExternalClusterOutput)
+}
+
+func (o K0sEtcdExternalClusterPtrOutput) Ca() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sEtcdExternalCluster) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Ca
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEtcdExternalClusterPtrOutput) ClientCert() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sEtcdExternalCluster) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ClientCert
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEtcdExternalClusterPtrOutput) ClientKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sEtcdExternalCluster) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ClientKey
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sEtcdExternalClusterPtrOutput) Endpoints() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *K0sEtcdExternalCluster) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Endpoints
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o K0sEtcdExternalClusterPtrOutput) EtcdPrefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sEtcdExternalCluster) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EtcdPrefix
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sFeatureGate struct {
+	Components []string `pulumi:"components"`
+	Enabled    *bool    `pulumi:"enabled"`
+	Name       string   `pulumi:"name"`
+}
+
+// K0sFeatureGateInput is an input type that accepts K0sFeatureGateArgs and K0sFeatureGateOutput values.
+// You can construct a concrete instance of `K0sFeatureGateInput` via:
+//
+//	K0sFeatureGateArgs{...}
+type K0sFeatureGateInput interface {
+	pulumi.Input
+
+	ToK0sFeatureGateOutput() K0sFeatureGateOutput
+	ToK0sFeatureGateOutputWithContext(context.Context) K0sFeatureGateOutput
+}
+
+type K0sFeatureGateArgs struct {
+	Components pulumi.StringArrayInput `pulumi:"components"`
+	Enabled    pulumi.BoolPtrInput     `pulumi:"enabled"`
+	Name       pulumi.StringInput      `pulumi:"name"`
+}
+
+func (K0sFeatureGateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sFeatureGate)(nil)).Elem()
+}
+
+func (i K0sFeatureGateArgs) ToK0sFeatureGateOutput() K0sFeatureGateOutput {
+	return i.ToK0sFeatureGateOutputWithContext(context.Background())
+}
+
+func (i K0sFeatureGateArgs) ToK0sFeatureGateOutputWithContext(ctx context.Context) K0sFeatureGateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sFeatureGateOutput)
+}
+
+// K0sFeatureGateArrayInput is an input type that accepts K0sFeatureGateArray and K0sFeatureGateArrayOutput values.
+// You can construct a concrete instance of `K0sFeatureGateArrayInput` via:
+//
+//	K0sFeatureGateArray{ K0sFeatureGateArgs{...} }
+type K0sFeatureGateArrayInput interface {
+	pulumi.Input
+
+	ToK0sFeatureGateArrayOutput() K0sFeatureGateArrayOutput
+	ToK0sFeatureGateArrayOutputWithContext(context.Context) K0sFeatureGateArrayOutput
+}
+
+type K0sFeatureGateArray []K0sFeatureGateInput
+
+func (K0sFeatureGateArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]K0sFeatureGate)(nil)).Elem()
+}
+
+func (i K0sFeatureGateArray) ToK0sFeatureGateArrayOutput() K0sFeatureGateArrayOutput {
+	return i.ToK0sFeatureGateArrayOutputWithContext(context.Background())
+}
+
+func (i K0sFeatureGateArray) ToK0sFeatureGateArrayOutputWithContext(ctx context.Context) K0sFeatureGateArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sFeatureGateArrayOutput)
+}
+
+type K0sFeatureGateOutput struct{ *pulumi.OutputState }
+
+func (K0sFeatureGateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sFeatureGate)(nil)).Elem()
+}
+
+func (o K0sFeatureGateOutput) ToK0sFeatureGateOutput() K0sFeatureGateOutput {
+	return o
+}
+
+func (o K0sFeatureGateOutput) ToK0sFeatureGateOutputWithContext(ctx context.Context) K0sFeatureGateOutput {
+	return o
+}
+
+func (o K0sFeatureGateOutput) Components() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v K0sFeatureGate) []string { return v.Components }).(pulumi.StringArrayOutput)
+}
+
+func (o K0sFeatureGateOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sFeatureGate) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sFeatureGateOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v K0sFeatureGate) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type K0sFeatureGateArrayOutput struct{ *pulumi.OutputState }
+
+func (K0sFeatureGateArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]K0sFeatureGate)(nil)).Elem()
+}
+
+func (o K0sFeatureGateArrayOutput) ToK0sFeatureGateArrayOutput() K0sFeatureGateArrayOutput {
+	return o
+}
+
+func (o K0sFeatureGateArrayOutput) ToK0sFeatureGateArrayOutputWithContext(ctx context.Context) K0sFeatureGateArrayOutput {
+	return o
+}
+
+func (o K0sFeatureGateArrayOutput) Index(i pulumi.IntInput) K0sFeatureGateOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) K0sFeatureGate {
+		return vs[0].([]K0sFeatureGate)[vs[1].(int)]
+	}).(K0sFeatureGateOutput)
+}
+
+type K0sImage struct {
+	Image   *string `pulumi:"image"`
+	Version *string `pulumi:"version"`
+}
+
+// K0sImageInput is an input type that accepts K0sImageArgs and K0sImageOutput values.
+// You can construct a concrete instance of `K0sImageInput` via:
+//
+//	K0sImageArgs{...}
+type K0sImageInput interface {
+	pulumi.Input
+
+	ToK0sImageOutput() K0sImageOutput
+	ToK0sImageOutputWithContext(context.Context) K0sImageOutput
+}
+
+type K0sImageArgs struct {
+	Image   pulumi.StringPtrInput `pulumi:"image"`
+	Version pulumi.StringPtrInput `pulumi:"version"`
+}
+
+func (K0sImageArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sImage)(nil)).Elem()
+}
+
+func (i K0sImageArgs) ToK0sImageOutput() K0sImageOutput {
+	return i.ToK0sImageOutputWithContext(context.Background())
+}
+
+func (i K0sImageArgs) ToK0sImageOutputWithContext(ctx context.Context) K0sImageOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sImageOutput)
+}
+
+func (i K0sImageArgs) ToK0sImagePtrOutput() K0sImagePtrOutput {
+	return i.ToK0sImagePtrOutputWithContext(context.Background())
+}
+
+func (i K0sImageArgs) ToK0sImagePtrOutputWithContext(ctx context.Context) K0sImagePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sImageOutput).ToK0sImagePtrOutputWithContext(ctx)
+}
+
+// K0sImagePtrInput is an input type that accepts K0sImageArgs, K0sImagePtr and K0sImagePtrOutput values.
+// You can construct a concrete instance of `K0sImagePtrInput` via:
+//
+//	        K0sImageArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sImagePtrInput interface {
+	pulumi.Input
+
+	ToK0sImagePtrOutput() K0sImagePtrOutput
+	ToK0sImagePtrOutputWithContext(context.Context) K0sImagePtrOutput
+}
+
+type k0sImagePtrType K0sImageArgs
+
+func K0sImagePtr(v *K0sImageArgs) K0sImagePtrInput {
+	return (*k0sImagePtrType)(v)
+}
+
+func (*k0sImagePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sImage)(nil)).Elem()
+}
+
+func (i *k0sImagePtrType) ToK0sImagePtrOutput() K0sImagePtrOutput {
+	return i.ToK0sImagePtrOutputWithContext(context.Background())
+}
+
+func (i *k0sImagePtrType) ToK0sImagePtrOutputWithContext(ctx context.Context) K0sImagePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sImagePtrOutput)
+}
+
+type K0sImageOutput struct{ *pulumi.OutputState }
+
+func (K0sImageOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sImage)(nil)).Elem()
+}
+
+func (o K0sImageOutput) ToK0sImageOutput() K0sImageOutput {
+	return o
+}
+
+func (o K0sImageOutput) ToK0sImageOutputWithContext(ctx context.Context) K0sImageOutput {
+	return o
+}
+
+func (o K0sImageOutput) ToK0sImagePtrOutput() K0sImagePtrOutput {
+	return o.ToK0sImagePtrOutputWithContext(context.Background())
+}
+
+func (o K0sImageOutput) ToK0sImagePtrOutputWithContext(ctx context.Context) K0sImagePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sImage) *K0sImage {
+		return &v
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sImageOutput) Image() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sImage) *string { return v.Image }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sImageOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sImage) *string { return v.Version }).(pulumi.StringPtrOutput)
+}
+
+type K0sImagePtrOutput struct{ *pulumi.OutputState }
+
+func (K0sImagePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sImage)(nil)).Elem()
+}
+
+func (o K0sImagePtrOutput) ToK0sImagePtrOutput() K0sImagePtrOutput {
+	return o
+}
+
+func (o K0sImagePtrOutput) ToK0sImagePtrOutputWithContext(ctx context.Context) K0sImagePtrOutput {
+	return o
+}
+
+func (o K0sImagePtrOutput) Elem() K0sImageOutput {
+	return o.ApplyT(func(v *K0sImage) K0sImage {
+		if v != nil {
+			return *v
+		}
+		var ret K0sImage
+		return ret
+	}).(K0sImageOutput)
+}
+
+func (o K0sImagePtrOutput) Image() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sImage) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Image
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sImagePtrOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sImage) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Version
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sImages struct {
+	Calico              *K0sCalicoImage     `pulumi:"calico"`
+	Coredns             *K0sImage           `pulumi:"coredns"`
+	Default_pull_policy *string             `pulumi:"default_pull_policy"`
+	Konnectivity        *K0sImage           `pulumi:"konnectivity"`
+	Kubeproxy           *K0sImage           `pulumi:"kubeproxy"`
+	Kuberouter          *K0sKubeRouterImage `pulumi:"kuberouter"`
+	Metricsserver       *K0sImage           `pulumi:"metricsserver"`
+	Pause               *K0sImage           `pulumi:"pause"`
+	Repository          *string             `pulumi:"repository"`
+}
+
+// K0sImagesInput is an input type that accepts K0sImagesArgs and K0sImagesOutput values.
+// You can construct a concrete instance of `K0sImagesInput` via:
+//
+//	K0sImagesArgs{...}
+type K0sImagesInput interface {
+	pulumi.Input
+
+	ToK0sImagesOutput() K0sImagesOutput
+	ToK0sImagesOutputWithContext(context.Context) K0sImagesOutput
+}
+
+type K0sImagesArgs struct {
+	Calico              K0sCalicoImagePtrInput     `pulumi:"calico"`
+	Coredns             K0sImagePtrInput           `pulumi:"coredns"`
+	Default_pull_policy pulumi.StringPtrInput      `pulumi:"default_pull_policy"`
+	Konnectivity        K0sImagePtrInput           `pulumi:"konnectivity"`
+	Kubeproxy           K0sImagePtrInput           `pulumi:"kubeproxy"`
+	Kuberouter          K0sKubeRouterImagePtrInput `pulumi:"kuberouter"`
+	Metricsserver       K0sImagePtrInput           `pulumi:"metricsserver"`
+	Pause               K0sImagePtrInput           `pulumi:"pause"`
+	Repository          pulumi.StringPtrInput      `pulumi:"repository"`
+}
+
+func (K0sImagesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sImages)(nil)).Elem()
+}
+
+func (i K0sImagesArgs) ToK0sImagesOutput() K0sImagesOutput {
+	return i.ToK0sImagesOutputWithContext(context.Background())
+}
+
+func (i K0sImagesArgs) ToK0sImagesOutputWithContext(ctx context.Context) K0sImagesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sImagesOutput)
+}
+
+func (i K0sImagesArgs) ToK0sImagesPtrOutput() K0sImagesPtrOutput {
+	return i.ToK0sImagesPtrOutputWithContext(context.Background())
+}
+
+func (i K0sImagesArgs) ToK0sImagesPtrOutputWithContext(ctx context.Context) K0sImagesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sImagesOutput).ToK0sImagesPtrOutputWithContext(ctx)
+}
+
+// K0sImagesPtrInput is an input type that accepts K0sImagesArgs, K0sImagesPtr and K0sImagesPtrOutput values.
+// You can construct a concrete instance of `K0sImagesPtrInput` via:
+//
+//	        K0sImagesArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sImagesPtrInput interface {
+	pulumi.Input
+
+	ToK0sImagesPtrOutput() K0sImagesPtrOutput
+	ToK0sImagesPtrOutputWithContext(context.Context) K0sImagesPtrOutput
+}
+
+type k0sImagesPtrType K0sImagesArgs
+
+func K0sImagesPtr(v *K0sImagesArgs) K0sImagesPtrInput {
+	return (*k0sImagesPtrType)(v)
+}
+
+func (*k0sImagesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sImages)(nil)).Elem()
+}
+
+func (i *k0sImagesPtrType) ToK0sImagesPtrOutput() K0sImagesPtrOutput {
+	return i.ToK0sImagesPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sImagesPtrType) ToK0sImagesPtrOutputWithContext(ctx context.Context) K0sImagesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sImagesPtrOutput)
+}
+
+type K0sImagesOutput struct{ *pulumi.OutputState }
+
+func (K0sImagesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sImages)(nil)).Elem()
+}
+
+func (o K0sImagesOutput) ToK0sImagesOutput() K0sImagesOutput {
+	return o
+}
+
+func (o K0sImagesOutput) ToK0sImagesOutputWithContext(ctx context.Context) K0sImagesOutput {
+	return o
+}
+
+func (o K0sImagesOutput) ToK0sImagesPtrOutput() K0sImagesPtrOutput {
+	return o.ToK0sImagesPtrOutputWithContext(context.Background())
+}
+
+func (o K0sImagesOutput) ToK0sImagesPtrOutputWithContext(ctx context.Context) K0sImagesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sImages) *K0sImages {
+		return &v
+	}).(K0sImagesPtrOutput)
+}
+
+func (o K0sImagesOutput) Calico() K0sCalicoImagePtrOutput {
+	return o.ApplyT(func(v K0sImages) *K0sCalicoImage { return v.Calico }).(K0sCalicoImagePtrOutput)
+}
+
+func (o K0sImagesOutput) Coredns() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sImages) *K0sImage { return v.Coredns }).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesOutput) Default_pull_policy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sImages) *string { return v.Default_pull_policy }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sImagesOutput) Konnectivity() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sImages) *K0sImage { return v.Konnectivity }).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesOutput) Kubeproxy() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sImages) *K0sImage { return v.Kubeproxy }).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesOutput) Kuberouter() K0sKubeRouterImagePtrOutput {
+	return o.ApplyT(func(v K0sImages) *K0sKubeRouterImage { return v.Kuberouter }).(K0sKubeRouterImagePtrOutput)
+}
+
+func (o K0sImagesOutput) Metricsserver() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sImages) *K0sImage { return v.Metricsserver }).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesOutput) Pause() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sImages) *K0sImage { return v.Pause }).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesOutput) Repository() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sImages) *string { return v.Repository }).(pulumi.StringPtrOutput)
+}
+
+type K0sImagesPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sImagesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sImages)(nil)).Elem()
+}
+
+func (o K0sImagesPtrOutput) ToK0sImagesPtrOutput() K0sImagesPtrOutput {
+	return o
+}
+
+func (o K0sImagesPtrOutput) ToK0sImagesPtrOutputWithContext(ctx context.Context) K0sImagesPtrOutput {
+	return o
+}
+
+func (o K0sImagesPtrOutput) Elem() K0sImagesOutput {
+	return o.ApplyT(func(v *K0sImages) K0sImages {
+		if v != nil {
+			return *v
+		}
+		var ret K0sImages
+		return ret
+	}).(K0sImagesOutput)
+}
+
+func (o K0sImagesPtrOutput) Calico() K0sCalicoImagePtrOutput {
+	return o.ApplyT(func(v *K0sImages) *K0sCalicoImage {
+		if v == nil {
+			return nil
+		}
+		return v.Calico
+	}).(K0sCalicoImagePtrOutput)
+}
+
+func (o K0sImagesPtrOutput) Coredns() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sImages) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Coredns
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesPtrOutput) Default_pull_policy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sImages) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Default_pull_policy
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sImagesPtrOutput) Konnectivity() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sImages) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Konnectivity
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesPtrOutput) Kubeproxy() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sImages) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Kubeproxy
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesPtrOutput) Kuberouter() K0sKubeRouterImagePtrOutput {
+	return o.ApplyT(func(v *K0sImages) *K0sKubeRouterImage {
+		if v == nil {
+			return nil
+		}
+		return v.Kuberouter
+	}).(K0sKubeRouterImagePtrOutput)
+}
+
+func (o K0sImagesPtrOutput) Metricsserver() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sImages) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Metricsserver
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesPtrOutput) Pause() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sImages) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Pause
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sImagesPtrOutput) Repository() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sImages) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Repository
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sInstallConfig struct {
+	Users *K0sInstallConfigUser `pulumi:"users"`
+}
+
+// K0sInstallConfigInput is an input type that accepts K0sInstallConfigArgs and K0sInstallConfigOutput values.
+// You can construct a concrete instance of `K0sInstallConfigInput` via:
+//
+//	K0sInstallConfigArgs{...}
+type K0sInstallConfigInput interface {
+	pulumi.Input
+
+	ToK0sInstallConfigOutput() K0sInstallConfigOutput
+	ToK0sInstallConfigOutputWithContext(context.Context) K0sInstallConfigOutput
+}
+
+type K0sInstallConfigArgs struct {
+	Users K0sInstallConfigUserPtrInput `pulumi:"users"`
+}
+
+func (K0sInstallConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sInstallConfig)(nil)).Elem()
+}
+
+func (i K0sInstallConfigArgs) ToK0sInstallConfigOutput() K0sInstallConfigOutput {
+	return i.ToK0sInstallConfigOutputWithContext(context.Background())
+}
+
+func (i K0sInstallConfigArgs) ToK0sInstallConfigOutputWithContext(ctx context.Context) K0sInstallConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sInstallConfigOutput)
+}
+
+func (i K0sInstallConfigArgs) ToK0sInstallConfigPtrOutput() K0sInstallConfigPtrOutput {
+	return i.ToK0sInstallConfigPtrOutputWithContext(context.Background())
+}
+
+func (i K0sInstallConfigArgs) ToK0sInstallConfigPtrOutputWithContext(ctx context.Context) K0sInstallConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sInstallConfigOutput).ToK0sInstallConfigPtrOutputWithContext(ctx)
+}
+
+// K0sInstallConfigPtrInput is an input type that accepts K0sInstallConfigArgs, K0sInstallConfigPtr and K0sInstallConfigPtrOutput values.
+// You can construct a concrete instance of `K0sInstallConfigPtrInput` via:
+//
+//	        K0sInstallConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sInstallConfigPtrInput interface {
+	pulumi.Input
+
+	ToK0sInstallConfigPtrOutput() K0sInstallConfigPtrOutput
+	ToK0sInstallConfigPtrOutputWithContext(context.Context) K0sInstallConfigPtrOutput
+}
+
+type k0sInstallConfigPtrType K0sInstallConfigArgs
+
+func K0sInstallConfigPtr(v *K0sInstallConfigArgs) K0sInstallConfigPtrInput {
+	return (*k0sInstallConfigPtrType)(v)
+}
+
+func (*k0sInstallConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sInstallConfig)(nil)).Elem()
+}
+
+func (i *k0sInstallConfigPtrType) ToK0sInstallConfigPtrOutput() K0sInstallConfigPtrOutput {
+	return i.ToK0sInstallConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sInstallConfigPtrType) ToK0sInstallConfigPtrOutputWithContext(ctx context.Context) K0sInstallConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sInstallConfigPtrOutput)
+}
+
+type K0sInstallConfigOutput struct{ *pulumi.OutputState }
+
+func (K0sInstallConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sInstallConfig)(nil)).Elem()
+}
+
+func (o K0sInstallConfigOutput) ToK0sInstallConfigOutput() K0sInstallConfigOutput {
+	return o
+}
+
+func (o K0sInstallConfigOutput) ToK0sInstallConfigOutputWithContext(ctx context.Context) K0sInstallConfigOutput {
+	return o
+}
+
+func (o K0sInstallConfigOutput) ToK0sInstallConfigPtrOutput() K0sInstallConfigPtrOutput {
+	return o.ToK0sInstallConfigPtrOutputWithContext(context.Background())
+}
+
+func (o K0sInstallConfigOutput) ToK0sInstallConfigPtrOutputWithContext(ctx context.Context) K0sInstallConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sInstallConfig) *K0sInstallConfig {
+		return &v
+	}).(K0sInstallConfigPtrOutput)
+}
+
+func (o K0sInstallConfigOutput) Users() K0sInstallConfigUserPtrOutput {
+	return o.ApplyT(func(v K0sInstallConfig) *K0sInstallConfigUser { return v.Users }).(K0sInstallConfigUserPtrOutput)
+}
+
+type K0sInstallConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sInstallConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sInstallConfig)(nil)).Elem()
+}
+
+func (o K0sInstallConfigPtrOutput) ToK0sInstallConfigPtrOutput() K0sInstallConfigPtrOutput {
+	return o
+}
+
+func (o K0sInstallConfigPtrOutput) ToK0sInstallConfigPtrOutputWithContext(ctx context.Context) K0sInstallConfigPtrOutput {
+	return o
+}
+
+func (o K0sInstallConfigPtrOutput) Elem() K0sInstallConfigOutput {
+	return o.ApplyT(func(v *K0sInstallConfig) K0sInstallConfig {
+		if v != nil {
+			return *v
+		}
+		var ret K0sInstallConfig
+		return ret
+	}).(K0sInstallConfigOutput)
+}
+
+func (o K0sInstallConfigPtrOutput) Users() K0sInstallConfigUserPtrOutput {
+	return o.ApplyT(func(v *K0sInstallConfig) *K0sInstallConfigUser {
+		if v == nil {
+			return nil
+		}
+		return v.Users
+	}).(K0sInstallConfigUserPtrOutput)
+}
+
+type K0sInstallConfigUser struct {
+	EtcdUser          *string `pulumi:"etcdUser"`
+	KineUser          *string `pulumi:"kineUser"`
+	KonnectivityUser  *string `pulumi:"konnectivityUser"`
+	KubeAPIserverUser *string `pulumi:"kubeAPIserverUser"`
+	KubeSchedulerUser *string `pulumi:"kubeSchedulerUser"`
+}
+
+// K0sInstallConfigUserInput is an input type that accepts K0sInstallConfigUserArgs and K0sInstallConfigUserOutput values.
+// You can construct a concrete instance of `K0sInstallConfigUserInput` via:
+//
+//	K0sInstallConfigUserArgs{...}
+type K0sInstallConfigUserInput interface {
+	pulumi.Input
+
+	ToK0sInstallConfigUserOutput() K0sInstallConfigUserOutput
+	ToK0sInstallConfigUserOutputWithContext(context.Context) K0sInstallConfigUserOutput
+}
+
+type K0sInstallConfigUserArgs struct {
+	EtcdUser          pulumi.StringPtrInput `pulumi:"etcdUser"`
+	KineUser          pulumi.StringPtrInput `pulumi:"kineUser"`
+	KonnectivityUser  pulumi.StringPtrInput `pulumi:"konnectivityUser"`
+	KubeAPIserverUser pulumi.StringPtrInput `pulumi:"kubeAPIserverUser"`
+	KubeSchedulerUser pulumi.StringPtrInput `pulumi:"kubeSchedulerUser"`
+}
+
+func (K0sInstallConfigUserArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sInstallConfigUser)(nil)).Elem()
+}
+
+func (i K0sInstallConfigUserArgs) ToK0sInstallConfigUserOutput() K0sInstallConfigUserOutput {
+	return i.ToK0sInstallConfigUserOutputWithContext(context.Background())
+}
+
+func (i K0sInstallConfigUserArgs) ToK0sInstallConfigUserOutputWithContext(ctx context.Context) K0sInstallConfigUserOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sInstallConfigUserOutput)
+}
+
+func (i K0sInstallConfigUserArgs) ToK0sInstallConfigUserPtrOutput() K0sInstallConfigUserPtrOutput {
+	return i.ToK0sInstallConfigUserPtrOutputWithContext(context.Background())
+}
+
+func (i K0sInstallConfigUserArgs) ToK0sInstallConfigUserPtrOutputWithContext(ctx context.Context) K0sInstallConfigUserPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sInstallConfigUserOutput).ToK0sInstallConfigUserPtrOutputWithContext(ctx)
+}
+
+// K0sInstallConfigUserPtrInput is an input type that accepts K0sInstallConfigUserArgs, K0sInstallConfigUserPtr and K0sInstallConfigUserPtrOutput values.
+// You can construct a concrete instance of `K0sInstallConfigUserPtrInput` via:
+//
+//	        K0sInstallConfigUserArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sInstallConfigUserPtrInput interface {
+	pulumi.Input
+
+	ToK0sInstallConfigUserPtrOutput() K0sInstallConfigUserPtrOutput
+	ToK0sInstallConfigUserPtrOutputWithContext(context.Context) K0sInstallConfigUserPtrOutput
+}
+
+type k0sInstallConfigUserPtrType K0sInstallConfigUserArgs
+
+func K0sInstallConfigUserPtr(v *K0sInstallConfigUserArgs) K0sInstallConfigUserPtrInput {
+	return (*k0sInstallConfigUserPtrType)(v)
+}
+
+func (*k0sInstallConfigUserPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sInstallConfigUser)(nil)).Elem()
+}
+
+func (i *k0sInstallConfigUserPtrType) ToK0sInstallConfigUserPtrOutput() K0sInstallConfigUserPtrOutput {
+	return i.ToK0sInstallConfigUserPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sInstallConfigUserPtrType) ToK0sInstallConfigUserPtrOutputWithContext(ctx context.Context) K0sInstallConfigUserPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sInstallConfigUserPtrOutput)
+}
+
+type K0sInstallConfigUserOutput struct{ *pulumi.OutputState }
+
+func (K0sInstallConfigUserOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sInstallConfigUser)(nil)).Elem()
+}
+
+func (o K0sInstallConfigUserOutput) ToK0sInstallConfigUserOutput() K0sInstallConfigUserOutput {
+	return o
+}
+
+func (o K0sInstallConfigUserOutput) ToK0sInstallConfigUserOutputWithContext(ctx context.Context) K0sInstallConfigUserOutput {
+	return o
+}
+
+func (o K0sInstallConfigUserOutput) ToK0sInstallConfigUserPtrOutput() K0sInstallConfigUserPtrOutput {
+	return o.ToK0sInstallConfigUserPtrOutputWithContext(context.Background())
+}
+
+func (o K0sInstallConfigUserOutput) ToK0sInstallConfigUserPtrOutputWithContext(ctx context.Context) K0sInstallConfigUserPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sInstallConfigUser) *K0sInstallConfigUser {
+		return &v
+	}).(K0sInstallConfigUserPtrOutput)
+}
+
+func (o K0sInstallConfigUserOutput) EtcdUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sInstallConfigUser) *string { return v.EtcdUser }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sInstallConfigUserOutput) KineUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sInstallConfigUser) *string { return v.KineUser }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sInstallConfigUserOutput) KonnectivityUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sInstallConfigUser) *string { return v.KonnectivityUser }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sInstallConfigUserOutput) KubeAPIserverUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sInstallConfigUser) *string { return v.KubeAPIserverUser }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sInstallConfigUserOutput) KubeSchedulerUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sInstallConfigUser) *string { return v.KubeSchedulerUser }).(pulumi.StringPtrOutput)
+}
+
+type K0sInstallConfigUserPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sInstallConfigUserPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sInstallConfigUser)(nil)).Elem()
+}
+
+func (o K0sInstallConfigUserPtrOutput) ToK0sInstallConfigUserPtrOutput() K0sInstallConfigUserPtrOutput {
+	return o
+}
+
+func (o K0sInstallConfigUserPtrOutput) ToK0sInstallConfigUserPtrOutputWithContext(ctx context.Context) K0sInstallConfigUserPtrOutput {
+	return o
+}
+
+func (o K0sInstallConfigUserPtrOutput) Elem() K0sInstallConfigUserOutput {
+	return o.ApplyT(func(v *K0sInstallConfigUser) K0sInstallConfigUser {
+		if v != nil {
+			return *v
+		}
+		var ret K0sInstallConfigUser
+		return ret
+	}).(K0sInstallConfigUserOutput)
+}
+
+func (o K0sInstallConfigUserPtrOutput) EtcdUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sInstallConfigUser) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EtcdUser
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sInstallConfigUserPtrOutput) KineUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sInstallConfigUser) *string {
+		if v == nil {
+			return nil
+		}
+		return v.KineUser
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sInstallConfigUserPtrOutput) KonnectivityUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sInstallConfigUser) *string {
+		if v == nil {
+			return nil
+		}
+		return v.KonnectivityUser
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sInstallConfigUserPtrOutput) KubeAPIserverUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sInstallConfigUser) *string {
+		if v == nil {
+			return nil
+		}
+		return v.KubeAPIserverUser
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sInstallConfigUserPtrOutput) KubeSchedulerUser() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sInstallConfigUser) *string {
+		if v == nil {
+			return nil
+		}
+		return v.KubeSchedulerUser
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sKine struct {
+	DataSource string `pulumi:"dataSource"`
+}
+
+// K0sKineInput is an input type that accepts K0sKineArgs and K0sKineOutput values.
+// You can construct a concrete instance of `K0sKineInput` via:
+//
+//	K0sKineArgs{...}
+type K0sKineInput interface {
+	pulumi.Input
+
+	ToK0sKineOutput() K0sKineOutput
+	ToK0sKineOutputWithContext(context.Context) K0sKineOutput
+}
+
+type K0sKineArgs struct {
+	DataSource pulumi.StringInput `pulumi:"dataSource"`
+}
+
+func (K0sKineArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKine)(nil)).Elem()
+}
+
+func (i K0sKineArgs) ToK0sKineOutput() K0sKineOutput {
+	return i.ToK0sKineOutputWithContext(context.Background())
+}
+
+func (i K0sKineArgs) ToK0sKineOutputWithContext(ctx context.Context) K0sKineOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKineOutput)
+}
+
+func (i K0sKineArgs) ToK0sKinePtrOutput() K0sKinePtrOutput {
+	return i.ToK0sKinePtrOutputWithContext(context.Background())
+}
+
+func (i K0sKineArgs) ToK0sKinePtrOutputWithContext(ctx context.Context) K0sKinePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKineOutput).ToK0sKinePtrOutputWithContext(ctx)
+}
+
+// K0sKinePtrInput is an input type that accepts K0sKineArgs, K0sKinePtr and K0sKinePtrOutput values.
+// You can construct a concrete instance of `K0sKinePtrInput` via:
+//
+//	        K0sKineArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sKinePtrInput interface {
+	pulumi.Input
+
+	ToK0sKinePtrOutput() K0sKinePtrOutput
+	ToK0sKinePtrOutputWithContext(context.Context) K0sKinePtrOutput
+}
+
+type k0sKinePtrType K0sKineArgs
+
+func K0sKinePtr(v *K0sKineArgs) K0sKinePtrInput {
+	return (*k0sKinePtrType)(v)
+}
+
+func (*k0sKinePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKine)(nil)).Elem()
+}
+
+func (i *k0sKinePtrType) ToK0sKinePtrOutput() K0sKinePtrOutput {
+	return i.ToK0sKinePtrOutputWithContext(context.Background())
+}
+
+func (i *k0sKinePtrType) ToK0sKinePtrOutputWithContext(ctx context.Context) K0sKinePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKinePtrOutput)
+}
+
+type K0sKineOutput struct{ *pulumi.OutputState }
+
+func (K0sKineOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKine)(nil)).Elem()
+}
+
+func (o K0sKineOutput) ToK0sKineOutput() K0sKineOutput {
+	return o
+}
+
+func (o K0sKineOutput) ToK0sKineOutputWithContext(ctx context.Context) K0sKineOutput {
+	return o
+}
+
+func (o K0sKineOutput) ToK0sKinePtrOutput() K0sKinePtrOutput {
+	return o.ToK0sKinePtrOutputWithContext(context.Background())
+}
+
+func (o K0sKineOutput) ToK0sKinePtrOutputWithContext(ctx context.Context) K0sKinePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sKine) *K0sKine {
+		return &v
+	}).(K0sKinePtrOutput)
+}
+
+func (o K0sKineOutput) DataSource() pulumi.StringOutput {
+	return o.ApplyT(func(v K0sKine) string { return v.DataSource }).(pulumi.StringOutput)
+}
+
+type K0sKinePtrOutput struct{ *pulumi.OutputState }
+
+func (K0sKinePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKine)(nil)).Elem()
+}
+
+func (o K0sKinePtrOutput) ToK0sKinePtrOutput() K0sKinePtrOutput {
+	return o
+}
+
+func (o K0sKinePtrOutput) ToK0sKinePtrOutputWithContext(ctx context.Context) K0sKinePtrOutput {
+	return o
+}
+
+func (o K0sKinePtrOutput) Elem() K0sKineOutput {
+	return o.ApplyT(func(v *K0sKine) K0sKine {
+		if v != nil {
+			return *v
+		}
+		var ret K0sKine
+		return ret
+	}).(K0sKineOutput)
+}
+
+func (o K0sKinePtrOutput) DataSource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKine) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DataSource
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sKonnectivity struct {
+	AdminPort *int `pulumi:"adminPort"`
+	AgentPort *int `pulumi:"agentPort"`
+}
+
+// K0sKonnectivityInput is an input type that accepts K0sKonnectivityArgs and K0sKonnectivityOutput values.
+// You can construct a concrete instance of `K0sKonnectivityInput` via:
+//
+//	K0sKonnectivityArgs{...}
+type K0sKonnectivityInput interface {
+	pulumi.Input
+
+	ToK0sKonnectivityOutput() K0sKonnectivityOutput
+	ToK0sKonnectivityOutputWithContext(context.Context) K0sKonnectivityOutput
+}
+
+type K0sKonnectivityArgs struct {
+	AdminPort pulumi.IntPtrInput `pulumi:"adminPort"`
+	AgentPort pulumi.IntPtrInput `pulumi:"agentPort"`
+}
+
+func (K0sKonnectivityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKonnectivity)(nil)).Elem()
+}
+
+func (i K0sKonnectivityArgs) ToK0sKonnectivityOutput() K0sKonnectivityOutput {
+	return i.ToK0sKonnectivityOutputWithContext(context.Background())
+}
+
+func (i K0sKonnectivityArgs) ToK0sKonnectivityOutputWithContext(ctx context.Context) K0sKonnectivityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKonnectivityOutput)
+}
+
+func (i K0sKonnectivityArgs) ToK0sKonnectivityPtrOutput() K0sKonnectivityPtrOutput {
+	return i.ToK0sKonnectivityPtrOutputWithContext(context.Background())
+}
+
+func (i K0sKonnectivityArgs) ToK0sKonnectivityPtrOutputWithContext(ctx context.Context) K0sKonnectivityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKonnectivityOutput).ToK0sKonnectivityPtrOutputWithContext(ctx)
+}
+
+// K0sKonnectivityPtrInput is an input type that accepts K0sKonnectivityArgs, K0sKonnectivityPtr and K0sKonnectivityPtrOutput values.
+// You can construct a concrete instance of `K0sKonnectivityPtrInput` via:
+//
+//	        K0sKonnectivityArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sKonnectivityPtrInput interface {
+	pulumi.Input
+
+	ToK0sKonnectivityPtrOutput() K0sKonnectivityPtrOutput
+	ToK0sKonnectivityPtrOutputWithContext(context.Context) K0sKonnectivityPtrOutput
+}
+
+type k0sKonnectivityPtrType K0sKonnectivityArgs
+
+func K0sKonnectivityPtr(v *K0sKonnectivityArgs) K0sKonnectivityPtrInput {
+	return (*k0sKonnectivityPtrType)(v)
+}
+
+func (*k0sKonnectivityPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKonnectivity)(nil)).Elem()
+}
+
+func (i *k0sKonnectivityPtrType) ToK0sKonnectivityPtrOutput() K0sKonnectivityPtrOutput {
+	return i.ToK0sKonnectivityPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sKonnectivityPtrType) ToK0sKonnectivityPtrOutputWithContext(ctx context.Context) K0sKonnectivityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKonnectivityPtrOutput)
+}
+
+type K0sKonnectivityOutput struct{ *pulumi.OutputState }
+
+func (K0sKonnectivityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKonnectivity)(nil)).Elem()
+}
+
+func (o K0sKonnectivityOutput) ToK0sKonnectivityOutput() K0sKonnectivityOutput {
+	return o
+}
+
+func (o K0sKonnectivityOutput) ToK0sKonnectivityOutputWithContext(ctx context.Context) K0sKonnectivityOutput {
+	return o
+}
+
+func (o K0sKonnectivityOutput) ToK0sKonnectivityPtrOutput() K0sKonnectivityPtrOutput {
+	return o.ToK0sKonnectivityPtrOutputWithContext(context.Background())
+}
+
+func (o K0sKonnectivityOutput) ToK0sKonnectivityPtrOutputWithContext(ctx context.Context) K0sKonnectivityPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sKonnectivity) *K0sKonnectivity {
+		return &v
+	}).(K0sKonnectivityPtrOutput)
+}
+
+func (o K0sKonnectivityOutput) AdminPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sKonnectivity) *int { return v.AdminPort }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sKonnectivityOutput) AgentPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sKonnectivity) *int { return v.AgentPort }).(pulumi.IntPtrOutput)
+}
+
+type K0sKonnectivityPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sKonnectivityPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKonnectivity)(nil)).Elem()
+}
+
+func (o K0sKonnectivityPtrOutput) ToK0sKonnectivityPtrOutput() K0sKonnectivityPtrOutput {
+	return o
+}
+
+func (o K0sKonnectivityPtrOutput) ToK0sKonnectivityPtrOutputWithContext(ctx context.Context) K0sKonnectivityPtrOutput {
+	return o
+}
+
+func (o K0sKonnectivityPtrOutput) Elem() K0sKonnectivityOutput {
+	return o.ApplyT(func(v *K0sKonnectivity) K0sKonnectivity {
+		if v != nil {
+			return *v
+		}
+		var ret K0sKonnectivity
+		return ret
+	}).(K0sKonnectivityOutput)
+}
+
+func (o K0sKonnectivityPtrOutput) AdminPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sKonnectivity) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AdminPort
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sKonnectivityPtrOutput) AgentPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sKonnectivity) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AgentPort
+	}).(pulumi.IntPtrOutput)
+}
+
+type K0sKubeProxy struct {
+	Disabled          *bool                 `pulumi:"disabled"`
+	Iptables          *K0sKubeProxyIPTables `pulumi:"iptables"`
+	Ipvs              *K0sKubeProxyIPVS     `pulumi:"ipvs"`
+	Mode              *string               `pulumi:"mode"`
+	NodePortAddresses *string               `pulumi:"nodePortAddresses"`
+}
+
+// K0sKubeProxyInput is an input type that accepts K0sKubeProxyArgs and K0sKubeProxyOutput values.
+// You can construct a concrete instance of `K0sKubeProxyInput` via:
+//
+//	K0sKubeProxyArgs{...}
+type K0sKubeProxyInput interface {
+	pulumi.Input
+
+	ToK0sKubeProxyOutput() K0sKubeProxyOutput
+	ToK0sKubeProxyOutputWithContext(context.Context) K0sKubeProxyOutput
+}
+
+type K0sKubeProxyArgs struct {
+	Disabled          pulumi.BoolPtrInput          `pulumi:"disabled"`
+	Iptables          K0sKubeProxyIPTablesPtrInput `pulumi:"iptables"`
+	Ipvs              K0sKubeProxyIPVSPtrInput     `pulumi:"ipvs"`
+	Mode              pulumi.StringPtrInput        `pulumi:"mode"`
+	NodePortAddresses pulumi.StringPtrInput        `pulumi:"nodePortAddresses"`
+}
+
+func (K0sKubeProxyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeProxy)(nil)).Elem()
+}
+
+func (i K0sKubeProxyArgs) ToK0sKubeProxyOutput() K0sKubeProxyOutput {
+	return i.ToK0sKubeProxyOutputWithContext(context.Background())
+}
+
+func (i K0sKubeProxyArgs) ToK0sKubeProxyOutputWithContext(ctx context.Context) K0sKubeProxyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyOutput)
+}
+
+func (i K0sKubeProxyArgs) ToK0sKubeProxyPtrOutput() K0sKubeProxyPtrOutput {
+	return i.ToK0sKubeProxyPtrOutputWithContext(context.Background())
+}
+
+func (i K0sKubeProxyArgs) ToK0sKubeProxyPtrOutputWithContext(ctx context.Context) K0sKubeProxyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyOutput).ToK0sKubeProxyPtrOutputWithContext(ctx)
+}
+
+// K0sKubeProxyPtrInput is an input type that accepts K0sKubeProxyArgs, K0sKubeProxyPtr and K0sKubeProxyPtrOutput values.
+// You can construct a concrete instance of `K0sKubeProxyPtrInput` via:
+//
+//	        K0sKubeProxyArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sKubeProxyPtrInput interface {
+	pulumi.Input
+
+	ToK0sKubeProxyPtrOutput() K0sKubeProxyPtrOutput
+	ToK0sKubeProxyPtrOutputWithContext(context.Context) K0sKubeProxyPtrOutput
+}
+
+type k0sKubeProxyPtrType K0sKubeProxyArgs
+
+func K0sKubeProxyPtr(v *K0sKubeProxyArgs) K0sKubeProxyPtrInput {
+	return (*k0sKubeProxyPtrType)(v)
+}
+
+func (*k0sKubeProxyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeProxy)(nil)).Elem()
+}
+
+func (i *k0sKubeProxyPtrType) ToK0sKubeProxyPtrOutput() K0sKubeProxyPtrOutput {
+	return i.ToK0sKubeProxyPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sKubeProxyPtrType) ToK0sKubeProxyPtrOutputWithContext(ctx context.Context) K0sKubeProxyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyPtrOutput)
+}
+
+type K0sKubeProxyOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeProxyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeProxy)(nil)).Elem()
+}
+
+func (o K0sKubeProxyOutput) ToK0sKubeProxyOutput() K0sKubeProxyOutput {
+	return o
+}
+
+func (o K0sKubeProxyOutput) ToK0sKubeProxyOutputWithContext(ctx context.Context) K0sKubeProxyOutput {
+	return o
+}
+
+func (o K0sKubeProxyOutput) ToK0sKubeProxyPtrOutput() K0sKubeProxyPtrOutput {
+	return o.ToK0sKubeProxyPtrOutputWithContext(context.Background())
+}
+
+func (o K0sKubeProxyOutput) ToK0sKubeProxyPtrOutputWithContext(ctx context.Context) K0sKubeProxyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sKubeProxy) *K0sKubeProxy {
+		return &v
+	}).(K0sKubeProxyPtrOutput)
+}
+
+func (o K0sKubeProxyOutput) Disabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxy) *bool { return v.Disabled }).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeProxyOutput) Iptables() K0sKubeProxyIPTablesPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxy) *K0sKubeProxyIPTables { return v.Iptables }).(K0sKubeProxyIPTablesPtrOutput)
+}
+
+func (o K0sKubeProxyOutput) Ipvs() K0sKubeProxyIPVSPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxy) *K0sKubeProxyIPVS { return v.Ipvs }).(K0sKubeProxyIPVSPtrOutput)
+}
+
+func (o K0sKubeProxyOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxy) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyOutput) NodePortAddresses() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxy) *string { return v.NodePortAddresses }).(pulumi.StringPtrOutput)
+}
+
+type K0sKubeProxyPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeProxyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeProxy)(nil)).Elem()
+}
+
+func (o K0sKubeProxyPtrOutput) ToK0sKubeProxyPtrOutput() K0sKubeProxyPtrOutput {
+	return o
+}
+
+func (o K0sKubeProxyPtrOutput) ToK0sKubeProxyPtrOutputWithContext(ctx context.Context) K0sKubeProxyPtrOutput {
+	return o
+}
+
+func (o K0sKubeProxyPtrOutput) Elem() K0sKubeProxyOutput {
+	return o.ApplyT(func(v *K0sKubeProxy) K0sKubeProxy {
+		if v != nil {
+			return *v
+		}
+		var ret K0sKubeProxy
+		return ret
+	}).(K0sKubeProxyOutput)
+}
+
+func (o K0sKubeProxyPtrOutput) Disabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Disabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeProxyPtrOutput) Iptables() K0sKubeProxyIPTablesPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxy) *K0sKubeProxyIPTables {
+		if v == nil {
+			return nil
+		}
+		return v.Iptables
+	}).(K0sKubeProxyIPTablesPtrOutput)
+}
+
+func (o K0sKubeProxyPtrOutput) Ipvs() K0sKubeProxyIPVSPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxy) *K0sKubeProxyIPVS {
+		if v == nil {
+			return nil
+		}
+		return v.Ipvs
+	}).(K0sKubeProxyIPVSPtrOutput)
+}
+
+func (o K0sKubeProxyPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyPtrOutput) NodePortAddresses() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NodePortAddresses
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sKubeProxyIPTables struct {
+	MasqueradeAll *bool   `pulumi:"masqueradeAll"`
+	MasqueradeBit *int    `pulumi:"masqueradeBit"`
+	MinSyncPeriod *string `pulumi:"minSyncPeriod"`
+	SyncPeriod    *string `pulumi:"syncPeriod"`
+}
+
+// K0sKubeProxyIPTablesInput is an input type that accepts K0sKubeProxyIPTablesArgs and K0sKubeProxyIPTablesOutput values.
+// You can construct a concrete instance of `K0sKubeProxyIPTablesInput` via:
+//
+//	K0sKubeProxyIPTablesArgs{...}
+type K0sKubeProxyIPTablesInput interface {
+	pulumi.Input
+
+	ToK0sKubeProxyIPTablesOutput() K0sKubeProxyIPTablesOutput
+	ToK0sKubeProxyIPTablesOutputWithContext(context.Context) K0sKubeProxyIPTablesOutput
+}
+
+type K0sKubeProxyIPTablesArgs struct {
+	MasqueradeAll pulumi.BoolPtrInput   `pulumi:"masqueradeAll"`
+	MasqueradeBit pulumi.IntPtrInput    `pulumi:"masqueradeBit"`
+	MinSyncPeriod pulumi.StringPtrInput `pulumi:"minSyncPeriod"`
+	SyncPeriod    pulumi.StringPtrInput `pulumi:"syncPeriod"`
+}
+
+func (K0sKubeProxyIPTablesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeProxyIPTables)(nil)).Elem()
+}
+
+func (i K0sKubeProxyIPTablesArgs) ToK0sKubeProxyIPTablesOutput() K0sKubeProxyIPTablesOutput {
+	return i.ToK0sKubeProxyIPTablesOutputWithContext(context.Background())
+}
+
+func (i K0sKubeProxyIPTablesArgs) ToK0sKubeProxyIPTablesOutputWithContext(ctx context.Context) K0sKubeProxyIPTablesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyIPTablesOutput)
+}
+
+func (i K0sKubeProxyIPTablesArgs) ToK0sKubeProxyIPTablesPtrOutput() K0sKubeProxyIPTablesPtrOutput {
+	return i.ToK0sKubeProxyIPTablesPtrOutputWithContext(context.Background())
+}
+
+func (i K0sKubeProxyIPTablesArgs) ToK0sKubeProxyIPTablesPtrOutputWithContext(ctx context.Context) K0sKubeProxyIPTablesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyIPTablesOutput).ToK0sKubeProxyIPTablesPtrOutputWithContext(ctx)
+}
+
+// K0sKubeProxyIPTablesPtrInput is an input type that accepts K0sKubeProxyIPTablesArgs, K0sKubeProxyIPTablesPtr and K0sKubeProxyIPTablesPtrOutput values.
+// You can construct a concrete instance of `K0sKubeProxyIPTablesPtrInput` via:
+//
+//	        K0sKubeProxyIPTablesArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sKubeProxyIPTablesPtrInput interface {
+	pulumi.Input
+
+	ToK0sKubeProxyIPTablesPtrOutput() K0sKubeProxyIPTablesPtrOutput
+	ToK0sKubeProxyIPTablesPtrOutputWithContext(context.Context) K0sKubeProxyIPTablesPtrOutput
+}
+
+type k0sKubeProxyIPTablesPtrType K0sKubeProxyIPTablesArgs
+
+func K0sKubeProxyIPTablesPtr(v *K0sKubeProxyIPTablesArgs) K0sKubeProxyIPTablesPtrInput {
+	return (*k0sKubeProxyIPTablesPtrType)(v)
+}
+
+func (*k0sKubeProxyIPTablesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeProxyIPTables)(nil)).Elem()
+}
+
+func (i *k0sKubeProxyIPTablesPtrType) ToK0sKubeProxyIPTablesPtrOutput() K0sKubeProxyIPTablesPtrOutput {
+	return i.ToK0sKubeProxyIPTablesPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sKubeProxyIPTablesPtrType) ToK0sKubeProxyIPTablesPtrOutputWithContext(ctx context.Context) K0sKubeProxyIPTablesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyIPTablesPtrOutput)
+}
+
+type K0sKubeProxyIPTablesOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeProxyIPTablesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeProxyIPTables)(nil)).Elem()
+}
+
+func (o K0sKubeProxyIPTablesOutput) ToK0sKubeProxyIPTablesOutput() K0sKubeProxyIPTablesOutput {
+	return o
+}
+
+func (o K0sKubeProxyIPTablesOutput) ToK0sKubeProxyIPTablesOutputWithContext(ctx context.Context) K0sKubeProxyIPTablesOutput {
+	return o
+}
+
+func (o K0sKubeProxyIPTablesOutput) ToK0sKubeProxyIPTablesPtrOutput() K0sKubeProxyIPTablesPtrOutput {
+	return o.ToK0sKubeProxyIPTablesPtrOutputWithContext(context.Background())
+}
+
+func (o K0sKubeProxyIPTablesOutput) ToK0sKubeProxyIPTablesPtrOutputWithContext(ctx context.Context) K0sKubeProxyIPTablesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sKubeProxyIPTables) *K0sKubeProxyIPTables {
+		return &v
+	}).(K0sKubeProxyIPTablesPtrOutput)
+}
+
+func (o K0sKubeProxyIPTablesOutput) MasqueradeAll() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPTables) *bool { return v.MasqueradeAll }).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeProxyIPTablesOutput) MasqueradeBit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPTables) *int { return v.MasqueradeBit }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sKubeProxyIPTablesOutput) MinSyncPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPTables) *string { return v.MinSyncPeriod }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPTablesOutput) SyncPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPTables) *string { return v.SyncPeriod }).(pulumi.StringPtrOutput)
+}
+
+type K0sKubeProxyIPTablesPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeProxyIPTablesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeProxyIPTables)(nil)).Elem()
+}
+
+func (o K0sKubeProxyIPTablesPtrOutput) ToK0sKubeProxyIPTablesPtrOutput() K0sKubeProxyIPTablesPtrOutput {
+	return o
+}
+
+func (o K0sKubeProxyIPTablesPtrOutput) ToK0sKubeProxyIPTablesPtrOutputWithContext(ctx context.Context) K0sKubeProxyIPTablesPtrOutput {
+	return o
+}
+
+func (o K0sKubeProxyIPTablesPtrOutput) Elem() K0sKubeProxyIPTablesOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPTables) K0sKubeProxyIPTables {
+		if v != nil {
+			return *v
+		}
+		var ret K0sKubeProxyIPTables
+		return ret
+	}).(K0sKubeProxyIPTablesOutput)
+}
+
+func (o K0sKubeProxyIPTablesPtrOutput) MasqueradeAll() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPTables) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.MasqueradeAll
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeProxyIPTablesPtrOutput) MasqueradeBit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPTables) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MasqueradeBit
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sKubeProxyIPTablesPtrOutput) MinSyncPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPTables) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MinSyncPeriod
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPTablesPtrOutput) SyncPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPTables) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SyncPeriod
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sKubeProxyIPVS struct {
+	ExcludeCIDRs  *string `pulumi:"excludeCIDRs"`
+	MinSyncPeriod *string `pulumi:"minSyncPeriod"`
+	Scheduler     *string `pulumi:"scheduler"`
+	StrictARP     *bool   `pulumi:"strictARP"`
+	SyncPeriod    *string `pulumi:"syncPeriod"`
+	TcpFinTimeout *string `pulumi:"tcpFinTimeout"`
+	TcpTimeout    *string `pulumi:"tcpTimeout"`
+	UdpTimeout    *string `pulumi:"udpTimeout"`
+}
+
+// K0sKubeProxyIPVSInput is an input type that accepts K0sKubeProxyIPVSArgs and K0sKubeProxyIPVSOutput values.
+// You can construct a concrete instance of `K0sKubeProxyIPVSInput` via:
+//
+//	K0sKubeProxyIPVSArgs{...}
+type K0sKubeProxyIPVSInput interface {
+	pulumi.Input
+
+	ToK0sKubeProxyIPVSOutput() K0sKubeProxyIPVSOutput
+	ToK0sKubeProxyIPVSOutputWithContext(context.Context) K0sKubeProxyIPVSOutput
+}
+
+type K0sKubeProxyIPVSArgs struct {
+	ExcludeCIDRs  pulumi.StringPtrInput `pulumi:"excludeCIDRs"`
+	MinSyncPeriod pulumi.StringPtrInput `pulumi:"minSyncPeriod"`
+	Scheduler     pulumi.StringPtrInput `pulumi:"scheduler"`
+	StrictARP     pulumi.BoolPtrInput   `pulumi:"strictARP"`
+	SyncPeriod    pulumi.StringPtrInput `pulumi:"syncPeriod"`
+	TcpFinTimeout pulumi.StringPtrInput `pulumi:"tcpFinTimeout"`
+	TcpTimeout    pulumi.StringPtrInput `pulumi:"tcpTimeout"`
+	UdpTimeout    pulumi.StringPtrInput `pulumi:"udpTimeout"`
+}
+
+func (K0sKubeProxyIPVSArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeProxyIPVS)(nil)).Elem()
+}
+
+func (i K0sKubeProxyIPVSArgs) ToK0sKubeProxyIPVSOutput() K0sKubeProxyIPVSOutput {
+	return i.ToK0sKubeProxyIPVSOutputWithContext(context.Background())
+}
+
+func (i K0sKubeProxyIPVSArgs) ToK0sKubeProxyIPVSOutputWithContext(ctx context.Context) K0sKubeProxyIPVSOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyIPVSOutput)
+}
+
+func (i K0sKubeProxyIPVSArgs) ToK0sKubeProxyIPVSPtrOutput() K0sKubeProxyIPVSPtrOutput {
+	return i.ToK0sKubeProxyIPVSPtrOutputWithContext(context.Background())
+}
+
+func (i K0sKubeProxyIPVSArgs) ToK0sKubeProxyIPVSPtrOutputWithContext(ctx context.Context) K0sKubeProxyIPVSPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyIPVSOutput).ToK0sKubeProxyIPVSPtrOutputWithContext(ctx)
+}
+
+// K0sKubeProxyIPVSPtrInput is an input type that accepts K0sKubeProxyIPVSArgs, K0sKubeProxyIPVSPtr and K0sKubeProxyIPVSPtrOutput values.
+// You can construct a concrete instance of `K0sKubeProxyIPVSPtrInput` via:
+//
+//	        K0sKubeProxyIPVSArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sKubeProxyIPVSPtrInput interface {
+	pulumi.Input
+
+	ToK0sKubeProxyIPVSPtrOutput() K0sKubeProxyIPVSPtrOutput
+	ToK0sKubeProxyIPVSPtrOutputWithContext(context.Context) K0sKubeProxyIPVSPtrOutput
+}
+
+type k0sKubeProxyIPVSPtrType K0sKubeProxyIPVSArgs
+
+func K0sKubeProxyIPVSPtr(v *K0sKubeProxyIPVSArgs) K0sKubeProxyIPVSPtrInput {
+	return (*k0sKubeProxyIPVSPtrType)(v)
+}
+
+func (*k0sKubeProxyIPVSPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeProxyIPVS)(nil)).Elem()
+}
+
+func (i *k0sKubeProxyIPVSPtrType) ToK0sKubeProxyIPVSPtrOutput() K0sKubeProxyIPVSPtrOutput {
+	return i.ToK0sKubeProxyIPVSPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sKubeProxyIPVSPtrType) ToK0sKubeProxyIPVSPtrOutputWithContext(ctx context.Context) K0sKubeProxyIPVSPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeProxyIPVSPtrOutput)
+}
+
+type K0sKubeProxyIPVSOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeProxyIPVSOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeProxyIPVS)(nil)).Elem()
+}
+
+func (o K0sKubeProxyIPVSOutput) ToK0sKubeProxyIPVSOutput() K0sKubeProxyIPVSOutput {
+	return o
+}
+
+func (o K0sKubeProxyIPVSOutput) ToK0sKubeProxyIPVSOutputWithContext(ctx context.Context) K0sKubeProxyIPVSOutput {
+	return o
+}
+
+func (o K0sKubeProxyIPVSOutput) ToK0sKubeProxyIPVSPtrOutput() K0sKubeProxyIPVSPtrOutput {
+	return o.ToK0sKubeProxyIPVSPtrOutputWithContext(context.Background())
+}
+
+func (o K0sKubeProxyIPVSOutput) ToK0sKubeProxyIPVSPtrOutputWithContext(ctx context.Context) K0sKubeProxyIPVSPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sKubeProxyIPVS) *K0sKubeProxyIPVS {
+		return &v
+	}).(K0sKubeProxyIPVSPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSOutput) ExcludeCIDRs() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPVS) *string { return v.ExcludeCIDRs }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSOutput) MinSyncPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPVS) *string { return v.MinSyncPeriod }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSOutput) Scheduler() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPVS) *string { return v.Scheduler }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSOutput) StrictARP() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPVS) *bool { return v.StrictARP }).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSOutput) SyncPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPVS) *string { return v.SyncPeriod }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSOutput) TcpFinTimeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPVS) *string { return v.TcpFinTimeout }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSOutput) TcpTimeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPVS) *string { return v.TcpTimeout }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSOutput) UdpTimeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeProxyIPVS) *string { return v.UdpTimeout }).(pulumi.StringPtrOutput)
+}
+
+type K0sKubeProxyIPVSPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeProxyIPVSPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeProxyIPVS)(nil)).Elem()
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) ToK0sKubeProxyIPVSPtrOutput() K0sKubeProxyIPVSPtrOutput {
+	return o
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) ToK0sKubeProxyIPVSPtrOutputWithContext(ctx context.Context) K0sKubeProxyIPVSPtrOutput {
+	return o
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) Elem() K0sKubeProxyIPVSOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) K0sKubeProxyIPVS {
+		if v != nil {
+			return *v
+		}
+		var ret K0sKubeProxyIPVS
+		return ret
+	}).(K0sKubeProxyIPVSOutput)
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) ExcludeCIDRs() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ExcludeCIDRs
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) MinSyncPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MinSyncPeriod
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) Scheduler() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Scheduler
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) StrictARP() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.StrictARP
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) SyncPeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SyncPeriod
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) TcpFinTimeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TcpFinTimeout
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) TcpTimeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TcpTimeout
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeProxyIPVSPtrOutput) UdpTimeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeProxyIPVS) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UdpTimeout
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sKubeRouter struct {
+	AutoMTU     *bool             `pulumi:"autoMTU"`
+	ExtraArgs   map[string]string `pulumi:"extraArgs"`
+	Hairpin     *string           `pulumi:"hairpin"`
+	IpMasq      *bool             `pulumi:"ipMasq"`
+	MetricsPort *int              `pulumi:"metricsPort"`
+	Mtu         *int              `pulumi:"mtu"`
+}
+
+// K0sKubeRouterInput is an input type that accepts K0sKubeRouterArgs and K0sKubeRouterOutput values.
+// You can construct a concrete instance of `K0sKubeRouterInput` via:
+//
+//	K0sKubeRouterArgs{...}
+type K0sKubeRouterInput interface {
+	pulumi.Input
+
+	ToK0sKubeRouterOutput() K0sKubeRouterOutput
+	ToK0sKubeRouterOutputWithContext(context.Context) K0sKubeRouterOutput
+}
+
+type K0sKubeRouterArgs struct {
+	AutoMTU     pulumi.BoolPtrInput   `pulumi:"autoMTU"`
+	ExtraArgs   pulumi.StringMapInput `pulumi:"extraArgs"`
+	Hairpin     pulumi.StringPtrInput `pulumi:"hairpin"`
+	IpMasq      pulumi.BoolPtrInput   `pulumi:"ipMasq"`
+	MetricsPort pulumi.IntPtrInput    `pulumi:"metricsPort"`
+	Mtu         pulumi.IntPtrInput    `pulumi:"mtu"`
+}
+
+func (K0sKubeRouterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeRouter)(nil)).Elem()
+}
+
+func (i K0sKubeRouterArgs) ToK0sKubeRouterOutput() K0sKubeRouterOutput {
+	return i.ToK0sKubeRouterOutputWithContext(context.Background())
+}
+
+func (i K0sKubeRouterArgs) ToK0sKubeRouterOutputWithContext(ctx context.Context) K0sKubeRouterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeRouterOutput)
+}
+
+func (i K0sKubeRouterArgs) ToK0sKubeRouterPtrOutput() K0sKubeRouterPtrOutput {
+	return i.ToK0sKubeRouterPtrOutputWithContext(context.Background())
+}
+
+func (i K0sKubeRouterArgs) ToK0sKubeRouterPtrOutputWithContext(ctx context.Context) K0sKubeRouterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeRouterOutput).ToK0sKubeRouterPtrOutputWithContext(ctx)
+}
+
+// K0sKubeRouterPtrInput is an input type that accepts K0sKubeRouterArgs, K0sKubeRouterPtr and K0sKubeRouterPtrOutput values.
+// You can construct a concrete instance of `K0sKubeRouterPtrInput` via:
+//
+//	        K0sKubeRouterArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sKubeRouterPtrInput interface {
+	pulumi.Input
+
+	ToK0sKubeRouterPtrOutput() K0sKubeRouterPtrOutput
+	ToK0sKubeRouterPtrOutputWithContext(context.Context) K0sKubeRouterPtrOutput
+}
+
+type k0sKubeRouterPtrType K0sKubeRouterArgs
+
+func K0sKubeRouterPtr(v *K0sKubeRouterArgs) K0sKubeRouterPtrInput {
+	return (*k0sKubeRouterPtrType)(v)
+}
+
+func (*k0sKubeRouterPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeRouter)(nil)).Elem()
+}
+
+func (i *k0sKubeRouterPtrType) ToK0sKubeRouterPtrOutput() K0sKubeRouterPtrOutput {
+	return i.ToK0sKubeRouterPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sKubeRouterPtrType) ToK0sKubeRouterPtrOutputWithContext(ctx context.Context) K0sKubeRouterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeRouterPtrOutput)
+}
+
+type K0sKubeRouterOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeRouterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeRouter)(nil)).Elem()
+}
+
+func (o K0sKubeRouterOutput) ToK0sKubeRouterOutput() K0sKubeRouterOutput {
+	return o
+}
+
+func (o K0sKubeRouterOutput) ToK0sKubeRouterOutputWithContext(ctx context.Context) K0sKubeRouterOutput {
+	return o
+}
+
+func (o K0sKubeRouterOutput) ToK0sKubeRouterPtrOutput() K0sKubeRouterPtrOutput {
+	return o.ToK0sKubeRouterPtrOutputWithContext(context.Background())
+}
+
+func (o K0sKubeRouterOutput) ToK0sKubeRouterPtrOutputWithContext(ctx context.Context) K0sKubeRouterPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sKubeRouter) *K0sKubeRouter {
+		return &v
+	}).(K0sKubeRouterPtrOutput)
+}
+
+func (o K0sKubeRouterOutput) AutoMTU() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sKubeRouter) *bool { return v.AutoMTU }).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeRouterOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v K0sKubeRouter) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
+}
+
+func (o K0sKubeRouterOutput) Hairpin() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sKubeRouter) *string { return v.Hairpin }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeRouterOutput) IpMasq() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sKubeRouter) *bool { return v.IpMasq }).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeRouterOutput) MetricsPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sKubeRouter) *int { return v.MetricsPort }).(pulumi.IntPtrOutput)
+}
+
+func (o K0sKubeRouterOutput) Mtu() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v K0sKubeRouter) *int { return v.Mtu }).(pulumi.IntPtrOutput)
+}
+
+type K0sKubeRouterPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeRouterPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeRouter)(nil)).Elem()
+}
+
+func (o K0sKubeRouterPtrOutput) ToK0sKubeRouterPtrOutput() K0sKubeRouterPtrOutput {
+	return o
+}
+
+func (o K0sKubeRouterPtrOutput) ToK0sKubeRouterPtrOutputWithContext(ctx context.Context) K0sKubeRouterPtrOutput {
+	return o
+}
+
+func (o K0sKubeRouterPtrOutput) Elem() K0sKubeRouterOutput {
+	return o.ApplyT(func(v *K0sKubeRouter) K0sKubeRouter {
+		if v != nil {
+			return *v
+		}
+		var ret K0sKubeRouter
+		return ret
+	}).(K0sKubeRouterOutput)
+}
+
+func (o K0sKubeRouterPtrOutput) AutoMTU() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sKubeRouter) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AutoMTU
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeRouterPtrOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *K0sKubeRouter) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(pulumi.StringMapOutput)
+}
+
+func (o K0sKubeRouterPtrOutput) Hairpin() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sKubeRouter) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Hairpin
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sKubeRouterPtrOutput) IpMasq() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sKubeRouter) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.IpMasq
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sKubeRouterPtrOutput) MetricsPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sKubeRouter) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MetricsPort
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o K0sKubeRouterPtrOutput) Mtu() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *K0sKubeRouter) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Mtu
+	}).(pulumi.IntPtrOutput)
+}
+
+type K0sKubeRouterImage struct {
+	Cni          *K0sImage `pulumi:"cni"`
+	CniInstaller *K0sImage `pulumi:"cniInstaller"`
+}
+
+// K0sKubeRouterImageInput is an input type that accepts K0sKubeRouterImageArgs and K0sKubeRouterImageOutput values.
+// You can construct a concrete instance of `K0sKubeRouterImageInput` via:
+//
+//	K0sKubeRouterImageArgs{...}
+type K0sKubeRouterImageInput interface {
+	pulumi.Input
+
+	ToK0sKubeRouterImageOutput() K0sKubeRouterImageOutput
+	ToK0sKubeRouterImageOutputWithContext(context.Context) K0sKubeRouterImageOutput
+}
+
+type K0sKubeRouterImageArgs struct {
+	Cni          K0sImagePtrInput `pulumi:"cni"`
+	CniInstaller K0sImagePtrInput `pulumi:"cniInstaller"`
+}
+
+func (K0sKubeRouterImageArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeRouterImage)(nil)).Elem()
+}
+
+func (i K0sKubeRouterImageArgs) ToK0sKubeRouterImageOutput() K0sKubeRouterImageOutput {
+	return i.ToK0sKubeRouterImageOutputWithContext(context.Background())
+}
+
+func (i K0sKubeRouterImageArgs) ToK0sKubeRouterImageOutputWithContext(ctx context.Context) K0sKubeRouterImageOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeRouterImageOutput)
+}
+
+func (i K0sKubeRouterImageArgs) ToK0sKubeRouterImagePtrOutput() K0sKubeRouterImagePtrOutput {
+	return i.ToK0sKubeRouterImagePtrOutputWithContext(context.Background())
+}
+
+func (i K0sKubeRouterImageArgs) ToK0sKubeRouterImagePtrOutputWithContext(ctx context.Context) K0sKubeRouterImagePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeRouterImageOutput).ToK0sKubeRouterImagePtrOutputWithContext(ctx)
+}
+
+// K0sKubeRouterImagePtrInput is an input type that accepts K0sKubeRouterImageArgs, K0sKubeRouterImagePtr and K0sKubeRouterImagePtrOutput values.
+// You can construct a concrete instance of `K0sKubeRouterImagePtrInput` via:
+//
+//	        K0sKubeRouterImageArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sKubeRouterImagePtrInput interface {
+	pulumi.Input
+
+	ToK0sKubeRouterImagePtrOutput() K0sKubeRouterImagePtrOutput
+	ToK0sKubeRouterImagePtrOutputWithContext(context.Context) K0sKubeRouterImagePtrOutput
+}
+
+type k0sKubeRouterImagePtrType K0sKubeRouterImageArgs
+
+func K0sKubeRouterImagePtr(v *K0sKubeRouterImageArgs) K0sKubeRouterImagePtrInput {
+	return (*k0sKubeRouterImagePtrType)(v)
+}
+
+func (*k0sKubeRouterImagePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeRouterImage)(nil)).Elem()
+}
+
+func (i *k0sKubeRouterImagePtrType) ToK0sKubeRouterImagePtrOutput() K0sKubeRouterImagePtrOutput {
+	return i.ToK0sKubeRouterImagePtrOutputWithContext(context.Background())
+}
+
+func (i *k0sKubeRouterImagePtrType) ToK0sKubeRouterImagePtrOutputWithContext(ctx context.Context) K0sKubeRouterImagePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sKubeRouterImagePtrOutput)
+}
+
+type K0sKubeRouterImageOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeRouterImageOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sKubeRouterImage)(nil)).Elem()
+}
+
+func (o K0sKubeRouterImageOutput) ToK0sKubeRouterImageOutput() K0sKubeRouterImageOutput {
+	return o
+}
+
+func (o K0sKubeRouterImageOutput) ToK0sKubeRouterImageOutputWithContext(ctx context.Context) K0sKubeRouterImageOutput {
+	return o
+}
+
+func (o K0sKubeRouterImageOutput) ToK0sKubeRouterImagePtrOutput() K0sKubeRouterImagePtrOutput {
+	return o.ToK0sKubeRouterImagePtrOutputWithContext(context.Background())
+}
+
+func (o K0sKubeRouterImageOutput) ToK0sKubeRouterImagePtrOutputWithContext(ctx context.Context) K0sKubeRouterImagePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sKubeRouterImage) *K0sKubeRouterImage {
+		return &v
+	}).(K0sKubeRouterImagePtrOutput)
+}
+
+func (o K0sKubeRouterImageOutput) Cni() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sKubeRouterImage) *K0sImage { return v.Cni }).(K0sImagePtrOutput)
+}
+
+func (o K0sKubeRouterImageOutput) CniInstaller() K0sImagePtrOutput {
+	return o.ApplyT(func(v K0sKubeRouterImage) *K0sImage { return v.CniInstaller }).(K0sImagePtrOutput)
+}
+
+type K0sKubeRouterImagePtrOutput struct{ *pulumi.OutputState }
+
+func (K0sKubeRouterImagePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sKubeRouterImage)(nil)).Elem()
+}
+
+func (o K0sKubeRouterImagePtrOutput) ToK0sKubeRouterImagePtrOutput() K0sKubeRouterImagePtrOutput {
+	return o
+}
+
+func (o K0sKubeRouterImagePtrOutput) ToK0sKubeRouterImagePtrOutputWithContext(ctx context.Context) K0sKubeRouterImagePtrOutput {
+	return o
+}
+
+func (o K0sKubeRouterImagePtrOutput) Elem() K0sKubeRouterImageOutput {
+	return o.ApplyT(func(v *K0sKubeRouterImage) K0sKubeRouterImage {
+		if v != nil {
+			return *v
+		}
+		var ret K0sKubeRouterImage
+		return ret
+	}).(K0sKubeRouterImageOutput)
+}
+
+func (o K0sKubeRouterImagePtrOutput) Cni() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sKubeRouterImage) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.Cni
+	}).(K0sImagePtrOutput)
+}
+
+func (o K0sKubeRouterImagePtrOutput) CniInstaller() K0sImagePtrOutput {
+	return o.ApplyT(func(v *K0sKubeRouterImage) *K0sImage {
+		if v == nil {
+			return nil
+		}
+		return v.CniInstaller
+	}).(K0sImagePtrOutput)
+}
+
+type K0sMetadata struct {
+	Name string `pulumi:"name"`
+}
+
+// K0sMetadataInput is an input type that accepts K0sMetadataArgs and K0sMetadataOutput values.
+// You can construct a concrete instance of `K0sMetadataInput` via:
+//
+//	K0sMetadataArgs{...}
+type K0sMetadataInput interface {
+	pulumi.Input
+
+	ToK0sMetadataOutput() K0sMetadataOutput
+	ToK0sMetadataOutputWithContext(context.Context) K0sMetadataOutput
+}
+
+type K0sMetadataArgs struct {
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (K0sMetadataArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sMetadata)(nil)).Elem()
+}
+
+func (i K0sMetadataArgs) ToK0sMetadataOutput() K0sMetadataOutput {
+	return i.ToK0sMetadataOutputWithContext(context.Background())
+}
+
+func (i K0sMetadataArgs) ToK0sMetadataOutputWithContext(ctx context.Context) K0sMetadataOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sMetadataOutput)
+}
+
+func (i K0sMetadataArgs) ToK0sMetadataPtrOutput() K0sMetadataPtrOutput {
+	return i.ToK0sMetadataPtrOutputWithContext(context.Background())
+}
+
+func (i K0sMetadataArgs) ToK0sMetadataPtrOutputWithContext(ctx context.Context) K0sMetadataPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sMetadataOutput).ToK0sMetadataPtrOutputWithContext(ctx)
+}
+
+// K0sMetadataPtrInput is an input type that accepts K0sMetadataArgs, K0sMetadataPtr and K0sMetadataPtrOutput values.
+// You can construct a concrete instance of `K0sMetadataPtrInput` via:
+//
+//	        K0sMetadataArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sMetadataPtrInput interface {
+	pulumi.Input
+
+	ToK0sMetadataPtrOutput() K0sMetadataPtrOutput
+	ToK0sMetadataPtrOutputWithContext(context.Context) K0sMetadataPtrOutput
+}
+
+type k0sMetadataPtrType K0sMetadataArgs
+
+func K0sMetadataPtr(v *K0sMetadataArgs) K0sMetadataPtrInput {
+	return (*k0sMetadataPtrType)(v)
+}
+
+func (*k0sMetadataPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sMetadata)(nil)).Elem()
+}
+
+func (i *k0sMetadataPtrType) ToK0sMetadataPtrOutput() K0sMetadataPtrOutput {
+	return i.ToK0sMetadataPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sMetadataPtrType) ToK0sMetadataPtrOutputWithContext(ctx context.Context) K0sMetadataPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sMetadataPtrOutput)
+}
+
+type K0sMetadataOutput struct{ *pulumi.OutputState }
+
+func (K0sMetadataOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sMetadata)(nil)).Elem()
+}
+
+func (o K0sMetadataOutput) ToK0sMetadataOutput() K0sMetadataOutput {
+	return o
+}
+
+func (o K0sMetadataOutput) ToK0sMetadataOutputWithContext(ctx context.Context) K0sMetadataOutput {
+	return o
+}
+
+func (o K0sMetadataOutput) ToK0sMetadataPtrOutput() K0sMetadataPtrOutput {
+	return o.ToK0sMetadataPtrOutputWithContext(context.Background())
+}
+
+func (o K0sMetadataOutput) ToK0sMetadataPtrOutputWithContext(ctx context.Context) K0sMetadataPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sMetadata) *K0sMetadata {
+		return &v
+	}).(K0sMetadataPtrOutput)
+}
+
+func (o K0sMetadataOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v K0sMetadata) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type K0sMetadataPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sMetadataPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sMetadata)(nil)).Elem()
+}
+
+func (o K0sMetadataPtrOutput) ToK0sMetadataPtrOutput() K0sMetadataPtrOutput {
+	return o
+}
+
+func (o K0sMetadataPtrOutput) ToK0sMetadataPtrOutputWithContext(ctx context.Context) K0sMetadataPtrOutput {
+	return o
+}
+
+func (o K0sMetadataPtrOutput) Elem() K0sMetadataOutput {
+	return o.ApplyT(func(v *K0sMetadata) K0sMetadata {
+		if v != nil {
+			return *v
+		}
+		var ret K0sMetadata
+		return ret
+	}).(K0sMetadataOutput)
+}
+
+func (o K0sMetadataPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sMetadata) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sNetwork struct {
+	Calico                 *K0sCalico                 `pulumi:"calico"`
+	ClusterDomain          *string                    `pulumi:"clusterDomain"`
+	DualStack              *K0sDualStack              `pulumi:"dualStack"`
+	KubeProxy              *K0sKubeProxy              `pulumi:"kubeProxy"`
+	Kuberouter             *K0sKubeRouter             `pulumi:"kuberouter"`
+	NodeLocalLoadBalancing *K0sNodeLocalLoadBalancing `pulumi:"nodeLocalLoadBalancing"`
+	PodCIDR                *string                    `pulumi:"podCIDR"`
+	Provider               *string                    `pulumi:"provider"`
+	ServiceCIDR            *string                    `pulumi:"serviceCIDR"`
+}
+
+// K0sNetworkInput is an input type that accepts K0sNetworkArgs and K0sNetworkOutput values.
+// You can construct a concrete instance of `K0sNetworkInput` via:
+//
+//	K0sNetworkArgs{...}
+type K0sNetworkInput interface {
+	pulumi.Input
+
+	ToK0sNetworkOutput() K0sNetworkOutput
+	ToK0sNetworkOutputWithContext(context.Context) K0sNetworkOutput
+}
+
+type K0sNetworkArgs struct {
+	Calico                 K0sCalicoPtrInput                 `pulumi:"calico"`
+	ClusterDomain          pulumi.StringPtrInput             `pulumi:"clusterDomain"`
+	DualStack              K0sDualStackPtrInput              `pulumi:"dualStack"`
+	KubeProxy              K0sKubeProxyPtrInput              `pulumi:"kubeProxy"`
+	Kuberouter             K0sKubeRouterPtrInput             `pulumi:"kuberouter"`
+	NodeLocalLoadBalancing K0sNodeLocalLoadBalancingPtrInput `pulumi:"nodeLocalLoadBalancing"`
+	PodCIDR                pulumi.StringPtrInput             `pulumi:"podCIDR"`
+	Provider               pulumi.StringPtrInput             `pulumi:"provider"`
+	ServiceCIDR            pulumi.StringPtrInput             `pulumi:"serviceCIDR"`
+}
+
+func (K0sNetworkArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sNetwork)(nil)).Elem()
+}
+
+func (i K0sNetworkArgs) ToK0sNetworkOutput() K0sNetworkOutput {
+	return i.ToK0sNetworkOutputWithContext(context.Background())
+}
+
+func (i K0sNetworkArgs) ToK0sNetworkOutputWithContext(ctx context.Context) K0sNetworkOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sNetworkOutput)
+}
+
+func (i K0sNetworkArgs) ToK0sNetworkPtrOutput() K0sNetworkPtrOutput {
+	return i.ToK0sNetworkPtrOutputWithContext(context.Background())
+}
+
+func (i K0sNetworkArgs) ToK0sNetworkPtrOutputWithContext(ctx context.Context) K0sNetworkPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sNetworkOutput).ToK0sNetworkPtrOutputWithContext(ctx)
+}
+
+// K0sNetworkPtrInput is an input type that accepts K0sNetworkArgs, K0sNetworkPtr and K0sNetworkPtrOutput values.
+// You can construct a concrete instance of `K0sNetworkPtrInput` via:
+//
+//	        K0sNetworkArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sNetworkPtrInput interface {
+	pulumi.Input
+
+	ToK0sNetworkPtrOutput() K0sNetworkPtrOutput
+	ToK0sNetworkPtrOutputWithContext(context.Context) K0sNetworkPtrOutput
+}
+
+type k0sNetworkPtrType K0sNetworkArgs
+
+func K0sNetworkPtr(v *K0sNetworkArgs) K0sNetworkPtrInput {
+	return (*k0sNetworkPtrType)(v)
+}
+
+func (*k0sNetworkPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sNetwork)(nil)).Elem()
+}
+
+func (i *k0sNetworkPtrType) ToK0sNetworkPtrOutput() K0sNetworkPtrOutput {
+	return i.ToK0sNetworkPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sNetworkPtrType) ToK0sNetworkPtrOutputWithContext(ctx context.Context) K0sNetworkPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sNetworkPtrOutput)
+}
+
+type K0sNetworkOutput struct{ *pulumi.OutputState }
+
+func (K0sNetworkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sNetwork)(nil)).Elem()
+}
+
+func (o K0sNetworkOutput) ToK0sNetworkOutput() K0sNetworkOutput {
+	return o
+}
+
+func (o K0sNetworkOutput) ToK0sNetworkOutputWithContext(ctx context.Context) K0sNetworkOutput {
+	return o
+}
+
+func (o K0sNetworkOutput) ToK0sNetworkPtrOutput() K0sNetworkPtrOutput {
+	return o.ToK0sNetworkPtrOutputWithContext(context.Background())
+}
+
+func (o K0sNetworkOutput) ToK0sNetworkPtrOutputWithContext(ctx context.Context) K0sNetworkPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sNetwork) *K0sNetwork {
+		return &v
+	}).(K0sNetworkPtrOutput)
+}
+
+func (o K0sNetworkOutput) Calico() K0sCalicoPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *K0sCalico { return v.Calico }).(K0sCalicoPtrOutput)
+}
+
+func (o K0sNetworkOutput) ClusterDomain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *string { return v.ClusterDomain }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sNetworkOutput) DualStack() K0sDualStackPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *K0sDualStack { return v.DualStack }).(K0sDualStackPtrOutput)
+}
+
+func (o K0sNetworkOutput) KubeProxy() K0sKubeProxyPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *K0sKubeProxy { return v.KubeProxy }).(K0sKubeProxyPtrOutput)
+}
+
+func (o K0sNetworkOutput) Kuberouter() K0sKubeRouterPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *K0sKubeRouter { return v.Kuberouter }).(K0sKubeRouterPtrOutput)
+}
+
+func (o K0sNetworkOutput) NodeLocalLoadBalancing() K0sNodeLocalLoadBalancingPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *K0sNodeLocalLoadBalancing { return v.NodeLocalLoadBalancing }).(K0sNodeLocalLoadBalancingPtrOutput)
+}
+
+func (o K0sNetworkOutput) PodCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *string { return v.PodCIDR }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sNetworkOutput) Provider() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *string { return v.Provider }).(pulumi.StringPtrOutput)
+}
+
+func (o K0sNetworkOutput) ServiceCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sNetwork) *string { return v.ServiceCIDR }).(pulumi.StringPtrOutput)
+}
+
+type K0sNetworkPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sNetworkPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sNetwork)(nil)).Elem()
+}
+
+func (o K0sNetworkPtrOutput) ToK0sNetworkPtrOutput() K0sNetworkPtrOutput {
+	return o
+}
+
+func (o K0sNetworkPtrOutput) ToK0sNetworkPtrOutputWithContext(ctx context.Context) K0sNetworkPtrOutput {
+	return o
+}
+
+func (o K0sNetworkPtrOutput) Elem() K0sNetworkOutput {
+	return o.ApplyT(func(v *K0sNetwork) K0sNetwork {
+		if v != nil {
+			return *v
+		}
+		var ret K0sNetwork
+		return ret
+	}).(K0sNetworkOutput)
+}
+
+func (o K0sNetworkPtrOutput) Calico() K0sCalicoPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *K0sCalico {
+		if v == nil {
+			return nil
+		}
+		return v.Calico
+	}).(K0sCalicoPtrOutput)
+}
+
+func (o K0sNetworkPtrOutput) ClusterDomain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ClusterDomain
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sNetworkPtrOutput) DualStack() K0sDualStackPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *K0sDualStack {
+		if v == nil {
+			return nil
+		}
+		return v.DualStack
+	}).(K0sDualStackPtrOutput)
+}
+
+func (o K0sNetworkPtrOutput) KubeProxy() K0sKubeProxyPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *K0sKubeProxy {
+		if v == nil {
+			return nil
+		}
+		return v.KubeProxy
+	}).(K0sKubeProxyPtrOutput)
+}
+
+func (o K0sNetworkPtrOutput) Kuberouter() K0sKubeRouterPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *K0sKubeRouter {
+		if v == nil {
+			return nil
+		}
+		return v.Kuberouter
+	}).(K0sKubeRouterPtrOutput)
+}
+
+func (o K0sNetworkPtrOutput) NodeLocalLoadBalancing() K0sNodeLocalLoadBalancingPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *K0sNodeLocalLoadBalancing {
+		if v == nil {
+			return nil
+		}
+		return v.NodeLocalLoadBalancing
+	}).(K0sNodeLocalLoadBalancingPtrOutput)
+}
+
+func (o K0sNetworkPtrOutput) PodCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PodCIDR
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sNetworkPtrOutput) Provider() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Provider
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o K0sNetworkPtrOutput) ServiceCIDR() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sNetwork) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceCIDR
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sNodeLocalLoadBalancing struct {
+	Enabled    *bool          `pulumi:"enabled"`
+	EnvoyProxy *K0sEnvoyProxy `pulumi:"envoyProxy"`
+	Type       *string        `pulumi:"type"`
+}
+
+// K0sNodeLocalLoadBalancingInput is an input type that accepts K0sNodeLocalLoadBalancingArgs and K0sNodeLocalLoadBalancingOutput values.
+// You can construct a concrete instance of `K0sNodeLocalLoadBalancingInput` via:
+//
+//	K0sNodeLocalLoadBalancingArgs{...}
+type K0sNodeLocalLoadBalancingInput interface {
+	pulumi.Input
+
+	ToK0sNodeLocalLoadBalancingOutput() K0sNodeLocalLoadBalancingOutput
+	ToK0sNodeLocalLoadBalancingOutputWithContext(context.Context) K0sNodeLocalLoadBalancingOutput
+}
+
+type K0sNodeLocalLoadBalancingArgs struct {
+	Enabled    pulumi.BoolPtrInput   `pulumi:"enabled"`
+	EnvoyProxy K0sEnvoyProxyPtrInput `pulumi:"envoyProxy"`
+	Type       pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (K0sNodeLocalLoadBalancingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sNodeLocalLoadBalancing)(nil)).Elem()
+}
+
+func (i K0sNodeLocalLoadBalancingArgs) ToK0sNodeLocalLoadBalancingOutput() K0sNodeLocalLoadBalancingOutput {
+	return i.ToK0sNodeLocalLoadBalancingOutputWithContext(context.Background())
+}
+
+func (i K0sNodeLocalLoadBalancingArgs) ToK0sNodeLocalLoadBalancingOutputWithContext(ctx context.Context) K0sNodeLocalLoadBalancingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sNodeLocalLoadBalancingOutput)
+}
+
+func (i K0sNodeLocalLoadBalancingArgs) ToK0sNodeLocalLoadBalancingPtrOutput() K0sNodeLocalLoadBalancingPtrOutput {
+	return i.ToK0sNodeLocalLoadBalancingPtrOutputWithContext(context.Background())
+}
+
+func (i K0sNodeLocalLoadBalancingArgs) ToK0sNodeLocalLoadBalancingPtrOutputWithContext(ctx context.Context) K0sNodeLocalLoadBalancingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sNodeLocalLoadBalancingOutput).ToK0sNodeLocalLoadBalancingPtrOutputWithContext(ctx)
+}
+
+// K0sNodeLocalLoadBalancingPtrInput is an input type that accepts K0sNodeLocalLoadBalancingArgs, K0sNodeLocalLoadBalancingPtr and K0sNodeLocalLoadBalancingPtrOutput values.
+// You can construct a concrete instance of `K0sNodeLocalLoadBalancingPtrInput` via:
+//
+//	        K0sNodeLocalLoadBalancingArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sNodeLocalLoadBalancingPtrInput interface {
+	pulumi.Input
+
+	ToK0sNodeLocalLoadBalancingPtrOutput() K0sNodeLocalLoadBalancingPtrOutput
+	ToK0sNodeLocalLoadBalancingPtrOutputWithContext(context.Context) K0sNodeLocalLoadBalancingPtrOutput
+}
+
+type k0sNodeLocalLoadBalancingPtrType K0sNodeLocalLoadBalancingArgs
+
+func K0sNodeLocalLoadBalancingPtr(v *K0sNodeLocalLoadBalancingArgs) K0sNodeLocalLoadBalancingPtrInput {
+	return (*k0sNodeLocalLoadBalancingPtrType)(v)
+}
+
+func (*k0sNodeLocalLoadBalancingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sNodeLocalLoadBalancing)(nil)).Elem()
+}
+
+func (i *k0sNodeLocalLoadBalancingPtrType) ToK0sNodeLocalLoadBalancingPtrOutput() K0sNodeLocalLoadBalancingPtrOutput {
+	return i.ToK0sNodeLocalLoadBalancingPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sNodeLocalLoadBalancingPtrType) ToK0sNodeLocalLoadBalancingPtrOutputWithContext(ctx context.Context) K0sNodeLocalLoadBalancingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sNodeLocalLoadBalancingPtrOutput)
+}
+
+type K0sNodeLocalLoadBalancingOutput struct{ *pulumi.OutputState }
+
+func (K0sNodeLocalLoadBalancingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sNodeLocalLoadBalancing)(nil)).Elem()
+}
+
+func (o K0sNodeLocalLoadBalancingOutput) ToK0sNodeLocalLoadBalancingOutput() K0sNodeLocalLoadBalancingOutput {
+	return o
+}
+
+func (o K0sNodeLocalLoadBalancingOutput) ToK0sNodeLocalLoadBalancingOutputWithContext(ctx context.Context) K0sNodeLocalLoadBalancingOutput {
+	return o
+}
+
+func (o K0sNodeLocalLoadBalancingOutput) ToK0sNodeLocalLoadBalancingPtrOutput() K0sNodeLocalLoadBalancingPtrOutput {
+	return o.ToK0sNodeLocalLoadBalancingPtrOutputWithContext(context.Background())
+}
+
+func (o K0sNodeLocalLoadBalancingOutput) ToK0sNodeLocalLoadBalancingPtrOutputWithContext(ctx context.Context) K0sNodeLocalLoadBalancingPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sNodeLocalLoadBalancing) *K0sNodeLocalLoadBalancing {
+		return &v
+	}).(K0sNodeLocalLoadBalancingPtrOutput)
+}
+
+func (o K0sNodeLocalLoadBalancingOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sNodeLocalLoadBalancing) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sNodeLocalLoadBalancingOutput) EnvoyProxy() K0sEnvoyProxyPtrOutput {
+	return o.ApplyT(func(v K0sNodeLocalLoadBalancing) *K0sEnvoyProxy { return v.EnvoyProxy }).(K0sEnvoyProxyPtrOutput)
+}
+
+func (o K0sNodeLocalLoadBalancingOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sNodeLocalLoadBalancing) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type K0sNodeLocalLoadBalancingPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sNodeLocalLoadBalancingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sNodeLocalLoadBalancing)(nil)).Elem()
+}
+
+func (o K0sNodeLocalLoadBalancingPtrOutput) ToK0sNodeLocalLoadBalancingPtrOutput() K0sNodeLocalLoadBalancingPtrOutput {
+	return o
+}
+
+func (o K0sNodeLocalLoadBalancingPtrOutput) ToK0sNodeLocalLoadBalancingPtrOutputWithContext(ctx context.Context) K0sNodeLocalLoadBalancingPtrOutput {
+	return o
+}
+
+func (o K0sNodeLocalLoadBalancingPtrOutput) Elem() K0sNodeLocalLoadBalancingOutput {
+	return o.ApplyT(func(v *K0sNodeLocalLoadBalancing) K0sNodeLocalLoadBalancing {
+		if v != nil {
+			return *v
+		}
+		var ret K0sNodeLocalLoadBalancing
+		return ret
+	}).(K0sNodeLocalLoadBalancingOutput)
+}
+
+func (o K0sNodeLocalLoadBalancingPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sNodeLocalLoadBalancing) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o K0sNodeLocalLoadBalancingPtrOutput) EnvoyProxy() K0sEnvoyProxyPtrOutput {
+	return o.ApplyT(func(v *K0sNodeLocalLoadBalancing) *K0sEnvoyProxy {
+		if v == nil {
+			return nil
+		}
+		return v.EnvoyProxy
+	}).(K0sEnvoyProxyPtrOutput)
+}
+
+func (o K0sNodeLocalLoadBalancingPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sNodeLocalLoadBalancing) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sPodSecurityPolicy struct {
+	DefaultPolicy *string `pulumi:"defaultPolicy"`
+}
+
+// K0sPodSecurityPolicyInput is an input type that accepts K0sPodSecurityPolicyArgs and K0sPodSecurityPolicyOutput values.
+// You can construct a concrete instance of `K0sPodSecurityPolicyInput` via:
+//
+//	K0sPodSecurityPolicyArgs{...}
+type K0sPodSecurityPolicyInput interface {
+	pulumi.Input
+
+	ToK0sPodSecurityPolicyOutput() K0sPodSecurityPolicyOutput
+	ToK0sPodSecurityPolicyOutputWithContext(context.Context) K0sPodSecurityPolicyOutput
+}
+
+type K0sPodSecurityPolicyArgs struct {
+	DefaultPolicy pulumi.StringPtrInput `pulumi:"defaultPolicy"`
+}
+
+func (K0sPodSecurityPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sPodSecurityPolicy)(nil)).Elem()
+}
+
+func (i K0sPodSecurityPolicyArgs) ToK0sPodSecurityPolicyOutput() K0sPodSecurityPolicyOutput {
+	return i.ToK0sPodSecurityPolicyOutputWithContext(context.Background())
+}
+
+func (i K0sPodSecurityPolicyArgs) ToK0sPodSecurityPolicyOutputWithContext(ctx context.Context) K0sPodSecurityPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sPodSecurityPolicyOutput)
+}
+
+func (i K0sPodSecurityPolicyArgs) ToK0sPodSecurityPolicyPtrOutput() K0sPodSecurityPolicyPtrOutput {
+	return i.ToK0sPodSecurityPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i K0sPodSecurityPolicyArgs) ToK0sPodSecurityPolicyPtrOutputWithContext(ctx context.Context) K0sPodSecurityPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sPodSecurityPolicyOutput).ToK0sPodSecurityPolicyPtrOutputWithContext(ctx)
+}
+
+// K0sPodSecurityPolicyPtrInput is an input type that accepts K0sPodSecurityPolicyArgs, K0sPodSecurityPolicyPtr and K0sPodSecurityPolicyPtrOutput values.
+// You can construct a concrete instance of `K0sPodSecurityPolicyPtrInput` via:
+//
+//	        K0sPodSecurityPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sPodSecurityPolicyPtrInput interface {
+	pulumi.Input
+
+	ToK0sPodSecurityPolicyPtrOutput() K0sPodSecurityPolicyPtrOutput
+	ToK0sPodSecurityPolicyPtrOutputWithContext(context.Context) K0sPodSecurityPolicyPtrOutput
+}
+
+type k0sPodSecurityPolicyPtrType K0sPodSecurityPolicyArgs
+
+func K0sPodSecurityPolicyPtr(v *K0sPodSecurityPolicyArgs) K0sPodSecurityPolicyPtrInput {
+	return (*k0sPodSecurityPolicyPtrType)(v)
+}
+
+func (*k0sPodSecurityPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sPodSecurityPolicy)(nil)).Elem()
+}
+
+func (i *k0sPodSecurityPolicyPtrType) ToK0sPodSecurityPolicyPtrOutput() K0sPodSecurityPolicyPtrOutput {
+	return i.ToK0sPodSecurityPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sPodSecurityPolicyPtrType) ToK0sPodSecurityPolicyPtrOutputWithContext(ctx context.Context) K0sPodSecurityPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sPodSecurityPolicyPtrOutput)
+}
+
+type K0sPodSecurityPolicyOutput struct{ *pulumi.OutputState }
+
+func (K0sPodSecurityPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sPodSecurityPolicy)(nil)).Elem()
+}
+
+func (o K0sPodSecurityPolicyOutput) ToK0sPodSecurityPolicyOutput() K0sPodSecurityPolicyOutput {
+	return o
+}
+
+func (o K0sPodSecurityPolicyOutput) ToK0sPodSecurityPolicyOutputWithContext(ctx context.Context) K0sPodSecurityPolicyOutput {
+	return o
+}
+
+func (o K0sPodSecurityPolicyOutput) ToK0sPodSecurityPolicyPtrOutput() K0sPodSecurityPolicyPtrOutput {
+	return o.ToK0sPodSecurityPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o K0sPodSecurityPolicyOutput) ToK0sPodSecurityPolicyPtrOutputWithContext(ctx context.Context) K0sPodSecurityPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sPodSecurityPolicy) *K0sPodSecurityPolicy {
+		return &v
+	}).(K0sPodSecurityPolicyPtrOutput)
+}
+
+func (o K0sPodSecurityPolicyOutput) DefaultPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sPodSecurityPolicy) *string { return v.DefaultPolicy }).(pulumi.StringPtrOutput)
+}
+
+type K0sPodSecurityPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sPodSecurityPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sPodSecurityPolicy)(nil)).Elem()
+}
+
+func (o K0sPodSecurityPolicyPtrOutput) ToK0sPodSecurityPolicyPtrOutput() K0sPodSecurityPolicyPtrOutput {
+	return o
+}
+
+func (o K0sPodSecurityPolicyPtrOutput) ToK0sPodSecurityPolicyPtrOutputWithContext(ctx context.Context) K0sPodSecurityPolicyPtrOutput {
+	return o
+}
+
+func (o K0sPodSecurityPolicyPtrOutput) Elem() K0sPodSecurityPolicyOutput {
+	return o.ApplyT(func(v *K0sPodSecurityPolicy) K0sPodSecurityPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret K0sPodSecurityPolicy
+		return ret
+	}).(K0sPodSecurityPolicyOutput)
+}
+
+func (o K0sPodSecurityPolicyPtrOutput) DefaultPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sPodSecurityPolicy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultPolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sScheduler struct {
+	ExtraArgs map[string]string `pulumi:"extraArgs"`
+}
+
+// K0sSchedulerInput is an input type that accepts K0sSchedulerArgs and K0sSchedulerOutput values.
+// You can construct a concrete instance of `K0sSchedulerInput` via:
+//
+//	K0sSchedulerArgs{...}
+type K0sSchedulerInput interface {
+	pulumi.Input
+
+	ToK0sSchedulerOutput() K0sSchedulerOutput
+	ToK0sSchedulerOutputWithContext(context.Context) K0sSchedulerOutput
+}
+
+type K0sSchedulerArgs struct {
+	ExtraArgs pulumi.StringMapInput `pulumi:"extraArgs"`
+}
+
+func (K0sSchedulerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sScheduler)(nil)).Elem()
+}
+
+func (i K0sSchedulerArgs) ToK0sSchedulerOutput() K0sSchedulerOutput {
+	return i.ToK0sSchedulerOutputWithContext(context.Background())
+}
+
+func (i K0sSchedulerArgs) ToK0sSchedulerOutputWithContext(ctx context.Context) K0sSchedulerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sSchedulerOutput)
+}
+
+func (i K0sSchedulerArgs) ToK0sSchedulerPtrOutput() K0sSchedulerPtrOutput {
+	return i.ToK0sSchedulerPtrOutputWithContext(context.Background())
+}
+
+func (i K0sSchedulerArgs) ToK0sSchedulerPtrOutputWithContext(ctx context.Context) K0sSchedulerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sSchedulerOutput).ToK0sSchedulerPtrOutputWithContext(ctx)
+}
+
+// K0sSchedulerPtrInput is an input type that accepts K0sSchedulerArgs, K0sSchedulerPtr and K0sSchedulerPtrOutput values.
+// You can construct a concrete instance of `K0sSchedulerPtrInput` via:
+//
+//	        K0sSchedulerArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sSchedulerPtrInput interface {
+	pulumi.Input
+
+	ToK0sSchedulerPtrOutput() K0sSchedulerPtrOutput
+	ToK0sSchedulerPtrOutputWithContext(context.Context) K0sSchedulerPtrOutput
+}
+
+type k0sSchedulerPtrType K0sSchedulerArgs
+
+func K0sSchedulerPtr(v *K0sSchedulerArgs) K0sSchedulerPtrInput {
+	return (*k0sSchedulerPtrType)(v)
+}
+
+func (*k0sSchedulerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sScheduler)(nil)).Elem()
+}
+
+func (i *k0sSchedulerPtrType) ToK0sSchedulerPtrOutput() K0sSchedulerPtrOutput {
+	return i.ToK0sSchedulerPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sSchedulerPtrType) ToK0sSchedulerPtrOutputWithContext(ctx context.Context) K0sSchedulerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sSchedulerPtrOutput)
+}
+
+type K0sSchedulerOutput struct{ *pulumi.OutputState }
+
+func (K0sSchedulerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sScheduler)(nil)).Elem()
+}
+
+func (o K0sSchedulerOutput) ToK0sSchedulerOutput() K0sSchedulerOutput {
+	return o
+}
+
+func (o K0sSchedulerOutput) ToK0sSchedulerOutputWithContext(ctx context.Context) K0sSchedulerOutput {
+	return o
+}
+
+func (o K0sSchedulerOutput) ToK0sSchedulerPtrOutput() K0sSchedulerPtrOutput {
+	return o.ToK0sSchedulerPtrOutputWithContext(context.Background())
+}
+
+func (o K0sSchedulerOutput) ToK0sSchedulerPtrOutputWithContext(ctx context.Context) K0sSchedulerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sScheduler) *K0sScheduler {
+		return &v
+	}).(K0sSchedulerPtrOutput)
+}
+
+func (o K0sSchedulerOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v K0sScheduler) map[string]string { return v.ExtraArgs }).(pulumi.StringMapOutput)
+}
+
+type K0sSchedulerPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sSchedulerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sScheduler)(nil)).Elem()
+}
+
+func (o K0sSchedulerPtrOutput) ToK0sSchedulerPtrOutput() K0sSchedulerPtrOutput {
+	return o
+}
+
+func (o K0sSchedulerPtrOutput) ToK0sSchedulerPtrOutputWithContext(ctx context.Context) K0sSchedulerPtrOutput {
+	return o
+}
+
+func (o K0sSchedulerPtrOutput) Elem() K0sSchedulerOutput {
+	return o.ApplyT(func(v *K0sScheduler) K0sScheduler {
+		if v != nil {
+			return *v
+		}
+		var ret K0sScheduler
+		return ret
+	}).(K0sSchedulerOutput)
+}
+
+func (o K0sSchedulerPtrOutput) ExtraArgs() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *K0sScheduler) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(pulumi.StringMapOutput)
+}
+
+type K0sSpec struct {
+	Api               *K0sAPI               `pulumi:"api"`
+	ControllerManager *K0sControllerManager `pulumi:"controllerManager"`
+	FeatureGates      []K0sFeatureGate      `pulumi:"featureGates"`
+	Images            *K0sImages            `pulumi:"images"`
+	InstallConfig     *K0sInstallConfig     `pulumi:"installConfig"`
+	Konnectivity      *K0sKonnectivity      `pulumi:"konnectivity"`
+	Network           *K0sNetwork           `pulumi:"network"`
+	PodSecurityPolicy *K0sPodSecurityPolicy `pulumi:"podSecurityPolicy"`
+	Scheduler         *K0sScheduler         `pulumi:"scheduler"`
+	Storage           *K0sStorage           `pulumi:"storage"`
+	Telemetry         *K0sTelemetry         `pulumi:"telemetry"`
+	WorkerProfiles    []K0sWorkerProfile    `pulumi:"workerProfiles"`
+}
+
+// K0sSpecInput is an input type that accepts K0sSpecArgs and K0sSpecOutput values.
+// You can construct a concrete instance of `K0sSpecInput` via:
+//
+//	K0sSpecArgs{...}
+type K0sSpecInput interface {
+	pulumi.Input
+
+	ToK0sSpecOutput() K0sSpecOutput
+	ToK0sSpecOutputWithContext(context.Context) K0sSpecOutput
+}
+
+type K0sSpecArgs struct {
+	Api               K0sAPIPtrInput               `pulumi:"api"`
+	ControllerManager K0sControllerManagerPtrInput `pulumi:"controllerManager"`
+	FeatureGates      K0sFeatureGateArrayInput     `pulumi:"featureGates"`
+	Images            K0sImagesPtrInput            `pulumi:"images"`
+	InstallConfig     K0sInstallConfigPtrInput     `pulumi:"installConfig"`
+	Konnectivity      K0sKonnectivityPtrInput      `pulumi:"konnectivity"`
+	Network           K0sNetworkPtrInput           `pulumi:"network"`
+	PodSecurityPolicy K0sPodSecurityPolicyPtrInput `pulumi:"podSecurityPolicy"`
+	Scheduler         K0sSchedulerPtrInput         `pulumi:"scheduler"`
+	Storage           K0sStoragePtrInput           `pulumi:"storage"`
+	Telemetry         K0sTelemetryPtrInput         `pulumi:"telemetry"`
+	WorkerProfiles    K0sWorkerProfileArrayInput   `pulumi:"workerProfiles"`
+}
+
+func (K0sSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sSpec)(nil)).Elem()
+}
+
+func (i K0sSpecArgs) ToK0sSpecOutput() K0sSpecOutput {
+	return i.ToK0sSpecOutputWithContext(context.Background())
+}
+
+func (i K0sSpecArgs) ToK0sSpecOutputWithContext(ctx context.Context) K0sSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sSpecOutput)
+}
+
+func (i K0sSpecArgs) ToK0sSpecPtrOutput() K0sSpecPtrOutput {
+	return i.ToK0sSpecPtrOutputWithContext(context.Background())
+}
+
+func (i K0sSpecArgs) ToK0sSpecPtrOutputWithContext(ctx context.Context) K0sSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sSpecOutput).ToK0sSpecPtrOutputWithContext(ctx)
+}
+
+// K0sSpecPtrInput is an input type that accepts K0sSpecArgs, K0sSpecPtr and K0sSpecPtrOutput values.
+// You can construct a concrete instance of `K0sSpecPtrInput` via:
+//
+//	        K0sSpecArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sSpecPtrInput interface {
+	pulumi.Input
+
+	ToK0sSpecPtrOutput() K0sSpecPtrOutput
+	ToK0sSpecPtrOutputWithContext(context.Context) K0sSpecPtrOutput
+}
+
+type k0sSpecPtrType K0sSpecArgs
+
+func K0sSpecPtr(v *K0sSpecArgs) K0sSpecPtrInput {
+	return (*k0sSpecPtrType)(v)
+}
+
+func (*k0sSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sSpec)(nil)).Elem()
+}
+
+func (i *k0sSpecPtrType) ToK0sSpecPtrOutput() K0sSpecPtrOutput {
+	return i.ToK0sSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sSpecPtrType) ToK0sSpecPtrOutputWithContext(ctx context.Context) K0sSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sSpecPtrOutput)
+}
+
+type K0sSpecOutput struct{ *pulumi.OutputState }
+
+func (K0sSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sSpec)(nil)).Elem()
+}
+
+func (o K0sSpecOutput) ToK0sSpecOutput() K0sSpecOutput {
+	return o
+}
+
+func (o K0sSpecOutput) ToK0sSpecOutputWithContext(ctx context.Context) K0sSpecOutput {
+	return o
+}
+
+func (o K0sSpecOutput) ToK0sSpecPtrOutput() K0sSpecPtrOutput {
+	return o.ToK0sSpecPtrOutputWithContext(context.Background())
+}
+
+func (o K0sSpecOutput) ToK0sSpecPtrOutputWithContext(ctx context.Context) K0sSpecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sSpec) *K0sSpec {
+		return &v
+	}).(K0sSpecPtrOutput)
+}
+
+func (o K0sSpecOutput) Api() K0sAPIPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sAPI { return v.Api }).(K0sAPIPtrOutput)
+}
+
+func (o K0sSpecOutput) ControllerManager() K0sControllerManagerPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sControllerManager { return v.ControllerManager }).(K0sControllerManagerPtrOutput)
+}
+
+func (o K0sSpecOutput) FeatureGates() K0sFeatureGateArrayOutput {
+	return o.ApplyT(func(v K0sSpec) []K0sFeatureGate { return v.FeatureGates }).(K0sFeatureGateArrayOutput)
+}
+
+func (o K0sSpecOutput) Images() K0sImagesPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sImages { return v.Images }).(K0sImagesPtrOutput)
+}
+
+func (o K0sSpecOutput) InstallConfig() K0sInstallConfigPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sInstallConfig { return v.InstallConfig }).(K0sInstallConfigPtrOutput)
+}
+
+func (o K0sSpecOutput) Konnectivity() K0sKonnectivityPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sKonnectivity { return v.Konnectivity }).(K0sKonnectivityPtrOutput)
+}
+
+func (o K0sSpecOutput) Network() K0sNetworkPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sNetwork { return v.Network }).(K0sNetworkPtrOutput)
+}
+
+func (o K0sSpecOutput) PodSecurityPolicy() K0sPodSecurityPolicyPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sPodSecurityPolicy { return v.PodSecurityPolicy }).(K0sPodSecurityPolicyPtrOutput)
+}
+
+func (o K0sSpecOutput) Scheduler() K0sSchedulerPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sScheduler { return v.Scheduler }).(K0sSchedulerPtrOutput)
+}
+
+func (o K0sSpecOutput) Storage() K0sStoragePtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sStorage { return v.Storage }).(K0sStoragePtrOutput)
+}
+
+func (o K0sSpecOutput) Telemetry() K0sTelemetryPtrOutput {
+	return o.ApplyT(func(v K0sSpec) *K0sTelemetry { return v.Telemetry }).(K0sTelemetryPtrOutput)
+}
+
+func (o K0sSpecOutput) WorkerProfiles() K0sWorkerProfileArrayOutput {
+	return o.ApplyT(func(v K0sSpec) []K0sWorkerProfile { return v.WorkerProfiles }).(K0sWorkerProfileArrayOutput)
+}
+
+type K0sSpecPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sSpec)(nil)).Elem()
+}
+
+func (o K0sSpecPtrOutput) ToK0sSpecPtrOutput() K0sSpecPtrOutput {
+	return o
+}
+
+func (o K0sSpecPtrOutput) ToK0sSpecPtrOutputWithContext(ctx context.Context) K0sSpecPtrOutput {
+	return o
+}
+
+func (o K0sSpecPtrOutput) Elem() K0sSpecOutput {
+	return o.ApplyT(func(v *K0sSpec) K0sSpec {
+		if v != nil {
+			return *v
+		}
+		var ret K0sSpec
+		return ret
+	}).(K0sSpecOutput)
+}
+
+func (o K0sSpecPtrOutput) Api() K0sAPIPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sAPI {
+		if v == nil {
+			return nil
+		}
+		return v.Api
+	}).(K0sAPIPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) ControllerManager() K0sControllerManagerPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sControllerManager {
+		if v == nil {
+			return nil
+		}
+		return v.ControllerManager
+	}).(K0sControllerManagerPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) FeatureGates() K0sFeatureGateArrayOutput {
+	return o.ApplyT(func(v *K0sSpec) []K0sFeatureGate {
+		if v == nil {
+			return nil
+		}
+		return v.FeatureGates
+	}).(K0sFeatureGateArrayOutput)
+}
+
+func (o K0sSpecPtrOutput) Images() K0sImagesPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sImages {
+		if v == nil {
+			return nil
+		}
+		return v.Images
+	}).(K0sImagesPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) InstallConfig() K0sInstallConfigPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sInstallConfig {
+		if v == nil {
+			return nil
+		}
+		return v.InstallConfig
+	}).(K0sInstallConfigPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) Konnectivity() K0sKonnectivityPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sKonnectivity {
+		if v == nil {
+			return nil
+		}
+		return v.Konnectivity
+	}).(K0sKonnectivityPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) Network() K0sNetworkPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sNetwork {
+		if v == nil {
+			return nil
+		}
+		return v.Network
+	}).(K0sNetworkPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) PodSecurityPolicy() K0sPodSecurityPolicyPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sPodSecurityPolicy {
+		if v == nil {
+			return nil
+		}
+		return v.PodSecurityPolicy
+	}).(K0sPodSecurityPolicyPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) Scheduler() K0sSchedulerPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sScheduler {
+		if v == nil {
+			return nil
+		}
+		return v.Scheduler
+	}).(K0sSchedulerPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) Storage() K0sStoragePtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sStorage {
+		if v == nil {
+			return nil
+		}
+		return v.Storage
+	}).(K0sStoragePtrOutput)
+}
+
+func (o K0sSpecPtrOutput) Telemetry() K0sTelemetryPtrOutput {
+	return o.ApplyT(func(v *K0sSpec) *K0sTelemetry {
+		if v == nil {
+			return nil
+		}
+		return v.Telemetry
+	}).(K0sTelemetryPtrOutput)
+}
+
+func (o K0sSpecPtrOutput) WorkerProfiles() K0sWorkerProfileArrayOutput {
+	return o.ApplyT(func(v *K0sSpec) []K0sWorkerProfile {
+		if v == nil {
+			return nil
+		}
+		return v.WorkerProfiles
+	}).(K0sWorkerProfileArrayOutput)
+}
+
+type K0sStorage struct {
+	Etcd *K0sEtcd `pulumi:"etcd"`
+	Kine *K0sKine `pulumi:"kine"`
+	Type *string  `pulumi:"type"`
+}
+
+// K0sStorageInput is an input type that accepts K0sStorageArgs and K0sStorageOutput values.
+// You can construct a concrete instance of `K0sStorageInput` via:
+//
+//	K0sStorageArgs{...}
+type K0sStorageInput interface {
+	pulumi.Input
+
+	ToK0sStorageOutput() K0sStorageOutput
+	ToK0sStorageOutputWithContext(context.Context) K0sStorageOutput
+}
+
+type K0sStorageArgs struct {
+	Etcd K0sEtcdPtrInput       `pulumi:"etcd"`
+	Kine K0sKinePtrInput       `pulumi:"kine"`
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (K0sStorageArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sStorage)(nil)).Elem()
+}
+
+func (i K0sStorageArgs) ToK0sStorageOutput() K0sStorageOutput {
+	return i.ToK0sStorageOutputWithContext(context.Background())
+}
+
+func (i K0sStorageArgs) ToK0sStorageOutputWithContext(ctx context.Context) K0sStorageOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sStorageOutput)
+}
+
+func (i K0sStorageArgs) ToK0sStoragePtrOutput() K0sStoragePtrOutput {
+	return i.ToK0sStoragePtrOutputWithContext(context.Background())
+}
+
+func (i K0sStorageArgs) ToK0sStoragePtrOutputWithContext(ctx context.Context) K0sStoragePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sStorageOutput).ToK0sStoragePtrOutputWithContext(ctx)
+}
+
+// K0sStoragePtrInput is an input type that accepts K0sStorageArgs, K0sStoragePtr and K0sStoragePtrOutput values.
+// You can construct a concrete instance of `K0sStoragePtrInput` via:
+//
+//	        K0sStorageArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sStoragePtrInput interface {
+	pulumi.Input
+
+	ToK0sStoragePtrOutput() K0sStoragePtrOutput
+	ToK0sStoragePtrOutputWithContext(context.Context) K0sStoragePtrOutput
+}
+
+type k0sStoragePtrType K0sStorageArgs
+
+func K0sStoragePtr(v *K0sStorageArgs) K0sStoragePtrInput {
+	return (*k0sStoragePtrType)(v)
+}
+
+func (*k0sStoragePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sStorage)(nil)).Elem()
+}
+
+func (i *k0sStoragePtrType) ToK0sStoragePtrOutput() K0sStoragePtrOutput {
+	return i.ToK0sStoragePtrOutputWithContext(context.Background())
+}
+
+func (i *k0sStoragePtrType) ToK0sStoragePtrOutputWithContext(ctx context.Context) K0sStoragePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sStoragePtrOutput)
+}
+
+type K0sStorageOutput struct{ *pulumi.OutputState }
+
+func (K0sStorageOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sStorage)(nil)).Elem()
+}
+
+func (o K0sStorageOutput) ToK0sStorageOutput() K0sStorageOutput {
+	return o
+}
+
+func (o K0sStorageOutput) ToK0sStorageOutputWithContext(ctx context.Context) K0sStorageOutput {
+	return o
+}
+
+func (o K0sStorageOutput) ToK0sStoragePtrOutput() K0sStoragePtrOutput {
+	return o.ToK0sStoragePtrOutputWithContext(context.Background())
+}
+
+func (o K0sStorageOutput) ToK0sStoragePtrOutputWithContext(ctx context.Context) K0sStoragePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sStorage) *K0sStorage {
+		return &v
+	}).(K0sStoragePtrOutput)
+}
+
+func (o K0sStorageOutput) Etcd() K0sEtcdPtrOutput {
+	return o.ApplyT(func(v K0sStorage) *K0sEtcd { return v.Etcd }).(K0sEtcdPtrOutput)
+}
+
+func (o K0sStorageOutput) Kine() K0sKinePtrOutput {
+	return o.ApplyT(func(v K0sStorage) *K0sKine { return v.Kine }).(K0sKinePtrOutput)
+}
+
+func (o K0sStorageOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v K0sStorage) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type K0sStoragePtrOutput struct{ *pulumi.OutputState }
+
+func (K0sStoragePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sStorage)(nil)).Elem()
+}
+
+func (o K0sStoragePtrOutput) ToK0sStoragePtrOutput() K0sStoragePtrOutput {
+	return o
+}
+
+func (o K0sStoragePtrOutput) ToK0sStoragePtrOutputWithContext(ctx context.Context) K0sStoragePtrOutput {
+	return o
+}
+
+func (o K0sStoragePtrOutput) Elem() K0sStorageOutput {
+	return o.ApplyT(func(v *K0sStorage) K0sStorage {
+		if v != nil {
+			return *v
+		}
+		var ret K0sStorage
+		return ret
+	}).(K0sStorageOutput)
+}
+
+func (o K0sStoragePtrOutput) Etcd() K0sEtcdPtrOutput {
+	return o.ApplyT(func(v *K0sStorage) *K0sEtcd {
+		if v == nil {
+			return nil
+		}
+		return v.Etcd
+	}).(K0sEtcdPtrOutput)
+}
+
+func (o K0sStoragePtrOutput) Kine() K0sKinePtrOutput {
+	return o.ApplyT(func(v *K0sStorage) *K0sKine {
+		if v == nil {
+			return nil
+		}
+		return v.Kine
+	}).(K0sKinePtrOutput)
+}
+
+func (o K0sStoragePtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *K0sStorage) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type K0sTelemetry struct {
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// K0sTelemetryInput is an input type that accepts K0sTelemetryArgs and K0sTelemetryOutput values.
+// You can construct a concrete instance of `K0sTelemetryInput` via:
+//
+//	K0sTelemetryArgs{...}
+type K0sTelemetryInput interface {
+	pulumi.Input
+
+	ToK0sTelemetryOutput() K0sTelemetryOutput
+	ToK0sTelemetryOutputWithContext(context.Context) K0sTelemetryOutput
+}
+
+type K0sTelemetryArgs struct {
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (K0sTelemetryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sTelemetry)(nil)).Elem()
+}
+
+func (i K0sTelemetryArgs) ToK0sTelemetryOutput() K0sTelemetryOutput {
+	return i.ToK0sTelemetryOutputWithContext(context.Background())
+}
+
+func (i K0sTelemetryArgs) ToK0sTelemetryOutputWithContext(ctx context.Context) K0sTelemetryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sTelemetryOutput)
+}
+
+func (i K0sTelemetryArgs) ToK0sTelemetryPtrOutput() K0sTelemetryPtrOutput {
+	return i.ToK0sTelemetryPtrOutputWithContext(context.Background())
+}
+
+func (i K0sTelemetryArgs) ToK0sTelemetryPtrOutputWithContext(ctx context.Context) K0sTelemetryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sTelemetryOutput).ToK0sTelemetryPtrOutputWithContext(ctx)
+}
+
+// K0sTelemetryPtrInput is an input type that accepts K0sTelemetryArgs, K0sTelemetryPtr and K0sTelemetryPtrOutput values.
+// You can construct a concrete instance of `K0sTelemetryPtrInput` via:
+//
+//	        K0sTelemetryArgs{...}
+//
+//	or:
+//
+//	        nil
+type K0sTelemetryPtrInput interface {
+	pulumi.Input
+
+	ToK0sTelemetryPtrOutput() K0sTelemetryPtrOutput
+	ToK0sTelemetryPtrOutputWithContext(context.Context) K0sTelemetryPtrOutput
+}
+
+type k0sTelemetryPtrType K0sTelemetryArgs
+
+func K0sTelemetryPtr(v *K0sTelemetryArgs) K0sTelemetryPtrInput {
+	return (*k0sTelemetryPtrType)(v)
+}
+
+func (*k0sTelemetryPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sTelemetry)(nil)).Elem()
+}
+
+func (i *k0sTelemetryPtrType) ToK0sTelemetryPtrOutput() K0sTelemetryPtrOutput {
+	return i.ToK0sTelemetryPtrOutputWithContext(context.Background())
+}
+
+func (i *k0sTelemetryPtrType) ToK0sTelemetryPtrOutputWithContext(ctx context.Context) K0sTelemetryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sTelemetryPtrOutput)
+}
+
+type K0sTelemetryOutput struct{ *pulumi.OutputState }
+
+func (K0sTelemetryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sTelemetry)(nil)).Elem()
+}
+
+func (o K0sTelemetryOutput) ToK0sTelemetryOutput() K0sTelemetryOutput {
+	return o
+}
+
+func (o K0sTelemetryOutput) ToK0sTelemetryOutputWithContext(ctx context.Context) K0sTelemetryOutput {
+	return o
+}
+
+func (o K0sTelemetryOutput) ToK0sTelemetryPtrOutput() K0sTelemetryPtrOutput {
+	return o.ToK0sTelemetryPtrOutputWithContext(context.Background())
+}
+
+func (o K0sTelemetryOutput) ToK0sTelemetryPtrOutputWithContext(ctx context.Context) K0sTelemetryPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v K0sTelemetry) *K0sTelemetry {
+		return &v
+	}).(K0sTelemetryPtrOutput)
+}
+
+func (o K0sTelemetryOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v K0sTelemetry) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type K0sTelemetryPtrOutput struct{ *pulumi.OutputState }
+
+func (K0sTelemetryPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**K0sTelemetry)(nil)).Elem()
+}
+
+func (o K0sTelemetryPtrOutput) ToK0sTelemetryPtrOutput() K0sTelemetryPtrOutput {
+	return o
+}
+
+func (o K0sTelemetryPtrOutput) ToK0sTelemetryPtrOutputWithContext(ctx context.Context) K0sTelemetryPtrOutput {
+	return o
+}
+
+func (o K0sTelemetryPtrOutput) Elem() K0sTelemetryOutput {
+	return o.ApplyT(func(v *K0sTelemetry) K0sTelemetry {
+		if v != nil {
+			return *v
+		}
+		var ret K0sTelemetry
+		return ret
+	}).(K0sTelemetryOutput)
+}
+
+func (o K0sTelemetryPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *K0sTelemetry) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type K0sWorkerProfile struct {
 	Name   string                 `pulumi:"name"`
 	Values map[string]interface{} `pulumi:"values"`
 }
 
-// ClusterWorkerProfileInput is an input type that accepts ClusterWorkerProfileArgs and ClusterWorkerProfileOutput values.
-// You can construct a concrete instance of `ClusterWorkerProfileInput` via:
+// K0sWorkerProfileInput is an input type that accepts K0sWorkerProfileArgs and K0sWorkerProfileOutput values.
+// You can construct a concrete instance of `K0sWorkerProfileInput` via:
 //
-//	ClusterWorkerProfileArgs{...}
-type ClusterWorkerProfileInput interface {
+//	K0sWorkerProfileArgs{...}
+type K0sWorkerProfileInput interface {
 	pulumi.Input
 
-	ToClusterWorkerProfileOutput() ClusterWorkerProfileOutput
-	ToClusterWorkerProfileOutputWithContext(context.Context) ClusterWorkerProfileOutput
+	ToK0sWorkerProfileOutput() K0sWorkerProfileOutput
+	ToK0sWorkerProfileOutputWithContext(context.Context) K0sWorkerProfileOutput
 }
 
-type ClusterWorkerProfileArgs struct {
+type K0sWorkerProfileArgs struct {
 	Name   pulumi.StringInput `pulumi:"name"`
 	Values pulumi.MapInput    `pulumi:"values"`
 }
 
-func (ClusterWorkerProfileArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterWorkerProfile)(nil)).Elem()
+func (K0sWorkerProfileArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sWorkerProfile)(nil)).Elem()
 }
 
-func (i ClusterWorkerProfileArgs) ToClusterWorkerProfileOutput() ClusterWorkerProfileOutput {
-	return i.ToClusterWorkerProfileOutputWithContext(context.Background())
+func (i K0sWorkerProfileArgs) ToK0sWorkerProfileOutput() K0sWorkerProfileOutput {
+	return i.ToK0sWorkerProfileOutputWithContext(context.Background())
 }
 
-func (i ClusterWorkerProfileArgs) ToClusterWorkerProfileOutputWithContext(ctx context.Context) ClusterWorkerProfileOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterWorkerProfileOutput)
+func (i K0sWorkerProfileArgs) ToK0sWorkerProfileOutputWithContext(ctx context.Context) K0sWorkerProfileOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sWorkerProfileOutput)
 }
 
-// ClusterWorkerProfileArrayInput is an input type that accepts ClusterWorkerProfileArray and ClusterWorkerProfileArrayOutput values.
-// You can construct a concrete instance of `ClusterWorkerProfileArrayInput` via:
+// K0sWorkerProfileArrayInput is an input type that accepts K0sWorkerProfileArray and K0sWorkerProfileArrayOutput values.
+// You can construct a concrete instance of `K0sWorkerProfileArrayInput` via:
 //
-//	ClusterWorkerProfileArray{ ClusterWorkerProfileArgs{...} }
-type ClusterWorkerProfileArrayInput interface {
+//	K0sWorkerProfileArray{ K0sWorkerProfileArgs{...} }
+type K0sWorkerProfileArrayInput interface {
 	pulumi.Input
 
-	ToClusterWorkerProfileArrayOutput() ClusterWorkerProfileArrayOutput
-	ToClusterWorkerProfileArrayOutputWithContext(context.Context) ClusterWorkerProfileArrayOutput
+	ToK0sWorkerProfileArrayOutput() K0sWorkerProfileArrayOutput
+	ToK0sWorkerProfileArrayOutputWithContext(context.Context) K0sWorkerProfileArrayOutput
 }
 
-type ClusterWorkerProfileArray []ClusterWorkerProfileInput
+type K0sWorkerProfileArray []K0sWorkerProfileInput
 
-func (ClusterWorkerProfileArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterWorkerProfile)(nil)).Elem()
+func (K0sWorkerProfileArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]K0sWorkerProfile)(nil)).Elem()
 }
 
-func (i ClusterWorkerProfileArray) ToClusterWorkerProfileArrayOutput() ClusterWorkerProfileArrayOutput {
-	return i.ToClusterWorkerProfileArrayOutputWithContext(context.Background())
+func (i K0sWorkerProfileArray) ToK0sWorkerProfileArrayOutput() K0sWorkerProfileArrayOutput {
+	return i.ToK0sWorkerProfileArrayOutputWithContext(context.Background())
 }
 
-func (i ClusterWorkerProfileArray) ToClusterWorkerProfileArrayOutputWithContext(ctx context.Context) ClusterWorkerProfileArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterWorkerProfileArrayOutput)
+func (i K0sWorkerProfileArray) ToK0sWorkerProfileArrayOutputWithContext(ctx context.Context) K0sWorkerProfileArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(K0sWorkerProfileArrayOutput)
 }
 
-type ClusterWorkerProfileOutput struct{ *pulumi.OutputState }
+type K0sWorkerProfileOutput struct{ *pulumi.OutputState }
 
-func (ClusterWorkerProfileOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterWorkerProfile)(nil)).Elem()
+func (K0sWorkerProfileOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*K0sWorkerProfile)(nil)).Elem()
 }
 
-func (o ClusterWorkerProfileOutput) ToClusterWorkerProfileOutput() ClusterWorkerProfileOutput {
+func (o K0sWorkerProfileOutput) ToK0sWorkerProfileOutput() K0sWorkerProfileOutput {
 	return o
 }
 
-func (o ClusterWorkerProfileOutput) ToClusterWorkerProfileOutputWithContext(ctx context.Context) ClusterWorkerProfileOutput {
+func (o K0sWorkerProfileOutput) ToK0sWorkerProfileOutputWithContext(ctx context.Context) K0sWorkerProfileOutput {
 	return o
 }
 
-func (o ClusterWorkerProfileOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v ClusterWorkerProfile) string { return v.Name }).(pulumi.StringOutput)
+func (o K0sWorkerProfileOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v K0sWorkerProfile) string { return v.Name }).(pulumi.StringOutput)
 }
 
-func (o ClusterWorkerProfileOutput) Values() pulumi.MapOutput {
-	return o.ApplyT(func(v ClusterWorkerProfile) map[string]interface{} { return v.Values }).(pulumi.MapOutput)
+func (o K0sWorkerProfileOutput) Values() pulumi.MapOutput {
+	return o.ApplyT(func(v K0sWorkerProfile) map[string]interface{} { return v.Values }).(pulumi.MapOutput)
 }
 
-type ClusterWorkerProfileArrayOutput struct{ *pulumi.OutputState }
+type K0sWorkerProfileArrayOutput struct{ *pulumi.OutputState }
 
-func (ClusterWorkerProfileArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ClusterWorkerProfile)(nil)).Elem()
+func (K0sWorkerProfileArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]K0sWorkerProfile)(nil)).Elem()
 }
 
-func (o ClusterWorkerProfileArrayOutput) ToClusterWorkerProfileArrayOutput() ClusterWorkerProfileArrayOutput {
+func (o K0sWorkerProfileArrayOutput) ToK0sWorkerProfileArrayOutput() K0sWorkerProfileArrayOutput {
 	return o
 }
 
-func (o ClusterWorkerProfileArrayOutput) ToClusterWorkerProfileArrayOutputWithContext(ctx context.Context) ClusterWorkerProfileArrayOutput {
+func (o K0sWorkerProfileArrayOutput) ToK0sWorkerProfileArrayOutputWithContext(ctx context.Context) K0sWorkerProfileArrayOutput {
 	return o
 }
 
-func (o ClusterWorkerProfileArrayOutput) Index(i pulumi.IntInput) ClusterWorkerProfileOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterWorkerProfile {
-		return vs[0].([]ClusterWorkerProfile)[vs[1].(int)]
-	}).(ClusterWorkerProfileOutput)
+func (o K0sWorkerProfileArrayOutput) Index(i pulumi.IntInput) K0sWorkerProfileOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) K0sWorkerProfile {
+		return vs[0].([]K0sWorkerProfile)[vs[1].(int)]
+	}).(K0sWorkerProfileOutput)
 }
 
 func init() {
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAPIInput)(nil)).Elem(), ClusterAPIArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAPIPtrInput)(nil)).Elem(), ClusterAPIArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCalicoInput)(nil)).Elem(), ClusterCalicoArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCalicoPtrInput)(nil)).Elem(), ClusterCalicoArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCalicoImageInput)(nil)).Elem(), ClusterCalicoImageArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCalicoImagePtrInput)(nil)).Elem(), ClusterCalicoImageArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterControllerManagerInput)(nil)).Elem(), ClusterControllerManagerArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterControllerManagerPtrInput)(nil)).Elem(), ClusterControllerManagerArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterDualStackInput)(nil)).Elem(), ClusterDualStackArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterDualStackPtrInput)(nil)).Elem(), ClusterDualStackArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterEnvoyProxyInput)(nil)).Elem(), ClusterEnvoyProxyArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterEnvoyProxyPtrInput)(nil)).Elem(), ClusterEnvoyProxyArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterEtcdInput)(nil)).Elem(), ClusterEtcdArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterEtcdPtrInput)(nil)).Elem(), ClusterEtcdArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterEtcdExternalClusterInput)(nil)).Elem(), ClusterEtcdExternalClusterArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterEtcdExternalClusterPtrInput)(nil)).Elem(), ClusterEtcdExternalClusterArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterFeatureGateInput)(nil)).Elem(), ClusterFeatureGateArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterFeatureGateArrayInput)(nil)).Elem(), ClusterFeatureGateArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterFileInput)(nil)).Elem(), ClusterFileArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterFileArrayInput)(nil)).Elem(), ClusterFileArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterHookInput)(nil)).Elem(), ClusterHookArgs{})
@@ -6835,76 +6980,78 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterHooksPtrInput)(nil)).Elem(), ClusterHooksArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterHostInput)(nil)).Elem(), ClusterHostArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterHostArrayInput)(nil)).Elem(), ClusterHostArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterImageInput)(nil)).Elem(), ClusterImageArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterImagePtrInput)(nil)).Elem(), ClusterImageArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterImagesInput)(nil)).Elem(), ClusterImagesArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterImagesPtrInput)(nil)).Elem(), ClusterImagesArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterInstallConfigInput)(nil)).Elem(), ClusterInstallConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterInstallConfigPtrInput)(nil)).Elem(), ClusterInstallConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterInstallConfigUserInput)(nil)).Elem(), ClusterInstallConfigUserArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterInstallConfigUserPtrInput)(nil)).Elem(), ClusterInstallConfigUserArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterK0sInput)(nil)).Elem(), ClusterK0sArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterK0sPtrInput)(nil)).Elem(), ClusterK0sArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterK0sConfigInput)(nil)).Elem(), ClusterK0sConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterK0sConfigPtrInput)(nil)).Elem(), ClusterK0sConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterK0sSpecInput)(nil)).Elem(), ClusterK0sSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterK0sSpecPtrInput)(nil)).Elem(), ClusterK0sSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKineInput)(nil)).Elem(), ClusterKineArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKinePtrInput)(nil)).Elem(), ClusterKineArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKonnectivityInput)(nil)).Elem(), ClusterKonnectivityArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKonnectivityPtrInput)(nil)).Elem(), ClusterKonnectivityArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeProxyInput)(nil)).Elem(), ClusterKubeProxyArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeProxyPtrInput)(nil)).Elem(), ClusterKubeProxyArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeProxyIPTablesInput)(nil)).Elem(), ClusterKubeProxyIPTablesArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeProxyIPTablesPtrInput)(nil)).Elem(), ClusterKubeProxyIPTablesArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeProxyIPVSInput)(nil)).Elem(), ClusterKubeProxyIPVSArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeProxyIPVSPtrInput)(nil)).Elem(), ClusterKubeProxyIPVSArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeRouterInput)(nil)).Elem(), ClusterKubeRouterArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeRouterPtrInput)(nil)).Elem(), ClusterKubeRouterArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeRouterImageInput)(nil)).Elem(), ClusterKubeRouterImageArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterKubeRouterImagePtrInput)(nil)).Elem(), ClusterKubeRouterImageArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterLocalhostInput)(nil)).Elem(), ClusterLocalhostArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterLocalhostPtrInput)(nil)).Elem(), ClusterLocalhostArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMetadataInput)(nil)).Elem(), ClusterMetadataArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMetadataPtrInput)(nil)).Elem(), ClusterMetadataArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNetworkInput)(nil)).Elem(), ClusterNetworkArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNetworkPtrInput)(nil)).Elem(), ClusterNetworkArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeLocalLoadBalancingInput)(nil)).Elem(), ClusterNodeLocalLoadBalancingArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodeLocalLoadBalancingPtrInput)(nil)).Elem(), ClusterNodeLocalLoadBalancingArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterPodSecurityPolicyInput)(nil)).Elem(), ClusterPodSecurityPolicyArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterPodSecurityPolicyPtrInput)(nil)).Elem(), ClusterPodSecurityPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSSHInput)(nil)).Elem(), ClusterSSHArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSSHPtrInput)(nil)).Elem(), ClusterSSHArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSchedulerInput)(nil)).Elem(), ClusterSchedulerArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSchedulerPtrInput)(nil)).Elem(), ClusterSchedulerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSpecInput)(nil)).Elem(), ClusterSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSpecPtrInput)(nil)).Elem(), ClusterSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterStorageInput)(nil)).Elem(), ClusterStorageArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterStoragePtrInput)(nil)).Elem(), ClusterStorageArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTelemetryInput)(nil)).Elem(), ClusterTelemetryArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTelemetryPtrInput)(nil)).Elem(), ClusterTelemetryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterWinRMInput)(nil)).Elem(), ClusterWinRMArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterWinRMPtrInput)(nil)).Elem(), ClusterWinRMArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterWorkerProfileInput)(nil)).Elem(), ClusterWorkerProfileArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterWorkerProfileArrayInput)(nil)).Elem(), ClusterWorkerProfileArray{})
-	pulumi.RegisterOutputType(ClusterAPIOutput{})
-	pulumi.RegisterOutputType(ClusterAPIPtrOutput{})
-	pulumi.RegisterOutputType(ClusterCalicoOutput{})
-	pulumi.RegisterOutputType(ClusterCalicoPtrOutput{})
-	pulumi.RegisterOutputType(ClusterCalicoImageOutput{})
-	pulumi.RegisterOutputType(ClusterCalicoImagePtrOutput{})
-	pulumi.RegisterOutputType(ClusterControllerManagerOutput{})
-	pulumi.RegisterOutputType(ClusterControllerManagerPtrOutput{})
-	pulumi.RegisterOutputType(ClusterDualStackOutput{})
-	pulumi.RegisterOutputType(ClusterDualStackPtrOutput{})
-	pulumi.RegisterOutputType(ClusterEnvoyProxyOutput{})
-	pulumi.RegisterOutputType(ClusterEnvoyProxyPtrOutput{})
-	pulumi.RegisterOutputType(ClusterEtcdOutput{})
-	pulumi.RegisterOutputType(ClusterEtcdPtrOutput{})
-	pulumi.RegisterOutputType(ClusterEtcdExternalClusterOutput{})
-	pulumi.RegisterOutputType(ClusterEtcdExternalClusterPtrOutput{})
-	pulumi.RegisterOutputType(ClusterFeatureGateOutput{})
-	pulumi.RegisterOutputType(ClusterFeatureGateArrayOutput{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sInput)(nil)).Elem(), K0sArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sPtrInput)(nil)).Elem(), K0sArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sAPIInput)(nil)).Elem(), K0sAPIArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sAPIPtrInput)(nil)).Elem(), K0sAPIArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sCalicoInput)(nil)).Elem(), K0sCalicoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sCalicoPtrInput)(nil)).Elem(), K0sCalicoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sCalicoImageInput)(nil)).Elem(), K0sCalicoImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sCalicoImagePtrInput)(nil)).Elem(), K0sCalicoImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sControllerManagerInput)(nil)).Elem(), K0sControllerManagerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sControllerManagerPtrInput)(nil)).Elem(), K0sControllerManagerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sDualStackInput)(nil)).Elem(), K0sDualStackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sDualStackPtrInput)(nil)).Elem(), K0sDualStackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sEnvoyProxyInput)(nil)).Elem(), K0sEnvoyProxyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sEnvoyProxyPtrInput)(nil)).Elem(), K0sEnvoyProxyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sEtcdInput)(nil)).Elem(), K0sEtcdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sEtcdPtrInput)(nil)).Elem(), K0sEtcdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sEtcdExternalClusterInput)(nil)).Elem(), K0sEtcdExternalClusterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sEtcdExternalClusterPtrInput)(nil)).Elem(), K0sEtcdExternalClusterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sFeatureGateInput)(nil)).Elem(), K0sFeatureGateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sFeatureGateArrayInput)(nil)).Elem(), K0sFeatureGateArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sImageInput)(nil)).Elem(), K0sImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sImagePtrInput)(nil)).Elem(), K0sImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sImagesInput)(nil)).Elem(), K0sImagesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sImagesPtrInput)(nil)).Elem(), K0sImagesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sInstallConfigInput)(nil)).Elem(), K0sInstallConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sInstallConfigPtrInput)(nil)).Elem(), K0sInstallConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sInstallConfigUserInput)(nil)).Elem(), K0sInstallConfigUserArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sInstallConfigUserPtrInput)(nil)).Elem(), K0sInstallConfigUserArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKineInput)(nil)).Elem(), K0sKineArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKinePtrInput)(nil)).Elem(), K0sKineArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKonnectivityInput)(nil)).Elem(), K0sKonnectivityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKonnectivityPtrInput)(nil)).Elem(), K0sKonnectivityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeProxyInput)(nil)).Elem(), K0sKubeProxyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeProxyPtrInput)(nil)).Elem(), K0sKubeProxyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeProxyIPTablesInput)(nil)).Elem(), K0sKubeProxyIPTablesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeProxyIPTablesPtrInput)(nil)).Elem(), K0sKubeProxyIPTablesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeProxyIPVSInput)(nil)).Elem(), K0sKubeProxyIPVSArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeProxyIPVSPtrInput)(nil)).Elem(), K0sKubeProxyIPVSArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeRouterInput)(nil)).Elem(), K0sKubeRouterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeRouterPtrInput)(nil)).Elem(), K0sKubeRouterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeRouterImageInput)(nil)).Elem(), K0sKubeRouterImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sKubeRouterImagePtrInput)(nil)).Elem(), K0sKubeRouterImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sMetadataInput)(nil)).Elem(), K0sMetadataArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sMetadataPtrInput)(nil)).Elem(), K0sMetadataArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sNetworkInput)(nil)).Elem(), K0sNetworkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sNetworkPtrInput)(nil)).Elem(), K0sNetworkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sNodeLocalLoadBalancingInput)(nil)).Elem(), K0sNodeLocalLoadBalancingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sNodeLocalLoadBalancingPtrInput)(nil)).Elem(), K0sNodeLocalLoadBalancingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sPodSecurityPolicyInput)(nil)).Elem(), K0sPodSecurityPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sPodSecurityPolicyPtrInput)(nil)).Elem(), K0sPodSecurityPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sSchedulerInput)(nil)).Elem(), K0sSchedulerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sSchedulerPtrInput)(nil)).Elem(), K0sSchedulerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sSpecInput)(nil)).Elem(), K0sSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sSpecPtrInput)(nil)).Elem(), K0sSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sStorageInput)(nil)).Elem(), K0sStorageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sStoragePtrInput)(nil)).Elem(), K0sStorageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sTelemetryInput)(nil)).Elem(), K0sTelemetryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sTelemetryPtrInput)(nil)).Elem(), K0sTelemetryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sWorkerProfileInput)(nil)).Elem(), K0sWorkerProfileArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*K0sWorkerProfileArrayInput)(nil)).Elem(), K0sWorkerProfileArray{})
 	pulumi.RegisterOutputType(ClusterFileOutput{})
 	pulumi.RegisterOutputType(ClusterFileArrayOutput{})
 	pulumi.RegisterOutputType(ClusterHookOutput{})
@@ -6913,56 +7060,76 @@ func init() {
 	pulumi.RegisterOutputType(ClusterHooksPtrOutput{})
 	pulumi.RegisterOutputType(ClusterHostOutput{})
 	pulumi.RegisterOutputType(ClusterHostArrayOutput{})
-	pulumi.RegisterOutputType(ClusterImageOutput{})
-	pulumi.RegisterOutputType(ClusterImagePtrOutput{})
-	pulumi.RegisterOutputType(ClusterImagesOutput{})
-	pulumi.RegisterOutputType(ClusterImagesPtrOutput{})
-	pulumi.RegisterOutputType(ClusterInstallConfigOutput{})
-	pulumi.RegisterOutputType(ClusterInstallConfigPtrOutput{})
-	pulumi.RegisterOutputType(ClusterInstallConfigUserOutput{})
-	pulumi.RegisterOutputType(ClusterInstallConfigUserPtrOutput{})
 	pulumi.RegisterOutputType(ClusterK0sOutput{})
 	pulumi.RegisterOutputType(ClusterK0sPtrOutput{})
-	pulumi.RegisterOutputType(ClusterK0sConfigOutput{})
-	pulumi.RegisterOutputType(ClusterK0sConfigPtrOutput{})
-	pulumi.RegisterOutputType(ClusterK0sSpecOutput{})
-	pulumi.RegisterOutputType(ClusterK0sSpecPtrOutput{})
-	pulumi.RegisterOutputType(ClusterKineOutput{})
-	pulumi.RegisterOutputType(ClusterKinePtrOutput{})
-	pulumi.RegisterOutputType(ClusterKonnectivityOutput{})
-	pulumi.RegisterOutputType(ClusterKonnectivityPtrOutput{})
-	pulumi.RegisterOutputType(ClusterKubeProxyOutput{})
-	pulumi.RegisterOutputType(ClusterKubeProxyPtrOutput{})
-	pulumi.RegisterOutputType(ClusterKubeProxyIPTablesOutput{})
-	pulumi.RegisterOutputType(ClusterKubeProxyIPTablesPtrOutput{})
-	pulumi.RegisterOutputType(ClusterKubeProxyIPVSOutput{})
-	pulumi.RegisterOutputType(ClusterKubeProxyIPVSPtrOutput{})
-	pulumi.RegisterOutputType(ClusterKubeRouterOutput{})
-	pulumi.RegisterOutputType(ClusterKubeRouterPtrOutput{})
-	pulumi.RegisterOutputType(ClusterKubeRouterImageOutput{})
-	pulumi.RegisterOutputType(ClusterKubeRouterImagePtrOutput{})
 	pulumi.RegisterOutputType(ClusterLocalhostOutput{})
 	pulumi.RegisterOutputType(ClusterLocalhostPtrOutput{})
 	pulumi.RegisterOutputType(ClusterMetadataOutput{})
 	pulumi.RegisterOutputType(ClusterMetadataPtrOutput{})
-	pulumi.RegisterOutputType(ClusterNetworkOutput{})
-	pulumi.RegisterOutputType(ClusterNetworkPtrOutput{})
-	pulumi.RegisterOutputType(ClusterNodeLocalLoadBalancingOutput{})
-	pulumi.RegisterOutputType(ClusterNodeLocalLoadBalancingPtrOutput{})
-	pulumi.RegisterOutputType(ClusterPodSecurityPolicyOutput{})
-	pulumi.RegisterOutputType(ClusterPodSecurityPolicyPtrOutput{})
 	pulumi.RegisterOutputType(ClusterSSHOutput{})
 	pulumi.RegisterOutputType(ClusterSSHPtrOutput{})
-	pulumi.RegisterOutputType(ClusterSchedulerOutput{})
-	pulumi.RegisterOutputType(ClusterSchedulerPtrOutput{})
 	pulumi.RegisterOutputType(ClusterSpecOutput{})
 	pulumi.RegisterOutputType(ClusterSpecPtrOutput{})
-	pulumi.RegisterOutputType(ClusterStorageOutput{})
-	pulumi.RegisterOutputType(ClusterStoragePtrOutput{})
-	pulumi.RegisterOutputType(ClusterTelemetryOutput{})
-	pulumi.RegisterOutputType(ClusterTelemetryPtrOutput{})
 	pulumi.RegisterOutputType(ClusterWinRMOutput{})
 	pulumi.RegisterOutputType(ClusterWinRMPtrOutput{})
-	pulumi.RegisterOutputType(ClusterWorkerProfileOutput{})
-	pulumi.RegisterOutputType(ClusterWorkerProfileArrayOutput{})
+	pulumi.RegisterOutputType(K0sOutput{})
+	pulumi.RegisterOutputType(K0sPtrOutput{})
+	pulumi.RegisterOutputType(K0sAPIOutput{})
+	pulumi.RegisterOutputType(K0sAPIPtrOutput{})
+	pulumi.RegisterOutputType(K0sCalicoOutput{})
+	pulumi.RegisterOutputType(K0sCalicoPtrOutput{})
+	pulumi.RegisterOutputType(K0sCalicoImageOutput{})
+	pulumi.RegisterOutputType(K0sCalicoImagePtrOutput{})
+	pulumi.RegisterOutputType(K0sControllerManagerOutput{})
+	pulumi.RegisterOutputType(K0sControllerManagerPtrOutput{})
+	pulumi.RegisterOutputType(K0sDualStackOutput{})
+	pulumi.RegisterOutputType(K0sDualStackPtrOutput{})
+	pulumi.RegisterOutputType(K0sEnvoyProxyOutput{})
+	pulumi.RegisterOutputType(K0sEnvoyProxyPtrOutput{})
+	pulumi.RegisterOutputType(K0sEtcdOutput{})
+	pulumi.RegisterOutputType(K0sEtcdPtrOutput{})
+	pulumi.RegisterOutputType(K0sEtcdExternalClusterOutput{})
+	pulumi.RegisterOutputType(K0sEtcdExternalClusterPtrOutput{})
+	pulumi.RegisterOutputType(K0sFeatureGateOutput{})
+	pulumi.RegisterOutputType(K0sFeatureGateArrayOutput{})
+	pulumi.RegisterOutputType(K0sImageOutput{})
+	pulumi.RegisterOutputType(K0sImagePtrOutput{})
+	pulumi.RegisterOutputType(K0sImagesOutput{})
+	pulumi.RegisterOutputType(K0sImagesPtrOutput{})
+	pulumi.RegisterOutputType(K0sInstallConfigOutput{})
+	pulumi.RegisterOutputType(K0sInstallConfigPtrOutput{})
+	pulumi.RegisterOutputType(K0sInstallConfigUserOutput{})
+	pulumi.RegisterOutputType(K0sInstallConfigUserPtrOutput{})
+	pulumi.RegisterOutputType(K0sKineOutput{})
+	pulumi.RegisterOutputType(K0sKinePtrOutput{})
+	pulumi.RegisterOutputType(K0sKonnectivityOutput{})
+	pulumi.RegisterOutputType(K0sKonnectivityPtrOutput{})
+	pulumi.RegisterOutputType(K0sKubeProxyOutput{})
+	pulumi.RegisterOutputType(K0sKubeProxyPtrOutput{})
+	pulumi.RegisterOutputType(K0sKubeProxyIPTablesOutput{})
+	pulumi.RegisterOutputType(K0sKubeProxyIPTablesPtrOutput{})
+	pulumi.RegisterOutputType(K0sKubeProxyIPVSOutput{})
+	pulumi.RegisterOutputType(K0sKubeProxyIPVSPtrOutput{})
+	pulumi.RegisterOutputType(K0sKubeRouterOutput{})
+	pulumi.RegisterOutputType(K0sKubeRouterPtrOutput{})
+	pulumi.RegisterOutputType(K0sKubeRouterImageOutput{})
+	pulumi.RegisterOutputType(K0sKubeRouterImagePtrOutput{})
+	pulumi.RegisterOutputType(K0sMetadataOutput{})
+	pulumi.RegisterOutputType(K0sMetadataPtrOutput{})
+	pulumi.RegisterOutputType(K0sNetworkOutput{})
+	pulumi.RegisterOutputType(K0sNetworkPtrOutput{})
+	pulumi.RegisterOutputType(K0sNodeLocalLoadBalancingOutput{})
+	pulumi.RegisterOutputType(K0sNodeLocalLoadBalancingPtrOutput{})
+	pulumi.RegisterOutputType(K0sPodSecurityPolicyOutput{})
+	pulumi.RegisterOutputType(K0sPodSecurityPolicyPtrOutput{})
+	pulumi.RegisterOutputType(K0sSchedulerOutput{})
+	pulumi.RegisterOutputType(K0sSchedulerPtrOutput{})
+	pulumi.RegisterOutputType(K0sSpecOutput{})
+	pulumi.RegisterOutputType(K0sSpecPtrOutput{})
+	pulumi.RegisterOutputType(K0sStorageOutput{})
+	pulumi.RegisterOutputType(K0sStoragePtrOutput{})
+	pulumi.RegisterOutputType(K0sTelemetryOutput{})
+	pulumi.RegisterOutputType(K0sTelemetryPtrOutput{})
+	pulumi.RegisterOutputType(K0sWorkerProfileOutput{})
+	pulumi.RegisterOutputType(K0sWorkerProfileArrayOutput{})
 }

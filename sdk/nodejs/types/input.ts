@@ -5,71 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
-export interface ClusterAPIArgs {
-    address?: pulumi.Input<string>;
-    externalAddress?: pulumi.Input<string>;
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    k0sApiPort?: pulumi.Input<number>;
-    port?: pulumi.Input<number>;
-    sans?: pulumi.Input<pulumi.Input<string>[]>;
-}
-
-export interface ClusterCalicoArgs {
-    envVars?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    flexVolumeDriverPath?: pulumi.Input<string>;
-    ipAutodetectionMethod?: pulumi.Input<string>;
-    mode?: pulumi.Input<string>;
-    mtu?: pulumi.Input<number>;
-    overlay?: pulumi.Input<string>;
-    vxlanPort?: pulumi.Input<number>;
-    vxlanVNI?: pulumi.Input<number>;
-    wireguard?: pulumi.Input<boolean>;
-}
-
-export interface ClusterCalicoImageArgs {
-    cni?: pulumi.Input<inputs.ClusterImageArgs>;
-    flexvolume?: pulumi.Input<inputs.ClusterImageArgs>;
-    kubecontrollers?: pulumi.Input<inputs.ClusterImageArgs>;
-    node?: pulumi.Input<inputs.ClusterImageArgs>;
-}
-
-export interface ClusterControllerManagerArgs {
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-}
-
-export interface ClusterDualStackArgs {
-    IPv6podCIDR?: pulumi.Input<string>;
-    IPv6serviceCIDR?: pulumi.Input<string>;
-    enabled?: pulumi.Input<boolean>;
-}
-
-export interface ClusterEnvoyProxyArgs {
-    apiServerBindPort?: pulumi.Input<number>;
-    image?: pulumi.Input<string>;
-    imagePullPolicy?: pulumi.Input<string>;
-    konnectivityServerBindPort?: pulumi.Input<number>;
-}
-
-export interface ClusterEtcdArgs {
-    externalCluster?: pulumi.Input<inputs.ClusterEtcdExternalClusterArgs>;
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    peerAddress?: pulumi.Input<string>;
-}
-
-export interface ClusterEtcdExternalClusterArgs {
-    ca?: pulumi.Input<string>;
-    clientCert?: pulumi.Input<string>;
-    clientKey?: pulumi.Input<string>;
-    endpoints: pulumi.Input<pulumi.Input<string>[]>;
-    etcdPrefix?: pulumi.Input<string>;
-}
-
-export interface ClusterFeatureGateArgs {
-    components?: pulumi.Input<pulumi.Input<string>[]>;
-    enabled?: pulumi.Input<boolean>;
-    name: pulumi.Input<string>;
-}
-
 export interface ClusterFileArgs {
     dirPerm?: pulumi.Input<string>;
     dst?: pulumi.Input<string>;
@@ -110,109 +45,11 @@ export interface ClusterHostArgs {
     winRM?: pulumi.Input<inputs.ClusterWinRMArgs>;
 }
 
-export interface ClusterImageArgs {
-    image?: pulumi.Input<string>;
-    version?: pulumi.Input<string>;
-}
-
-export interface ClusterImagesArgs {
-    calico?: pulumi.Input<inputs.ClusterCalicoImageArgs>;
-    coredns?: pulumi.Input<inputs.ClusterImageArgs>;
-    default_pull_policy?: pulumi.Input<string>;
-    konnectivity?: pulumi.Input<inputs.ClusterImageArgs>;
-    kubeproxy?: pulumi.Input<inputs.ClusterImageArgs>;
-    kuberouter?: pulumi.Input<inputs.ClusterKubeRouterImageArgs>;
-    metricsserver?: pulumi.Input<inputs.ClusterImageArgs>;
-    pause?: pulumi.Input<inputs.ClusterImageArgs>;
-    repository?: pulumi.Input<string>;
-}
-
-export interface ClusterInstallConfigArgs {
-    users?: pulumi.Input<inputs.ClusterInstallConfigUserArgs>;
-}
-
-export interface ClusterInstallConfigUserArgs {
-    etcdUser?: pulumi.Input<string>;
-    kineUser?: pulumi.Input<string>;
-    konnectivityUser?: pulumi.Input<string>;
-    kubeAPIserverUser?: pulumi.Input<string>;
-    kubeSchedulerUser?: pulumi.Input<string>;
-}
-
 export interface ClusterK0sArgs {
-    config?: pulumi.Input<inputs.ClusterK0sConfigArgs>;
+    config?: pulumi.Input<inputs.K0sArgs>;
     dynamicConfig?: pulumi.Input<boolean>;
     version?: pulumi.Input<string>;
     versionChannel?: pulumi.Input<string>;
-}
-
-export interface ClusterK0sConfigArgs {
-    metadata?: pulumi.Input<inputs.ClusterMetadataArgs>;
-    spec?: pulumi.Input<inputs.ClusterK0sSpecArgs>;
-}
-
-export interface ClusterK0sSpecArgs {
-    api?: pulumi.Input<inputs.ClusterAPIArgs>;
-    controllerManager?: pulumi.Input<inputs.ClusterControllerManagerArgs>;
-    featureGates?: pulumi.Input<pulumi.Input<inputs.ClusterFeatureGateArgs>[]>;
-    images?: pulumi.Input<inputs.ClusterImagesArgs>;
-    installConfig?: pulumi.Input<inputs.ClusterInstallConfigArgs>;
-    konnectivity?: pulumi.Input<inputs.ClusterKonnectivityArgs>;
-    network?: pulumi.Input<inputs.ClusterNetworkArgs>;
-    podSecurityPolicy?: pulumi.Input<inputs.ClusterPodSecurityPolicyArgs>;
-    scheduler?: pulumi.Input<inputs.ClusterSchedulerArgs>;
-    storage?: pulumi.Input<inputs.ClusterStorageArgs>;
-    telemetry?: pulumi.Input<inputs.ClusterTelemetryArgs>;
-    workerProfiles?: pulumi.Input<pulumi.Input<inputs.ClusterWorkerProfileArgs>[]>;
-}
-
-export interface ClusterKineArgs {
-    dataSource: pulumi.Input<string>;
-}
-
-export interface ClusterKonnectivityArgs {
-    adminPort?: pulumi.Input<number>;
-    agentPort?: pulumi.Input<number>;
-}
-
-export interface ClusterKubeProxyArgs {
-    disabled?: pulumi.Input<boolean>;
-    iptables?: pulumi.Input<inputs.ClusterKubeProxyIPTablesArgs>;
-    ipvs?: pulumi.Input<inputs.ClusterKubeProxyIPVSArgs>;
-    mode?: pulumi.Input<string>;
-    nodePortAddresses?: pulumi.Input<string>;
-}
-
-export interface ClusterKubeProxyIPTablesArgs {
-    masqueradeAll?: pulumi.Input<boolean>;
-    masqueradeBit?: pulumi.Input<number>;
-    minSyncPeriod?: pulumi.Input<string>;
-    syncPeriod?: pulumi.Input<string>;
-}
-
-export interface ClusterKubeProxyIPVSArgs {
-    excludeCIDRs?: pulumi.Input<string>;
-    minSyncPeriod?: pulumi.Input<string>;
-    scheduler?: pulumi.Input<string>;
-    strictARP?: pulumi.Input<boolean>;
-    syncPeriod?: pulumi.Input<string>;
-    tcpFinTimeout?: pulumi.Input<string>;
-    tcpTimeout?: pulumi.Input<string>;
-    udpTimeout?: pulumi.Input<string>;
-}
-
-export interface ClusterKubeRouterArgs {
-    autoMTU?: pulumi.Input<boolean>;
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    hairpin?: pulumi.Input<string>;
-    ipMasq?: pulumi.Input<boolean>;
-    metricsPort?: pulumi.Input<number>;
-    mtu?: pulumi.Input<number>;
-}
-
-export interface ClusterKubeRouterImageArgs {
-    cni?: pulumi.Input<inputs.ClusterImageArgs>;
-    cniInstaller?: pulumi.Input<inputs.ClusterImageArgs>;
 }
 
 export interface ClusterLocalhostArgs {
@@ -221,28 +58,6 @@ export interface ClusterLocalhostArgs {
 
 export interface ClusterMetadataArgs {
     name: pulumi.Input<string>;
-}
-
-export interface ClusterNetworkArgs {
-    calico?: pulumi.Input<inputs.ClusterCalicoArgs>;
-    clusterDomain?: pulumi.Input<string>;
-    dualStack?: pulumi.Input<inputs.ClusterDualStackArgs>;
-    kubeProxy?: pulumi.Input<inputs.ClusterKubeProxyArgs>;
-    kuberouter?: pulumi.Input<inputs.ClusterKubeRouterArgs>;
-    nodeLocalLoadBalancing?: pulumi.Input<inputs.ClusterNodeLocalLoadBalancingArgs>;
-    podCIDR?: pulumi.Input<string>;
-    provider?: pulumi.Input<string>;
-    serviceCIDR?: pulumi.Input<string>;
-}
-
-export interface ClusterNodeLocalLoadBalancingArgs {
-    enabled?: pulumi.Input<boolean>;
-    envoyProxy?: pulumi.Input<inputs.ClusterEnvoyProxyArgs>;
-    type?: pulumi.Input<string>;
-}
-
-export interface ClusterPodSecurityPolicyArgs {
-    defaultPolicy?: pulumi.Input<string>;
 }
 
 export interface ClusterSSHArgs {
@@ -254,23 +69,9 @@ export interface ClusterSSHArgs {
     user?: pulumi.Input<string>;
 }
 
-export interface ClusterSchedulerArgs {
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-}
-
 export interface ClusterSpecArgs {
     hosts: pulumi.Input<pulumi.Input<inputs.ClusterHostArgs>[]>;
     k0s?: pulumi.Input<inputs.ClusterK0sArgs>;
-}
-
-export interface ClusterStorageArgs {
-    etcd?: pulumi.Input<inputs.ClusterEtcdArgs>;
-    kine?: pulumi.Input<inputs.ClusterKineArgs>;
-    type?: pulumi.Input<string>;
-}
-
-export interface ClusterTelemetryArgs {
-    enabled?: pulumi.Input<boolean>;
 }
 
 export interface ClusterWinRMArgs {
@@ -288,7 +89,212 @@ export interface ClusterWinRMArgs {
     user?: pulumi.Input<string>;
 }
 
-export interface ClusterWorkerProfileArgs {
+export interface K0sArgs {
+    apiVersion?: pulumi.Input<string>;
+    kind?: pulumi.Input<string>;
+    metadata?: pulumi.Input<inputs.K0sMetadataArgs>;
+    spec?: pulumi.Input<inputs.K0sSpecArgs>;
+}
+
+export interface K0sAPIArgs {
+    address?: pulumi.Input<string>;
+    externalAddress?: pulumi.Input<string>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    k0sApiPort?: pulumi.Input<number>;
+    port?: pulumi.Input<number>;
+    sans?: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface K0sCalicoArgs {
+    envVars?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    flexVolumeDriverPath?: pulumi.Input<string>;
+    ipAutodetectionMethod?: pulumi.Input<string>;
+    mode?: pulumi.Input<string>;
+    mtu?: pulumi.Input<number>;
+    overlay?: pulumi.Input<string>;
+    vxlanPort?: pulumi.Input<number>;
+    vxlanVNI?: pulumi.Input<number>;
+    wireguard?: pulumi.Input<boolean>;
+}
+
+export interface K0sCalicoImageArgs {
+    cni?: pulumi.Input<inputs.K0sImageArgs>;
+    flexvolume?: pulumi.Input<inputs.K0sImageArgs>;
+    kubecontrollers?: pulumi.Input<inputs.K0sImageArgs>;
+    node?: pulumi.Input<inputs.K0sImageArgs>;
+}
+
+export interface K0sControllerManagerArgs {
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+}
+
+export interface K0sDualStackArgs {
+    IPv6podCIDR?: pulumi.Input<string>;
+    IPv6serviceCIDR?: pulumi.Input<string>;
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface K0sEnvoyProxyArgs {
+    apiServerBindPort?: pulumi.Input<number>;
+    image?: pulumi.Input<string>;
+    imagePullPolicy?: pulumi.Input<string>;
+    konnectivityServerBindPort?: pulumi.Input<number>;
+}
+
+export interface K0sEtcdArgs {
+    externalCluster?: pulumi.Input<inputs.K0sEtcdExternalClusterArgs>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    peerAddress?: pulumi.Input<string>;
+}
+
+export interface K0sEtcdExternalClusterArgs {
+    ca?: pulumi.Input<string>;
+    clientCert?: pulumi.Input<string>;
+    clientKey?: pulumi.Input<string>;
+    endpoints: pulumi.Input<pulumi.Input<string>[]>;
+    etcdPrefix?: pulumi.Input<string>;
+}
+
+export interface K0sFeatureGateArgs {
+    components?: pulumi.Input<pulumi.Input<string>[]>;
+    enabled?: pulumi.Input<boolean>;
+    name: pulumi.Input<string>;
+}
+
+export interface K0sImageArgs {
+    image?: pulumi.Input<string>;
+    version?: pulumi.Input<string>;
+}
+
+export interface K0sImagesArgs {
+    calico?: pulumi.Input<inputs.K0sCalicoImageArgs>;
+    coredns?: pulumi.Input<inputs.K0sImageArgs>;
+    default_pull_policy?: pulumi.Input<string>;
+    konnectivity?: pulumi.Input<inputs.K0sImageArgs>;
+    kubeproxy?: pulumi.Input<inputs.K0sImageArgs>;
+    kuberouter?: pulumi.Input<inputs.K0sKubeRouterImageArgs>;
+    metricsserver?: pulumi.Input<inputs.K0sImageArgs>;
+    pause?: pulumi.Input<inputs.K0sImageArgs>;
+    repository?: pulumi.Input<string>;
+}
+
+export interface K0sInstallConfigArgs {
+    users?: pulumi.Input<inputs.K0sInstallConfigUserArgs>;
+}
+
+export interface K0sInstallConfigUserArgs {
+    etcdUser?: pulumi.Input<string>;
+    kineUser?: pulumi.Input<string>;
+    konnectivityUser?: pulumi.Input<string>;
+    kubeAPIserverUser?: pulumi.Input<string>;
+    kubeSchedulerUser?: pulumi.Input<string>;
+}
+
+export interface K0sKineArgs {
+    dataSource: pulumi.Input<string>;
+}
+
+export interface K0sKonnectivityArgs {
+    adminPort?: pulumi.Input<number>;
+    agentPort?: pulumi.Input<number>;
+}
+
+export interface K0sKubeProxyArgs {
+    disabled?: pulumi.Input<boolean>;
+    iptables?: pulumi.Input<inputs.K0sKubeProxyIPTablesArgs>;
+    ipvs?: pulumi.Input<inputs.K0sKubeProxyIPVSArgs>;
+    mode?: pulumi.Input<string>;
+    nodePortAddresses?: pulumi.Input<string>;
+}
+
+export interface K0sKubeProxyIPTablesArgs {
+    masqueradeAll?: pulumi.Input<boolean>;
+    masqueradeBit?: pulumi.Input<number>;
+    minSyncPeriod?: pulumi.Input<string>;
+    syncPeriod?: pulumi.Input<string>;
+}
+
+export interface K0sKubeProxyIPVSArgs {
+    excludeCIDRs?: pulumi.Input<string>;
+    minSyncPeriod?: pulumi.Input<string>;
+    scheduler?: pulumi.Input<string>;
+    strictARP?: pulumi.Input<boolean>;
+    syncPeriod?: pulumi.Input<string>;
+    tcpFinTimeout?: pulumi.Input<string>;
+    tcpTimeout?: pulumi.Input<string>;
+    udpTimeout?: pulumi.Input<string>;
+}
+
+export interface K0sKubeRouterArgs {
+    autoMTU?: pulumi.Input<boolean>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    hairpin?: pulumi.Input<string>;
+    ipMasq?: pulumi.Input<boolean>;
+    metricsPort?: pulumi.Input<number>;
+    mtu?: pulumi.Input<number>;
+}
+
+export interface K0sKubeRouterImageArgs {
+    cni?: pulumi.Input<inputs.K0sImageArgs>;
+    cniInstaller?: pulumi.Input<inputs.K0sImageArgs>;
+}
+
+export interface K0sMetadataArgs {
+    name: pulumi.Input<string>;
+}
+
+export interface K0sNetworkArgs {
+    calico?: pulumi.Input<inputs.K0sCalicoArgs>;
+    clusterDomain?: pulumi.Input<string>;
+    dualStack?: pulumi.Input<inputs.K0sDualStackArgs>;
+    kubeProxy?: pulumi.Input<inputs.K0sKubeProxyArgs>;
+    kuberouter?: pulumi.Input<inputs.K0sKubeRouterArgs>;
+    nodeLocalLoadBalancing?: pulumi.Input<inputs.K0sNodeLocalLoadBalancingArgs>;
+    podCIDR?: pulumi.Input<string>;
+    provider?: pulumi.Input<string>;
+    serviceCIDR?: pulumi.Input<string>;
+}
+
+export interface K0sNodeLocalLoadBalancingArgs {
+    enabled?: pulumi.Input<boolean>;
+    envoyProxy?: pulumi.Input<inputs.K0sEnvoyProxyArgs>;
+    type?: pulumi.Input<string>;
+}
+
+export interface K0sPodSecurityPolicyArgs {
+    defaultPolicy?: pulumi.Input<string>;
+}
+
+export interface K0sSchedulerArgs {
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+}
+
+export interface K0sSpecArgs {
+    api?: pulumi.Input<inputs.K0sAPIArgs>;
+    controllerManager?: pulumi.Input<inputs.K0sControllerManagerArgs>;
+    featureGates?: pulumi.Input<pulumi.Input<inputs.K0sFeatureGateArgs>[]>;
+    images?: pulumi.Input<inputs.K0sImagesArgs>;
+    installConfig?: pulumi.Input<inputs.K0sInstallConfigArgs>;
+    konnectivity?: pulumi.Input<inputs.K0sKonnectivityArgs>;
+    network?: pulumi.Input<inputs.K0sNetworkArgs>;
+    podSecurityPolicy?: pulumi.Input<inputs.K0sPodSecurityPolicyArgs>;
+    scheduler?: pulumi.Input<inputs.K0sSchedulerArgs>;
+    storage?: pulumi.Input<inputs.K0sStorageArgs>;
+    telemetry?: pulumi.Input<inputs.K0sTelemetryArgs>;
+    workerProfiles?: pulumi.Input<pulumi.Input<inputs.K0sWorkerProfileArgs>[]>;
+}
+
+export interface K0sStorageArgs {
+    etcd?: pulumi.Input<inputs.K0sEtcdArgs>;
+    kine?: pulumi.Input<inputs.K0sKineArgs>;
+    type?: pulumi.Input<string>;
+}
+
+export interface K0sTelemetryArgs {
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface K0sWorkerProfileArgs {
     name: pulumi.Input<string>;
     values: pulumi.Input<{[key: string]: any}>;
 }

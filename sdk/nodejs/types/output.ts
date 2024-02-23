@@ -5,71 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
-export interface ClusterAPI {
-    address?: string;
-    externalAddress?: string;
-    extraArgs?: {[key: string]: string};
-    k0sApiPort?: number;
-    port?: number;
-    sans?: string[];
-}
-
-export interface ClusterCalico {
-    envVars?: {[key: string]: string};
-    flexVolumeDriverPath?: string;
-    ipAutodetectionMethod?: string;
-    mode?: string;
-    mtu?: number;
-    overlay?: string;
-    vxlanPort?: number;
-    vxlanVNI?: number;
-    wireguard?: boolean;
-}
-
-export interface ClusterCalicoImage {
-    cni?: outputs.ClusterImage;
-    flexvolume?: outputs.ClusterImage;
-    kubecontrollers?: outputs.ClusterImage;
-    node?: outputs.ClusterImage;
-}
-
-export interface ClusterControllerManager {
-    extraArgs?: {[key: string]: string};
-}
-
-export interface ClusterDualStack {
-    IPv6podCIDR?: string;
-    IPv6serviceCIDR?: string;
-    enabled?: boolean;
-}
-
-export interface ClusterEnvoyProxy {
-    apiServerBindPort?: number;
-    image?: string;
-    imagePullPolicy?: string;
-    konnectivityServerBindPort?: number;
-}
-
-export interface ClusterEtcd {
-    externalCluster?: outputs.ClusterEtcdExternalCluster;
-    extraArgs?: {[key: string]: string};
-    peerAddress?: string;
-}
-
-export interface ClusterEtcdExternalCluster {
-    ca?: string;
-    clientCert?: string;
-    clientKey?: string;
-    endpoints: string[];
-    etcdPrefix?: string;
-}
-
-export interface ClusterFeatureGate {
-    components?: string[];
-    enabled?: boolean;
-    name: string;
-}
-
 export interface ClusterFile {
     dirPerm?: string;
     dst?: string;
@@ -110,109 +45,11 @@ export interface ClusterHost {
     winRM?: outputs.ClusterWinRM;
 }
 
-export interface ClusterImage {
-    image?: string;
-    version?: string;
-}
-
-export interface ClusterImages {
-    calico?: outputs.ClusterCalicoImage;
-    coredns?: outputs.ClusterImage;
-    default_pull_policy?: string;
-    konnectivity?: outputs.ClusterImage;
-    kubeproxy?: outputs.ClusterImage;
-    kuberouter?: outputs.ClusterKubeRouterImage;
-    metricsserver?: outputs.ClusterImage;
-    pause?: outputs.ClusterImage;
-    repository?: string;
-}
-
-export interface ClusterInstallConfig {
-    users?: outputs.ClusterInstallConfigUser;
-}
-
-export interface ClusterInstallConfigUser {
-    etcdUser?: string;
-    kineUser?: string;
-    konnectivityUser?: string;
-    kubeAPIserverUser?: string;
-    kubeSchedulerUser?: string;
-}
-
 export interface ClusterK0s {
-    config?: outputs.ClusterK0sConfig;
+    config?: outputs.K0s;
     dynamicConfig?: boolean;
     version?: string;
     versionChannel?: string;
-}
-
-export interface ClusterK0sConfig {
-    metadata?: outputs.ClusterMetadata;
-    spec?: outputs.ClusterK0sSpec;
-}
-
-export interface ClusterK0sSpec {
-    api?: outputs.ClusterAPI;
-    controllerManager?: outputs.ClusterControllerManager;
-    featureGates?: outputs.ClusterFeatureGate[];
-    images?: outputs.ClusterImages;
-    installConfig?: outputs.ClusterInstallConfig;
-    konnectivity?: outputs.ClusterKonnectivity;
-    network?: outputs.ClusterNetwork;
-    podSecurityPolicy?: outputs.ClusterPodSecurityPolicy;
-    scheduler?: outputs.ClusterScheduler;
-    storage?: outputs.ClusterStorage;
-    telemetry?: outputs.ClusterTelemetry;
-    workerProfiles?: outputs.ClusterWorkerProfile[];
-}
-
-export interface ClusterKine {
-    dataSource: string;
-}
-
-export interface ClusterKonnectivity {
-    adminPort?: number;
-    agentPort?: number;
-}
-
-export interface ClusterKubeProxy {
-    disabled?: boolean;
-    iptables?: outputs.ClusterKubeProxyIPTables;
-    ipvs?: outputs.ClusterKubeProxyIPVS;
-    mode?: string;
-    nodePortAddresses?: string;
-}
-
-export interface ClusterKubeProxyIPTables {
-    masqueradeAll?: boolean;
-    masqueradeBit?: number;
-    minSyncPeriod?: string;
-    syncPeriod?: string;
-}
-
-export interface ClusterKubeProxyIPVS {
-    excludeCIDRs?: string;
-    minSyncPeriod?: string;
-    scheduler?: string;
-    strictARP?: boolean;
-    syncPeriod?: string;
-    tcpFinTimeout?: string;
-    tcpTimeout?: string;
-    udpTimeout?: string;
-}
-
-export interface ClusterKubeRouter {
-    autoMTU?: boolean;
-    extraArgs?: {[key: string]: string};
-    hairpin?: string;
-    ipMasq?: boolean;
-    metricsPort?: number;
-    mtu?: number;
-}
-
-export interface ClusterKubeRouterImage {
-    cni?: outputs.ClusterImage;
-    cniInstaller?: outputs.ClusterImage;
 }
 
 export interface ClusterLocalhost {
@@ -221,28 +58,6 @@ export interface ClusterLocalhost {
 
 export interface ClusterMetadata {
     name: string;
-}
-
-export interface ClusterNetwork {
-    calico?: outputs.ClusterCalico;
-    clusterDomain?: string;
-    dualStack?: outputs.ClusterDualStack;
-    kubeProxy?: outputs.ClusterKubeProxy;
-    kuberouter?: outputs.ClusterKubeRouter;
-    nodeLocalLoadBalancing?: outputs.ClusterNodeLocalLoadBalancing;
-    podCIDR?: string;
-    provider?: string;
-    serviceCIDR?: string;
-}
-
-export interface ClusterNodeLocalLoadBalancing {
-    enabled?: boolean;
-    envoyProxy?: outputs.ClusterEnvoyProxy;
-    type?: string;
-}
-
-export interface ClusterPodSecurityPolicy {
-    defaultPolicy?: string;
 }
 
 export interface ClusterSSH {
@@ -254,23 +69,9 @@ export interface ClusterSSH {
     user?: string;
 }
 
-export interface ClusterScheduler {
-    extraArgs?: {[key: string]: string};
-}
-
 export interface ClusterSpec {
     hosts: outputs.ClusterHost[];
     k0s?: outputs.ClusterK0s;
-}
-
-export interface ClusterStorage {
-    etcd?: outputs.ClusterEtcd;
-    kine?: outputs.ClusterKine;
-    type?: string;
-}
-
-export interface ClusterTelemetry {
-    enabled?: boolean;
 }
 
 export interface ClusterWinRM {
@@ -288,7 +89,212 @@ export interface ClusterWinRM {
     user?: string;
 }
 
-export interface ClusterWorkerProfile {
+export interface K0s {
+    apiVersion?: string;
+    kind?: string;
+    metadata?: outputs.K0sMetadata;
+    spec?: outputs.K0sSpec;
+}
+
+export interface K0sAPI {
+    address?: string;
+    externalAddress?: string;
+    extraArgs?: {[key: string]: string};
+    k0sApiPort?: number;
+    port?: number;
+    sans?: string[];
+}
+
+export interface K0sCalico {
+    envVars?: {[key: string]: string};
+    flexVolumeDriverPath?: string;
+    ipAutodetectionMethod?: string;
+    mode?: string;
+    mtu?: number;
+    overlay?: string;
+    vxlanPort?: number;
+    vxlanVNI?: number;
+    wireguard?: boolean;
+}
+
+export interface K0sCalicoImage {
+    cni?: outputs.K0sImage;
+    flexvolume?: outputs.K0sImage;
+    kubecontrollers?: outputs.K0sImage;
+    node?: outputs.K0sImage;
+}
+
+export interface K0sControllerManager {
+    extraArgs?: {[key: string]: string};
+}
+
+export interface K0sDualStack {
+    IPv6podCIDR?: string;
+    IPv6serviceCIDR?: string;
+    enabled?: boolean;
+}
+
+export interface K0sEnvoyProxy {
+    apiServerBindPort?: number;
+    image?: string;
+    imagePullPolicy?: string;
+    konnectivityServerBindPort?: number;
+}
+
+export interface K0sEtcd {
+    externalCluster?: outputs.K0sEtcdExternalCluster;
+    extraArgs?: {[key: string]: string};
+    peerAddress?: string;
+}
+
+export interface K0sEtcdExternalCluster {
+    ca?: string;
+    clientCert?: string;
+    clientKey?: string;
+    endpoints: string[];
+    etcdPrefix?: string;
+}
+
+export interface K0sFeatureGate {
+    components?: string[];
+    enabled?: boolean;
+    name: string;
+}
+
+export interface K0sImage {
+    image?: string;
+    version?: string;
+}
+
+export interface K0sImages {
+    calico?: outputs.K0sCalicoImage;
+    coredns?: outputs.K0sImage;
+    default_pull_policy?: string;
+    konnectivity?: outputs.K0sImage;
+    kubeproxy?: outputs.K0sImage;
+    kuberouter?: outputs.K0sKubeRouterImage;
+    metricsserver?: outputs.K0sImage;
+    pause?: outputs.K0sImage;
+    repository?: string;
+}
+
+export interface K0sInstallConfig {
+    users?: outputs.K0sInstallConfigUser;
+}
+
+export interface K0sInstallConfigUser {
+    etcdUser?: string;
+    kineUser?: string;
+    konnectivityUser?: string;
+    kubeAPIserverUser?: string;
+    kubeSchedulerUser?: string;
+}
+
+export interface K0sKine {
+    dataSource: string;
+}
+
+export interface K0sKonnectivity {
+    adminPort?: number;
+    agentPort?: number;
+}
+
+export interface K0sKubeProxy {
+    disabled?: boolean;
+    iptables?: outputs.K0sKubeProxyIPTables;
+    ipvs?: outputs.K0sKubeProxyIPVS;
+    mode?: string;
+    nodePortAddresses?: string;
+}
+
+export interface K0sKubeProxyIPTables {
+    masqueradeAll?: boolean;
+    masqueradeBit?: number;
+    minSyncPeriod?: string;
+    syncPeriod?: string;
+}
+
+export interface K0sKubeProxyIPVS {
+    excludeCIDRs?: string;
+    minSyncPeriod?: string;
+    scheduler?: string;
+    strictARP?: boolean;
+    syncPeriod?: string;
+    tcpFinTimeout?: string;
+    tcpTimeout?: string;
+    udpTimeout?: string;
+}
+
+export interface K0sKubeRouter {
+    autoMTU?: boolean;
+    extraArgs?: {[key: string]: string};
+    hairpin?: string;
+    ipMasq?: boolean;
+    metricsPort?: number;
+    mtu?: number;
+}
+
+export interface K0sKubeRouterImage {
+    cni?: outputs.K0sImage;
+    cniInstaller?: outputs.K0sImage;
+}
+
+export interface K0sMetadata {
+    name: string;
+}
+
+export interface K0sNetwork {
+    calico?: outputs.K0sCalico;
+    clusterDomain?: string;
+    dualStack?: outputs.K0sDualStack;
+    kubeProxy?: outputs.K0sKubeProxy;
+    kuberouter?: outputs.K0sKubeRouter;
+    nodeLocalLoadBalancing?: outputs.K0sNodeLocalLoadBalancing;
+    podCIDR?: string;
+    provider?: string;
+    serviceCIDR?: string;
+}
+
+export interface K0sNodeLocalLoadBalancing {
+    enabled?: boolean;
+    envoyProxy?: outputs.K0sEnvoyProxy;
+    type?: string;
+}
+
+export interface K0sPodSecurityPolicy {
+    defaultPolicy?: string;
+}
+
+export interface K0sScheduler {
+    extraArgs?: {[key: string]: string};
+}
+
+export interface K0sSpec {
+    api?: outputs.K0sAPI;
+    controllerManager?: outputs.K0sControllerManager;
+    featureGates?: outputs.K0sFeatureGate[];
+    images?: outputs.K0sImages;
+    installConfig?: outputs.K0sInstallConfig;
+    konnectivity?: outputs.K0sKonnectivity;
+    network?: outputs.K0sNetwork;
+    podSecurityPolicy?: outputs.K0sPodSecurityPolicy;
+    scheduler?: outputs.K0sScheduler;
+    storage?: outputs.K0sStorage;
+    telemetry?: outputs.K0sTelemetry;
+    workerProfiles?: outputs.K0sWorkerProfile[];
+}
+
+export interface K0sStorage {
+    etcd?: outputs.K0sEtcd;
+    kine?: outputs.K0sKine;
+    type?: string;
+}
+
+export interface K0sTelemetry {
+    enabled?: boolean;
+}
+
+export interface K0sWorkerProfile {
     name: string;
     values: {[key: string]: any};
 }

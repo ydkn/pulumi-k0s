@@ -11,27 +11,19 @@ namespace Pulumi.K0s.Outputs
 {
 
     [OutputType]
-    public sealed class ClusterK0s
+    public sealed class K0sImage
     {
-        public readonly Outputs.K0s? Config;
-        public readonly bool? DynamicConfig;
+        public readonly string? Image;
         public readonly string? Version;
-        public readonly string? VersionChannel;
 
         [OutputConstructor]
-        private ClusterK0s(
-            Outputs.K0s? config,
+        private K0sImage(
+            string? image,
 
-            bool? dynamicConfig,
-
-            string? version,
-
-            string? versionChannel)
+            string? version)
         {
-            Config = config;
-            DynamicConfig = dynamicConfig;
+            Image = image;
             Version = version;
-            VersionChannel = versionChannel;
         }
     }
 }

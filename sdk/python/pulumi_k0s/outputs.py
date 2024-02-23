@@ -11,538 +11,47 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
-    'ClusterAPI',
-    'ClusterCalico',
-    'ClusterCalicoImage',
-    'ClusterControllerManager',
-    'ClusterDualStack',
-    'ClusterEnvoyProxy',
-    'ClusterEtcd',
-    'ClusterEtcdExternalCluster',
-    'ClusterFeatureGate',
     'ClusterFile',
     'ClusterHook',
     'ClusterHooks',
     'ClusterHost',
-    'ClusterImage',
-    'ClusterImages',
-    'ClusterInstallConfig',
-    'ClusterInstallConfigUser',
     'ClusterK0s',
-    'ClusterK0sConfig',
-    'ClusterK0sSpec',
-    'ClusterKine',
-    'ClusterKonnectivity',
-    'ClusterKubeProxy',
-    'ClusterKubeProxyIPTables',
-    'ClusterKubeProxyIPVS',
-    'ClusterKubeRouter',
-    'ClusterKubeRouterImage',
     'ClusterLocalhost',
     'ClusterMetadata',
-    'ClusterNetwork',
-    'ClusterNodeLocalLoadBalancing',
-    'ClusterPodSecurityPolicy',
     'ClusterSSH',
-    'ClusterScheduler',
     'ClusterSpec',
-    'ClusterStorage',
-    'ClusterTelemetry',
     'ClusterWinRM',
-    'ClusterWorkerProfile',
+    'K0s',
+    'K0sAPI',
+    'K0sCalico',
+    'K0sCalicoImage',
+    'K0sControllerManager',
+    'K0sDualStack',
+    'K0sEnvoyProxy',
+    'K0sEtcd',
+    'K0sEtcdExternalCluster',
+    'K0sFeatureGate',
+    'K0sImage',
+    'K0sImages',
+    'K0sInstallConfig',
+    'K0sInstallConfigUser',
+    'K0sKine',
+    'K0sKonnectivity',
+    'K0sKubeProxy',
+    'K0sKubeProxyIPTables',
+    'K0sKubeProxyIPVS',
+    'K0sKubeRouter',
+    'K0sKubeRouterImage',
+    'K0sMetadata',
+    'K0sNetwork',
+    'K0sNodeLocalLoadBalancing',
+    'K0sPodSecurityPolicy',
+    'K0sScheduler',
+    'K0sSpec',
+    'K0sStorage',
+    'K0sTelemetry',
+    'K0sWorkerProfile',
 ]
-
-@pulumi.output_type
-class ClusterAPI(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "externalAddress":
-            suggest = "external_address"
-        elif key == "extraArgs":
-            suggest = "extra_args"
-        elif key == "k0sApiPort":
-            suggest = "k0s_api_port"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterAPI. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterAPI.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterAPI.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 address: Optional[str] = None,
-                 external_address: Optional[str] = None,
-                 extra_args: Optional[Mapping[str, str]] = None,
-                 k0s_api_port: Optional[int] = None,
-                 port: Optional[int] = None,
-                 sans: Optional[Sequence[str]] = None):
-        if address is not None:
-            pulumi.set(__self__, "address", address)
-        if external_address is not None:
-            pulumi.set(__self__, "external_address", external_address)
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-        if k0s_api_port is not None:
-            pulumi.set(__self__, "k0s_api_port", k0s_api_port)
-        if port is not None:
-            pulumi.set(__self__, "port", port)
-        if sans is not None:
-            pulumi.set(__self__, "sans", sans)
-
-    @property
-    @pulumi.getter
-    def address(self) -> Optional[str]:
-        return pulumi.get(self, "address")
-
-    @property
-    @pulumi.getter(name="externalAddress")
-    def external_address(self) -> Optional[str]:
-        return pulumi.get(self, "external_address")
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[Mapping[str, str]]:
-        return pulumi.get(self, "extra_args")
-
-    @property
-    @pulumi.getter(name="k0sApiPort")
-    def k0s_api_port(self) -> Optional[int]:
-        return pulumi.get(self, "k0s_api_port")
-
-    @property
-    @pulumi.getter
-    def port(self) -> Optional[int]:
-        return pulumi.get(self, "port")
-
-    @property
-    @pulumi.getter
-    def sans(self) -> Optional[Sequence[str]]:
-        return pulumi.get(self, "sans")
-
-
-@pulumi.output_type
-class ClusterCalico(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "envVars":
-            suggest = "env_vars"
-        elif key == "flexVolumeDriverPath":
-            suggest = "flex_volume_driver_path"
-        elif key == "ipAutodetectionMethod":
-            suggest = "ip_autodetection_method"
-        elif key == "vxlanPort":
-            suggest = "vxlan_port"
-        elif key == "vxlanVNI":
-            suggest = "vxlan_vni"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterCalico. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterCalico.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterCalico.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 env_vars: Optional[Mapping[str, str]] = None,
-                 flex_volume_driver_path: Optional[str] = None,
-                 ip_autodetection_method: Optional[str] = None,
-                 mode: Optional[str] = None,
-                 mtu: Optional[int] = None,
-                 overlay: Optional[str] = None,
-                 vxlan_port: Optional[int] = None,
-                 vxlan_vni: Optional[int] = None,
-                 wireguard: Optional[bool] = None):
-        if env_vars is not None:
-            pulumi.set(__self__, "env_vars", env_vars)
-        if flex_volume_driver_path is not None:
-            pulumi.set(__self__, "flex_volume_driver_path", flex_volume_driver_path)
-        if ip_autodetection_method is not None:
-            pulumi.set(__self__, "ip_autodetection_method", ip_autodetection_method)
-        if mode is not None:
-            pulumi.set(__self__, "mode", mode)
-        if mtu is not None:
-            pulumi.set(__self__, "mtu", mtu)
-        if overlay is not None:
-            pulumi.set(__self__, "overlay", overlay)
-        if vxlan_port is not None:
-            pulumi.set(__self__, "vxlan_port", vxlan_port)
-        if vxlan_vni is not None:
-            pulumi.set(__self__, "vxlan_vni", vxlan_vni)
-        if wireguard is not None:
-            pulumi.set(__self__, "wireguard", wireguard)
-
-    @property
-    @pulumi.getter(name="envVars")
-    def env_vars(self) -> Optional[Mapping[str, str]]:
-        return pulumi.get(self, "env_vars")
-
-    @property
-    @pulumi.getter(name="flexVolumeDriverPath")
-    def flex_volume_driver_path(self) -> Optional[str]:
-        return pulumi.get(self, "flex_volume_driver_path")
-
-    @property
-    @pulumi.getter(name="ipAutodetectionMethod")
-    def ip_autodetection_method(self) -> Optional[str]:
-        return pulumi.get(self, "ip_autodetection_method")
-
-    @property
-    @pulumi.getter
-    def mode(self) -> Optional[str]:
-        return pulumi.get(self, "mode")
-
-    @property
-    @pulumi.getter
-    def mtu(self) -> Optional[int]:
-        return pulumi.get(self, "mtu")
-
-    @property
-    @pulumi.getter
-    def overlay(self) -> Optional[str]:
-        return pulumi.get(self, "overlay")
-
-    @property
-    @pulumi.getter(name="vxlanPort")
-    def vxlan_port(self) -> Optional[int]:
-        return pulumi.get(self, "vxlan_port")
-
-    @property
-    @pulumi.getter(name="vxlanVNI")
-    def vxlan_vni(self) -> Optional[int]:
-        return pulumi.get(self, "vxlan_vni")
-
-    @property
-    @pulumi.getter
-    def wireguard(self) -> Optional[bool]:
-        return pulumi.get(self, "wireguard")
-
-
-@pulumi.output_type
-class ClusterCalicoImage(dict):
-    def __init__(__self__, *,
-                 cni: Optional['outputs.ClusterImage'] = None,
-                 flexvolume: Optional['outputs.ClusterImage'] = None,
-                 kubecontrollers: Optional['outputs.ClusterImage'] = None,
-                 node: Optional['outputs.ClusterImage'] = None):
-        if cni is not None:
-            pulumi.set(__self__, "cni", cni)
-        if flexvolume is not None:
-            pulumi.set(__self__, "flexvolume", flexvolume)
-        if kubecontrollers is not None:
-            pulumi.set(__self__, "kubecontrollers", kubecontrollers)
-        if node is not None:
-            pulumi.set(__self__, "node", node)
-
-    @property
-    @pulumi.getter
-    def cni(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "cni")
-
-    @property
-    @pulumi.getter
-    def flexvolume(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "flexvolume")
-
-    @property
-    @pulumi.getter
-    def kubecontrollers(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "kubecontrollers")
-
-    @property
-    @pulumi.getter
-    def node(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "node")
-
-
-@pulumi.output_type
-class ClusterControllerManager(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "extraArgs":
-            suggest = "extra_args"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterControllerManager. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterControllerManager.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterControllerManager.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 extra_args: Optional[Mapping[str, str]] = None):
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[Mapping[str, str]]:
-        return pulumi.get(self, "extra_args")
-
-
-@pulumi.output_type
-class ClusterDualStack(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "IPv6podCIDR":
-            suggest = "i_pv6pod_cidr"
-        elif key == "IPv6serviceCIDR":
-            suggest = "i_pv6service_cidr"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterDualStack. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterDualStack.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterDualStack.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 i_pv6pod_cidr: Optional[str] = None,
-                 i_pv6service_cidr: Optional[str] = None,
-                 enabled: Optional[bool] = None):
-        if i_pv6pod_cidr is not None:
-            pulumi.set(__self__, "i_pv6pod_cidr", i_pv6pod_cidr)
-        if i_pv6service_cidr is not None:
-            pulumi.set(__self__, "i_pv6service_cidr", i_pv6service_cidr)
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
-
-    @property
-    @pulumi.getter(name="IPv6podCIDR")
-    def i_pv6pod_cidr(self) -> Optional[str]:
-        return pulumi.get(self, "i_pv6pod_cidr")
-
-    @property
-    @pulumi.getter(name="IPv6serviceCIDR")
-    def i_pv6service_cidr(self) -> Optional[str]:
-        return pulumi.get(self, "i_pv6service_cidr")
-
-    @property
-    @pulumi.getter
-    def enabled(self) -> Optional[bool]:
-        return pulumi.get(self, "enabled")
-
-
-@pulumi.output_type
-class ClusterEnvoyProxy(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "apiServerBindPort":
-            suggest = "api_server_bind_port"
-        elif key == "imagePullPolicy":
-            suggest = "image_pull_policy"
-        elif key == "konnectivityServerBindPort":
-            suggest = "konnectivity_server_bind_port"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterEnvoyProxy. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterEnvoyProxy.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterEnvoyProxy.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 api_server_bind_port: Optional[int] = None,
-                 image: Optional[str] = None,
-                 image_pull_policy: Optional[str] = None,
-                 konnectivity_server_bind_port: Optional[int] = None):
-        if api_server_bind_port is not None:
-            pulumi.set(__self__, "api_server_bind_port", api_server_bind_port)
-        if image is not None:
-            pulumi.set(__self__, "image", image)
-        if image_pull_policy is not None:
-            pulumi.set(__self__, "image_pull_policy", image_pull_policy)
-        if konnectivity_server_bind_port is not None:
-            pulumi.set(__self__, "konnectivity_server_bind_port", konnectivity_server_bind_port)
-
-    @property
-    @pulumi.getter(name="apiServerBindPort")
-    def api_server_bind_port(self) -> Optional[int]:
-        return pulumi.get(self, "api_server_bind_port")
-
-    @property
-    @pulumi.getter
-    def image(self) -> Optional[str]:
-        return pulumi.get(self, "image")
-
-    @property
-    @pulumi.getter(name="imagePullPolicy")
-    def image_pull_policy(self) -> Optional[str]:
-        return pulumi.get(self, "image_pull_policy")
-
-    @property
-    @pulumi.getter(name="konnectivityServerBindPort")
-    def konnectivity_server_bind_port(self) -> Optional[int]:
-        return pulumi.get(self, "konnectivity_server_bind_port")
-
-
-@pulumi.output_type
-class ClusterEtcd(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "externalCluster":
-            suggest = "external_cluster"
-        elif key == "extraArgs":
-            suggest = "extra_args"
-        elif key == "peerAddress":
-            suggest = "peer_address"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterEtcd. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterEtcd.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterEtcd.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 external_cluster: Optional['outputs.ClusterEtcdExternalCluster'] = None,
-                 extra_args: Optional[Mapping[str, str]] = None,
-                 peer_address: Optional[str] = None):
-        if external_cluster is not None:
-            pulumi.set(__self__, "external_cluster", external_cluster)
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-        if peer_address is not None:
-            pulumi.set(__self__, "peer_address", peer_address)
-
-    @property
-    @pulumi.getter(name="externalCluster")
-    def external_cluster(self) -> Optional['outputs.ClusterEtcdExternalCluster']:
-        return pulumi.get(self, "external_cluster")
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[Mapping[str, str]]:
-        return pulumi.get(self, "extra_args")
-
-    @property
-    @pulumi.getter(name="peerAddress")
-    def peer_address(self) -> Optional[str]:
-        return pulumi.get(self, "peer_address")
-
-
-@pulumi.output_type
-class ClusterEtcdExternalCluster(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "clientCert":
-            suggest = "client_cert"
-        elif key == "clientKey":
-            suggest = "client_key"
-        elif key == "etcdPrefix":
-            suggest = "etcd_prefix"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterEtcdExternalCluster. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterEtcdExternalCluster.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterEtcdExternalCluster.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 endpoints: Sequence[str],
-                 ca: Optional[str] = None,
-                 client_cert: Optional[str] = None,
-                 client_key: Optional[str] = None,
-                 etcd_prefix: Optional[str] = None):
-        pulumi.set(__self__, "endpoints", endpoints)
-        if ca is not None:
-            pulumi.set(__self__, "ca", ca)
-        if client_cert is not None:
-            pulumi.set(__self__, "client_cert", client_cert)
-        if client_key is not None:
-            pulumi.set(__self__, "client_key", client_key)
-        if etcd_prefix is not None:
-            pulumi.set(__self__, "etcd_prefix", etcd_prefix)
-
-    @property
-    @pulumi.getter
-    def endpoints(self) -> Sequence[str]:
-        return pulumi.get(self, "endpoints")
-
-    @property
-    @pulumi.getter
-    def ca(self) -> Optional[str]:
-        return pulumi.get(self, "ca")
-
-    @property
-    @pulumi.getter(name="clientCert")
-    def client_cert(self) -> Optional[str]:
-        return pulumi.get(self, "client_cert")
-
-    @property
-    @pulumi.getter(name="clientKey")
-    def client_key(self) -> Optional[str]:
-        return pulumi.get(self, "client_key")
-
-    @property
-    @pulumi.getter(name="etcdPrefix")
-    def etcd_prefix(self) -> Optional[str]:
-        return pulumi.get(self, "etcd_prefix")
-
-
-@pulumi.output_type
-class ClusterFeatureGate(dict):
-    def __init__(__self__, *,
-                 name: str,
-                 components: Optional[Sequence[str]] = None,
-                 enabled: Optional[bool] = None):
-        pulumi.set(__self__, "name", name)
-        if components is not None:
-            pulumi.set(__self__, "components", components)
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
-
-    @property
-    @pulumi.getter
-    def name(self) -> str:
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter
-    def components(self) -> Optional[Sequence[str]]:
-        return pulumi.get(self, "components")
-
-    @property
-    @pulumi.getter
-    def enabled(self) -> Optional[bool]:
-        return pulumi.get(self, "enabled")
-
 
 @pulumi.output_type
 class ClusterFile(dict):
@@ -836,187 +345,6 @@ class ClusterHost(dict):
 
 
 @pulumi.output_type
-class ClusterImage(dict):
-    def __init__(__self__, *,
-                 image: Optional[str] = None,
-                 version: Optional[str] = None):
-        if image is not None:
-            pulumi.set(__self__, "image", image)
-        if version is not None:
-            pulumi.set(__self__, "version", version)
-
-    @property
-    @pulumi.getter
-    def image(self) -> Optional[str]:
-        return pulumi.get(self, "image")
-
-    @property
-    @pulumi.getter
-    def version(self) -> Optional[str]:
-        return pulumi.get(self, "version")
-
-
-@pulumi.output_type
-class ClusterImages(dict):
-    def __init__(__self__, *,
-                 calico: Optional['outputs.ClusterCalicoImage'] = None,
-                 coredns: Optional['outputs.ClusterImage'] = None,
-                 default_pull_policy: Optional[str] = None,
-                 konnectivity: Optional['outputs.ClusterImage'] = None,
-                 kubeproxy: Optional['outputs.ClusterImage'] = None,
-                 kuberouter: Optional['outputs.ClusterKubeRouterImage'] = None,
-                 metricsserver: Optional['outputs.ClusterImage'] = None,
-                 pause: Optional['outputs.ClusterImage'] = None,
-                 repository: Optional[str] = None):
-        if calico is not None:
-            pulumi.set(__self__, "calico", calico)
-        if coredns is not None:
-            pulumi.set(__self__, "coredns", coredns)
-        if default_pull_policy is not None:
-            pulumi.set(__self__, "default_pull_policy", default_pull_policy)
-        if konnectivity is not None:
-            pulumi.set(__self__, "konnectivity", konnectivity)
-        if kubeproxy is not None:
-            pulumi.set(__self__, "kubeproxy", kubeproxy)
-        if kuberouter is not None:
-            pulumi.set(__self__, "kuberouter", kuberouter)
-        if metricsserver is not None:
-            pulumi.set(__self__, "metricsserver", metricsserver)
-        if pause is not None:
-            pulumi.set(__self__, "pause", pause)
-        if repository is not None:
-            pulumi.set(__self__, "repository", repository)
-
-    @property
-    @pulumi.getter
-    def calico(self) -> Optional['outputs.ClusterCalicoImage']:
-        return pulumi.get(self, "calico")
-
-    @property
-    @pulumi.getter
-    def coredns(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "coredns")
-
-    @property
-    @pulumi.getter
-    def default_pull_policy(self) -> Optional[str]:
-        return pulumi.get(self, "default_pull_policy")
-
-    @property
-    @pulumi.getter
-    def konnectivity(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "konnectivity")
-
-    @property
-    @pulumi.getter
-    def kubeproxy(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "kubeproxy")
-
-    @property
-    @pulumi.getter
-    def kuberouter(self) -> Optional['outputs.ClusterKubeRouterImage']:
-        return pulumi.get(self, "kuberouter")
-
-    @property
-    @pulumi.getter
-    def metricsserver(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "metricsserver")
-
-    @property
-    @pulumi.getter
-    def pause(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "pause")
-
-    @property
-    @pulumi.getter
-    def repository(self) -> Optional[str]:
-        return pulumi.get(self, "repository")
-
-
-@pulumi.output_type
-class ClusterInstallConfig(dict):
-    def __init__(__self__, *,
-                 users: Optional['outputs.ClusterInstallConfigUser'] = None):
-        if users is not None:
-            pulumi.set(__self__, "users", users)
-
-    @property
-    @pulumi.getter
-    def users(self) -> Optional['outputs.ClusterInstallConfigUser']:
-        return pulumi.get(self, "users")
-
-
-@pulumi.output_type
-class ClusterInstallConfigUser(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "etcdUser":
-            suggest = "etcd_user"
-        elif key == "kineUser":
-            suggest = "kine_user"
-        elif key == "konnectivityUser":
-            suggest = "konnectivity_user"
-        elif key == "kubeAPIserverUser":
-            suggest = "kube_apiserver_user"
-        elif key == "kubeSchedulerUser":
-            suggest = "kube_scheduler_user"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterInstallConfigUser. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterInstallConfigUser.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterInstallConfigUser.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 etcd_user: Optional[str] = None,
-                 kine_user: Optional[str] = None,
-                 konnectivity_user: Optional[str] = None,
-                 kube_apiserver_user: Optional[str] = None,
-                 kube_scheduler_user: Optional[str] = None):
-        if etcd_user is not None:
-            pulumi.set(__self__, "etcd_user", etcd_user)
-        if kine_user is not None:
-            pulumi.set(__self__, "kine_user", kine_user)
-        if konnectivity_user is not None:
-            pulumi.set(__self__, "konnectivity_user", konnectivity_user)
-        if kube_apiserver_user is not None:
-            pulumi.set(__self__, "kube_apiserver_user", kube_apiserver_user)
-        if kube_scheduler_user is not None:
-            pulumi.set(__self__, "kube_scheduler_user", kube_scheduler_user)
-
-    @property
-    @pulumi.getter(name="etcdUser")
-    def etcd_user(self) -> Optional[str]:
-        return pulumi.get(self, "etcd_user")
-
-    @property
-    @pulumi.getter(name="kineUser")
-    def kine_user(self) -> Optional[str]:
-        return pulumi.get(self, "kine_user")
-
-    @property
-    @pulumi.getter(name="konnectivityUser")
-    def konnectivity_user(self) -> Optional[str]:
-        return pulumi.get(self, "konnectivity_user")
-
-    @property
-    @pulumi.getter(name="kubeAPIserverUser")
-    def kube_apiserver_user(self) -> Optional[str]:
-        return pulumi.get(self, "kube_apiserver_user")
-
-    @property
-    @pulumi.getter(name="kubeSchedulerUser")
-    def kube_scheduler_user(self) -> Optional[str]:
-        return pulumi.get(self, "kube_scheduler_user")
-
-
-@pulumi.output_type
 class ClusterK0s(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1038,7 +366,7 @@ class ClusterK0s(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 config: Optional['outputs.ClusterK0sConfig'] = None,
+                 config: Optional['outputs.K0s'] = None,
                  dynamic_config: Optional[bool] = None,
                  version: Optional[str] = None,
                  version_channel: Optional[str] = None):
@@ -1053,7 +381,7 @@ class ClusterK0s(dict):
 
     @property
     @pulumi.getter
-    def config(self) -> Optional['outputs.ClusterK0sConfig']:
+    def config(self) -> Optional['outputs.K0s']:
         return pulumi.get(self, "config")
 
     @property
@@ -1070,556 +398,6 @@ class ClusterK0s(dict):
     @pulumi.getter(name="versionChannel")
     def version_channel(self) -> Optional[str]:
         return pulumi.get(self, "version_channel")
-
-
-@pulumi.output_type
-class ClusterK0sConfig(dict):
-    def __init__(__self__, *,
-                 metadata: Optional['outputs.ClusterMetadata'] = None,
-                 spec: Optional['outputs.ClusterK0sSpec'] = None):
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional['outputs.ClusterMetadata']:
-        return pulumi.get(self, "metadata")
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.ClusterK0sSpec']:
-        return pulumi.get(self, "spec")
-
-
-@pulumi.output_type
-class ClusterK0sSpec(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "controllerManager":
-            suggest = "controller_manager"
-        elif key == "featureGates":
-            suggest = "feature_gates"
-        elif key == "installConfig":
-            suggest = "install_config"
-        elif key == "podSecurityPolicy":
-            suggest = "pod_security_policy"
-        elif key == "workerProfiles":
-            suggest = "worker_profiles"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterK0sSpec. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterK0sSpec.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterK0sSpec.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 api: Optional['outputs.ClusterAPI'] = None,
-                 controller_manager: Optional['outputs.ClusterControllerManager'] = None,
-                 feature_gates: Optional[Sequence['outputs.ClusterFeatureGate']] = None,
-                 images: Optional['outputs.ClusterImages'] = None,
-                 install_config: Optional['outputs.ClusterInstallConfig'] = None,
-                 konnectivity: Optional['outputs.ClusterKonnectivity'] = None,
-                 network: Optional['outputs.ClusterNetwork'] = None,
-                 pod_security_policy: Optional['outputs.ClusterPodSecurityPolicy'] = None,
-                 scheduler: Optional['outputs.ClusterScheduler'] = None,
-                 storage: Optional['outputs.ClusterStorage'] = None,
-                 telemetry: Optional['outputs.ClusterTelemetry'] = None,
-                 worker_profiles: Optional[Sequence['outputs.ClusterWorkerProfile']] = None):
-        if api is not None:
-            pulumi.set(__self__, "api", api)
-        if controller_manager is not None:
-            pulumi.set(__self__, "controller_manager", controller_manager)
-        if feature_gates is not None:
-            pulumi.set(__self__, "feature_gates", feature_gates)
-        if images is not None:
-            pulumi.set(__self__, "images", images)
-        if install_config is not None:
-            pulumi.set(__self__, "install_config", install_config)
-        if konnectivity is not None:
-            pulumi.set(__self__, "konnectivity", konnectivity)
-        if network is not None:
-            pulumi.set(__self__, "network", network)
-        if pod_security_policy is not None:
-            pulumi.set(__self__, "pod_security_policy", pod_security_policy)
-        if scheduler is not None:
-            pulumi.set(__self__, "scheduler", scheduler)
-        if storage is not None:
-            pulumi.set(__self__, "storage", storage)
-        if telemetry is not None:
-            pulumi.set(__self__, "telemetry", telemetry)
-        if worker_profiles is not None:
-            pulumi.set(__self__, "worker_profiles", worker_profiles)
-
-    @property
-    @pulumi.getter
-    def api(self) -> Optional['outputs.ClusterAPI']:
-        return pulumi.get(self, "api")
-
-    @property
-    @pulumi.getter(name="controllerManager")
-    def controller_manager(self) -> Optional['outputs.ClusterControllerManager']:
-        return pulumi.get(self, "controller_manager")
-
-    @property
-    @pulumi.getter(name="featureGates")
-    def feature_gates(self) -> Optional[Sequence['outputs.ClusterFeatureGate']]:
-        return pulumi.get(self, "feature_gates")
-
-    @property
-    @pulumi.getter
-    def images(self) -> Optional['outputs.ClusterImages']:
-        return pulumi.get(self, "images")
-
-    @property
-    @pulumi.getter(name="installConfig")
-    def install_config(self) -> Optional['outputs.ClusterInstallConfig']:
-        return pulumi.get(self, "install_config")
-
-    @property
-    @pulumi.getter
-    def konnectivity(self) -> Optional['outputs.ClusterKonnectivity']:
-        return pulumi.get(self, "konnectivity")
-
-    @property
-    @pulumi.getter
-    def network(self) -> Optional['outputs.ClusterNetwork']:
-        return pulumi.get(self, "network")
-
-    @property
-    @pulumi.getter(name="podSecurityPolicy")
-    def pod_security_policy(self) -> Optional['outputs.ClusterPodSecurityPolicy']:
-        return pulumi.get(self, "pod_security_policy")
-
-    @property
-    @pulumi.getter
-    def scheduler(self) -> Optional['outputs.ClusterScheduler']:
-        return pulumi.get(self, "scheduler")
-
-    @property
-    @pulumi.getter
-    def storage(self) -> Optional['outputs.ClusterStorage']:
-        return pulumi.get(self, "storage")
-
-    @property
-    @pulumi.getter
-    def telemetry(self) -> Optional['outputs.ClusterTelemetry']:
-        return pulumi.get(self, "telemetry")
-
-    @property
-    @pulumi.getter(name="workerProfiles")
-    def worker_profiles(self) -> Optional[Sequence['outputs.ClusterWorkerProfile']]:
-        return pulumi.get(self, "worker_profiles")
-
-
-@pulumi.output_type
-class ClusterKine(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "dataSource":
-            suggest = "data_source"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterKine. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterKine.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterKine.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 data_source: str):
-        pulumi.set(__self__, "data_source", data_source)
-
-    @property
-    @pulumi.getter(name="dataSource")
-    def data_source(self) -> str:
-        return pulumi.get(self, "data_source")
-
-
-@pulumi.output_type
-class ClusterKonnectivity(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "adminPort":
-            suggest = "admin_port"
-        elif key == "agentPort":
-            suggest = "agent_port"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterKonnectivity. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterKonnectivity.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterKonnectivity.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 admin_port: Optional[int] = None,
-                 agent_port: Optional[int] = None):
-        if admin_port is not None:
-            pulumi.set(__self__, "admin_port", admin_port)
-        if agent_port is not None:
-            pulumi.set(__self__, "agent_port", agent_port)
-
-    @property
-    @pulumi.getter(name="adminPort")
-    def admin_port(self) -> Optional[int]:
-        return pulumi.get(self, "admin_port")
-
-    @property
-    @pulumi.getter(name="agentPort")
-    def agent_port(self) -> Optional[int]:
-        return pulumi.get(self, "agent_port")
-
-
-@pulumi.output_type
-class ClusterKubeProxy(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "nodePortAddresses":
-            suggest = "node_port_addresses"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterKubeProxy. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterKubeProxy.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterKubeProxy.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 disabled: Optional[bool] = None,
-                 iptables: Optional['outputs.ClusterKubeProxyIPTables'] = None,
-                 ipvs: Optional['outputs.ClusterKubeProxyIPVS'] = None,
-                 mode: Optional[str] = None,
-                 node_port_addresses: Optional[str] = None):
-        if disabled is not None:
-            pulumi.set(__self__, "disabled", disabled)
-        if iptables is not None:
-            pulumi.set(__self__, "iptables", iptables)
-        if ipvs is not None:
-            pulumi.set(__self__, "ipvs", ipvs)
-        if mode is not None:
-            pulumi.set(__self__, "mode", mode)
-        if node_port_addresses is not None:
-            pulumi.set(__self__, "node_port_addresses", node_port_addresses)
-
-    @property
-    @pulumi.getter
-    def disabled(self) -> Optional[bool]:
-        return pulumi.get(self, "disabled")
-
-    @property
-    @pulumi.getter
-    def iptables(self) -> Optional['outputs.ClusterKubeProxyIPTables']:
-        return pulumi.get(self, "iptables")
-
-    @property
-    @pulumi.getter
-    def ipvs(self) -> Optional['outputs.ClusterKubeProxyIPVS']:
-        return pulumi.get(self, "ipvs")
-
-    @property
-    @pulumi.getter
-    def mode(self) -> Optional[str]:
-        return pulumi.get(self, "mode")
-
-    @property
-    @pulumi.getter(name="nodePortAddresses")
-    def node_port_addresses(self) -> Optional[str]:
-        return pulumi.get(self, "node_port_addresses")
-
-
-@pulumi.output_type
-class ClusterKubeProxyIPTables(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "masqueradeAll":
-            suggest = "masquerade_all"
-        elif key == "masqueradeBit":
-            suggest = "masquerade_bit"
-        elif key == "minSyncPeriod":
-            suggest = "min_sync_period"
-        elif key == "syncPeriod":
-            suggest = "sync_period"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterKubeProxyIPTables. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterKubeProxyIPTables.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterKubeProxyIPTables.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 masquerade_all: Optional[bool] = None,
-                 masquerade_bit: Optional[int] = None,
-                 min_sync_period: Optional[str] = None,
-                 sync_period: Optional[str] = None):
-        if masquerade_all is not None:
-            pulumi.set(__self__, "masquerade_all", masquerade_all)
-        if masquerade_bit is not None:
-            pulumi.set(__self__, "masquerade_bit", masquerade_bit)
-        if min_sync_period is not None:
-            pulumi.set(__self__, "min_sync_period", min_sync_period)
-        if sync_period is not None:
-            pulumi.set(__self__, "sync_period", sync_period)
-
-    @property
-    @pulumi.getter(name="masqueradeAll")
-    def masquerade_all(self) -> Optional[bool]:
-        return pulumi.get(self, "masquerade_all")
-
-    @property
-    @pulumi.getter(name="masqueradeBit")
-    def masquerade_bit(self) -> Optional[int]:
-        return pulumi.get(self, "masquerade_bit")
-
-    @property
-    @pulumi.getter(name="minSyncPeriod")
-    def min_sync_period(self) -> Optional[str]:
-        return pulumi.get(self, "min_sync_period")
-
-    @property
-    @pulumi.getter(name="syncPeriod")
-    def sync_period(self) -> Optional[str]:
-        return pulumi.get(self, "sync_period")
-
-
-@pulumi.output_type
-class ClusterKubeProxyIPVS(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "excludeCIDRs":
-            suggest = "exclude_cidrs"
-        elif key == "minSyncPeriod":
-            suggest = "min_sync_period"
-        elif key == "strictARP":
-            suggest = "strict_arp"
-        elif key == "syncPeriod":
-            suggest = "sync_period"
-        elif key == "tcpFinTimeout":
-            suggest = "tcp_fin_timeout"
-        elif key == "tcpTimeout":
-            suggest = "tcp_timeout"
-        elif key == "udpTimeout":
-            suggest = "udp_timeout"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterKubeProxyIPVS. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterKubeProxyIPVS.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterKubeProxyIPVS.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 exclude_cidrs: Optional[str] = None,
-                 min_sync_period: Optional[str] = None,
-                 scheduler: Optional[str] = None,
-                 strict_arp: Optional[bool] = None,
-                 sync_period: Optional[str] = None,
-                 tcp_fin_timeout: Optional[str] = None,
-                 tcp_timeout: Optional[str] = None,
-                 udp_timeout: Optional[str] = None):
-        if exclude_cidrs is not None:
-            pulumi.set(__self__, "exclude_cidrs", exclude_cidrs)
-        if min_sync_period is not None:
-            pulumi.set(__self__, "min_sync_period", min_sync_period)
-        if scheduler is not None:
-            pulumi.set(__self__, "scheduler", scheduler)
-        if strict_arp is not None:
-            pulumi.set(__self__, "strict_arp", strict_arp)
-        if sync_period is not None:
-            pulumi.set(__self__, "sync_period", sync_period)
-        if tcp_fin_timeout is not None:
-            pulumi.set(__self__, "tcp_fin_timeout", tcp_fin_timeout)
-        if tcp_timeout is not None:
-            pulumi.set(__self__, "tcp_timeout", tcp_timeout)
-        if udp_timeout is not None:
-            pulumi.set(__self__, "udp_timeout", udp_timeout)
-
-    @property
-    @pulumi.getter(name="excludeCIDRs")
-    def exclude_cidrs(self) -> Optional[str]:
-        return pulumi.get(self, "exclude_cidrs")
-
-    @property
-    @pulumi.getter(name="minSyncPeriod")
-    def min_sync_period(self) -> Optional[str]:
-        return pulumi.get(self, "min_sync_period")
-
-    @property
-    @pulumi.getter
-    def scheduler(self) -> Optional[str]:
-        return pulumi.get(self, "scheduler")
-
-    @property
-    @pulumi.getter(name="strictARP")
-    def strict_arp(self) -> Optional[bool]:
-        return pulumi.get(self, "strict_arp")
-
-    @property
-    @pulumi.getter(name="syncPeriod")
-    def sync_period(self) -> Optional[str]:
-        return pulumi.get(self, "sync_period")
-
-    @property
-    @pulumi.getter(name="tcpFinTimeout")
-    def tcp_fin_timeout(self) -> Optional[str]:
-        return pulumi.get(self, "tcp_fin_timeout")
-
-    @property
-    @pulumi.getter(name="tcpTimeout")
-    def tcp_timeout(self) -> Optional[str]:
-        return pulumi.get(self, "tcp_timeout")
-
-    @property
-    @pulumi.getter(name="udpTimeout")
-    def udp_timeout(self) -> Optional[str]:
-        return pulumi.get(self, "udp_timeout")
-
-
-@pulumi.output_type
-class ClusterKubeRouter(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "autoMTU":
-            suggest = "auto_mtu"
-        elif key == "extraArgs":
-            suggest = "extra_args"
-        elif key == "ipMasq":
-            suggest = "ip_masq"
-        elif key == "metricsPort":
-            suggest = "metrics_port"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterKubeRouter. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterKubeRouter.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterKubeRouter.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 auto_mtu: Optional[bool] = None,
-                 extra_args: Optional[Mapping[str, str]] = None,
-                 hairpin: Optional[str] = None,
-                 ip_masq: Optional[bool] = None,
-                 metrics_port: Optional[int] = None,
-                 mtu: Optional[int] = None):
-        if auto_mtu is not None:
-            pulumi.set(__self__, "auto_mtu", auto_mtu)
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-        if hairpin is not None:
-            pulumi.set(__self__, "hairpin", hairpin)
-        if ip_masq is not None:
-            pulumi.set(__self__, "ip_masq", ip_masq)
-        if metrics_port is not None:
-            pulumi.set(__self__, "metrics_port", metrics_port)
-        if mtu is not None:
-            pulumi.set(__self__, "mtu", mtu)
-
-    @property
-    @pulumi.getter(name="autoMTU")
-    def auto_mtu(self) -> Optional[bool]:
-        return pulumi.get(self, "auto_mtu")
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[Mapping[str, str]]:
-        return pulumi.get(self, "extra_args")
-
-    @property
-    @pulumi.getter
-    def hairpin(self) -> Optional[str]:
-        return pulumi.get(self, "hairpin")
-
-    @property
-    @pulumi.getter(name="ipMasq")
-    def ip_masq(self) -> Optional[bool]:
-        return pulumi.get(self, "ip_masq")
-
-    @property
-    @pulumi.getter(name="metricsPort")
-    def metrics_port(self) -> Optional[int]:
-        return pulumi.get(self, "metrics_port")
-
-    @property
-    @pulumi.getter
-    def mtu(self) -> Optional[int]:
-        return pulumi.get(self, "mtu")
-
-
-@pulumi.output_type
-class ClusterKubeRouterImage(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "cniInstaller":
-            suggest = "cni_installer"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterKubeRouterImage. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterKubeRouterImage.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterKubeRouterImage.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 cni: Optional['outputs.ClusterImage'] = None,
-                 cni_installer: Optional['outputs.ClusterImage'] = None):
-        if cni is not None:
-            pulumi.set(__self__, "cni", cni)
-        if cni_installer is not None:
-            pulumi.set(__self__, "cni_installer", cni_installer)
-
-    @property
-    @pulumi.getter
-    def cni(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "cni")
-
-    @property
-    @pulumi.getter(name="cniInstaller")
-    def cni_installer(self) -> Optional['outputs.ClusterImage']:
-        return pulumi.get(self, "cni_installer")
 
 
 @pulumi.output_type
@@ -1645,186 +423,6 @@ class ClusterMetadata(dict):
     @pulumi.getter
     def name(self) -> str:
         return pulumi.get(self, "name")
-
-
-@pulumi.output_type
-class ClusterNetwork(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "clusterDomain":
-            suggest = "cluster_domain"
-        elif key == "dualStack":
-            suggest = "dual_stack"
-        elif key == "kubeProxy":
-            suggest = "kube_proxy"
-        elif key == "nodeLocalLoadBalancing":
-            suggest = "node_local_load_balancing"
-        elif key == "podCIDR":
-            suggest = "pod_cidr"
-        elif key == "serviceCIDR":
-            suggest = "service_cidr"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterNetwork. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterNetwork.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterNetwork.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 calico: Optional['outputs.ClusterCalico'] = None,
-                 cluster_domain: Optional[str] = None,
-                 dual_stack: Optional['outputs.ClusterDualStack'] = None,
-                 kube_proxy: Optional['outputs.ClusterKubeProxy'] = None,
-                 kuberouter: Optional['outputs.ClusterKubeRouter'] = None,
-                 node_local_load_balancing: Optional['outputs.ClusterNodeLocalLoadBalancing'] = None,
-                 pod_cidr: Optional[str] = None,
-                 provider: Optional[str] = None,
-                 service_cidr: Optional[str] = None):
-        if calico is not None:
-            pulumi.set(__self__, "calico", calico)
-        if cluster_domain is not None:
-            pulumi.set(__self__, "cluster_domain", cluster_domain)
-        if dual_stack is not None:
-            pulumi.set(__self__, "dual_stack", dual_stack)
-        if kube_proxy is not None:
-            pulumi.set(__self__, "kube_proxy", kube_proxy)
-        if kuberouter is not None:
-            pulumi.set(__self__, "kuberouter", kuberouter)
-        if node_local_load_balancing is not None:
-            pulumi.set(__self__, "node_local_load_balancing", node_local_load_balancing)
-        if pod_cidr is not None:
-            pulumi.set(__self__, "pod_cidr", pod_cidr)
-        if provider is not None:
-            pulumi.set(__self__, "provider", provider)
-        if service_cidr is not None:
-            pulumi.set(__self__, "service_cidr", service_cidr)
-
-    @property
-    @pulumi.getter
-    def calico(self) -> Optional['outputs.ClusterCalico']:
-        return pulumi.get(self, "calico")
-
-    @property
-    @pulumi.getter(name="clusterDomain")
-    def cluster_domain(self) -> Optional[str]:
-        return pulumi.get(self, "cluster_domain")
-
-    @property
-    @pulumi.getter(name="dualStack")
-    def dual_stack(self) -> Optional['outputs.ClusterDualStack']:
-        return pulumi.get(self, "dual_stack")
-
-    @property
-    @pulumi.getter(name="kubeProxy")
-    def kube_proxy(self) -> Optional['outputs.ClusterKubeProxy']:
-        return pulumi.get(self, "kube_proxy")
-
-    @property
-    @pulumi.getter
-    def kuberouter(self) -> Optional['outputs.ClusterKubeRouter']:
-        return pulumi.get(self, "kuberouter")
-
-    @property
-    @pulumi.getter(name="nodeLocalLoadBalancing")
-    def node_local_load_balancing(self) -> Optional['outputs.ClusterNodeLocalLoadBalancing']:
-        return pulumi.get(self, "node_local_load_balancing")
-
-    @property
-    @pulumi.getter(name="podCIDR")
-    def pod_cidr(self) -> Optional[str]:
-        return pulumi.get(self, "pod_cidr")
-
-    @property
-    @pulumi.getter
-    def provider(self) -> Optional[str]:
-        return pulumi.get(self, "provider")
-
-    @property
-    @pulumi.getter(name="serviceCIDR")
-    def service_cidr(self) -> Optional[str]:
-        return pulumi.get(self, "service_cidr")
-
-
-@pulumi.output_type
-class ClusterNodeLocalLoadBalancing(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "envoyProxy":
-            suggest = "envoy_proxy"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterNodeLocalLoadBalancing. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterNodeLocalLoadBalancing.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterNodeLocalLoadBalancing.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 enabled: Optional[bool] = None,
-                 envoy_proxy: Optional['outputs.ClusterEnvoyProxy'] = None,
-                 type: Optional[str] = None):
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
-        if envoy_proxy is not None:
-            pulumi.set(__self__, "envoy_proxy", envoy_proxy)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @property
-    @pulumi.getter
-    def enabled(self) -> Optional[bool]:
-        return pulumi.get(self, "enabled")
-
-    @property
-    @pulumi.getter(name="envoyProxy")
-    def envoy_proxy(self) -> Optional['outputs.ClusterEnvoyProxy']:
-        return pulumi.get(self, "envoy_proxy")
-
-    @property
-    @pulumi.getter
-    def type(self) -> Optional[str]:
-        return pulumi.get(self, "type")
-
-
-@pulumi.output_type
-class ClusterPodSecurityPolicy(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "defaultPolicy":
-            suggest = "default_policy"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterPodSecurityPolicy. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterPodSecurityPolicy.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterPodSecurityPolicy.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 default_policy: Optional[str] = None):
-        if default_policy is not None:
-            pulumi.set(__self__, "default_policy", default_policy)
-
-    @property
-    @pulumi.getter(name="defaultPolicy")
-    def default_policy(self) -> Optional[str]:
-        return pulumi.get(self, "default_policy")
 
 
 @pulumi.output_type
@@ -1897,36 +495,6 @@ class ClusterSSH(dict):
 
 
 @pulumi.output_type
-class ClusterScheduler(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "extraArgs":
-            suggest = "extra_args"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in ClusterScheduler. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        ClusterScheduler.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        ClusterScheduler.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 extra_args: Optional[Mapping[str, str]] = None):
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[Mapping[str, str]]:
-        return pulumi.get(self, "extra_args")
-
-
-@pulumi.output_type
 class ClusterSpec(dict):
     def __init__(__self__, *,
                  hosts: Sequence['outputs.ClusterHost'],
@@ -1944,48 +512,6 @@ class ClusterSpec(dict):
     @pulumi.getter
     def k0s(self) -> Optional['outputs.ClusterK0s']:
         return pulumi.get(self, "k0s")
-
-
-@pulumi.output_type
-class ClusterStorage(dict):
-    def __init__(__self__, *,
-                 etcd: Optional['outputs.ClusterEtcd'] = None,
-                 kine: Optional['outputs.ClusterKine'] = None,
-                 type: Optional[str] = None):
-        if etcd is not None:
-            pulumi.set(__self__, "etcd", etcd)
-        if kine is not None:
-            pulumi.set(__self__, "kine", kine)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @property
-    @pulumi.getter
-    def etcd(self) -> Optional['outputs.ClusterEtcd']:
-        return pulumi.get(self, "etcd")
-
-    @property
-    @pulumi.getter
-    def kine(self) -> Optional['outputs.ClusterKine']:
-        return pulumi.get(self, "kine")
-
-    @property
-    @pulumi.getter
-    def type(self) -> Optional[str]:
-        return pulumi.get(self, "type")
-
-
-@pulumi.output_type
-class ClusterTelemetry(dict):
-    def __init__(__self__, *,
-                 enabled: Optional[bool] = None):
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
-
-    @property
-    @pulumi.getter
-    def enabled(self) -> Optional[bool]:
-        return pulumi.get(self, "enabled")
 
 
 @pulumi.output_type
@@ -2112,7 +638,1527 @@ class ClusterWinRM(dict):
 
 
 @pulumi.output_type
-class ClusterWorkerProfile(dict):
+class K0s(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0s. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0s.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0s.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 metadata: Optional['outputs.K0sMetadata'] = None,
+                 spec: Optional['outputs.K0sSpec'] = None):
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['outputs.K0sMetadata']:
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional['outputs.K0sSpec']:
+        return pulumi.get(self, "spec")
+
+
+@pulumi.output_type
+class K0sAPI(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "externalAddress":
+            suggest = "external_address"
+        elif key == "extraArgs":
+            suggest = "extra_args"
+        elif key == "k0sApiPort":
+            suggest = "k0s_api_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sAPI. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sAPI.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sAPI.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 address: Optional[str] = None,
+                 external_address: Optional[str] = None,
+                 extra_args: Optional[Mapping[str, str]] = None,
+                 k0s_api_port: Optional[int] = None,
+                 port: Optional[int] = None,
+                 sans: Optional[Sequence[str]] = None):
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if external_address is not None:
+            pulumi.set(__self__, "external_address", external_address)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+        if k0s_api_port is not None:
+            pulumi.set(__self__, "k0s_api_port", k0s_api_port)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if sans is not None:
+            pulumi.set(__self__, "sans", sans)
+
+    @property
+    @pulumi.getter
+    def address(self) -> Optional[str]:
+        return pulumi.get(self, "address")
+
+    @property
+    @pulumi.getter(name="externalAddress")
+    def external_address(self) -> Optional[str]:
+        return pulumi.get(self, "external_address")
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "extra_args")
+
+    @property
+    @pulumi.getter(name="k0sApiPort")
+    def k0s_api_port(self) -> Optional[int]:
+        return pulumi.get(self, "k0s_api_port")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def sans(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "sans")
+
+
+@pulumi.output_type
+class K0sCalico(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "envVars":
+            suggest = "env_vars"
+        elif key == "flexVolumeDriverPath":
+            suggest = "flex_volume_driver_path"
+        elif key == "ipAutodetectionMethod":
+            suggest = "ip_autodetection_method"
+        elif key == "vxlanPort":
+            suggest = "vxlan_port"
+        elif key == "vxlanVNI":
+            suggest = "vxlan_vni"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sCalico. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sCalico.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sCalico.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 env_vars: Optional[Mapping[str, str]] = None,
+                 flex_volume_driver_path: Optional[str] = None,
+                 ip_autodetection_method: Optional[str] = None,
+                 mode: Optional[str] = None,
+                 mtu: Optional[int] = None,
+                 overlay: Optional[str] = None,
+                 vxlan_port: Optional[int] = None,
+                 vxlan_vni: Optional[int] = None,
+                 wireguard: Optional[bool] = None):
+        if env_vars is not None:
+            pulumi.set(__self__, "env_vars", env_vars)
+        if flex_volume_driver_path is not None:
+            pulumi.set(__self__, "flex_volume_driver_path", flex_volume_driver_path)
+        if ip_autodetection_method is not None:
+            pulumi.set(__self__, "ip_autodetection_method", ip_autodetection_method)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if mtu is not None:
+            pulumi.set(__self__, "mtu", mtu)
+        if overlay is not None:
+            pulumi.set(__self__, "overlay", overlay)
+        if vxlan_port is not None:
+            pulumi.set(__self__, "vxlan_port", vxlan_port)
+        if vxlan_vni is not None:
+            pulumi.set(__self__, "vxlan_vni", vxlan_vni)
+        if wireguard is not None:
+            pulumi.set(__self__, "wireguard", wireguard)
+
+    @property
+    @pulumi.getter(name="envVars")
+    def env_vars(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "env_vars")
+
+    @property
+    @pulumi.getter(name="flexVolumeDriverPath")
+    def flex_volume_driver_path(self) -> Optional[str]:
+        return pulumi.get(self, "flex_volume_driver_path")
+
+    @property
+    @pulumi.getter(name="ipAutodetectionMethod")
+    def ip_autodetection_method(self) -> Optional[str]:
+        return pulumi.get(self, "ip_autodetection_method")
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[str]:
+        return pulumi.get(self, "mode")
+
+    @property
+    @pulumi.getter
+    def mtu(self) -> Optional[int]:
+        return pulumi.get(self, "mtu")
+
+    @property
+    @pulumi.getter
+    def overlay(self) -> Optional[str]:
+        return pulumi.get(self, "overlay")
+
+    @property
+    @pulumi.getter(name="vxlanPort")
+    def vxlan_port(self) -> Optional[int]:
+        return pulumi.get(self, "vxlan_port")
+
+    @property
+    @pulumi.getter(name="vxlanVNI")
+    def vxlan_vni(self) -> Optional[int]:
+        return pulumi.get(self, "vxlan_vni")
+
+    @property
+    @pulumi.getter
+    def wireguard(self) -> Optional[bool]:
+        return pulumi.get(self, "wireguard")
+
+
+@pulumi.output_type
+class K0sCalicoImage(dict):
+    def __init__(__self__, *,
+                 cni: Optional['outputs.K0sImage'] = None,
+                 flexvolume: Optional['outputs.K0sImage'] = None,
+                 kubecontrollers: Optional['outputs.K0sImage'] = None,
+                 node: Optional['outputs.K0sImage'] = None):
+        if cni is not None:
+            pulumi.set(__self__, "cni", cni)
+        if flexvolume is not None:
+            pulumi.set(__self__, "flexvolume", flexvolume)
+        if kubecontrollers is not None:
+            pulumi.set(__self__, "kubecontrollers", kubecontrollers)
+        if node is not None:
+            pulumi.set(__self__, "node", node)
+
+    @property
+    @pulumi.getter
+    def cni(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "cni")
+
+    @property
+    @pulumi.getter
+    def flexvolume(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "flexvolume")
+
+    @property
+    @pulumi.getter
+    def kubecontrollers(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "kubecontrollers")
+
+    @property
+    @pulumi.getter
+    def node(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "node")
+
+
+@pulumi.output_type
+class K0sControllerManager(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "extraArgs":
+            suggest = "extra_args"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sControllerManager. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sControllerManager.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sControllerManager.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 extra_args: Optional[Mapping[str, str]] = None):
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "extra_args")
+
+
+@pulumi.output_type
+class K0sDualStack(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "IPv6podCIDR":
+            suggest = "i_pv6pod_cidr"
+        elif key == "IPv6serviceCIDR":
+            suggest = "i_pv6service_cidr"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sDualStack. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sDualStack.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sDualStack.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 i_pv6pod_cidr: Optional[str] = None,
+                 i_pv6service_cidr: Optional[str] = None,
+                 enabled: Optional[bool] = None):
+        if i_pv6pod_cidr is not None:
+            pulumi.set(__self__, "i_pv6pod_cidr", i_pv6pod_cidr)
+        if i_pv6service_cidr is not None:
+            pulumi.set(__self__, "i_pv6service_cidr", i_pv6service_cidr)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter(name="IPv6podCIDR")
+    def i_pv6pod_cidr(self) -> Optional[str]:
+        return pulumi.get(self, "i_pv6pod_cidr")
+
+    @property
+    @pulumi.getter(name="IPv6serviceCIDR")
+    def i_pv6service_cidr(self) -> Optional[str]:
+        return pulumi.get(self, "i_pv6service_cidr")
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class K0sEnvoyProxy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiServerBindPort":
+            suggest = "api_server_bind_port"
+        elif key == "imagePullPolicy":
+            suggest = "image_pull_policy"
+        elif key == "konnectivityServerBindPort":
+            suggest = "konnectivity_server_bind_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sEnvoyProxy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sEnvoyProxy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sEnvoyProxy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_server_bind_port: Optional[int] = None,
+                 image: Optional[str] = None,
+                 image_pull_policy: Optional[str] = None,
+                 konnectivity_server_bind_port: Optional[int] = None):
+        if api_server_bind_port is not None:
+            pulumi.set(__self__, "api_server_bind_port", api_server_bind_port)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if image_pull_policy is not None:
+            pulumi.set(__self__, "image_pull_policy", image_pull_policy)
+        if konnectivity_server_bind_port is not None:
+            pulumi.set(__self__, "konnectivity_server_bind_port", konnectivity_server_bind_port)
+
+    @property
+    @pulumi.getter(name="apiServerBindPort")
+    def api_server_bind_port(self) -> Optional[int]:
+        return pulumi.get(self, "api_server_bind_port")
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[str]:
+        return pulumi.get(self, "image")
+
+    @property
+    @pulumi.getter(name="imagePullPolicy")
+    def image_pull_policy(self) -> Optional[str]:
+        return pulumi.get(self, "image_pull_policy")
+
+    @property
+    @pulumi.getter(name="konnectivityServerBindPort")
+    def konnectivity_server_bind_port(self) -> Optional[int]:
+        return pulumi.get(self, "konnectivity_server_bind_port")
+
+
+@pulumi.output_type
+class K0sEtcd(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "externalCluster":
+            suggest = "external_cluster"
+        elif key == "extraArgs":
+            suggest = "extra_args"
+        elif key == "peerAddress":
+            suggest = "peer_address"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sEtcd. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sEtcd.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sEtcd.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 external_cluster: Optional['outputs.K0sEtcdExternalCluster'] = None,
+                 extra_args: Optional[Mapping[str, str]] = None,
+                 peer_address: Optional[str] = None):
+        if external_cluster is not None:
+            pulumi.set(__self__, "external_cluster", external_cluster)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+        if peer_address is not None:
+            pulumi.set(__self__, "peer_address", peer_address)
+
+    @property
+    @pulumi.getter(name="externalCluster")
+    def external_cluster(self) -> Optional['outputs.K0sEtcdExternalCluster']:
+        return pulumi.get(self, "external_cluster")
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "extra_args")
+
+    @property
+    @pulumi.getter(name="peerAddress")
+    def peer_address(self) -> Optional[str]:
+        return pulumi.get(self, "peer_address")
+
+
+@pulumi.output_type
+class K0sEtcdExternalCluster(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clientCert":
+            suggest = "client_cert"
+        elif key == "clientKey":
+            suggest = "client_key"
+        elif key == "etcdPrefix":
+            suggest = "etcd_prefix"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sEtcdExternalCluster. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sEtcdExternalCluster.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sEtcdExternalCluster.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 endpoints: Sequence[str],
+                 ca: Optional[str] = None,
+                 client_cert: Optional[str] = None,
+                 client_key: Optional[str] = None,
+                 etcd_prefix: Optional[str] = None):
+        pulumi.set(__self__, "endpoints", endpoints)
+        if ca is not None:
+            pulumi.set(__self__, "ca", ca)
+        if client_cert is not None:
+            pulumi.set(__self__, "client_cert", client_cert)
+        if client_key is not None:
+            pulumi.set(__self__, "client_key", client_key)
+        if etcd_prefix is not None:
+            pulumi.set(__self__, "etcd_prefix", etcd_prefix)
+
+    @property
+    @pulumi.getter
+    def endpoints(self) -> Sequence[str]:
+        return pulumi.get(self, "endpoints")
+
+    @property
+    @pulumi.getter
+    def ca(self) -> Optional[str]:
+        return pulumi.get(self, "ca")
+
+    @property
+    @pulumi.getter(name="clientCert")
+    def client_cert(self) -> Optional[str]:
+        return pulumi.get(self, "client_cert")
+
+    @property
+    @pulumi.getter(name="clientKey")
+    def client_key(self) -> Optional[str]:
+        return pulumi.get(self, "client_key")
+
+    @property
+    @pulumi.getter(name="etcdPrefix")
+    def etcd_prefix(self) -> Optional[str]:
+        return pulumi.get(self, "etcd_prefix")
+
+
+@pulumi.output_type
+class K0sFeatureGate(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 components: Optional[Sequence[str]] = None,
+                 enabled: Optional[bool] = None):
+        pulumi.set(__self__, "name", name)
+        if components is not None:
+            pulumi.set(__self__, "components", components)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def components(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "components")
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class K0sImage(dict):
+    def __init__(__self__, *,
+                 image: Optional[str] = None,
+                 version: Optional[str] = None):
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[str]:
+        return pulumi.get(self, "image")
+
+    @property
+    @pulumi.getter
+    def version(self) -> Optional[str]:
+        return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class K0sImages(dict):
+    def __init__(__self__, *,
+                 calico: Optional['outputs.K0sCalicoImage'] = None,
+                 coredns: Optional['outputs.K0sImage'] = None,
+                 default_pull_policy: Optional[str] = None,
+                 konnectivity: Optional['outputs.K0sImage'] = None,
+                 kubeproxy: Optional['outputs.K0sImage'] = None,
+                 kuberouter: Optional['outputs.K0sKubeRouterImage'] = None,
+                 metricsserver: Optional['outputs.K0sImage'] = None,
+                 pause: Optional['outputs.K0sImage'] = None,
+                 repository: Optional[str] = None):
+        if calico is not None:
+            pulumi.set(__self__, "calico", calico)
+        if coredns is not None:
+            pulumi.set(__self__, "coredns", coredns)
+        if default_pull_policy is not None:
+            pulumi.set(__self__, "default_pull_policy", default_pull_policy)
+        if konnectivity is not None:
+            pulumi.set(__self__, "konnectivity", konnectivity)
+        if kubeproxy is not None:
+            pulumi.set(__self__, "kubeproxy", kubeproxy)
+        if kuberouter is not None:
+            pulumi.set(__self__, "kuberouter", kuberouter)
+        if metricsserver is not None:
+            pulumi.set(__self__, "metricsserver", metricsserver)
+        if pause is not None:
+            pulumi.set(__self__, "pause", pause)
+        if repository is not None:
+            pulumi.set(__self__, "repository", repository)
+
+    @property
+    @pulumi.getter
+    def calico(self) -> Optional['outputs.K0sCalicoImage']:
+        return pulumi.get(self, "calico")
+
+    @property
+    @pulumi.getter
+    def coredns(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "coredns")
+
+    @property
+    @pulumi.getter
+    def default_pull_policy(self) -> Optional[str]:
+        return pulumi.get(self, "default_pull_policy")
+
+    @property
+    @pulumi.getter
+    def konnectivity(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "konnectivity")
+
+    @property
+    @pulumi.getter
+    def kubeproxy(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "kubeproxy")
+
+    @property
+    @pulumi.getter
+    def kuberouter(self) -> Optional['outputs.K0sKubeRouterImage']:
+        return pulumi.get(self, "kuberouter")
+
+    @property
+    @pulumi.getter
+    def metricsserver(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "metricsserver")
+
+    @property
+    @pulumi.getter
+    def pause(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "pause")
+
+    @property
+    @pulumi.getter
+    def repository(self) -> Optional[str]:
+        return pulumi.get(self, "repository")
+
+
+@pulumi.output_type
+class K0sInstallConfig(dict):
+    def __init__(__self__, *,
+                 users: Optional['outputs.K0sInstallConfigUser'] = None):
+        if users is not None:
+            pulumi.set(__self__, "users", users)
+
+    @property
+    @pulumi.getter
+    def users(self) -> Optional['outputs.K0sInstallConfigUser']:
+        return pulumi.get(self, "users")
+
+
+@pulumi.output_type
+class K0sInstallConfigUser(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "etcdUser":
+            suggest = "etcd_user"
+        elif key == "kineUser":
+            suggest = "kine_user"
+        elif key == "konnectivityUser":
+            suggest = "konnectivity_user"
+        elif key == "kubeAPIserverUser":
+            suggest = "kube_apiserver_user"
+        elif key == "kubeSchedulerUser":
+            suggest = "kube_scheduler_user"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sInstallConfigUser. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sInstallConfigUser.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sInstallConfigUser.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 etcd_user: Optional[str] = None,
+                 kine_user: Optional[str] = None,
+                 konnectivity_user: Optional[str] = None,
+                 kube_apiserver_user: Optional[str] = None,
+                 kube_scheduler_user: Optional[str] = None):
+        if etcd_user is not None:
+            pulumi.set(__self__, "etcd_user", etcd_user)
+        if kine_user is not None:
+            pulumi.set(__self__, "kine_user", kine_user)
+        if konnectivity_user is not None:
+            pulumi.set(__self__, "konnectivity_user", konnectivity_user)
+        if kube_apiserver_user is not None:
+            pulumi.set(__self__, "kube_apiserver_user", kube_apiserver_user)
+        if kube_scheduler_user is not None:
+            pulumi.set(__self__, "kube_scheduler_user", kube_scheduler_user)
+
+    @property
+    @pulumi.getter(name="etcdUser")
+    def etcd_user(self) -> Optional[str]:
+        return pulumi.get(self, "etcd_user")
+
+    @property
+    @pulumi.getter(name="kineUser")
+    def kine_user(self) -> Optional[str]:
+        return pulumi.get(self, "kine_user")
+
+    @property
+    @pulumi.getter(name="konnectivityUser")
+    def konnectivity_user(self) -> Optional[str]:
+        return pulumi.get(self, "konnectivity_user")
+
+    @property
+    @pulumi.getter(name="kubeAPIserverUser")
+    def kube_apiserver_user(self) -> Optional[str]:
+        return pulumi.get(self, "kube_apiserver_user")
+
+    @property
+    @pulumi.getter(name="kubeSchedulerUser")
+    def kube_scheduler_user(self) -> Optional[str]:
+        return pulumi.get(self, "kube_scheduler_user")
+
+
+@pulumi.output_type
+class K0sKine(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "dataSource":
+            suggest = "data_source"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sKine. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sKine.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sKine.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 data_source: str):
+        pulumi.set(__self__, "data_source", data_source)
+
+    @property
+    @pulumi.getter(name="dataSource")
+    def data_source(self) -> str:
+        return pulumi.get(self, "data_source")
+
+
+@pulumi.output_type
+class K0sKonnectivity(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "adminPort":
+            suggest = "admin_port"
+        elif key == "agentPort":
+            suggest = "agent_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sKonnectivity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sKonnectivity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sKonnectivity.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 admin_port: Optional[int] = None,
+                 agent_port: Optional[int] = None):
+        if admin_port is not None:
+            pulumi.set(__self__, "admin_port", admin_port)
+        if agent_port is not None:
+            pulumi.set(__self__, "agent_port", agent_port)
+
+    @property
+    @pulumi.getter(name="adminPort")
+    def admin_port(self) -> Optional[int]:
+        return pulumi.get(self, "admin_port")
+
+    @property
+    @pulumi.getter(name="agentPort")
+    def agent_port(self) -> Optional[int]:
+        return pulumi.get(self, "agent_port")
+
+
+@pulumi.output_type
+class K0sKubeProxy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodePortAddresses":
+            suggest = "node_port_addresses"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sKubeProxy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sKubeProxy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sKubeProxy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 disabled: Optional[bool] = None,
+                 iptables: Optional['outputs.K0sKubeProxyIPTables'] = None,
+                 ipvs: Optional['outputs.K0sKubeProxyIPVS'] = None,
+                 mode: Optional[str] = None,
+                 node_port_addresses: Optional[str] = None):
+        if disabled is not None:
+            pulumi.set(__self__, "disabled", disabled)
+        if iptables is not None:
+            pulumi.set(__self__, "iptables", iptables)
+        if ipvs is not None:
+            pulumi.set(__self__, "ipvs", ipvs)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if node_port_addresses is not None:
+            pulumi.set(__self__, "node_port_addresses", node_port_addresses)
+
+    @property
+    @pulumi.getter
+    def disabled(self) -> Optional[bool]:
+        return pulumi.get(self, "disabled")
+
+    @property
+    @pulumi.getter
+    def iptables(self) -> Optional['outputs.K0sKubeProxyIPTables']:
+        return pulumi.get(self, "iptables")
+
+    @property
+    @pulumi.getter
+    def ipvs(self) -> Optional['outputs.K0sKubeProxyIPVS']:
+        return pulumi.get(self, "ipvs")
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[str]:
+        return pulumi.get(self, "mode")
+
+    @property
+    @pulumi.getter(name="nodePortAddresses")
+    def node_port_addresses(self) -> Optional[str]:
+        return pulumi.get(self, "node_port_addresses")
+
+
+@pulumi.output_type
+class K0sKubeProxyIPTables(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "masqueradeAll":
+            suggest = "masquerade_all"
+        elif key == "masqueradeBit":
+            suggest = "masquerade_bit"
+        elif key == "minSyncPeriod":
+            suggest = "min_sync_period"
+        elif key == "syncPeriod":
+            suggest = "sync_period"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sKubeProxyIPTables. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sKubeProxyIPTables.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sKubeProxyIPTables.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 masquerade_all: Optional[bool] = None,
+                 masquerade_bit: Optional[int] = None,
+                 min_sync_period: Optional[str] = None,
+                 sync_period: Optional[str] = None):
+        if masquerade_all is not None:
+            pulumi.set(__self__, "masquerade_all", masquerade_all)
+        if masquerade_bit is not None:
+            pulumi.set(__self__, "masquerade_bit", masquerade_bit)
+        if min_sync_period is not None:
+            pulumi.set(__self__, "min_sync_period", min_sync_period)
+        if sync_period is not None:
+            pulumi.set(__self__, "sync_period", sync_period)
+
+    @property
+    @pulumi.getter(name="masqueradeAll")
+    def masquerade_all(self) -> Optional[bool]:
+        return pulumi.get(self, "masquerade_all")
+
+    @property
+    @pulumi.getter(name="masqueradeBit")
+    def masquerade_bit(self) -> Optional[int]:
+        return pulumi.get(self, "masquerade_bit")
+
+    @property
+    @pulumi.getter(name="minSyncPeriod")
+    def min_sync_period(self) -> Optional[str]:
+        return pulumi.get(self, "min_sync_period")
+
+    @property
+    @pulumi.getter(name="syncPeriod")
+    def sync_period(self) -> Optional[str]:
+        return pulumi.get(self, "sync_period")
+
+
+@pulumi.output_type
+class K0sKubeProxyIPVS(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "excludeCIDRs":
+            suggest = "exclude_cidrs"
+        elif key == "minSyncPeriod":
+            suggest = "min_sync_period"
+        elif key == "strictARP":
+            suggest = "strict_arp"
+        elif key == "syncPeriod":
+            suggest = "sync_period"
+        elif key == "tcpFinTimeout":
+            suggest = "tcp_fin_timeout"
+        elif key == "tcpTimeout":
+            suggest = "tcp_timeout"
+        elif key == "udpTimeout":
+            suggest = "udp_timeout"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sKubeProxyIPVS. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sKubeProxyIPVS.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sKubeProxyIPVS.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 exclude_cidrs: Optional[str] = None,
+                 min_sync_period: Optional[str] = None,
+                 scheduler: Optional[str] = None,
+                 strict_arp: Optional[bool] = None,
+                 sync_period: Optional[str] = None,
+                 tcp_fin_timeout: Optional[str] = None,
+                 tcp_timeout: Optional[str] = None,
+                 udp_timeout: Optional[str] = None):
+        if exclude_cidrs is not None:
+            pulumi.set(__self__, "exclude_cidrs", exclude_cidrs)
+        if min_sync_period is not None:
+            pulumi.set(__self__, "min_sync_period", min_sync_period)
+        if scheduler is not None:
+            pulumi.set(__self__, "scheduler", scheduler)
+        if strict_arp is not None:
+            pulumi.set(__self__, "strict_arp", strict_arp)
+        if sync_period is not None:
+            pulumi.set(__self__, "sync_period", sync_period)
+        if tcp_fin_timeout is not None:
+            pulumi.set(__self__, "tcp_fin_timeout", tcp_fin_timeout)
+        if tcp_timeout is not None:
+            pulumi.set(__self__, "tcp_timeout", tcp_timeout)
+        if udp_timeout is not None:
+            pulumi.set(__self__, "udp_timeout", udp_timeout)
+
+    @property
+    @pulumi.getter(name="excludeCIDRs")
+    def exclude_cidrs(self) -> Optional[str]:
+        return pulumi.get(self, "exclude_cidrs")
+
+    @property
+    @pulumi.getter(name="minSyncPeriod")
+    def min_sync_period(self) -> Optional[str]:
+        return pulumi.get(self, "min_sync_period")
+
+    @property
+    @pulumi.getter
+    def scheduler(self) -> Optional[str]:
+        return pulumi.get(self, "scheduler")
+
+    @property
+    @pulumi.getter(name="strictARP")
+    def strict_arp(self) -> Optional[bool]:
+        return pulumi.get(self, "strict_arp")
+
+    @property
+    @pulumi.getter(name="syncPeriod")
+    def sync_period(self) -> Optional[str]:
+        return pulumi.get(self, "sync_period")
+
+    @property
+    @pulumi.getter(name="tcpFinTimeout")
+    def tcp_fin_timeout(self) -> Optional[str]:
+        return pulumi.get(self, "tcp_fin_timeout")
+
+    @property
+    @pulumi.getter(name="tcpTimeout")
+    def tcp_timeout(self) -> Optional[str]:
+        return pulumi.get(self, "tcp_timeout")
+
+    @property
+    @pulumi.getter(name="udpTimeout")
+    def udp_timeout(self) -> Optional[str]:
+        return pulumi.get(self, "udp_timeout")
+
+
+@pulumi.output_type
+class K0sKubeRouter(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "autoMTU":
+            suggest = "auto_mtu"
+        elif key == "extraArgs":
+            suggest = "extra_args"
+        elif key == "ipMasq":
+            suggest = "ip_masq"
+        elif key == "metricsPort":
+            suggest = "metrics_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sKubeRouter. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sKubeRouter.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sKubeRouter.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 auto_mtu: Optional[bool] = None,
+                 extra_args: Optional[Mapping[str, str]] = None,
+                 hairpin: Optional[str] = None,
+                 ip_masq: Optional[bool] = None,
+                 metrics_port: Optional[int] = None,
+                 mtu: Optional[int] = None):
+        if auto_mtu is not None:
+            pulumi.set(__self__, "auto_mtu", auto_mtu)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+        if hairpin is not None:
+            pulumi.set(__self__, "hairpin", hairpin)
+        if ip_masq is not None:
+            pulumi.set(__self__, "ip_masq", ip_masq)
+        if metrics_port is not None:
+            pulumi.set(__self__, "metrics_port", metrics_port)
+        if mtu is not None:
+            pulumi.set(__self__, "mtu", mtu)
+
+    @property
+    @pulumi.getter(name="autoMTU")
+    def auto_mtu(self) -> Optional[bool]:
+        return pulumi.get(self, "auto_mtu")
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "extra_args")
+
+    @property
+    @pulumi.getter
+    def hairpin(self) -> Optional[str]:
+        return pulumi.get(self, "hairpin")
+
+    @property
+    @pulumi.getter(name="ipMasq")
+    def ip_masq(self) -> Optional[bool]:
+        return pulumi.get(self, "ip_masq")
+
+    @property
+    @pulumi.getter(name="metricsPort")
+    def metrics_port(self) -> Optional[int]:
+        return pulumi.get(self, "metrics_port")
+
+    @property
+    @pulumi.getter
+    def mtu(self) -> Optional[int]:
+        return pulumi.get(self, "mtu")
+
+
+@pulumi.output_type
+class K0sKubeRouterImage(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cniInstaller":
+            suggest = "cni_installer"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sKubeRouterImage. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sKubeRouterImage.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sKubeRouterImage.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cni: Optional['outputs.K0sImage'] = None,
+                 cni_installer: Optional['outputs.K0sImage'] = None):
+        if cni is not None:
+            pulumi.set(__self__, "cni", cni)
+        if cni_installer is not None:
+            pulumi.set(__self__, "cni_installer", cni_installer)
+
+    @property
+    @pulumi.getter
+    def cni(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "cni")
+
+    @property
+    @pulumi.getter(name="cniInstaller")
+    def cni_installer(self) -> Optional['outputs.K0sImage']:
+        return pulumi.get(self, "cni_installer")
+
+
+@pulumi.output_type
+class K0sMetadata(dict):
+    def __init__(__self__, *,
+                 name: str):
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class K0sNetwork(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clusterDomain":
+            suggest = "cluster_domain"
+        elif key == "dualStack":
+            suggest = "dual_stack"
+        elif key == "kubeProxy":
+            suggest = "kube_proxy"
+        elif key == "nodeLocalLoadBalancing":
+            suggest = "node_local_load_balancing"
+        elif key == "podCIDR":
+            suggest = "pod_cidr"
+        elif key == "serviceCIDR":
+            suggest = "service_cidr"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sNetwork. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sNetwork.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sNetwork.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 calico: Optional['outputs.K0sCalico'] = None,
+                 cluster_domain: Optional[str] = None,
+                 dual_stack: Optional['outputs.K0sDualStack'] = None,
+                 kube_proxy: Optional['outputs.K0sKubeProxy'] = None,
+                 kuberouter: Optional['outputs.K0sKubeRouter'] = None,
+                 node_local_load_balancing: Optional['outputs.K0sNodeLocalLoadBalancing'] = None,
+                 pod_cidr: Optional[str] = None,
+                 provider: Optional[str] = None,
+                 service_cidr: Optional[str] = None):
+        if calico is not None:
+            pulumi.set(__self__, "calico", calico)
+        if cluster_domain is not None:
+            pulumi.set(__self__, "cluster_domain", cluster_domain)
+        if dual_stack is not None:
+            pulumi.set(__self__, "dual_stack", dual_stack)
+        if kube_proxy is not None:
+            pulumi.set(__self__, "kube_proxy", kube_proxy)
+        if kuberouter is not None:
+            pulumi.set(__self__, "kuberouter", kuberouter)
+        if node_local_load_balancing is not None:
+            pulumi.set(__self__, "node_local_load_balancing", node_local_load_balancing)
+        if pod_cidr is not None:
+            pulumi.set(__self__, "pod_cidr", pod_cidr)
+        if provider is not None:
+            pulumi.set(__self__, "provider", provider)
+        if service_cidr is not None:
+            pulumi.set(__self__, "service_cidr", service_cidr)
+
+    @property
+    @pulumi.getter
+    def calico(self) -> Optional['outputs.K0sCalico']:
+        return pulumi.get(self, "calico")
+
+    @property
+    @pulumi.getter(name="clusterDomain")
+    def cluster_domain(self) -> Optional[str]:
+        return pulumi.get(self, "cluster_domain")
+
+    @property
+    @pulumi.getter(name="dualStack")
+    def dual_stack(self) -> Optional['outputs.K0sDualStack']:
+        return pulumi.get(self, "dual_stack")
+
+    @property
+    @pulumi.getter(name="kubeProxy")
+    def kube_proxy(self) -> Optional['outputs.K0sKubeProxy']:
+        return pulumi.get(self, "kube_proxy")
+
+    @property
+    @pulumi.getter
+    def kuberouter(self) -> Optional['outputs.K0sKubeRouter']:
+        return pulumi.get(self, "kuberouter")
+
+    @property
+    @pulumi.getter(name="nodeLocalLoadBalancing")
+    def node_local_load_balancing(self) -> Optional['outputs.K0sNodeLocalLoadBalancing']:
+        return pulumi.get(self, "node_local_load_balancing")
+
+    @property
+    @pulumi.getter(name="podCIDR")
+    def pod_cidr(self) -> Optional[str]:
+        return pulumi.get(self, "pod_cidr")
+
+    @property
+    @pulumi.getter
+    def provider(self) -> Optional[str]:
+        return pulumi.get(self, "provider")
+
+    @property
+    @pulumi.getter(name="serviceCIDR")
+    def service_cidr(self) -> Optional[str]:
+        return pulumi.get(self, "service_cidr")
+
+
+@pulumi.output_type
+class K0sNodeLocalLoadBalancing(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "envoyProxy":
+            suggest = "envoy_proxy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sNodeLocalLoadBalancing. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sNodeLocalLoadBalancing.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sNodeLocalLoadBalancing.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: Optional[bool] = None,
+                 envoy_proxy: Optional['outputs.K0sEnvoyProxy'] = None,
+                 type: Optional[str] = None):
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if envoy_proxy is not None:
+            pulumi.set(__self__, "envoy_proxy", envoy_proxy)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        return pulumi.get(self, "enabled")
+
+    @property
+    @pulumi.getter(name="envoyProxy")
+    def envoy_proxy(self) -> Optional['outputs.K0sEnvoyProxy']:
+        return pulumi.get(self, "envoy_proxy")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class K0sPodSecurityPolicy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultPolicy":
+            suggest = "default_policy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sPodSecurityPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sPodSecurityPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sPodSecurityPolicy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default_policy: Optional[str] = None):
+        if default_policy is not None:
+            pulumi.set(__self__, "default_policy", default_policy)
+
+    @property
+    @pulumi.getter(name="defaultPolicy")
+    def default_policy(self) -> Optional[str]:
+        return pulumi.get(self, "default_policy")
+
+
+@pulumi.output_type
+class K0sScheduler(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "extraArgs":
+            suggest = "extra_args"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sScheduler. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sScheduler.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sScheduler.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 extra_args: Optional[Mapping[str, str]] = None):
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "extra_args")
+
+
+@pulumi.output_type
+class K0sSpec(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "controllerManager":
+            suggest = "controller_manager"
+        elif key == "featureGates":
+            suggest = "feature_gates"
+        elif key == "installConfig":
+            suggest = "install_config"
+        elif key == "podSecurityPolicy":
+            suggest = "pod_security_policy"
+        elif key == "workerProfiles":
+            suggest = "worker_profiles"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in K0sSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        K0sSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        K0sSpec.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api: Optional['outputs.K0sAPI'] = None,
+                 controller_manager: Optional['outputs.K0sControllerManager'] = None,
+                 feature_gates: Optional[Sequence['outputs.K0sFeatureGate']] = None,
+                 images: Optional['outputs.K0sImages'] = None,
+                 install_config: Optional['outputs.K0sInstallConfig'] = None,
+                 konnectivity: Optional['outputs.K0sKonnectivity'] = None,
+                 network: Optional['outputs.K0sNetwork'] = None,
+                 pod_security_policy: Optional['outputs.K0sPodSecurityPolicy'] = None,
+                 scheduler: Optional['outputs.K0sScheduler'] = None,
+                 storage: Optional['outputs.K0sStorage'] = None,
+                 telemetry: Optional['outputs.K0sTelemetry'] = None,
+                 worker_profiles: Optional[Sequence['outputs.K0sWorkerProfile']] = None):
+        if api is not None:
+            pulumi.set(__self__, "api", api)
+        if controller_manager is not None:
+            pulumi.set(__self__, "controller_manager", controller_manager)
+        if feature_gates is not None:
+            pulumi.set(__self__, "feature_gates", feature_gates)
+        if images is not None:
+            pulumi.set(__self__, "images", images)
+        if install_config is not None:
+            pulumi.set(__self__, "install_config", install_config)
+        if konnectivity is not None:
+            pulumi.set(__self__, "konnectivity", konnectivity)
+        if network is not None:
+            pulumi.set(__self__, "network", network)
+        if pod_security_policy is not None:
+            pulumi.set(__self__, "pod_security_policy", pod_security_policy)
+        if scheduler is not None:
+            pulumi.set(__self__, "scheduler", scheduler)
+        if storage is not None:
+            pulumi.set(__self__, "storage", storage)
+        if telemetry is not None:
+            pulumi.set(__self__, "telemetry", telemetry)
+        if worker_profiles is not None:
+            pulumi.set(__self__, "worker_profiles", worker_profiles)
+
+    @property
+    @pulumi.getter
+    def api(self) -> Optional['outputs.K0sAPI']:
+        return pulumi.get(self, "api")
+
+    @property
+    @pulumi.getter(name="controllerManager")
+    def controller_manager(self) -> Optional['outputs.K0sControllerManager']:
+        return pulumi.get(self, "controller_manager")
+
+    @property
+    @pulumi.getter(name="featureGates")
+    def feature_gates(self) -> Optional[Sequence['outputs.K0sFeatureGate']]:
+        return pulumi.get(self, "feature_gates")
+
+    @property
+    @pulumi.getter
+    def images(self) -> Optional['outputs.K0sImages']:
+        return pulumi.get(self, "images")
+
+    @property
+    @pulumi.getter(name="installConfig")
+    def install_config(self) -> Optional['outputs.K0sInstallConfig']:
+        return pulumi.get(self, "install_config")
+
+    @property
+    @pulumi.getter
+    def konnectivity(self) -> Optional['outputs.K0sKonnectivity']:
+        return pulumi.get(self, "konnectivity")
+
+    @property
+    @pulumi.getter
+    def network(self) -> Optional['outputs.K0sNetwork']:
+        return pulumi.get(self, "network")
+
+    @property
+    @pulumi.getter(name="podSecurityPolicy")
+    def pod_security_policy(self) -> Optional['outputs.K0sPodSecurityPolicy']:
+        return pulumi.get(self, "pod_security_policy")
+
+    @property
+    @pulumi.getter
+    def scheduler(self) -> Optional['outputs.K0sScheduler']:
+        return pulumi.get(self, "scheduler")
+
+    @property
+    @pulumi.getter
+    def storage(self) -> Optional['outputs.K0sStorage']:
+        return pulumi.get(self, "storage")
+
+    @property
+    @pulumi.getter
+    def telemetry(self) -> Optional['outputs.K0sTelemetry']:
+        return pulumi.get(self, "telemetry")
+
+    @property
+    @pulumi.getter(name="workerProfiles")
+    def worker_profiles(self) -> Optional[Sequence['outputs.K0sWorkerProfile']]:
+        return pulumi.get(self, "worker_profiles")
+
+
+@pulumi.output_type
+class K0sStorage(dict):
+    def __init__(__self__, *,
+                 etcd: Optional['outputs.K0sEtcd'] = None,
+                 kine: Optional['outputs.K0sKine'] = None,
+                 type: Optional[str] = None):
+        if etcd is not None:
+            pulumi.set(__self__, "etcd", etcd)
+        if kine is not None:
+            pulumi.set(__self__, "kine", kine)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def etcd(self) -> Optional['outputs.K0sEtcd']:
+        return pulumi.get(self, "etcd")
+
+    @property
+    @pulumi.getter
+    def kine(self) -> Optional['outputs.K0sKine']:
+        return pulumi.get(self, "kine")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class K0sTelemetry(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[bool] = None):
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class K0sWorkerProfile(dict):
     def __init__(__self__, *,
                  name: str,
                  values: Mapping[str, Any]):

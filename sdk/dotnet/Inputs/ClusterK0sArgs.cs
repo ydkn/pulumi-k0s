@@ -13,7 +13,7 @@ namespace Pulumi.K0s.Inputs
     public sealed class ClusterK0sArgs : global::Pulumi.ResourceArgs
     {
         [Input("config")]
-        public Input<Inputs.ClusterK0sConfigArgs>? Config { get; set; }
+        public Input<Inputs.K0sArgs>? Config { get; set; }
 
         [Input("dynamicConfig")]
         public Input<bool>? DynamicConfig { get; set; }

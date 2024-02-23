@@ -10,545 +10,47 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = [
-    'ClusterAPIArgs',
-    'ClusterCalicoImageArgs',
-    'ClusterCalicoArgs',
-    'ClusterControllerManagerArgs',
-    'ClusterDualStackArgs',
-    'ClusterEnvoyProxyArgs',
-    'ClusterEtcdExternalClusterArgs',
-    'ClusterEtcdArgs',
-    'ClusterFeatureGateArgs',
     'ClusterFileArgs',
     'ClusterHooksArgs',
     'ClusterHookArgs',
     'ClusterHostArgs',
-    'ClusterImagesArgs',
-    'ClusterImageArgs',
-    'ClusterInstallConfigUserArgs',
-    'ClusterInstallConfigArgs',
-    'ClusterK0sConfigArgs',
-    'ClusterK0sSpecArgs',
     'ClusterK0sArgs',
-    'ClusterKineArgs',
-    'ClusterKonnectivityArgs',
-    'ClusterKubeProxyIPTablesArgs',
-    'ClusterKubeProxyIPVSArgs',
-    'ClusterKubeProxyArgs',
-    'ClusterKubeRouterImageArgs',
-    'ClusterKubeRouterArgs',
     'ClusterLocalhostArgs',
     'ClusterMetadataArgs',
-    'ClusterNetworkArgs',
-    'ClusterNodeLocalLoadBalancingArgs',
-    'ClusterPodSecurityPolicyArgs',
     'ClusterSSHArgs',
-    'ClusterSchedulerArgs',
     'ClusterSpecArgs',
-    'ClusterStorageArgs',
-    'ClusterTelemetryArgs',
     'ClusterWinRMArgs',
-    'ClusterWorkerProfileArgs',
+    'K0sAPIArgs',
+    'K0sCalicoImageArgs',
+    'K0sCalicoArgs',
+    'K0sControllerManagerArgs',
+    'K0sDualStackArgs',
+    'K0sEnvoyProxyArgs',
+    'K0sEtcdExternalClusterArgs',
+    'K0sEtcdArgs',
+    'K0sFeatureGateArgs',
+    'K0sImagesArgs',
+    'K0sImageArgs',
+    'K0sInstallConfigUserArgs',
+    'K0sInstallConfigArgs',
+    'K0sKineArgs',
+    'K0sKonnectivityArgs',
+    'K0sKubeProxyIPTablesArgs',
+    'K0sKubeProxyIPVSArgs',
+    'K0sKubeProxyArgs',
+    'K0sKubeRouterImageArgs',
+    'K0sKubeRouterArgs',
+    'K0sMetadataArgs',
+    'K0sNetworkArgs',
+    'K0sNodeLocalLoadBalancingArgs',
+    'K0sPodSecurityPolicyArgs',
+    'K0sSchedulerArgs',
+    'K0sSpecArgs',
+    'K0sStorageArgs',
+    'K0sTelemetryArgs',
+    'K0sWorkerProfileArgs',
+    'K0sArgs',
 ]
-
-@pulumi.input_type
-class ClusterAPIArgs:
-    def __init__(__self__, *,
-                 address: Optional[pulumi.Input[str]] = None,
-                 external_address: Optional[pulumi.Input[str]] = None,
-                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 k0s_api_port: Optional[pulumi.Input[int]] = None,
-                 port: Optional[pulumi.Input[int]] = None,
-                 sans: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
-        if address is not None:
-            pulumi.set(__self__, "address", address)
-        if external_address is not None:
-            pulumi.set(__self__, "external_address", external_address)
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-        if k0s_api_port is not None:
-            pulumi.set(__self__, "k0s_api_port", k0s_api_port)
-        if port is not None:
-            pulumi.set(__self__, "port", port)
-        if sans is not None:
-            pulumi.set(__self__, "sans", sans)
-
-    @property
-    @pulumi.getter
-    def address(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "address")
-
-    @address.setter
-    def address(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "address", value)
-
-    @property
-    @pulumi.getter(name="externalAddress")
-    def external_address(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "external_address")
-
-    @external_address.setter
-    def external_address(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "external_address", value)
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        return pulumi.get(self, "extra_args")
-
-    @extra_args.setter
-    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "extra_args", value)
-
-    @property
-    @pulumi.getter(name="k0sApiPort")
-    def k0s_api_port(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "k0s_api_port")
-
-    @k0s_api_port.setter
-    def k0s_api_port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "k0s_api_port", value)
-
-    @property
-    @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "port")
-
-    @port.setter
-    def port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "port", value)
-
-    @property
-    @pulumi.getter
-    def sans(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        return pulumi.get(self, "sans")
-
-    @sans.setter
-    def sans(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
-        pulumi.set(self, "sans", value)
-
-
-@pulumi.input_type
-class ClusterCalicoImageArgs:
-    def __init__(__self__, *,
-                 cni: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 flexvolume: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 kubecontrollers: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 node: Optional[pulumi.Input['ClusterImageArgs']] = None):
-        if cni is not None:
-            pulumi.set(__self__, "cni", cni)
-        if flexvolume is not None:
-            pulumi.set(__self__, "flexvolume", flexvolume)
-        if kubecontrollers is not None:
-            pulumi.set(__self__, "kubecontrollers", kubecontrollers)
-        if node is not None:
-            pulumi.set(__self__, "node", node)
-
-    @property
-    @pulumi.getter
-    def cni(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "cni")
-
-    @cni.setter
-    def cni(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "cni", value)
-
-    @property
-    @pulumi.getter
-    def flexvolume(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "flexvolume")
-
-    @flexvolume.setter
-    def flexvolume(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "flexvolume", value)
-
-    @property
-    @pulumi.getter
-    def kubecontrollers(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "kubecontrollers")
-
-    @kubecontrollers.setter
-    def kubecontrollers(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "kubecontrollers", value)
-
-    @property
-    @pulumi.getter
-    def node(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "node")
-
-    @node.setter
-    def node(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "node", value)
-
-
-@pulumi.input_type
-class ClusterCalicoArgs:
-    def __init__(__self__, *,
-                 env_vars: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 flex_volume_driver_path: Optional[pulumi.Input[str]] = None,
-                 ip_autodetection_method: Optional[pulumi.Input[str]] = None,
-                 mode: Optional[pulumi.Input[str]] = None,
-                 mtu: Optional[pulumi.Input[int]] = None,
-                 overlay: Optional[pulumi.Input[str]] = None,
-                 vxlan_port: Optional[pulumi.Input[int]] = None,
-                 vxlan_vni: Optional[pulumi.Input[int]] = None,
-                 wireguard: Optional[pulumi.Input[bool]] = None):
-        if env_vars is not None:
-            pulumi.set(__self__, "env_vars", env_vars)
-        if flex_volume_driver_path is not None:
-            pulumi.set(__self__, "flex_volume_driver_path", flex_volume_driver_path)
-        if ip_autodetection_method is not None:
-            pulumi.set(__self__, "ip_autodetection_method", ip_autodetection_method)
-        if mode is not None:
-            pulumi.set(__self__, "mode", mode)
-        if mtu is not None:
-            pulumi.set(__self__, "mtu", mtu)
-        if overlay is not None:
-            pulumi.set(__self__, "overlay", overlay)
-        if vxlan_port is not None:
-            pulumi.set(__self__, "vxlan_port", vxlan_port)
-        if vxlan_vni is not None:
-            pulumi.set(__self__, "vxlan_vni", vxlan_vni)
-        if wireguard is not None:
-            pulumi.set(__self__, "wireguard", wireguard)
-
-    @property
-    @pulumi.getter(name="envVars")
-    def env_vars(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        return pulumi.get(self, "env_vars")
-
-    @env_vars.setter
-    def env_vars(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "env_vars", value)
-
-    @property
-    @pulumi.getter(name="flexVolumeDriverPath")
-    def flex_volume_driver_path(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "flex_volume_driver_path")
-
-    @flex_volume_driver_path.setter
-    def flex_volume_driver_path(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "flex_volume_driver_path", value)
-
-    @property
-    @pulumi.getter(name="ipAutodetectionMethod")
-    def ip_autodetection_method(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "ip_autodetection_method")
-
-    @ip_autodetection_method.setter
-    def ip_autodetection_method(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "ip_autodetection_method", value)
-
-    @property
-    @pulumi.getter
-    def mode(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "mode")
-
-    @mode.setter
-    def mode(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "mode", value)
-
-    @property
-    @pulumi.getter
-    def mtu(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "mtu")
-
-    @mtu.setter
-    def mtu(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "mtu", value)
-
-    @property
-    @pulumi.getter
-    def overlay(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "overlay")
-
-    @overlay.setter
-    def overlay(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "overlay", value)
-
-    @property
-    @pulumi.getter(name="vxlanPort")
-    def vxlan_port(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "vxlan_port")
-
-    @vxlan_port.setter
-    def vxlan_port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "vxlan_port", value)
-
-    @property
-    @pulumi.getter(name="vxlanVNI")
-    def vxlan_vni(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "vxlan_vni")
-
-    @vxlan_vni.setter
-    def vxlan_vni(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "vxlan_vni", value)
-
-    @property
-    @pulumi.getter
-    def wireguard(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "wireguard")
-
-    @wireguard.setter
-    def wireguard(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "wireguard", value)
-
-
-@pulumi.input_type
-class ClusterControllerManagerArgs:
-    def __init__(__self__, *,
-                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        return pulumi.get(self, "extra_args")
-
-    @extra_args.setter
-    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "extra_args", value)
-
-
-@pulumi.input_type
-class ClusterDualStackArgs:
-    def __init__(__self__, *,
-                 i_pv6pod_cidr: Optional[pulumi.Input[str]] = None,
-                 i_pv6service_cidr: Optional[pulumi.Input[str]] = None,
-                 enabled: Optional[pulumi.Input[bool]] = None):
-        if i_pv6pod_cidr is not None:
-            pulumi.set(__self__, "i_pv6pod_cidr", i_pv6pod_cidr)
-        if i_pv6service_cidr is not None:
-            pulumi.set(__self__, "i_pv6service_cidr", i_pv6service_cidr)
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
-
-    @property
-    @pulumi.getter(name="IPv6podCIDR")
-    def i_pv6pod_cidr(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "i_pv6pod_cidr")
-
-    @i_pv6pod_cidr.setter
-    def i_pv6pod_cidr(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "i_pv6pod_cidr", value)
-
-    @property
-    @pulumi.getter(name="IPv6serviceCIDR")
-    def i_pv6service_cidr(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "i_pv6service_cidr")
-
-    @i_pv6service_cidr.setter
-    def i_pv6service_cidr(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "i_pv6service_cidr", value)
-
-    @property
-    @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "enabled")
-
-    @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "enabled", value)
-
-
-@pulumi.input_type
-class ClusterEnvoyProxyArgs:
-    def __init__(__self__, *,
-                 api_server_bind_port: Optional[pulumi.Input[int]] = None,
-                 image: Optional[pulumi.Input[str]] = None,
-                 image_pull_policy: Optional[pulumi.Input[str]] = None,
-                 konnectivity_server_bind_port: Optional[pulumi.Input[int]] = None):
-        if api_server_bind_port is not None:
-            pulumi.set(__self__, "api_server_bind_port", api_server_bind_port)
-        if image is not None:
-            pulumi.set(__self__, "image", image)
-        if image_pull_policy is not None:
-            pulumi.set(__self__, "image_pull_policy", image_pull_policy)
-        if konnectivity_server_bind_port is not None:
-            pulumi.set(__self__, "konnectivity_server_bind_port", konnectivity_server_bind_port)
-
-    @property
-    @pulumi.getter(name="apiServerBindPort")
-    def api_server_bind_port(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "api_server_bind_port")
-
-    @api_server_bind_port.setter
-    def api_server_bind_port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "api_server_bind_port", value)
-
-    @property
-    @pulumi.getter
-    def image(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "image")
-
-    @image.setter
-    def image(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "image", value)
-
-    @property
-    @pulumi.getter(name="imagePullPolicy")
-    def image_pull_policy(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "image_pull_policy")
-
-    @image_pull_policy.setter
-    def image_pull_policy(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "image_pull_policy", value)
-
-    @property
-    @pulumi.getter(name="konnectivityServerBindPort")
-    def konnectivity_server_bind_port(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "konnectivity_server_bind_port")
-
-    @konnectivity_server_bind_port.setter
-    def konnectivity_server_bind_port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "konnectivity_server_bind_port", value)
-
-
-@pulumi.input_type
-class ClusterEtcdExternalClusterArgs:
-    def __init__(__self__, *,
-                 endpoints: pulumi.Input[Sequence[pulumi.Input[str]]],
-                 ca: Optional[pulumi.Input[str]] = None,
-                 client_cert: Optional[pulumi.Input[str]] = None,
-                 client_key: Optional[pulumi.Input[str]] = None,
-                 etcd_prefix: Optional[pulumi.Input[str]] = None):
-        pulumi.set(__self__, "endpoints", endpoints)
-        if ca is not None:
-            pulumi.set(__self__, "ca", ca)
-        if client_cert is not None:
-            pulumi.set(__self__, "client_cert", client_cert)
-        if client_key is not None:
-            pulumi.set(__self__, "client_key", client_key)
-        if etcd_prefix is not None:
-            pulumi.set(__self__, "etcd_prefix", etcd_prefix)
-
-    @property
-    @pulumi.getter
-    def endpoints(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        return pulumi.get(self, "endpoints")
-
-    @endpoints.setter
-    def endpoints(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "endpoints", value)
-
-    @property
-    @pulumi.getter
-    def ca(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "ca")
-
-    @ca.setter
-    def ca(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "ca", value)
-
-    @property
-    @pulumi.getter(name="clientCert")
-    def client_cert(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "client_cert")
-
-    @client_cert.setter
-    def client_cert(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "client_cert", value)
-
-    @property
-    @pulumi.getter(name="clientKey")
-    def client_key(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "client_key")
-
-    @client_key.setter
-    def client_key(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "client_key", value)
-
-    @property
-    @pulumi.getter(name="etcdPrefix")
-    def etcd_prefix(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "etcd_prefix")
-
-    @etcd_prefix.setter
-    def etcd_prefix(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "etcd_prefix", value)
-
-
-@pulumi.input_type
-class ClusterEtcdArgs:
-    def __init__(__self__, *,
-                 external_cluster: Optional[pulumi.Input['ClusterEtcdExternalClusterArgs']] = None,
-                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 peer_address: Optional[pulumi.Input[str]] = None):
-        if external_cluster is not None:
-            pulumi.set(__self__, "external_cluster", external_cluster)
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-        if peer_address is not None:
-            pulumi.set(__self__, "peer_address", peer_address)
-
-    @property
-    @pulumi.getter(name="externalCluster")
-    def external_cluster(self) -> Optional[pulumi.Input['ClusterEtcdExternalClusterArgs']]:
-        return pulumi.get(self, "external_cluster")
-
-    @external_cluster.setter
-    def external_cluster(self, value: Optional[pulumi.Input['ClusterEtcdExternalClusterArgs']]):
-        pulumi.set(self, "external_cluster", value)
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        return pulumi.get(self, "extra_args")
-
-    @extra_args.setter
-    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "extra_args", value)
-
-    @property
-    @pulumi.getter(name="peerAddress")
-    def peer_address(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "peer_address")
-
-    @peer_address.setter
-    def peer_address(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "peer_address", value)
-
-
-@pulumi.input_type
-class ClusterFeatureGateArgs:
-    def __init__(__self__, *,
-                 name: pulumi.Input[str],
-                 components: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-                 enabled: Optional[pulumi.Input[bool]] = None):
-        pulumi.set(__self__, "name", name)
-        if components is not None:
-            pulumi.set(__self__, "components", components)
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def components(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        return pulumi.get(self, "components")
-
-    @components.setter
-    def components(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
-        pulumi.set(self, "components", value)
-
-    @property
-    @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "enabled")
-
-    @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "enabled", value)
-
 
 @pulumi.input_type
 class ClusterFileArgs:
@@ -906,411 +408,9 @@ class ClusterHostArgs:
 
 
 @pulumi.input_type
-class ClusterImagesArgs:
-    def __init__(__self__, *,
-                 calico: Optional[pulumi.Input['ClusterCalicoImageArgs']] = None,
-                 coredns: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 default_pull_policy: Optional[pulumi.Input[str]] = None,
-                 konnectivity: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 kubeproxy: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 kuberouter: Optional[pulumi.Input['ClusterKubeRouterImageArgs']] = None,
-                 metricsserver: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 pause: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 repository: Optional[pulumi.Input[str]] = None):
-        if calico is not None:
-            pulumi.set(__self__, "calico", calico)
-        if coredns is not None:
-            pulumi.set(__self__, "coredns", coredns)
-        if default_pull_policy is not None:
-            pulumi.set(__self__, "default_pull_policy", default_pull_policy)
-        if konnectivity is not None:
-            pulumi.set(__self__, "konnectivity", konnectivity)
-        if kubeproxy is not None:
-            pulumi.set(__self__, "kubeproxy", kubeproxy)
-        if kuberouter is not None:
-            pulumi.set(__self__, "kuberouter", kuberouter)
-        if metricsserver is not None:
-            pulumi.set(__self__, "metricsserver", metricsserver)
-        if pause is not None:
-            pulumi.set(__self__, "pause", pause)
-        if repository is not None:
-            pulumi.set(__self__, "repository", repository)
-
-    @property
-    @pulumi.getter
-    def calico(self) -> Optional[pulumi.Input['ClusterCalicoImageArgs']]:
-        return pulumi.get(self, "calico")
-
-    @calico.setter
-    def calico(self, value: Optional[pulumi.Input['ClusterCalicoImageArgs']]):
-        pulumi.set(self, "calico", value)
-
-    @property
-    @pulumi.getter
-    def coredns(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "coredns")
-
-    @coredns.setter
-    def coredns(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "coredns", value)
-
-    @property
-    @pulumi.getter
-    def default_pull_policy(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "default_pull_policy")
-
-    @default_pull_policy.setter
-    def default_pull_policy(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "default_pull_policy", value)
-
-    @property
-    @pulumi.getter
-    def konnectivity(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "konnectivity")
-
-    @konnectivity.setter
-    def konnectivity(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "konnectivity", value)
-
-    @property
-    @pulumi.getter
-    def kubeproxy(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "kubeproxy")
-
-    @kubeproxy.setter
-    def kubeproxy(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "kubeproxy", value)
-
-    @property
-    @pulumi.getter
-    def kuberouter(self) -> Optional[pulumi.Input['ClusterKubeRouterImageArgs']]:
-        return pulumi.get(self, "kuberouter")
-
-    @kuberouter.setter
-    def kuberouter(self, value: Optional[pulumi.Input['ClusterKubeRouterImageArgs']]):
-        pulumi.set(self, "kuberouter", value)
-
-    @property
-    @pulumi.getter
-    def metricsserver(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "metricsserver")
-
-    @metricsserver.setter
-    def metricsserver(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "metricsserver", value)
-
-    @property
-    @pulumi.getter
-    def pause(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "pause")
-
-    @pause.setter
-    def pause(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "pause", value)
-
-    @property
-    @pulumi.getter
-    def repository(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "repository")
-
-    @repository.setter
-    def repository(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "repository", value)
-
-
-@pulumi.input_type
-class ClusterImageArgs:
-    def __init__(__self__, *,
-                 image: Optional[pulumi.Input[str]] = None,
-                 version: Optional[pulumi.Input[str]] = None):
-        if image is not None:
-            pulumi.set(__self__, "image", image)
-        if version is not None:
-            pulumi.set(__self__, "version", version)
-
-    @property
-    @pulumi.getter
-    def image(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "image")
-
-    @image.setter
-    def image(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "image", value)
-
-    @property
-    @pulumi.getter
-    def version(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "version")
-
-    @version.setter
-    def version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "version", value)
-
-
-@pulumi.input_type
-class ClusterInstallConfigUserArgs:
-    def __init__(__self__, *,
-                 etcd_user: Optional[pulumi.Input[str]] = None,
-                 kine_user: Optional[pulumi.Input[str]] = None,
-                 konnectivity_user: Optional[pulumi.Input[str]] = None,
-                 kube_apiserver_user: Optional[pulumi.Input[str]] = None,
-                 kube_scheduler_user: Optional[pulumi.Input[str]] = None):
-        if etcd_user is not None:
-            pulumi.set(__self__, "etcd_user", etcd_user)
-        if kine_user is not None:
-            pulumi.set(__self__, "kine_user", kine_user)
-        if konnectivity_user is not None:
-            pulumi.set(__self__, "konnectivity_user", konnectivity_user)
-        if kube_apiserver_user is not None:
-            pulumi.set(__self__, "kube_apiserver_user", kube_apiserver_user)
-        if kube_scheduler_user is not None:
-            pulumi.set(__self__, "kube_scheduler_user", kube_scheduler_user)
-
-    @property
-    @pulumi.getter(name="etcdUser")
-    def etcd_user(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "etcd_user")
-
-    @etcd_user.setter
-    def etcd_user(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "etcd_user", value)
-
-    @property
-    @pulumi.getter(name="kineUser")
-    def kine_user(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "kine_user")
-
-    @kine_user.setter
-    def kine_user(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kine_user", value)
-
-    @property
-    @pulumi.getter(name="konnectivityUser")
-    def konnectivity_user(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "konnectivity_user")
-
-    @konnectivity_user.setter
-    def konnectivity_user(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "konnectivity_user", value)
-
-    @property
-    @pulumi.getter(name="kubeAPIserverUser")
-    def kube_apiserver_user(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "kube_apiserver_user")
-
-    @kube_apiserver_user.setter
-    def kube_apiserver_user(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kube_apiserver_user", value)
-
-    @property
-    @pulumi.getter(name="kubeSchedulerUser")
-    def kube_scheduler_user(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "kube_scheduler_user")
-
-    @kube_scheduler_user.setter
-    def kube_scheduler_user(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kube_scheduler_user", value)
-
-
-@pulumi.input_type
-class ClusterInstallConfigArgs:
-    def __init__(__self__, *,
-                 users: Optional[pulumi.Input['ClusterInstallConfigUserArgs']] = None):
-        if users is not None:
-            pulumi.set(__self__, "users", users)
-
-    @property
-    @pulumi.getter
-    def users(self) -> Optional[pulumi.Input['ClusterInstallConfigUserArgs']]:
-        return pulumi.get(self, "users")
-
-    @users.setter
-    def users(self, value: Optional[pulumi.Input['ClusterInstallConfigUserArgs']]):
-        pulumi.set(self, "users", value)
-
-
-@pulumi.input_type
-class ClusterK0sConfigArgs:
-    def __init__(__self__, *,
-                 metadata: Optional[pulumi.Input['ClusterMetadataArgs']] = None,
-                 spec: Optional[pulumi.Input['ClusterK0sSpecArgs']] = None):
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['ClusterMetadataArgs']]:
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['ClusterMetadataArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['ClusterK0sSpecArgs']]:
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['ClusterK0sSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-
-@pulumi.input_type
-class ClusterK0sSpecArgs:
-    def __init__(__self__, *,
-                 api: Optional[pulumi.Input['ClusterAPIArgs']] = None,
-                 controller_manager: Optional[pulumi.Input['ClusterControllerManagerArgs']] = None,
-                 feature_gates: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterFeatureGateArgs']]]] = None,
-                 images: Optional[pulumi.Input['ClusterImagesArgs']] = None,
-                 install_config: Optional[pulumi.Input['ClusterInstallConfigArgs']] = None,
-                 konnectivity: Optional[pulumi.Input['ClusterKonnectivityArgs']] = None,
-                 network: Optional[pulumi.Input['ClusterNetworkArgs']] = None,
-                 pod_security_policy: Optional[pulumi.Input['ClusterPodSecurityPolicyArgs']] = None,
-                 scheduler: Optional[pulumi.Input['ClusterSchedulerArgs']] = None,
-                 storage: Optional[pulumi.Input['ClusterStorageArgs']] = None,
-                 telemetry: Optional[pulumi.Input['ClusterTelemetryArgs']] = None,
-                 worker_profiles: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterWorkerProfileArgs']]]] = None):
-        if api is not None:
-            pulumi.set(__self__, "api", api)
-        if controller_manager is not None:
-            pulumi.set(__self__, "controller_manager", controller_manager)
-        if feature_gates is not None:
-            pulumi.set(__self__, "feature_gates", feature_gates)
-        if images is not None:
-            pulumi.set(__self__, "images", images)
-        if install_config is not None:
-            pulumi.set(__self__, "install_config", install_config)
-        if konnectivity is not None:
-            pulumi.set(__self__, "konnectivity", konnectivity)
-        if network is not None:
-            pulumi.set(__self__, "network", network)
-        if pod_security_policy is not None:
-            pulumi.set(__self__, "pod_security_policy", pod_security_policy)
-        if scheduler is not None:
-            pulumi.set(__self__, "scheduler", scheduler)
-        if storage is not None:
-            pulumi.set(__self__, "storage", storage)
-        if telemetry is not None:
-            pulumi.set(__self__, "telemetry", telemetry)
-        if worker_profiles is not None:
-            pulumi.set(__self__, "worker_profiles", worker_profiles)
-
-    @property
-    @pulumi.getter
-    def api(self) -> Optional[pulumi.Input['ClusterAPIArgs']]:
-        return pulumi.get(self, "api")
-
-    @api.setter
-    def api(self, value: Optional[pulumi.Input['ClusterAPIArgs']]):
-        pulumi.set(self, "api", value)
-
-    @property
-    @pulumi.getter(name="controllerManager")
-    def controller_manager(self) -> Optional[pulumi.Input['ClusterControllerManagerArgs']]:
-        return pulumi.get(self, "controller_manager")
-
-    @controller_manager.setter
-    def controller_manager(self, value: Optional[pulumi.Input['ClusterControllerManagerArgs']]):
-        pulumi.set(self, "controller_manager", value)
-
-    @property
-    @pulumi.getter(name="featureGates")
-    def feature_gates(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterFeatureGateArgs']]]]:
-        return pulumi.get(self, "feature_gates")
-
-    @feature_gates.setter
-    def feature_gates(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterFeatureGateArgs']]]]):
-        pulumi.set(self, "feature_gates", value)
-
-    @property
-    @pulumi.getter
-    def images(self) -> Optional[pulumi.Input['ClusterImagesArgs']]:
-        return pulumi.get(self, "images")
-
-    @images.setter
-    def images(self, value: Optional[pulumi.Input['ClusterImagesArgs']]):
-        pulumi.set(self, "images", value)
-
-    @property
-    @pulumi.getter(name="installConfig")
-    def install_config(self) -> Optional[pulumi.Input['ClusterInstallConfigArgs']]:
-        return pulumi.get(self, "install_config")
-
-    @install_config.setter
-    def install_config(self, value: Optional[pulumi.Input['ClusterInstallConfigArgs']]):
-        pulumi.set(self, "install_config", value)
-
-    @property
-    @pulumi.getter
-    def konnectivity(self) -> Optional[pulumi.Input['ClusterKonnectivityArgs']]:
-        return pulumi.get(self, "konnectivity")
-
-    @konnectivity.setter
-    def konnectivity(self, value: Optional[pulumi.Input['ClusterKonnectivityArgs']]):
-        pulumi.set(self, "konnectivity", value)
-
-    @property
-    @pulumi.getter
-    def network(self) -> Optional[pulumi.Input['ClusterNetworkArgs']]:
-        return pulumi.get(self, "network")
-
-    @network.setter
-    def network(self, value: Optional[pulumi.Input['ClusterNetworkArgs']]):
-        pulumi.set(self, "network", value)
-
-    @property
-    @pulumi.getter(name="podSecurityPolicy")
-    def pod_security_policy(self) -> Optional[pulumi.Input['ClusterPodSecurityPolicyArgs']]:
-        return pulumi.get(self, "pod_security_policy")
-
-    @pod_security_policy.setter
-    def pod_security_policy(self, value: Optional[pulumi.Input['ClusterPodSecurityPolicyArgs']]):
-        pulumi.set(self, "pod_security_policy", value)
-
-    @property
-    @pulumi.getter
-    def scheduler(self) -> Optional[pulumi.Input['ClusterSchedulerArgs']]:
-        return pulumi.get(self, "scheduler")
-
-    @scheduler.setter
-    def scheduler(self, value: Optional[pulumi.Input['ClusterSchedulerArgs']]):
-        pulumi.set(self, "scheduler", value)
-
-    @property
-    @pulumi.getter
-    def storage(self) -> Optional[pulumi.Input['ClusterStorageArgs']]:
-        return pulumi.get(self, "storage")
-
-    @storage.setter
-    def storage(self, value: Optional[pulumi.Input['ClusterStorageArgs']]):
-        pulumi.set(self, "storage", value)
-
-    @property
-    @pulumi.getter
-    def telemetry(self) -> Optional[pulumi.Input['ClusterTelemetryArgs']]:
-        return pulumi.get(self, "telemetry")
-
-    @telemetry.setter
-    def telemetry(self, value: Optional[pulumi.Input['ClusterTelemetryArgs']]):
-        pulumi.set(self, "telemetry", value)
-
-    @property
-    @pulumi.getter(name="workerProfiles")
-    def worker_profiles(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterWorkerProfileArgs']]]]:
-        return pulumi.get(self, "worker_profiles")
-
-    @worker_profiles.setter
-    def worker_profiles(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterWorkerProfileArgs']]]]):
-        pulumi.set(self, "worker_profiles", value)
-
-
-@pulumi.input_type
 class ClusterK0sArgs:
     def __init__(__self__, *,
-                 config: Optional[pulumi.Input['ClusterK0sConfigArgs']] = None,
+                 config: Optional[pulumi.Input['K0sArgs']] = None,
                  dynamic_config: Optional[pulumi.Input[bool]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  version_channel: Optional[pulumi.Input[str]] = None):
@@ -1325,11 +425,11 @@ class ClusterK0sArgs:
 
     @property
     @pulumi.getter
-    def config(self) -> Optional[pulumi.Input['ClusterK0sConfigArgs']]:
+    def config(self) -> Optional[pulumi.Input['K0sArgs']]:
         return pulumi.get(self, "config")
 
     @config.setter
-    def config(self, value: Optional[pulumi.Input['ClusterK0sConfigArgs']]):
+    def config(self, value: Optional[pulumi.Input['K0sArgs']]):
         pulumi.set(self, "config", value)
 
     @property
@@ -1358,376 +458,6 @@ class ClusterK0sArgs:
     @version_channel.setter
     def version_channel(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "version_channel", value)
-
-
-@pulumi.input_type
-class ClusterKineArgs:
-    def __init__(__self__, *,
-                 data_source: pulumi.Input[str]):
-        pulumi.set(__self__, "data_source", data_source)
-
-    @property
-    @pulumi.getter(name="dataSource")
-    def data_source(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "data_source")
-
-    @data_source.setter
-    def data_source(self, value: pulumi.Input[str]):
-        pulumi.set(self, "data_source", value)
-
-
-@pulumi.input_type
-class ClusterKonnectivityArgs:
-    def __init__(__self__, *,
-                 admin_port: Optional[pulumi.Input[int]] = None,
-                 agent_port: Optional[pulumi.Input[int]] = None):
-        if admin_port is not None:
-            pulumi.set(__self__, "admin_port", admin_port)
-        if agent_port is not None:
-            pulumi.set(__self__, "agent_port", agent_port)
-
-    @property
-    @pulumi.getter(name="adminPort")
-    def admin_port(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "admin_port")
-
-    @admin_port.setter
-    def admin_port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "admin_port", value)
-
-    @property
-    @pulumi.getter(name="agentPort")
-    def agent_port(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "agent_port")
-
-    @agent_port.setter
-    def agent_port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "agent_port", value)
-
-
-@pulumi.input_type
-class ClusterKubeProxyIPTablesArgs:
-    def __init__(__self__, *,
-                 masquerade_all: Optional[pulumi.Input[bool]] = None,
-                 masquerade_bit: Optional[pulumi.Input[int]] = None,
-                 min_sync_period: Optional[pulumi.Input[str]] = None,
-                 sync_period: Optional[pulumi.Input[str]] = None):
-        if masquerade_all is not None:
-            pulumi.set(__self__, "masquerade_all", masquerade_all)
-        if masquerade_bit is not None:
-            pulumi.set(__self__, "masquerade_bit", masquerade_bit)
-        if min_sync_period is not None:
-            pulumi.set(__self__, "min_sync_period", min_sync_period)
-        if sync_period is not None:
-            pulumi.set(__self__, "sync_period", sync_period)
-
-    @property
-    @pulumi.getter(name="masqueradeAll")
-    def masquerade_all(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "masquerade_all")
-
-    @masquerade_all.setter
-    def masquerade_all(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "masquerade_all", value)
-
-    @property
-    @pulumi.getter(name="masqueradeBit")
-    def masquerade_bit(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "masquerade_bit")
-
-    @masquerade_bit.setter
-    def masquerade_bit(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "masquerade_bit", value)
-
-    @property
-    @pulumi.getter(name="minSyncPeriod")
-    def min_sync_period(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "min_sync_period")
-
-    @min_sync_period.setter
-    def min_sync_period(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "min_sync_period", value)
-
-    @property
-    @pulumi.getter(name="syncPeriod")
-    def sync_period(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "sync_period")
-
-    @sync_period.setter
-    def sync_period(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "sync_period", value)
-
-
-@pulumi.input_type
-class ClusterKubeProxyIPVSArgs:
-    def __init__(__self__, *,
-                 exclude_cidrs: Optional[pulumi.Input[str]] = None,
-                 min_sync_period: Optional[pulumi.Input[str]] = None,
-                 scheduler: Optional[pulumi.Input[str]] = None,
-                 strict_arp: Optional[pulumi.Input[bool]] = None,
-                 sync_period: Optional[pulumi.Input[str]] = None,
-                 tcp_fin_timeout: Optional[pulumi.Input[str]] = None,
-                 tcp_timeout: Optional[pulumi.Input[str]] = None,
-                 udp_timeout: Optional[pulumi.Input[str]] = None):
-        if exclude_cidrs is not None:
-            pulumi.set(__self__, "exclude_cidrs", exclude_cidrs)
-        if min_sync_period is not None:
-            pulumi.set(__self__, "min_sync_period", min_sync_period)
-        if scheduler is not None:
-            pulumi.set(__self__, "scheduler", scheduler)
-        if strict_arp is not None:
-            pulumi.set(__self__, "strict_arp", strict_arp)
-        if sync_period is not None:
-            pulumi.set(__self__, "sync_period", sync_period)
-        if tcp_fin_timeout is not None:
-            pulumi.set(__self__, "tcp_fin_timeout", tcp_fin_timeout)
-        if tcp_timeout is not None:
-            pulumi.set(__self__, "tcp_timeout", tcp_timeout)
-        if udp_timeout is not None:
-            pulumi.set(__self__, "udp_timeout", udp_timeout)
-
-    @property
-    @pulumi.getter(name="excludeCIDRs")
-    def exclude_cidrs(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "exclude_cidrs")
-
-    @exclude_cidrs.setter
-    def exclude_cidrs(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "exclude_cidrs", value)
-
-    @property
-    @pulumi.getter(name="minSyncPeriod")
-    def min_sync_period(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "min_sync_period")
-
-    @min_sync_period.setter
-    def min_sync_period(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "min_sync_period", value)
-
-    @property
-    @pulumi.getter
-    def scheduler(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "scheduler")
-
-    @scheduler.setter
-    def scheduler(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "scheduler", value)
-
-    @property
-    @pulumi.getter(name="strictARP")
-    def strict_arp(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "strict_arp")
-
-    @strict_arp.setter
-    def strict_arp(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "strict_arp", value)
-
-    @property
-    @pulumi.getter(name="syncPeriod")
-    def sync_period(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "sync_period")
-
-    @sync_period.setter
-    def sync_period(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "sync_period", value)
-
-    @property
-    @pulumi.getter(name="tcpFinTimeout")
-    def tcp_fin_timeout(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "tcp_fin_timeout")
-
-    @tcp_fin_timeout.setter
-    def tcp_fin_timeout(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "tcp_fin_timeout", value)
-
-    @property
-    @pulumi.getter(name="tcpTimeout")
-    def tcp_timeout(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "tcp_timeout")
-
-    @tcp_timeout.setter
-    def tcp_timeout(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "tcp_timeout", value)
-
-    @property
-    @pulumi.getter(name="udpTimeout")
-    def udp_timeout(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "udp_timeout")
-
-    @udp_timeout.setter
-    def udp_timeout(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "udp_timeout", value)
-
-
-@pulumi.input_type
-class ClusterKubeProxyArgs:
-    def __init__(__self__, *,
-                 disabled: Optional[pulumi.Input[bool]] = None,
-                 iptables: Optional[pulumi.Input['ClusterKubeProxyIPTablesArgs']] = None,
-                 ipvs: Optional[pulumi.Input['ClusterKubeProxyIPVSArgs']] = None,
-                 mode: Optional[pulumi.Input[str]] = None,
-                 node_port_addresses: Optional[pulumi.Input[str]] = None):
-        if disabled is not None:
-            pulumi.set(__self__, "disabled", disabled)
-        if iptables is not None:
-            pulumi.set(__self__, "iptables", iptables)
-        if ipvs is not None:
-            pulumi.set(__self__, "ipvs", ipvs)
-        if mode is not None:
-            pulumi.set(__self__, "mode", mode)
-        if node_port_addresses is not None:
-            pulumi.set(__self__, "node_port_addresses", node_port_addresses)
-
-    @property
-    @pulumi.getter
-    def disabled(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "disabled")
-
-    @disabled.setter
-    def disabled(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "disabled", value)
-
-    @property
-    @pulumi.getter
-    def iptables(self) -> Optional[pulumi.Input['ClusterKubeProxyIPTablesArgs']]:
-        return pulumi.get(self, "iptables")
-
-    @iptables.setter
-    def iptables(self, value: Optional[pulumi.Input['ClusterKubeProxyIPTablesArgs']]):
-        pulumi.set(self, "iptables", value)
-
-    @property
-    @pulumi.getter
-    def ipvs(self) -> Optional[pulumi.Input['ClusterKubeProxyIPVSArgs']]:
-        return pulumi.get(self, "ipvs")
-
-    @ipvs.setter
-    def ipvs(self, value: Optional[pulumi.Input['ClusterKubeProxyIPVSArgs']]):
-        pulumi.set(self, "ipvs", value)
-
-    @property
-    @pulumi.getter
-    def mode(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "mode")
-
-    @mode.setter
-    def mode(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "mode", value)
-
-    @property
-    @pulumi.getter(name="nodePortAddresses")
-    def node_port_addresses(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "node_port_addresses")
-
-    @node_port_addresses.setter
-    def node_port_addresses(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "node_port_addresses", value)
-
-
-@pulumi.input_type
-class ClusterKubeRouterImageArgs:
-    def __init__(__self__, *,
-                 cni: Optional[pulumi.Input['ClusterImageArgs']] = None,
-                 cni_installer: Optional[pulumi.Input['ClusterImageArgs']] = None):
-        if cni is not None:
-            pulumi.set(__self__, "cni", cni)
-        if cni_installer is not None:
-            pulumi.set(__self__, "cni_installer", cni_installer)
-
-    @property
-    @pulumi.getter
-    def cni(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "cni")
-
-    @cni.setter
-    def cni(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "cni", value)
-
-    @property
-    @pulumi.getter(name="cniInstaller")
-    def cni_installer(self) -> Optional[pulumi.Input['ClusterImageArgs']]:
-        return pulumi.get(self, "cni_installer")
-
-    @cni_installer.setter
-    def cni_installer(self, value: Optional[pulumi.Input['ClusterImageArgs']]):
-        pulumi.set(self, "cni_installer", value)
-
-
-@pulumi.input_type
-class ClusterKubeRouterArgs:
-    def __init__(__self__, *,
-                 auto_mtu: Optional[pulumi.Input[bool]] = None,
-                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 hairpin: Optional[pulumi.Input[str]] = None,
-                 ip_masq: Optional[pulumi.Input[bool]] = None,
-                 metrics_port: Optional[pulumi.Input[int]] = None,
-                 mtu: Optional[pulumi.Input[int]] = None):
-        if auto_mtu is not None:
-            pulumi.set(__self__, "auto_mtu", auto_mtu)
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-        if hairpin is not None:
-            pulumi.set(__self__, "hairpin", hairpin)
-        if ip_masq is not None:
-            pulumi.set(__self__, "ip_masq", ip_masq)
-        if metrics_port is not None:
-            pulumi.set(__self__, "metrics_port", metrics_port)
-        if mtu is not None:
-            pulumi.set(__self__, "mtu", mtu)
-
-    @property
-    @pulumi.getter(name="autoMTU")
-    def auto_mtu(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "auto_mtu")
-
-    @auto_mtu.setter
-    def auto_mtu(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "auto_mtu", value)
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        return pulumi.get(self, "extra_args")
-
-    @extra_args.setter
-    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "extra_args", value)
-
-    @property
-    @pulumi.getter
-    def hairpin(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "hairpin")
-
-    @hairpin.setter
-    def hairpin(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "hairpin", value)
-
-    @property
-    @pulumi.getter(name="ipMasq")
-    def ip_masq(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "ip_masq")
-
-    @ip_masq.setter
-    def ip_masq(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "ip_masq", value)
-
-    @property
-    @pulumi.getter(name="metricsPort")
-    def metrics_port(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "metrics_port")
-
-    @metrics_port.setter
-    def metrics_port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "metrics_port", value)
-
-    @property
-    @pulumi.getter
-    def mtu(self) -> Optional[pulumi.Input[int]]:
-        return pulumi.get(self, "mtu")
-
-    @mtu.setter
-    def mtu(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "mtu", value)
 
 
 @pulumi.input_type
@@ -1761,177 +491,6 @@ class ClusterMetadataArgs:
     @name.setter
     def name(self, value: pulumi.Input[str]):
         pulumi.set(self, "name", value)
-
-
-@pulumi.input_type
-class ClusterNetworkArgs:
-    def __init__(__self__, *,
-                 calico: Optional[pulumi.Input['ClusterCalicoArgs']] = None,
-                 cluster_domain: Optional[pulumi.Input[str]] = None,
-                 dual_stack: Optional[pulumi.Input['ClusterDualStackArgs']] = None,
-                 kube_proxy: Optional[pulumi.Input['ClusterKubeProxyArgs']] = None,
-                 kuberouter: Optional[pulumi.Input['ClusterKubeRouterArgs']] = None,
-                 node_local_load_balancing: Optional[pulumi.Input['ClusterNodeLocalLoadBalancingArgs']] = None,
-                 pod_cidr: Optional[pulumi.Input[str]] = None,
-                 provider: Optional[pulumi.Input[str]] = None,
-                 service_cidr: Optional[pulumi.Input[str]] = None):
-        if calico is not None:
-            pulumi.set(__self__, "calico", calico)
-        if cluster_domain is not None:
-            pulumi.set(__self__, "cluster_domain", cluster_domain)
-        if dual_stack is not None:
-            pulumi.set(__self__, "dual_stack", dual_stack)
-        if kube_proxy is not None:
-            pulumi.set(__self__, "kube_proxy", kube_proxy)
-        if kuberouter is not None:
-            pulumi.set(__self__, "kuberouter", kuberouter)
-        if node_local_load_balancing is not None:
-            pulumi.set(__self__, "node_local_load_balancing", node_local_load_balancing)
-        if pod_cidr is not None:
-            pulumi.set(__self__, "pod_cidr", pod_cidr)
-        if provider is not None:
-            pulumi.set(__self__, "provider", provider)
-        if service_cidr is not None:
-            pulumi.set(__self__, "service_cidr", service_cidr)
-
-    @property
-    @pulumi.getter
-    def calico(self) -> Optional[pulumi.Input['ClusterCalicoArgs']]:
-        return pulumi.get(self, "calico")
-
-    @calico.setter
-    def calico(self, value: Optional[pulumi.Input['ClusterCalicoArgs']]):
-        pulumi.set(self, "calico", value)
-
-    @property
-    @pulumi.getter(name="clusterDomain")
-    def cluster_domain(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "cluster_domain")
-
-    @cluster_domain.setter
-    def cluster_domain(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "cluster_domain", value)
-
-    @property
-    @pulumi.getter(name="dualStack")
-    def dual_stack(self) -> Optional[pulumi.Input['ClusterDualStackArgs']]:
-        return pulumi.get(self, "dual_stack")
-
-    @dual_stack.setter
-    def dual_stack(self, value: Optional[pulumi.Input['ClusterDualStackArgs']]):
-        pulumi.set(self, "dual_stack", value)
-
-    @property
-    @pulumi.getter(name="kubeProxy")
-    def kube_proxy(self) -> Optional[pulumi.Input['ClusterKubeProxyArgs']]:
-        return pulumi.get(self, "kube_proxy")
-
-    @kube_proxy.setter
-    def kube_proxy(self, value: Optional[pulumi.Input['ClusterKubeProxyArgs']]):
-        pulumi.set(self, "kube_proxy", value)
-
-    @property
-    @pulumi.getter
-    def kuberouter(self) -> Optional[pulumi.Input['ClusterKubeRouterArgs']]:
-        return pulumi.get(self, "kuberouter")
-
-    @kuberouter.setter
-    def kuberouter(self, value: Optional[pulumi.Input['ClusterKubeRouterArgs']]):
-        pulumi.set(self, "kuberouter", value)
-
-    @property
-    @pulumi.getter(name="nodeLocalLoadBalancing")
-    def node_local_load_balancing(self) -> Optional[pulumi.Input['ClusterNodeLocalLoadBalancingArgs']]:
-        return pulumi.get(self, "node_local_load_balancing")
-
-    @node_local_load_balancing.setter
-    def node_local_load_balancing(self, value: Optional[pulumi.Input['ClusterNodeLocalLoadBalancingArgs']]):
-        pulumi.set(self, "node_local_load_balancing", value)
-
-    @property
-    @pulumi.getter(name="podCIDR")
-    def pod_cidr(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "pod_cidr")
-
-    @pod_cidr.setter
-    def pod_cidr(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "pod_cidr", value)
-
-    @property
-    @pulumi.getter
-    def provider(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "provider")
-
-    @provider.setter
-    def provider(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "provider", value)
-
-    @property
-    @pulumi.getter(name="serviceCIDR")
-    def service_cidr(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "service_cidr")
-
-    @service_cidr.setter
-    def service_cidr(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "service_cidr", value)
-
-
-@pulumi.input_type
-class ClusterNodeLocalLoadBalancingArgs:
-    def __init__(__self__, *,
-                 enabled: Optional[pulumi.Input[bool]] = None,
-                 envoy_proxy: Optional[pulumi.Input['ClusterEnvoyProxyArgs']] = None,
-                 type: Optional[pulumi.Input[str]] = None):
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
-        if envoy_proxy is not None:
-            pulumi.set(__self__, "envoy_proxy", envoy_proxy)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @property
-    @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "enabled")
-
-    @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "enabled", value)
-
-    @property
-    @pulumi.getter(name="envoyProxy")
-    def envoy_proxy(self) -> Optional[pulumi.Input['ClusterEnvoyProxyArgs']]:
-        return pulumi.get(self, "envoy_proxy")
-
-    @envoy_proxy.setter
-    def envoy_proxy(self, value: Optional[pulumi.Input['ClusterEnvoyProxyArgs']]):
-        pulumi.set(self, "envoy_proxy", value)
-
-    @property
-    @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "type", value)
-
-
-@pulumi.input_type
-class ClusterPodSecurityPolicyArgs:
-    def __init__(__self__, *,
-                 default_policy: Optional[pulumi.Input[str]] = None):
-        if default_policy is not None:
-            pulumi.set(__self__, "default_policy", default_policy)
-
-    @property
-    @pulumi.getter(name="defaultPolicy")
-    def default_policy(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "default_policy")
-
-    @default_policy.setter
-    def default_policy(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "default_policy", value)
 
 
 @pulumi.input_type
@@ -2011,23 +570,6 @@ class ClusterSSHArgs:
 
 
 @pulumi.input_type
-class ClusterSchedulerArgs:
-    def __init__(__self__, *,
-                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
-        if extra_args is not None:
-            pulumi.set(__self__, "extra_args", extra_args)
-
-    @property
-    @pulumi.getter(name="extraArgs")
-    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        return pulumi.get(self, "extra_args")
-
-    @extra_args.setter
-    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "extra_args", value)
-
-
-@pulumi.input_type
 class ClusterSpecArgs:
     def __init__(__self__, *,
                  hosts: pulumi.Input[Sequence[pulumi.Input['ClusterHostArgs']]],
@@ -2053,64 +595,6 @@ class ClusterSpecArgs:
     @k0s.setter
     def k0s(self, value: Optional[pulumi.Input['ClusterK0sArgs']]):
         pulumi.set(self, "k0s", value)
-
-
-@pulumi.input_type
-class ClusterStorageArgs:
-    def __init__(__self__, *,
-                 etcd: Optional[pulumi.Input['ClusterEtcdArgs']] = None,
-                 kine: Optional[pulumi.Input['ClusterKineArgs']] = None,
-                 type: Optional[pulumi.Input[str]] = None):
-        if etcd is not None:
-            pulumi.set(__self__, "etcd", etcd)
-        if kine is not None:
-            pulumi.set(__self__, "kine", kine)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @property
-    @pulumi.getter
-    def etcd(self) -> Optional[pulumi.Input['ClusterEtcdArgs']]:
-        return pulumi.get(self, "etcd")
-
-    @etcd.setter
-    def etcd(self, value: Optional[pulumi.Input['ClusterEtcdArgs']]):
-        pulumi.set(self, "etcd", value)
-
-    @property
-    @pulumi.getter
-    def kine(self) -> Optional[pulumi.Input['ClusterKineArgs']]:
-        return pulumi.get(self, "kine")
-
-    @kine.setter
-    def kine(self, value: Optional[pulumi.Input['ClusterKineArgs']]):
-        pulumi.set(self, "kine", value)
-
-    @property
-    @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "type", value)
-
-
-@pulumi.input_type
-class ClusterTelemetryArgs:
-    def __init__(__self__, *,
-                 enabled: Optional[pulumi.Input[bool]] = None):
-        if enabled is not None:
-            pulumi.set(__self__, "enabled", enabled)
-
-    @property
-    @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[bool]]:
-        return pulumi.get(self, "enabled")
-
-    @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "enabled", value)
 
 
 @pulumi.input_type
@@ -2262,7 +746,1511 @@ class ClusterWinRMArgs:
 
 
 @pulumi.input_type
-class ClusterWorkerProfileArgs:
+class K0sAPIArgs:
+    def __init__(__self__, *,
+                 address: Optional[pulumi.Input[str]] = None,
+                 external_address: Optional[pulumi.Input[str]] = None,
+                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 k0s_api_port: Optional[pulumi.Input[int]] = None,
+                 port: Optional[pulumi.Input[int]] = None,
+                 sans: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if external_address is not None:
+            pulumi.set(__self__, "external_address", external_address)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+        if k0s_api_port is not None:
+            pulumi.set(__self__, "k0s_api_port", k0s_api_port)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if sans is not None:
+            pulumi.set(__self__, "sans", sans)
+
+    @property
+    @pulumi.getter
+    def address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "address")
+
+    @address.setter
+    def address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "address", value)
+
+    @property
+    @pulumi.getter(name="externalAddress")
+    def external_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "external_address")
+
+    @external_address.setter
+    def external_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "external_address", value)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_args", value)
+
+    @property
+    @pulumi.getter(name="k0sApiPort")
+    def k0s_api_port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "k0s_api_port")
+
+    @k0s_api_port.setter
+    def k0s_api_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "k0s_api_port", value)
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "port", value)
+
+    @property
+    @pulumi.getter
+    def sans(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "sans")
+
+    @sans.setter
+    def sans(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "sans", value)
+
+
+@pulumi.input_type
+class K0sCalicoImageArgs:
+    def __init__(__self__, *,
+                 cni: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 flexvolume: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 kubecontrollers: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 node: Optional[pulumi.Input['K0sImageArgs']] = None):
+        if cni is not None:
+            pulumi.set(__self__, "cni", cni)
+        if flexvolume is not None:
+            pulumi.set(__self__, "flexvolume", flexvolume)
+        if kubecontrollers is not None:
+            pulumi.set(__self__, "kubecontrollers", kubecontrollers)
+        if node is not None:
+            pulumi.set(__self__, "node", node)
+
+    @property
+    @pulumi.getter
+    def cni(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "cni")
+
+    @cni.setter
+    def cni(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "cni", value)
+
+    @property
+    @pulumi.getter
+    def flexvolume(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "flexvolume")
+
+    @flexvolume.setter
+    def flexvolume(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "flexvolume", value)
+
+    @property
+    @pulumi.getter
+    def kubecontrollers(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "kubecontrollers")
+
+    @kubecontrollers.setter
+    def kubecontrollers(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "kubecontrollers", value)
+
+    @property
+    @pulumi.getter
+    def node(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "node")
+
+    @node.setter
+    def node(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "node", value)
+
+
+@pulumi.input_type
+class K0sCalicoArgs:
+    def __init__(__self__, *,
+                 env_vars: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 flex_volume_driver_path: Optional[pulumi.Input[str]] = None,
+                 ip_autodetection_method: Optional[pulumi.Input[str]] = None,
+                 mode: Optional[pulumi.Input[str]] = None,
+                 mtu: Optional[pulumi.Input[int]] = None,
+                 overlay: Optional[pulumi.Input[str]] = None,
+                 vxlan_port: Optional[pulumi.Input[int]] = None,
+                 vxlan_vni: Optional[pulumi.Input[int]] = None,
+                 wireguard: Optional[pulumi.Input[bool]] = None):
+        if env_vars is not None:
+            pulumi.set(__self__, "env_vars", env_vars)
+        if flex_volume_driver_path is not None:
+            pulumi.set(__self__, "flex_volume_driver_path", flex_volume_driver_path)
+        if ip_autodetection_method is not None:
+            pulumi.set(__self__, "ip_autodetection_method", ip_autodetection_method)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if mtu is not None:
+            pulumi.set(__self__, "mtu", mtu)
+        if overlay is not None:
+            pulumi.set(__self__, "overlay", overlay)
+        if vxlan_port is not None:
+            pulumi.set(__self__, "vxlan_port", vxlan_port)
+        if vxlan_vni is not None:
+            pulumi.set(__self__, "vxlan_vni", vxlan_vni)
+        if wireguard is not None:
+            pulumi.set(__self__, "wireguard", wireguard)
+
+    @property
+    @pulumi.getter(name="envVars")
+    def env_vars(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "env_vars")
+
+    @env_vars.setter
+    def env_vars(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "env_vars", value)
+
+    @property
+    @pulumi.getter(name="flexVolumeDriverPath")
+    def flex_volume_driver_path(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "flex_volume_driver_path")
+
+    @flex_volume_driver_path.setter
+    def flex_volume_driver_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "flex_volume_driver_path", value)
+
+    @property
+    @pulumi.getter(name="ipAutodetectionMethod")
+    def ip_autodetection_method(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "ip_autodetection_method")
+
+    @ip_autodetection_method.setter
+    def ip_autodetection_method(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ip_autodetection_method", value)
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mode")
+
+    @mode.setter
+    def mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mode", value)
+
+    @property
+    @pulumi.getter
+    def mtu(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "mtu")
+
+    @mtu.setter
+    def mtu(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "mtu", value)
+
+    @property
+    @pulumi.getter
+    def overlay(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "overlay")
+
+    @overlay.setter
+    def overlay(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "overlay", value)
+
+    @property
+    @pulumi.getter(name="vxlanPort")
+    def vxlan_port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "vxlan_port")
+
+    @vxlan_port.setter
+    def vxlan_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "vxlan_port", value)
+
+    @property
+    @pulumi.getter(name="vxlanVNI")
+    def vxlan_vni(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "vxlan_vni")
+
+    @vxlan_vni.setter
+    def vxlan_vni(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "vxlan_vni", value)
+
+    @property
+    @pulumi.getter
+    def wireguard(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "wireguard")
+
+    @wireguard.setter
+    def wireguard(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "wireguard", value)
+
+
+@pulumi.input_type
+class K0sControllerManagerArgs:
+    def __init__(__self__, *,
+                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_args", value)
+
+
+@pulumi.input_type
+class K0sDualStackArgs:
+    def __init__(__self__, *,
+                 i_pv6pod_cidr: Optional[pulumi.Input[str]] = None,
+                 i_pv6service_cidr: Optional[pulumi.Input[str]] = None,
+                 enabled: Optional[pulumi.Input[bool]] = None):
+        if i_pv6pod_cidr is not None:
+            pulumi.set(__self__, "i_pv6pod_cidr", i_pv6pod_cidr)
+        if i_pv6service_cidr is not None:
+            pulumi.set(__self__, "i_pv6service_cidr", i_pv6service_cidr)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter(name="IPv6podCIDR")
+    def i_pv6pod_cidr(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "i_pv6pod_cidr")
+
+    @i_pv6pod_cidr.setter
+    def i_pv6pod_cidr(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "i_pv6pod_cidr", value)
+
+    @property
+    @pulumi.getter(name="IPv6serviceCIDR")
+    def i_pv6service_cidr(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "i_pv6service_cidr")
+
+    @i_pv6service_cidr.setter
+    def i_pv6service_cidr(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "i_pv6service_cidr", value)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+@pulumi.input_type
+class K0sEnvoyProxyArgs:
+    def __init__(__self__, *,
+                 api_server_bind_port: Optional[pulumi.Input[int]] = None,
+                 image: Optional[pulumi.Input[str]] = None,
+                 image_pull_policy: Optional[pulumi.Input[str]] = None,
+                 konnectivity_server_bind_port: Optional[pulumi.Input[int]] = None):
+        if api_server_bind_port is not None:
+            pulumi.set(__self__, "api_server_bind_port", api_server_bind_port)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if image_pull_policy is not None:
+            pulumi.set(__self__, "image_pull_policy", image_pull_policy)
+        if konnectivity_server_bind_port is not None:
+            pulumi.set(__self__, "konnectivity_server_bind_port", konnectivity_server_bind_port)
+
+    @property
+    @pulumi.getter(name="apiServerBindPort")
+    def api_server_bind_port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "api_server_bind_port")
+
+    @api_server_bind_port.setter
+    def api_server_bind_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "api_server_bind_port", value)
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "image")
+
+    @image.setter
+    def image(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "image", value)
+
+    @property
+    @pulumi.getter(name="imagePullPolicy")
+    def image_pull_policy(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "image_pull_policy")
+
+    @image_pull_policy.setter
+    def image_pull_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "image_pull_policy", value)
+
+    @property
+    @pulumi.getter(name="konnectivityServerBindPort")
+    def konnectivity_server_bind_port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "konnectivity_server_bind_port")
+
+    @konnectivity_server_bind_port.setter
+    def konnectivity_server_bind_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "konnectivity_server_bind_port", value)
+
+
+@pulumi.input_type
+class K0sEtcdExternalClusterArgs:
+    def __init__(__self__, *,
+                 endpoints: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 ca: Optional[pulumi.Input[str]] = None,
+                 client_cert: Optional[pulumi.Input[str]] = None,
+                 client_key: Optional[pulumi.Input[str]] = None,
+                 etcd_prefix: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "endpoints", endpoints)
+        if ca is not None:
+            pulumi.set(__self__, "ca", ca)
+        if client_cert is not None:
+            pulumi.set(__self__, "client_cert", client_cert)
+        if client_key is not None:
+            pulumi.set(__self__, "client_key", client_key)
+        if etcd_prefix is not None:
+            pulumi.set(__self__, "etcd_prefix", etcd_prefix)
+
+    @property
+    @pulumi.getter
+    def endpoints(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        return pulumi.get(self, "endpoints")
+
+    @endpoints.setter
+    def endpoints(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "endpoints", value)
+
+    @property
+    @pulumi.getter
+    def ca(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "ca")
+
+    @ca.setter
+    def ca(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ca", value)
+
+    @property
+    @pulumi.getter(name="clientCert")
+    def client_cert(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "client_cert")
+
+    @client_cert.setter
+    def client_cert(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "client_cert", value)
+
+    @property
+    @pulumi.getter(name="clientKey")
+    def client_key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "client_key")
+
+    @client_key.setter
+    def client_key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "client_key", value)
+
+    @property
+    @pulumi.getter(name="etcdPrefix")
+    def etcd_prefix(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "etcd_prefix")
+
+    @etcd_prefix.setter
+    def etcd_prefix(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "etcd_prefix", value)
+
+
+@pulumi.input_type
+class K0sEtcdArgs:
+    def __init__(__self__, *,
+                 external_cluster: Optional[pulumi.Input['K0sEtcdExternalClusterArgs']] = None,
+                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 peer_address: Optional[pulumi.Input[str]] = None):
+        if external_cluster is not None:
+            pulumi.set(__self__, "external_cluster", external_cluster)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+        if peer_address is not None:
+            pulumi.set(__self__, "peer_address", peer_address)
+
+    @property
+    @pulumi.getter(name="externalCluster")
+    def external_cluster(self) -> Optional[pulumi.Input['K0sEtcdExternalClusterArgs']]:
+        return pulumi.get(self, "external_cluster")
+
+    @external_cluster.setter
+    def external_cluster(self, value: Optional[pulumi.Input['K0sEtcdExternalClusterArgs']]):
+        pulumi.set(self, "external_cluster", value)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_args", value)
+
+    @property
+    @pulumi.getter(name="peerAddress")
+    def peer_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "peer_address")
+
+    @peer_address.setter
+    def peer_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "peer_address", value)
+
+
+@pulumi.input_type
+class K0sFeatureGateArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 components: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 enabled: Optional[pulumi.Input[bool]] = None):
+        pulumi.set(__self__, "name", name)
+        if components is not None:
+            pulumi.set(__self__, "components", components)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def components(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "components")
+
+    @components.setter
+    def components(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "components", value)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+@pulumi.input_type
+class K0sImagesArgs:
+    def __init__(__self__, *,
+                 calico: Optional[pulumi.Input['K0sCalicoImageArgs']] = None,
+                 coredns: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 default_pull_policy: Optional[pulumi.Input[str]] = None,
+                 konnectivity: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 kubeproxy: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 kuberouter: Optional[pulumi.Input['K0sKubeRouterImageArgs']] = None,
+                 metricsserver: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 pause: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 repository: Optional[pulumi.Input[str]] = None):
+        if calico is not None:
+            pulumi.set(__self__, "calico", calico)
+        if coredns is not None:
+            pulumi.set(__self__, "coredns", coredns)
+        if default_pull_policy is not None:
+            pulumi.set(__self__, "default_pull_policy", default_pull_policy)
+        if konnectivity is not None:
+            pulumi.set(__self__, "konnectivity", konnectivity)
+        if kubeproxy is not None:
+            pulumi.set(__self__, "kubeproxy", kubeproxy)
+        if kuberouter is not None:
+            pulumi.set(__self__, "kuberouter", kuberouter)
+        if metricsserver is not None:
+            pulumi.set(__self__, "metricsserver", metricsserver)
+        if pause is not None:
+            pulumi.set(__self__, "pause", pause)
+        if repository is not None:
+            pulumi.set(__self__, "repository", repository)
+
+    @property
+    @pulumi.getter
+    def calico(self) -> Optional[pulumi.Input['K0sCalicoImageArgs']]:
+        return pulumi.get(self, "calico")
+
+    @calico.setter
+    def calico(self, value: Optional[pulumi.Input['K0sCalicoImageArgs']]):
+        pulumi.set(self, "calico", value)
+
+    @property
+    @pulumi.getter
+    def coredns(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "coredns")
+
+    @coredns.setter
+    def coredns(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "coredns", value)
+
+    @property
+    @pulumi.getter
+    def default_pull_policy(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "default_pull_policy")
+
+    @default_pull_policy.setter
+    def default_pull_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "default_pull_policy", value)
+
+    @property
+    @pulumi.getter
+    def konnectivity(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "konnectivity")
+
+    @konnectivity.setter
+    def konnectivity(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "konnectivity", value)
+
+    @property
+    @pulumi.getter
+    def kubeproxy(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "kubeproxy")
+
+    @kubeproxy.setter
+    def kubeproxy(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "kubeproxy", value)
+
+    @property
+    @pulumi.getter
+    def kuberouter(self) -> Optional[pulumi.Input['K0sKubeRouterImageArgs']]:
+        return pulumi.get(self, "kuberouter")
+
+    @kuberouter.setter
+    def kuberouter(self, value: Optional[pulumi.Input['K0sKubeRouterImageArgs']]):
+        pulumi.set(self, "kuberouter", value)
+
+    @property
+    @pulumi.getter
+    def metricsserver(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "metricsserver")
+
+    @metricsserver.setter
+    def metricsserver(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "metricsserver", value)
+
+    @property
+    @pulumi.getter
+    def pause(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "pause")
+
+    @pause.setter
+    def pause(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "pause", value)
+
+    @property
+    @pulumi.getter
+    def repository(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "repository")
+
+    @repository.setter
+    def repository(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "repository", value)
+
+
+@pulumi.input_type
+class K0sImageArgs:
+    def __init__(__self__, *,
+                 image: Optional[pulumi.Input[str]] = None,
+                 version: Optional[pulumi.Input[str]] = None):
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "image")
+
+    @image.setter
+    def image(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "image", value)
+
+    @property
+    @pulumi.getter
+    def version(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "version")
+
+    @version.setter
+    def version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "version", value)
+
+
+@pulumi.input_type
+class K0sInstallConfigUserArgs:
+    def __init__(__self__, *,
+                 etcd_user: Optional[pulumi.Input[str]] = None,
+                 kine_user: Optional[pulumi.Input[str]] = None,
+                 konnectivity_user: Optional[pulumi.Input[str]] = None,
+                 kube_apiserver_user: Optional[pulumi.Input[str]] = None,
+                 kube_scheduler_user: Optional[pulumi.Input[str]] = None):
+        if etcd_user is not None:
+            pulumi.set(__self__, "etcd_user", etcd_user)
+        if kine_user is not None:
+            pulumi.set(__self__, "kine_user", kine_user)
+        if konnectivity_user is not None:
+            pulumi.set(__self__, "konnectivity_user", konnectivity_user)
+        if kube_apiserver_user is not None:
+            pulumi.set(__self__, "kube_apiserver_user", kube_apiserver_user)
+        if kube_scheduler_user is not None:
+            pulumi.set(__self__, "kube_scheduler_user", kube_scheduler_user)
+
+    @property
+    @pulumi.getter(name="etcdUser")
+    def etcd_user(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "etcd_user")
+
+    @etcd_user.setter
+    def etcd_user(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "etcd_user", value)
+
+    @property
+    @pulumi.getter(name="kineUser")
+    def kine_user(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "kine_user")
+
+    @kine_user.setter
+    def kine_user(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kine_user", value)
+
+    @property
+    @pulumi.getter(name="konnectivityUser")
+    def konnectivity_user(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "konnectivity_user")
+
+    @konnectivity_user.setter
+    def konnectivity_user(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "konnectivity_user", value)
+
+    @property
+    @pulumi.getter(name="kubeAPIserverUser")
+    def kube_apiserver_user(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "kube_apiserver_user")
+
+    @kube_apiserver_user.setter
+    def kube_apiserver_user(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kube_apiserver_user", value)
+
+    @property
+    @pulumi.getter(name="kubeSchedulerUser")
+    def kube_scheduler_user(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "kube_scheduler_user")
+
+    @kube_scheduler_user.setter
+    def kube_scheduler_user(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kube_scheduler_user", value)
+
+
+@pulumi.input_type
+class K0sInstallConfigArgs:
+    def __init__(__self__, *,
+                 users: Optional[pulumi.Input['K0sInstallConfigUserArgs']] = None):
+        if users is not None:
+            pulumi.set(__self__, "users", users)
+
+    @property
+    @pulumi.getter
+    def users(self) -> Optional[pulumi.Input['K0sInstallConfigUserArgs']]:
+        return pulumi.get(self, "users")
+
+    @users.setter
+    def users(self, value: Optional[pulumi.Input['K0sInstallConfigUserArgs']]):
+        pulumi.set(self, "users", value)
+
+
+@pulumi.input_type
+class K0sKineArgs:
+    def __init__(__self__, *,
+                 data_source: pulumi.Input[str]):
+        pulumi.set(__self__, "data_source", data_source)
+
+    @property
+    @pulumi.getter(name="dataSource")
+    def data_source(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "data_source")
+
+    @data_source.setter
+    def data_source(self, value: pulumi.Input[str]):
+        pulumi.set(self, "data_source", value)
+
+
+@pulumi.input_type
+class K0sKonnectivityArgs:
+    def __init__(__self__, *,
+                 admin_port: Optional[pulumi.Input[int]] = None,
+                 agent_port: Optional[pulumi.Input[int]] = None):
+        if admin_port is not None:
+            pulumi.set(__self__, "admin_port", admin_port)
+        if agent_port is not None:
+            pulumi.set(__self__, "agent_port", agent_port)
+
+    @property
+    @pulumi.getter(name="adminPort")
+    def admin_port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "admin_port")
+
+    @admin_port.setter
+    def admin_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "admin_port", value)
+
+    @property
+    @pulumi.getter(name="agentPort")
+    def agent_port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "agent_port")
+
+    @agent_port.setter
+    def agent_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "agent_port", value)
+
+
+@pulumi.input_type
+class K0sKubeProxyIPTablesArgs:
+    def __init__(__self__, *,
+                 masquerade_all: Optional[pulumi.Input[bool]] = None,
+                 masquerade_bit: Optional[pulumi.Input[int]] = None,
+                 min_sync_period: Optional[pulumi.Input[str]] = None,
+                 sync_period: Optional[pulumi.Input[str]] = None):
+        if masquerade_all is not None:
+            pulumi.set(__self__, "masquerade_all", masquerade_all)
+        if masquerade_bit is not None:
+            pulumi.set(__self__, "masquerade_bit", masquerade_bit)
+        if min_sync_period is not None:
+            pulumi.set(__self__, "min_sync_period", min_sync_period)
+        if sync_period is not None:
+            pulumi.set(__self__, "sync_period", sync_period)
+
+    @property
+    @pulumi.getter(name="masqueradeAll")
+    def masquerade_all(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "masquerade_all")
+
+    @masquerade_all.setter
+    def masquerade_all(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "masquerade_all", value)
+
+    @property
+    @pulumi.getter(name="masqueradeBit")
+    def masquerade_bit(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "masquerade_bit")
+
+    @masquerade_bit.setter
+    def masquerade_bit(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "masquerade_bit", value)
+
+    @property
+    @pulumi.getter(name="minSyncPeriod")
+    def min_sync_period(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "min_sync_period")
+
+    @min_sync_period.setter
+    def min_sync_period(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "min_sync_period", value)
+
+    @property
+    @pulumi.getter(name="syncPeriod")
+    def sync_period(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "sync_period")
+
+    @sync_period.setter
+    def sync_period(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "sync_period", value)
+
+
+@pulumi.input_type
+class K0sKubeProxyIPVSArgs:
+    def __init__(__self__, *,
+                 exclude_cidrs: Optional[pulumi.Input[str]] = None,
+                 min_sync_period: Optional[pulumi.Input[str]] = None,
+                 scheduler: Optional[pulumi.Input[str]] = None,
+                 strict_arp: Optional[pulumi.Input[bool]] = None,
+                 sync_period: Optional[pulumi.Input[str]] = None,
+                 tcp_fin_timeout: Optional[pulumi.Input[str]] = None,
+                 tcp_timeout: Optional[pulumi.Input[str]] = None,
+                 udp_timeout: Optional[pulumi.Input[str]] = None):
+        if exclude_cidrs is not None:
+            pulumi.set(__self__, "exclude_cidrs", exclude_cidrs)
+        if min_sync_period is not None:
+            pulumi.set(__self__, "min_sync_period", min_sync_period)
+        if scheduler is not None:
+            pulumi.set(__self__, "scheduler", scheduler)
+        if strict_arp is not None:
+            pulumi.set(__self__, "strict_arp", strict_arp)
+        if sync_period is not None:
+            pulumi.set(__self__, "sync_period", sync_period)
+        if tcp_fin_timeout is not None:
+            pulumi.set(__self__, "tcp_fin_timeout", tcp_fin_timeout)
+        if tcp_timeout is not None:
+            pulumi.set(__self__, "tcp_timeout", tcp_timeout)
+        if udp_timeout is not None:
+            pulumi.set(__self__, "udp_timeout", udp_timeout)
+
+    @property
+    @pulumi.getter(name="excludeCIDRs")
+    def exclude_cidrs(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "exclude_cidrs")
+
+    @exclude_cidrs.setter
+    def exclude_cidrs(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "exclude_cidrs", value)
+
+    @property
+    @pulumi.getter(name="minSyncPeriod")
+    def min_sync_period(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "min_sync_period")
+
+    @min_sync_period.setter
+    def min_sync_period(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "min_sync_period", value)
+
+    @property
+    @pulumi.getter
+    def scheduler(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "scheduler")
+
+    @scheduler.setter
+    def scheduler(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "scheduler", value)
+
+    @property
+    @pulumi.getter(name="strictARP")
+    def strict_arp(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "strict_arp")
+
+    @strict_arp.setter
+    def strict_arp(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "strict_arp", value)
+
+    @property
+    @pulumi.getter(name="syncPeriod")
+    def sync_period(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "sync_period")
+
+    @sync_period.setter
+    def sync_period(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "sync_period", value)
+
+    @property
+    @pulumi.getter(name="tcpFinTimeout")
+    def tcp_fin_timeout(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "tcp_fin_timeout")
+
+    @tcp_fin_timeout.setter
+    def tcp_fin_timeout(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "tcp_fin_timeout", value)
+
+    @property
+    @pulumi.getter(name="tcpTimeout")
+    def tcp_timeout(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "tcp_timeout")
+
+    @tcp_timeout.setter
+    def tcp_timeout(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "tcp_timeout", value)
+
+    @property
+    @pulumi.getter(name="udpTimeout")
+    def udp_timeout(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "udp_timeout")
+
+    @udp_timeout.setter
+    def udp_timeout(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "udp_timeout", value)
+
+
+@pulumi.input_type
+class K0sKubeProxyArgs:
+    def __init__(__self__, *,
+                 disabled: Optional[pulumi.Input[bool]] = None,
+                 iptables: Optional[pulumi.Input['K0sKubeProxyIPTablesArgs']] = None,
+                 ipvs: Optional[pulumi.Input['K0sKubeProxyIPVSArgs']] = None,
+                 mode: Optional[pulumi.Input[str]] = None,
+                 node_port_addresses: Optional[pulumi.Input[str]] = None):
+        if disabled is not None:
+            pulumi.set(__self__, "disabled", disabled)
+        if iptables is not None:
+            pulumi.set(__self__, "iptables", iptables)
+        if ipvs is not None:
+            pulumi.set(__self__, "ipvs", ipvs)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if node_port_addresses is not None:
+            pulumi.set(__self__, "node_port_addresses", node_port_addresses)
+
+    @property
+    @pulumi.getter
+    def disabled(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "disabled")
+
+    @disabled.setter
+    def disabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "disabled", value)
+
+    @property
+    @pulumi.getter
+    def iptables(self) -> Optional[pulumi.Input['K0sKubeProxyIPTablesArgs']]:
+        return pulumi.get(self, "iptables")
+
+    @iptables.setter
+    def iptables(self, value: Optional[pulumi.Input['K0sKubeProxyIPTablesArgs']]):
+        pulumi.set(self, "iptables", value)
+
+    @property
+    @pulumi.getter
+    def ipvs(self) -> Optional[pulumi.Input['K0sKubeProxyIPVSArgs']]:
+        return pulumi.get(self, "ipvs")
+
+    @ipvs.setter
+    def ipvs(self, value: Optional[pulumi.Input['K0sKubeProxyIPVSArgs']]):
+        pulumi.set(self, "ipvs", value)
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mode")
+
+    @mode.setter
+    def mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mode", value)
+
+    @property
+    @pulumi.getter(name="nodePortAddresses")
+    def node_port_addresses(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "node_port_addresses")
+
+    @node_port_addresses.setter
+    def node_port_addresses(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "node_port_addresses", value)
+
+
+@pulumi.input_type
+class K0sKubeRouterImageArgs:
+    def __init__(__self__, *,
+                 cni: Optional[pulumi.Input['K0sImageArgs']] = None,
+                 cni_installer: Optional[pulumi.Input['K0sImageArgs']] = None):
+        if cni is not None:
+            pulumi.set(__self__, "cni", cni)
+        if cni_installer is not None:
+            pulumi.set(__self__, "cni_installer", cni_installer)
+
+    @property
+    @pulumi.getter
+    def cni(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "cni")
+
+    @cni.setter
+    def cni(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "cni", value)
+
+    @property
+    @pulumi.getter(name="cniInstaller")
+    def cni_installer(self) -> Optional[pulumi.Input['K0sImageArgs']]:
+        return pulumi.get(self, "cni_installer")
+
+    @cni_installer.setter
+    def cni_installer(self, value: Optional[pulumi.Input['K0sImageArgs']]):
+        pulumi.set(self, "cni_installer", value)
+
+
+@pulumi.input_type
+class K0sKubeRouterArgs:
+    def __init__(__self__, *,
+                 auto_mtu: Optional[pulumi.Input[bool]] = None,
+                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 hairpin: Optional[pulumi.Input[str]] = None,
+                 ip_masq: Optional[pulumi.Input[bool]] = None,
+                 metrics_port: Optional[pulumi.Input[int]] = None,
+                 mtu: Optional[pulumi.Input[int]] = None):
+        if auto_mtu is not None:
+            pulumi.set(__self__, "auto_mtu", auto_mtu)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+        if hairpin is not None:
+            pulumi.set(__self__, "hairpin", hairpin)
+        if ip_masq is not None:
+            pulumi.set(__self__, "ip_masq", ip_masq)
+        if metrics_port is not None:
+            pulumi.set(__self__, "metrics_port", metrics_port)
+        if mtu is not None:
+            pulumi.set(__self__, "mtu", mtu)
+
+    @property
+    @pulumi.getter(name="autoMTU")
+    def auto_mtu(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "auto_mtu")
+
+    @auto_mtu.setter
+    def auto_mtu(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "auto_mtu", value)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_args", value)
+
+    @property
+    @pulumi.getter
+    def hairpin(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "hairpin")
+
+    @hairpin.setter
+    def hairpin(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "hairpin", value)
+
+    @property
+    @pulumi.getter(name="ipMasq")
+    def ip_masq(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "ip_masq")
+
+    @ip_masq.setter
+    def ip_masq(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "ip_masq", value)
+
+    @property
+    @pulumi.getter(name="metricsPort")
+    def metrics_port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "metrics_port")
+
+    @metrics_port.setter
+    def metrics_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "metrics_port", value)
+
+    @property
+    @pulumi.getter
+    def mtu(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "mtu")
+
+    @mtu.setter
+    def mtu(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "mtu", value)
+
+
+@pulumi.input_type
+class K0sMetadataArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str]):
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+
+@pulumi.input_type
+class K0sNetworkArgs:
+    def __init__(__self__, *,
+                 calico: Optional[pulumi.Input['K0sCalicoArgs']] = None,
+                 cluster_domain: Optional[pulumi.Input[str]] = None,
+                 dual_stack: Optional[pulumi.Input['K0sDualStackArgs']] = None,
+                 kube_proxy: Optional[pulumi.Input['K0sKubeProxyArgs']] = None,
+                 kuberouter: Optional[pulumi.Input['K0sKubeRouterArgs']] = None,
+                 node_local_load_balancing: Optional[pulumi.Input['K0sNodeLocalLoadBalancingArgs']] = None,
+                 pod_cidr: Optional[pulumi.Input[str]] = None,
+                 provider: Optional[pulumi.Input[str]] = None,
+                 service_cidr: Optional[pulumi.Input[str]] = None):
+        if calico is not None:
+            pulumi.set(__self__, "calico", calico)
+        if cluster_domain is not None:
+            pulumi.set(__self__, "cluster_domain", cluster_domain)
+        if dual_stack is not None:
+            pulumi.set(__self__, "dual_stack", dual_stack)
+        if kube_proxy is not None:
+            pulumi.set(__self__, "kube_proxy", kube_proxy)
+        if kuberouter is not None:
+            pulumi.set(__self__, "kuberouter", kuberouter)
+        if node_local_load_balancing is not None:
+            pulumi.set(__self__, "node_local_load_balancing", node_local_load_balancing)
+        if pod_cidr is not None:
+            pulumi.set(__self__, "pod_cidr", pod_cidr)
+        if provider is not None:
+            pulumi.set(__self__, "provider", provider)
+        if service_cidr is not None:
+            pulumi.set(__self__, "service_cidr", service_cidr)
+
+    @property
+    @pulumi.getter
+    def calico(self) -> Optional[pulumi.Input['K0sCalicoArgs']]:
+        return pulumi.get(self, "calico")
+
+    @calico.setter
+    def calico(self, value: Optional[pulumi.Input['K0sCalicoArgs']]):
+        pulumi.set(self, "calico", value)
+
+    @property
+    @pulumi.getter(name="clusterDomain")
+    def cluster_domain(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "cluster_domain")
+
+    @cluster_domain.setter
+    def cluster_domain(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cluster_domain", value)
+
+    @property
+    @pulumi.getter(name="dualStack")
+    def dual_stack(self) -> Optional[pulumi.Input['K0sDualStackArgs']]:
+        return pulumi.get(self, "dual_stack")
+
+    @dual_stack.setter
+    def dual_stack(self, value: Optional[pulumi.Input['K0sDualStackArgs']]):
+        pulumi.set(self, "dual_stack", value)
+
+    @property
+    @pulumi.getter(name="kubeProxy")
+    def kube_proxy(self) -> Optional[pulumi.Input['K0sKubeProxyArgs']]:
+        return pulumi.get(self, "kube_proxy")
+
+    @kube_proxy.setter
+    def kube_proxy(self, value: Optional[pulumi.Input['K0sKubeProxyArgs']]):
+        pulumi.set(self, "kube_proxy", value)
+
+    @property
+    @pulumi.getter
+    def kuberouter(self) -> Optional[pulumi.Input['K0sKubeRouterArgs']]:
+        return pulumi.get(self, "kuberouter")
+
+    @kuberouter.setter
+    def kuberouter(self, value: Optional[pulumi.Input['K0sKubeRouterArgs']]):
+        pulumi.set(self, "kuberouter", value)
+
+    @property
+    @pulumi.getter(name="nodeLocalLoadBalancing")
+    def node_local_load_balancing(self) -> Optional[pulumi.Input['K0sNodeLocalLoadBalancingArgs']]:
+        return pulumi.get(self, "node_local_load_balancing")
+
+    @node_local_load_balancing.setter
+    def node_local_load_balancing(self, value: Optional[pulumi.Input['K0sNodeLocalLoadBalancingArgs']]):
+        pulumi.set(self, "node_local_load_balancing", value)
+
+    @property
+    @pulumi.getter(name="podCIDR")
+    def pod_cidr(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "pod_cidr")
+
+    @pod_cidr.setter
+    def pod_cidr(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "pod_cidr", value)
+
+    @property
+    @pulumi.getter
+    def provider(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "provider")
+
+    @provider.setter
+    def provider(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "provider", value)
+
+    @property
+    @pulumi.getter(name="serviceCIDR")
+    def service_cidr(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "service_cidr")
+
+    @service_cidr.setter
+    def service_cidr(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "service_cidr", value)
+
+
+@pulumi.input_type
+class K0sNodeLocalLoadBalancingArgs:
+    def __init__(__self__, *,
+                 enabled: Optional[pulumi.Input[bool]] = None,
+                 envoy_proxy: Optional[pulumi.Input['K0sEnvoyProxyArgs']] = None,
+                 type: Optional[pulumi.Input[str]] = None):
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if envoy_proxy is not None:
+            pulumi.set(__self__, "envoy_proxy", envoy_proxy)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+    @property
+    @pulumi.getter(name="envoyProxy")
+    def envoy_proxy(self) -> Optional[pulumi.Input['K0sEnvoyProxyArgs']]:
+        return pulumi.get(self, "envoy_proxy")
+
+    @envoy_proxy.setter
+    def envoy_proxy(self, value: Optional[pulumi.Input['K0sEnvoyProxyArgs']]):
+        pulumi.set(self, "envoy_proxy", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
+class K0sPodSecurityPolicyArgs:
+    def __init__(__self__, *,
+                 default_policy: Optional[pulumi.Input[str]] = None):
+        if default_policy is not None:
+            pulumi.set(__self__, "default_policy", default_policy)
+
+    @property
+    @pulumi.getter(name="defaultPolicy")
+    def default_policy(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "default_policy")
+
+    @default_policy.setter
+    def default_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "default_policy", value)
+
+
+@pulumi.input_type
+class K0sSchedulerArgs:
+    def __init__(__self__, *,
+                 extra_args: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "extra_args", value)
+
+
+@pulumi.input_type
+class K0sSpecArgs:
+    def __init__(__self__, *,
+                 api: Optional[pulumi.Input['K0sAPIArgs']] = None,
+                 controller_manager: Optional[pulumi.Input['K0sControllerManagerArgs']] = None,
+                 feature_gates: Optional[pulumi.Input[Sequence[pulumi.Input['K0sFeatureGateArgs']]]] = None,
+                 images: Optional[pulumi.Input['K0sImagesArgs']] = None,
+                 install_config: Optional[pulumi.Input['K0sInstallConfigArgs']] = None,
+                 konnectivity: Optional[pulumi.Input['K0sKonnectivityArgs']] = None,
+                 network: Optional[pulumi.Input['K0sNetworkArgs']] = None,
+                 pod_security_policy: Optional[pulumi.Input['K0sPodSecurityPolicyArgs']] = None,
+                 scheduler: Optional[pulumi.Input['K0sSchedulerArgs']] = None,
+                 storage: Optional[pulumi.Input['K0sStorageArgs']] = None,
+                 telemetry: Optional[pulumi.Input['K0sTelemetryArgs']] = None,
+                 worker_profiles: Optional[pulumi.Input[Sequence[pulumi.Input['K0sWorkerProfileArgs']]]] = None):
+        if api is not None:
+            pulumi.set(__self__, "api", api)
+        if controller_manager is not None:
+            pulumi.set(__self__, "controller_manager", controller_manager)
+        if feature_gates is not None:
+            pulumi.set(__self__, "feature_gates", feature_gates)
+        if images is not None:
+            pulumi.set(__self__, "images", images)
+        if install_config is not None:
+            pulumi.set(__self__, "install_config", install_config)
+        if konnectivity is not None:
+            pulumi.set(__self__, "konnectivity", konnectivity)
+        if network is not None:
+            pulumi.set(__self__, "network", network)
+        if pod_security_policy is not None:
+            pulumi.set(__self__, "pod_security_policy", pod_security_policy)
+        if scheduler is not None:
+            pulumi.set(__self__, "scheduler", scheduler)
+        if storage is not None:
+            pulumi.set(__self__, "storage", storage)
+        if telemetry is not None:
+            pulumi.set(__self__, "telemetry", telemetry)
+        if worker_profiles is not None:
+            pulumi.set(__self__, "worker_profiles", worker_profiles)
+
+    @property
+    @pulumi.getter
+    def api(self) -> Optional[pulumi.Input['K0sAPIArgs']]:
+        return pulumi.get(self, "api")
+
+    @api.setter
+    def api(self, value: Optional[pulumi.Input['K0sAPIArgs']]):
+        pulumi.set(self, "api", value)
+
+    @property
+    @pulumi.getter(name="controllerManager")
+    def controller_manager(self) -> Optional[pulumi.Input['K0sControllerManagerArgs']]:
+        return pulumi.get(self, "controller_manager")
+
+    @controller_manager.setter
+    def controller_manager(self, value: Optional[pulumi.Input['K0sControllerManagerArgs']]):
+        pulumi.set(self, "controller_manager", value)
+
+    @property
+    @pulumi.getter(name="featureGates")
+    def feature_gates(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['K0sFeatureGateArgs']]]]:
+        return pulumi.get(self, "feature_gates")
+
+    @feature_gates.setter
+    def feature_gates(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['K0sFeatureGateArgs']]]]):
+        pulumi.set(self, "feature_gates", value)
+
+    @property
+    @pulumi.getter
+    def images(self) -> Optional[pulumi.Input['K0sImagesArgs']]:
+        return pulumi.get(self, "images")
+
+    @images.setter
+    def images(self, value: Optional[pulumi.Input['K0sImagesArgs']]):
+        pulumi.set(self, "images", value)
+
+    @property
+    @pulumi.getter(name="installConfig")
+    def install_config(self) -> Optional[pulumi.Input['K0sInstallConfigArgs']]:
+        return pulumi.get(self, "install_config")
+
+    @install_config.setter
+    def install_config(self, value: Optional[pulumi.Input['K0sInstallConfigArgs']]):
+        pulumi.set(self, "install_config", value)
+
+    @property
+    @pulumi.getter
+    def konnectivity(self) -> Optional[pulumi.Input['K0sKonnectivityArgs']]:
+        return pulumi.get(self, "konnectivity")
+
+    @konnectivity.setter
+    def konnectivity(self, value: Optional[pulumi.Input['K0sKonnectivityArgs']]):
+        pulumi.set(self, "konnectivity", value)
+
+    @property
+    @pulumi.getter
+    def network(self) -> Optional[pulumi.Input['K0sNetworkArgs']]:
+        return pulumi.get(self, "network")
+
+    @network.setter
+    def network(self, value: Optional[pulumi.Input['K0sNetworkArgs']]):
+        pulumi.set(self, "network", value)
+
+    @property
+    @pulumi.getter(name="podSecurityPolicy")
+    def pod_security_policy(self) -> Optional[pulumi.Input['K0sPodSecurityPolicyArgs']]:
+        return pulumi.get(self, "pod_security_policy")
+
+    @pod_security_policy.setter
+    def pod_security_policy(self, value: Optional[pulumi.Input['K0sPodSecurityPolicyArgs']]):
+        pulumi.set(self, "pod_security_policy", value)
+
+    @property
+    @pulumi.getter
+    def scheduler(self) -> Optional[pulumi.Input['K0sSchedulerArgs']]:
+        return pulumi.get(self, "scheduler")
+
+    @scheduler.setter
+    def scheduler(self, value: Optional[pulumi.Input['K0sSchedulerArgs']]):
+        pulumi.set(self, "scheduler", value)
+
+    @property
+    @pulumi.getter
+    def storage(self) -> Optional[pulumi.Input['K0sStorageArgs']]:
+        return pulumi.get(self, "storage")
+
+    @storage.setter
+    def storage(self, value: Optional[pulumi.Input['K0sStorageArgs']]):
+        pulumi.set(self, "storage", value)
+
+    @property
+    @pulumi.getter
+    def telemetry(self) -> Optional[pulumi.Input['K0sTelemetryArgs']]:
+        return pulumi.get(self, "telemetry")
+
+    @telemetry.setter
+    def telemetry(self, value: Optional[pulumi.Input['K0sTelemetryArgs']]):
+        pulumi.set(self, "telemetry", value)
+
+    @property
+    @pulumi.getter(name="workerProfiles")
+    def worker_profiles(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['K0sWorkerProfileArgs']]]]:
+        return pulumi.get(self, "worker_profiles")
+
+    @worker_profiles.setter
+    def worker_profiles(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['K0sWorkerProfileArgs']]]]):
+        pulumi.set(self, "worker_profiles", value)
+
+
+@pulumi.input_type
+class K0sStorageArgs:
+    def __init__(__self__, *,
+                 etcd: Optional[pulumi.Input['K0sEtcdArgs']] = None,
+                 kine: Optional[pulumi.Input['K0sKineArgs']] = None,
+                 type: Optional[pulumi.Input[str]] = None):
+        if etcd is not None:
+            pulumi.set(__self__, "etcd", etcd)
+        if kine is not None:
+            pulumi.set(__self__, "kine", kine)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def etcd(self) -> Optional[pulumi.Input['K0sEtcdArgs']]:
+        return pulumi.get(self, "etcd")
+
+    @etcd.setter
+    def etcd(self, value: Optional[pulumi.Input['K0sEtcdArgs']]):
+        pulumi.set(self, "etcd", value)
+
+    @property
+    @pulumi.getter
+    def kine(self) -> Optional[pulumi.Input['K0sKineArgs']]:
+        return pulumi.get(self, "kine")
+
+    @kine.setter
+    def kine(self, value: Optional[pulumi.Input['K0sKineArgs']]):
+        pulumi.set(self, "kine", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
+class K0sTelemetryArgs:
+    def __init__(__self__, *,
+                 enabled: Optional[pulumi.Input[bool]] = None):
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+@pulumi.input_type
+class K0sWorkerProfileArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[str],
                  values: pulumi.Input[Mapping[str, Any]]):
@@ -2286,5 +2274,58 @@ class ClusterWorkerProfileArgs:
     @values.setter
     def values(self, value: pulumi.Input[Mapping[str, Any]]):
         pulumi.set(self, "values", value)
+
+
+@pulumi.input_type
+class K0sArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['K0sMetadataArgs']] = None,
+                 spec: Optional[pulumi.Input['K0sSpecArgs']] = None):
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['K0sMetadataArgs']]:
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['K0sMetadataArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['K0sSpecArgs']]:
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['K0sSpecArgs']]):
+        pulumi.set(self, "spec", value)
 
 
