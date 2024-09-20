@@ -136,7 +136,7 @@ func (k *K0sctl) Reset() error {
 
 	resetAction := action.Reset{
 		Manager: &manager,
-		Force:   false,
+		Force:   true,
 		Stdout:  nil,
 	}
 
