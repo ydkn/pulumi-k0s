@@ -1,3 +1,4 @@
+version: 2
 archives:
   - id: archive
     name_template: "{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}"
@@ -21,9 +22,9 @@ builds:
       - -X github.com/ydkn/pulumi-k0s/provider.Version={{ .Tag }}
     main: ./cmd/pulumi-resource-k0s/
 changelog:
-  skip: true
+  disable: false
 release:
   disable: false
   prerelease: auto
 snapshot:
-  name_template: "{{ .Tag }}-SNAPSHOT"
+  version_template: "{{ .Tag }}-SNAPSHOT"
