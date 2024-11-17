@@ -53,24 +53,18 @@ jobs:
           args: -p 3 release --clean
           version: latest
       - name: Publish provider packages
-        uses: osiegmar/s3-publisher-action@v1
+        uses: imehedi/actions-awscli-v2@latest
+        with:
+          args: s3 cp --endpoint-url="${{ secrets.AWS_ENDPOINT_URL }}" dist/ "s3://${{ secrets.AWS_S3_BUCKET }}/pulumi-k0s/" --recursive --exclude="*" --include="pulumi-resource-*.tar.gz"
         env:
-          AWS_ENDPOINT_URL: "${{ secrets.AWS_ENDPOINT_URL }}"
-          AWS_REGION: "${{ secrets.AWS_REGION }}"
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-        with:
-          bucket: "${{ secrets.AWS_S3_BUCKET }}"
-          prefix: pulumi-k0s/
-          dir: dist
-          includes: |
-            pulumi-resource-*.tar.gz
-          delete-orphaned: false
+          AWS_REGION: "${{ secrets.AWS_REGION }}"
     strategy:
       fail-fast: true
       matrix:
         goversion:
-          - 1.21.x
+          - 1.23.x
   publish_sdk:
     name: Publish SDKs
     runs-on: ubuntu-latest
@@ -85,7 +79,7 @@ jobs:
         with:
           go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.5.0
+        uses: jaxxstorm/action-install-gh-release@v1.13.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
@@ -121,7 +115,7 @@ jobs:
       - name: Compress SDK folder
         run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.language  }}-sdk.tar.gz
           path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz

@@ -4,54 +4,115 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
     'ClusterFileArgs',
+    'ClusterFileArgsDict',
     'ClusterHooksArgs',
+    'ClusterHooksArgsDict',
     'ClusterHookArgs',
+    'ClusterHookArgsDict',
     'ClusterHostArgs',
+    'ClusterHostArgsDict',
     'ClusterK0sArgs',
+    'ClusterK0sArgsDict',
     'ClusterLocalhostArgs',
+    'ClusterLocalhostArgsDict',
     'ClusterMetadataArgs',
+    'ClusterMetadataArgsDict',
     'ClusterOpenSSHArgs',
+    'ClusterOpenSSHArgsDict',
     'ClusterSSHArgs',
+    'ClusterSSHArgsDict',
     'ClusterSpecArgs',
+    'ClusterSpecArgsDict',
     'ClusterWinRMArgs',
+    'ClusterWinRMArgsDict',
     'K0sAPIArgs',
+    'K0sAPIArgsDict',
     'K0sCalicoImageArgs',
+    'K0sCalicoImageArgsDict',
     'K0sCalicoArgs',
+    'K0sCalicoArgsDict',
     'K0sControllerManagerArgs',
+    'K0sControllerManagerArgsDict',
     'K0sDualStackArgs',
+    'K0sDualStackArgsDict',
     'K0sEnvoyProxyArgs',
+    'K0sEnvoyProxyArgsDict',
     'K0sEtcdExternalClusterArgs',
+    'K0sEtcdExternalClusterArgsDict',
     'K0sEtcdArgs',
+    'K0sEtcdArgsDict',
     'K0sFeatureGateArgs',
+    'K0sFeatureGateArgsDict',
     'K0sImagesArgs',
+    'K0sImagesArgsDict',
     'K0sImageArgs',
+    'K0sImageArgsDict',
     'K0sInstallConfigUserArgs',
+    'K0sInstallConfigUserArgsDict',
     'K0sInstallConfigArgs',
+    'K0sInstallConfigArgsDict',
     'K0sKineArgs',
+    'K0sKineArgsDict',
     'K0sKonnectivityArgs',
+    'K0sKonnectivityArgsDict',
     'K0sKubeProxyIPTablesArgs',
+    'K0sKubeProxyIPTablesArgsDict',
     'K0sKubeProxyIPVSArgs',
+    'K0sKubeProxyIPVSArgsDict',
     'K0sKubeProxyArgs',
+    'K0sKubeProxyArgsDict',
     'K0sKubeRouterImageArgs',
+    'K0sKubeRouterImageArgsDict',
     'K0sKubeRouterArgs',
+    'K0sKubeRouterArgsDict',
     'K0sMetadataArgs',
+    'K0sMetadataArgsDict',
     'K0sNetworkArgs',
+    'K0sNetworkArgsDict',
     'K0sNodeLocalLoadBalancingArgs',
+    'K0sNodeLocalLoadBalancingArgsDict',
     'K0sPodSecurityPolicyArgs',
+    'K0sPodSecurityPolicyArgsDict',
     'K0sSchedulerArgs',
+    'K0sSchedulerArgsDict',
     'K0sSpecArgs',
+    'K0sSpecArgsDict',
     'K0sStorageArgs',
+    'K0sStorageArgsDict',
     'K0sTelemetryArgs',
+    'K0sTelemetryArgsDict',
     'K0sWorkerProfileArgs',
+    'K0sWorkerProfileArgsDict',
     'K0sArgs',
+    'K0sArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class ClusterFileArgsDict(TypedDict):
+        dir_perm: NotRequired[pulumi.Input[str]]
+        dst: NotRequired[pulumi.Input[str]]
+        dst_dir: NotRequired[pulumi.Input[str]]
+        group: NotRequired[pulumi.Input[str]]
+        name: NotRequired[pulumi.Input[str]]
+        perm: NotRequired[pulumi.Input[str]]
+        src: NotRequired[pulumi.Input[str]]
+        user: NotRequired[pulumi.Input[str]]
+elif False:
+    ClusterFileArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ClusterFileArgs:
@@ -154,6 +215,14 @@ class ClusterFileArgs:
         pulumi.set(self, "user", value)
 
 
+if not MYPY:
+    class ClusterHooksArgsDict(TypedDict):
+        apply: NotRequired[pulumi.Input['ClusterHookArgsDict']]
+        backup: NotRequired[pulumi.Input['ClusterHookArgsDict']]
+        reset: NotRequired[pulumi.Input['ClusterHookArgsDict']]
+elif False:
+    ClusterHooksArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ClusterHooksArgs:
     def __init__(__self__, *,
@@ -195,6 +264,13 @@ class ClusterHooksArgs:
         pulumi.set(self, "reset", value)
 
 
+if not MYPY:
+    class ClusterHookArgsDict(TypedDict):
+        after: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        before: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+elif False:
+    ClusterHookArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ClusterHookArgs:
     def __init__(__self__, *,
@@ -223,6 +299,27 @@ class ClusterHookArgs:
     def before(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "before", value)
 
+
+if not MYPY:
+    class ClusterHostArgsDict(TypedDict):
+        role: pulumi.Input[str]
+        environment: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
+        files: NotRequired[pulumi.Input[Sequence[pulumi.Input['ClusterFileArgsDict']]]]
+        hooks: NotRequired[pulumi.Input['ClusterHooksArgsDict']]
+        hostname: NotRequired[pulumi.Input[str]]
+        install_flags: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        k0s_binary_path: NotRequired[pulumi.Input[str]]
+        localhost: NotRequired[pulumi.Input['ClusterLocalhostArgsDict']]
+        no_taints: NotRequired[pulumi.Input[bool]]
+        open_ssh: NotRequired[pulumi.Input['ClusterOpenSSHArgsDict']]
+        os: NotRequired[pulumi.Input[str]]
+        private_address: NotRequired[pulumi.Input[str]]
+        private_interface: NotRequired[pulumi.Input[str]]
+        ssh: NotRequired[pulumi.Input['ClusterSSHArgsDict']]
+        upload_binary: NotRequired[pulumi.Input[bool]]
+        win_rm: NotRequired[pulumi.Input['ClusterWinRMArgsDict']]
+elif False:
+    ClusterHostArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ClusterHostArgs:
@@ -420,6 +517,15 @@ class ClusterHostArgs:
         pulumi.set(self, "win_rm", value)
 
 
+if not MYPY:
+    class ClusterK0sArgsDict(TypedDict):
+        config: NotRequired[pulumi.Input['K0sArgsDict']]
+        dynamic_config: NotRequired[pulumi.Input[bool]]
+        version: NotRequired[pulumi.Input[str]]
+        version_channel: NotRequired[pulumi.Input[str]]
+elif False:
+    ClusterK0sArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ClusterK0sArgs:
     def __init__(__self__, *,
@@ -473,6 +579,12 @@ class ClusterK0sArgs:
         pulumi.set(self, "version_channel", value)
 
 
+if not MYPY:
+    class ClusterLocalhostArgsDict(TypedDict):
+        enabled: NotRequired[pulumi.Input[bool]]
+elif False:
+    ClusterLocalhostArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ClusterLocalhostArgs:
     def __init__(__self__, *,
@@ -490,6 +602,12 @@ class ClusterLocalhostArgs:
         pulumi.set(self, "enabled", value)
 
 
+if not MYPY:
+    class ClusterMetadataArgsDict(TypedDict):
+        name: pulumi.Input[str]
+elif False:
+    ClusterMetadataArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ClusterMetadataArgs:
     def __init__(__self__, *,
@@ -505,6 +623,18 @@ class ClusterMetadataArgs:
     def name(self, value: pulumi.Input[str]):
         pulumi.set(self, "name", value)
 
+
+if not MYPY:
+    class ClusterOpenSSHArgsDict(TypedDict):
+        address: pulumi.Input[str]
+        config_path: NotRequired[pulumi.Input[str]]
+        disable_multiplexing: NotRequired[pulumi.Input[bool]]
+        key: NotRequired[pulumi.Input[str]]
+        options: NotRequired[pulumi.Input[Mapping[str, Any]]]
+        port: NotRequired[pulumi.Input[int]]
+        user: NotRequired[pulumi.Input[str]]
+elif False:
+    ClusterOpenSSHArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ClusterOpenSSHArgs:
@@ -594,6 +724,17 @@ class ClusterOpenSSHArgs:
         pulumi.set(self, "user", value)
 
 
+if not MYPY:
+    class ClusterSSHArgsDict(TypedDict):
+        address: pulumi.Input[str]
+        bastion: NotRequired[pulumi.Input['ClusterSSHArgsDict']]
+        host_key: NotRequired[pulumi.Input[str]]
+        key: NotRequired[pulumi.Input[str]]
+        port: NotRequired[pulumi.Input[int]]
+        user: NotRequired[pulumi.Input[str]]
+elif False:
+    ClusterSSHArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ClusterSSHArgs:
     def __init__(__self__, *,
@@ -670,6 +811,13 @@ class ClusterSSHArgs:
         pulumi.set(self, "user", value)
 
 
+if not MYPY:
+    class ClusterSpecArgsDict(TypedDict):
+        hosts: pulumi.Input[Sequence[pulumi.Input['ClusterHostArgsDict']]]
+        k0s: NotRequired[pulumi.Input['ClusterK0sArgsDict']]
+elif False:
+    ClusterSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ClusterSpecArgs:
     def __init__(__self__, *,
@@ -697,6 +845,23 @@ class ClusterSpecArgs:
     def k0s(self, value: Optional[pulumi.Input['ClusterK0sArgs']]):
         pulumi.set(self, "k0s", value)
 
+
+if not MYPY:
+    class ClusterWinRMArgsDict(TypedDict):
+        address: pulumi.Input[str]
+        bastion: NotRequired[pulumi.Input['ClusterSSHArgsDict']]
+        ca_cert: NotRequired[pulumi.Input[str]]
+        cert: NotRequired[pulumi.Input[str]]
+        insecure: NotRequired[pulumi.Input[bool]]
+        key: NotRequired[pulumi.Input[str]]
+        password: NotRequired[pulumi.Input[str]]
+        port: NotRequired[pulumi.Input[int]]
+        tls_server_name: NotRequired[pulumi.Input[str]]
+        use_https: NotRequired[pulumi.Input[bool]]
+        use_ntlm: NotRequired[pulumi.Input[bool]]
+        user: NotRequired[pulumi.Input[str]]
+elif False:
+    ClusterWinRMArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ClusterWinRMArgs:
@@ -846,6 +1011,17 @@ class ClusterWinRMArgs:
         pulumi.set(self, "user", value)
 
 
+if not MYPY:
+    class K0sAPIArgsDict(TypedDict):
+        address: NotRequired[pulumi.Input[str]]
+        external_address: NotRequired[pulumi.Input[str]]
+        extra_args: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
+        k0s_api_port: NotRequired[pulumi.Input[int]]
+        port: NotRequired[pulumi.Input[int]]
+        sans: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+elif False:
+    K0sAPIArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sAPIArgs:
     def __init__(__self__, *,
@@ -923,6 +1099,15 @@ class K0sAPIArgs:
         pulumi.set(self, "sans", value)
 
 
+if not MYPY:
+    class K0sCalicoImageArgsDict(TypedDict):
+        cni: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        flexvolume: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        kubecontrollers: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        node: NotRequired[pulumi.Input['K0sImageArgsDict']]
+elif False:
+    K0sCalicoImageArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sCalicoImageArgs:
     def __init__(__self__, *,
@@ -975,6 +1160,20 @@ class K0sCalicoImageArgs:
     def node(self, value: Optional[pulumi.Input['K0sImageArgs']]):
         pulumi.set(self, "node", value)
 
+
+if not MYPY:
+    class K0sCalicoArgsDict(TypedDict):
+        env_vars: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
+        flex_volume_driver_path: NotRequired[pulumi.Input[str]]
+        ip_autodetection_method: NotRequired[pulumi.Input[str]]
+        mode: NotRequired[pulumi.Input[str]]
+        mtu: NotRequired[pulumi.Input[int]]
+        overlay: NotRequired[pulumi.Input[str]]
+        vxlan_port: NotRequired[pulumi.Input[int]]
+        vxlan_vni: NotRequired[pulumi.Input[int]]
+        wireguard: NotRequired[pulumi.Input[bool]]
+elif False:
+    K0sCalicoArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sCalicoArgs:
@@ -1089,6 +1288,12 @@ class K0sCalicoArgs:
         pulumi.set(self, "wireguard", value)
 
 
+if not MYPY:
+    class K0sControllerManagerArgsDict(TypedDict):
+        extra_args: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
+elif False:
+    K0sControllerManagerArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sControllerManagerArgs:
     def __init__(__self__, *,
@@ -1105,6 +1310,14 @@ class K0sControllerManagerArgs:
     def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
         pulumi.set(self, "extra_args", value)
 
+
+if not MYPY:
+    class K0sDualStackArgsDict(TypedDict):
+        i_pv6pod_cidr: NotRequired[pulumi.Input[str]]
+        i_pv6service_cidr: NotRequired[pulumi.Input[str]]
+        enabled: NotRequired[pulumi.Input[bool]]
+elif False:
+    K0sDualStackArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sDualStackArgs:
@@ -1146,6 +1359,15 @@ class K0sDualStackArgs:
     def enabled(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enabled", value)
 
+
+if not MYPY:
+    class K0sEnvoyProxyArgsDict(TypedDict):
+        api_server_bind_port: NotRequired[pulumi.Input[int]]
+        image: NotRequired[pulumi.Input[str]]
+        image_pull_policy: NotRequired[pulumi.Input[str]]
+        konnectivity_server_bind_port: NotRequired[pulumi.Input[int]]
+elif False:
+    K0sEnvoyProxyArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sEnvoyProxyArgs:
@@ -1199,6 +1421,16 @@ class K0sEnvoyProxyArgs:
     def konnectivity_server_bind_port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "konnectivity_server_bind_port", value)
 
+
+if not MYPY:
+    class K0sEtcdExternalClusterArgsDict(TypedDict):
+        endpoints: pulumi.Input[Sequence[pulumi.Input[str]]]
+        ca: NotRequired[pulumi.Input[str]]
+        client_cert: NotRequired[pulumi.Input[str]]
+        client_key: NotRequired[pulumi.Input[str]]
+        etcd_prefix: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sEtcdExternalClusterArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sEtcdExternalClusterArgs:
@@ -1264,6 +1496,14 @@ class K0sEtcdExternalClusterArgs:
         pulumi.set(self, "etcd_prefix", value)
 
 
+if not MYPY:
+    class K0sEtcdArgsDict(TypedDict):
+        external_cluster: NotRequired[pulumi.Input['K0sEtcdExternalClusterArgsDict']]
+        extra_args: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
+        peer_address: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sEtcdArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sEtcdArgs:
     def __init__(__self__, *,
@@ -1305,6 +1545,14 @@ class K0sEtcdArgs:
         pulumi.set(self, "peer_address", value)
 
 
+if not MYPY:
+    class K0sFeatureGateArgsDict(TypedDict):
+        name: pulumi.Input[str]
+        components: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        enabled: NotRequired[pulumi.Input[bool]]
+elif False:
+    K0sFeatureGateArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sFeatureGateArgs:
     def __init__(__self__, *,
@@ -1344,6 +1592,20 @@ class K0sFeatureGateArgs:
     def enabled(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enabled", value)
 
+
+if not MYPY:
+    class K0sImagesArgsDict(TypedDict):
+        calico: NotRequired[pulumi.Input['K0sCalicoImageArgsDict']]
+        coredns: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        default_pull_policy: NotRequired[pulumi.Input[str]]
+        konnectivity: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        kubeproxy: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        kuberouter: NotRequired[pulumi.Input['K0sKubeRouterImageArgsDict']]
+        metricsserver: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        pause: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        repository: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sImagesArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sImagesArgs:
@@ -1458,6 +1720,13 @@ class K0sImagesArgs:
         pulumi.set(self, "repository", value)
 
 
+if not MYPY:
+    class K0sImageArgsDict(TypedDict):
+        image: NotRequired[pulumi.Input[str]]
+        version: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sImageArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sImageArgs:
     def __init__(__self__, *,
@@ -1486,6 +1755,16 @@ class K0sImageArgs:
     def version(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "version", value)
 
+
+if not MYPY:
+    class K0sInstallConfigUserArgsDict(TypedDict):
+        etcd_user: NotRequired[pulumi.Input[str]]
+        kine_user: NotRequired[pulumi.Input[str]]
+        konnectivity_user: NotRequired[pulumi.Input[str]]
+        kube_apiserver_user: NotRequired[pulumi.Input[str]]
+        kube_scheduler_user: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sInstallConfigUserArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sInstallConfigUserArgs:
@@ -1552,6 +1831,12 @@ class K0sInstallConfigUserArgs:
         pulumi.set(self, "kube_scheduler_user", value)
 
 
+if not MYPY:
+    class K0sInstallConfigArgsDict(TypedDict):
+        users: NotRequired[pulumi.Input['K0sInstallConfigUserArgsDict']]
+elif False:
+    K0sInstallConfigArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sInstallConfigArgs:
     def __init__(__self__, *,
@@ -1569,6 +1854,12 @@ class K0sInstallConfigArgs:
         pulumi.set(self, "users", value)
 
 
+if not MYPY:
+    class K0sKineArgsDict(TypedDict):
+        data_source: pulumi.Input[str]
+elif False:
+    K0sKineArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sKineArgs:
     def __init__(__self__, *,
@@ -1584,6 +1875,13 @@ class K0sKineArgs:
     def data_source(self, value: pulumi.Input[str]):
         pulumi.set(self, "data_source", value)
 
+
+if not MYPY:
+    class K0sKonnectivityArgsDict(TypedDict):
+        admin_port: NotRequired[pulumi.Input[int]]
+        agent_port: NotRequired[pulumi.Input[int]]
+elif False:
+    K0sKonnectivityArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sKonnectivityArgs:
@@ -1613,6 +1911,15 @@ class K0sKonnectivityArgs:
     def agent_port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "agent_port", value)
 
+
+if not MYPY:
+    class K0sKubeProxyIPTablesArgsDict(TypedDict):
+        masquerade_all: NotRequired[pulumi.Input[bool]]
+        masquerade_bit: NotRequired[pulumi.Input[int]]
+        min_sync_period: NotRequired[pulumi.Input[str]]
+        sync_period: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sKubeProxyIPTablesArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sKubeProxyIPTablesArgs:
@@ -1666,6 +1973,19 @@ class K0sKubeProxyIPTablesArgs:
     def sync_period(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "sync_period", value)
 
+
+if not MYPY:
+    class K0sKubeProxyIPVSArgsDict(TypedDict):
+        exclude_cidrs: NotRequired[pulumi.Input[str]]
+        min_sync_period: NotRequired[pulumi.Input[str]]
+        scheduler: NotRequired[pulumi.Input[str]]
+        strict_arp: NotRequired[pulumi.Input[bool]]
+        sync_period: NotRequired[pulumi.Input[str]]
+        tcp_fin_timeout: NotRequired[pulumi.Input[str]]
+        tcp_timeout: NotRequired[pulumi.Input[str]]
+        udp_timeout: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sKubeProxyIPVSArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sKubeProxyIPVSArgs:
@@ -1768,6 +2088,16 @@ class K0sKubeProxyIPVSArgs:
         pulumi.set(self, "udp_timeout", value)
 
 
+if not MYPY:
+    class K0sKubeProxyArgsDict(TypedDict):
+        disabled: NotRequired[pulumi.Input[bool]]
+        iptables: NotRequired[pulumi.Input['K0sKubeProxyIPTablesArgsDict']]
+        ipvs: NotRequired[pulumi.Input['K0sKubeProxyIPVSArgsDict']]
+        mode: NotRequired[pulumi.Input[str]]
+        node_port_addresses: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sKubeProxyArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sKubeProxyArgs:
     def __init__(__self__, *,
@@ -1833,6 +2163,13 @@ class K0sKubeProxyArgs:
         pulumi.set(self, "node_port_addresses", value)
 
 
+if not MYPY:
+    class K0sKubeRouterImageArgsDict(TypedDict):
+        cni: NotRequired[pulumi.Input['K0sImageArgsDict']]
+        cni_installer: NotRequired[pulumi.Input['K0sImageArgsDict']]
+elif False:
+    K0sKubeRouterImageArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sKubeRouterImageArgs:
     def __init__(__self__, *,
@@ -1861,6 +2198,17 @@ class K0sKubeRouterImageArgs:
     def cni_installer(self, value: Optional[pulumi.Input['K0sImageArgs']]):
         pulumi.set(self, "cni_installer", value)
 
+
+if not MYPY:
+    class K0sKubeRouterArgsDict(TypedDict):
+        auto_mtu: NotRequired[pulumi.Input[bool]]
+        extra_args: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
+        hairpin: NotRequired[pulumi.Input[str]]
+        ip_masq: NotRequired[pulumi.Input[bool]]
+        metrics_port: NotRequired[pulumi.Input[int]]
+        mtu: NotRequired[pulumi.Input[int]]
+elif False:
+    K0sKubeRouterArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sKubeRouterArgs:
@@ -1939,6 +2287,12 @@ class K0sKubeRouterArgs:
         pulumi.set(self, "mtu", value)
 
 
+if not MYPY:
+    class K0sMetadataArgsDict(TypedDict):
+        name: pulumi.Input[str]
+elif False:
+    K0sMetadataArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sMetadataArgs:
     def __init__(__self__, *,
@@ -1954,6 +2308,20 @@ class K0sMetadataArgs:
     def name(self, value: pulumi.Input[str]):
         pulumi.set(self, "name", value)
 
+
+if not MYPY:
+    class K0sNetworkArgsDict(TypedDict):
+        calico: NotRequired[pulumi.Input['K0sCalicoArgsDict']]
+        cluster_domain: NotRequired[pulumi.Input[str]]
+        dual_stack: NotRequired[pulumi.Input['K0sDualStackArgsDict']]
+        kube_proxy: NotRequired[pulumi.Input['K0sKubeProxyArgsDict']]
+        kuberouter: NotRequired[pulumi.Input['K0sKubeRouterArgsDict']]
+        node_local_load_balancing: NotRequired[pulumi.Input['K0sNodeLocalLoadBalancingArgsDict']]
+        pod_cidr: NotRequired[pulumi.Input[str]]
+        provider: NotRequired[pulumi.Input[str]]
+        service_cidr: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sNetworkArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sNetworkArgs:
@@ -2068,6 +2436,14 @@ class K0sNetworkArgs:
         pulumi.set(self, "service_cidr", value)
 
 
+if not MYPY:
+    class K0sNodeLocalLoadBalancingArgsDict(TypedDict):
+        enabled: NotRequired[pulumi.Input[bool]]
+        envoy_proxy: NotRequired[pulumi.Input['K0sEnvoyProxyArgsDict']]
+        type: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sNodeLocalLoadBalancingArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sNodeLocalLoadBalancingArgs:
     def __init__(__self__, *,
@@ -2109,6 +2485,12 @@ class K0sNodeLocalLoadBalancingArgs:
         pulumi.set(self, "type", value)
 
 
+if not MYPY:
+    class K0sPodSecurityPolicyArgsDict(TypedDict):
+        default_policy: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sPodSecurityPolicyArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sPodSecurityPolicyArgs:
     def __init__(__self__, *,
@@ -2126,6 +2508,12 @@ class K0sPodSecurityPolicyArgs:
         pulumi.set(self, "default_policy", value)
 
 
+if not MYPY:
+    class K0sSchedulerArgsDict(TypedDict):
+        extra_args: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
+elif False:
+    K0sSchedulerArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sSchedulerArgs:
     def __init__(__self__, *,
@@ -2142,6 +2530,23 @@ class K0sSchedulerArgs:
     def extra_args(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
         pulumi.set(self, "extra_args", value)
 
+
+if not MYPY:
+    class K0sSpecArgsDict(TypedDict):
+        api: NotRequired[pulumi.Input['K0sAPIArgsDict']]
+        controller_manager: NotRequired[pulumi.Input['K0sControllerManagerArgsDict']]
+        feature_gates: NotRequired[pulumi.Input[Sequence[pulumi.Input['K0sFeatureGateArgsDict']]]]
+        images: NotRequired[pulumi.Input['K0sImagesArgsDict']]
+        install_config: NotRequired[pulumi.Input['K0sInstallConfigArgsDict']]
+        konnectivity: NotRequired[pulumi.Input['K0sKonnectivityArgsDict']]
+        network: NotRequired[pulumi.Input['K0sNetworkArgsDict']]
+        pod_security_policy: NotRequired[pulumi.Input['K0sPodSecurityPolicyArgsDict']]
+        scheduler: NotRequired[pulumi.Input['K0sSchedulerArgsDict']]
+        storage: NotRequired[pulumi.Input['K0sStorageArgsDict']]
+        telemetry: NotRequired[pulumi.Input['K0sTelemetryArgsDict']]
+        worker_profiles: NotRequired[pulumi.Input[Sequence[pulumi.Input['K0sWorkerProfileArgsDict']]]]
+elif False:
+    K0sSpecArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sSpecArgs:
@@ -2292,6 +2697,14 @@ class K0sSpecArgs:
         pulumi.set(self, "worker_profiles", value)
 
 
+if not MYPY:
+    class K0sStorageArgsDict(TypedDict):
+        etcd: NotRequired[pulumi.Input['K0sEtcdArgsDict']]
+        kine: NotRequired[pulumi.Input['K0sKineArgsDict']]
+        type: NotRequired[pulumi.Input[str]]
+elif False:
+    K0sStorageArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sStorageArgs:
     def __init__(__self__, *,
@@ -2333,6 +2746,12 @@ class K0sStorageArgs:
         pulumi.set(self, "type", value)
 
 
+if not MYPY:
+    class K0sTelemetryArgsDict(TypedDict):
+        enabled: NotRequired[pulumi.Input[bool]]
+elif False:
+    K0sTelemetryArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class K0sTelemetryArgs:
     def __init__(__self__, *,
@@ -2349,6 +2768,13 @@ class K0sTelemetryArgs:
     def enabled(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enabled", value)
 
+
+if not MYPY:
+    class K0sWorkerProfileArgsDict(TypedDict):
+        name: pulumi.Input[str]
+        values: pulumi.Input[Mapping[str, Any]]
+elif False:
+    K0sWorkerProfileArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sWorkerProfileArgs:
@@ -2376,6 +2802,15 @@ class K0sWorkerProfileArgs:
     def values(self, value: pulumi.Input[Mapping[str, Any]]):
         pulumi.set(self, "values", value)
 
+
+if not MYPY:
+    class K0sArgsDict(TypedDict):
+        api_version: NotRequired[pulumi.Input[str]]
+        kind: NotRequired[pulumi.Input[str]]
+        metadata: NotRequired[pulumi.Input['K0sMetadataArgsDict']]
+        spec: NotRequired[pulumi.Input['K0sSpecArgsDict']]
+elif False:
+    K0sArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class K0sArgs:

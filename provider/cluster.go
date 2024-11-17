@@ -438,6 +438,8 @@ func (c Cluster) Create(
 		return name, olds, err
 	}
 
+	olds.ClusterInputs = news
+
 	if news.Kubeconfig != nil {
 		olds.Kubeconfig = news.Kubeconfig
 	}
