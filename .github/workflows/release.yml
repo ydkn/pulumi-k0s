@@ -148,13 +148,13 @@ jobs:
         dotnetversion:
           - "7.0.116"
         goversion:
-          - 1.21.x
+          - 1.23.x
         language:
           - nodejs
           - python
           - dotnet
           - go
         nodeversion:
-          - 20.x
+          - 22.x
         pythonversion:
           - "3.11"
