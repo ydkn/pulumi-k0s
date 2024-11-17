@@ -469,6 +469,7 @@ type ClusterHost struct {
 	K0sBinaryPath    *string           `pulumi:"k0sBinaryPath"`
 	Localhost        *ClusterLocalhost `pulumi:"localhost"`
 	NoTaints         *bool             `pulumi:"noTaints"`
+	OpenSSH          *ClusterOpenSSH   `pulumi:"openSSH"`
 	Os               *string           `pulumi:"os"`
 	PrivateAddress   *string           `pulumi:"privateAddress"`
 	PrivateInterface *string           `pulumi:"privateInterface"`
@@ -498,6 +499,7 @@ type ClusterHostArgs struct {
 	K0sBinaryPath    pulumi.StringPtrInput    `pulumi:"k0sBinaryPath"`
 	Localhost        ClusterLocalhostPtrInput `pulumi:"localhost"`
 	NoTaints         pulumi.BoolPtrInput      `pulumi:"noTaints"`
+	OpenSSH          ClusterOpenSSHPtrInput   `pulumi:"openSSH"`
 	Os               pulumi.StringPtrInput    `pulumi:"os"`
 	PrivateAddress   pulumi.StringPtrInput    `pulumi:"privateAddress"`
 	PrivateInterface pulumi.StringPtrInput    `pulumi:"privateInterface"`
@@ -588,6 +590,10 @@ func (o ClusterHostOutput) Localhost() ClusterLocalhostPtrOutput {
 
 func (o ClusterHostOutput) NoTaints() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ClusterHost) *bool { return v.NoTaints }).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterHostOutput) OpenSSH() ClusterOpenSSHPtrOutput {
+	return o.ApplyT(func(v ClusterHost) *ClusterOpenSSH { return v.OpenSSH }).(ClusterOpenSSHPtrOutput)
 }
 
 func (o ClusterHostOutput) Os() pulumi.StringPtrOutput {
@@ -1079,6 +1085,229 @@ func (o ClusterMetadataPtrOutput) Name() pulumi.StringPtrOutput {
 			return nil
 		}
 		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+type ClusterOpenSSH struct {
+	Address             string                 `pulumi:"address"`
+	ConfigPath          *string                `pulumi:"configPath"`
+	DisableMultiplexing *bool                  `pulumi:"disableMultiplexing"`
+	Key                 *string                `pulumi:"key"`
+	Options             map[string]interface{} `pulumi:"options"`
+	Port                *int                   `pulumi:"port"`
+	User                *string                `pulumi:"user"`
+}
+
+// ClusterOpenSSHInput is an input type that accepts ClusterOpenSSHArgs and ClusterOpenSSHOutput values.
+// You can construct a concrete instance of `ClusterOpenSSHInput` via:
+//
+//	ClusterOpenSSHArgs{...}
+type ClusterOpenSSHInput interface {
+	pulumi.Input
+
+	ToClusterOpenSSHOutput() ClusterOpenSSHOutput
+	ToClusterOpenSSHOutputWithContext(context.Context) ClusterOpenSSHOutput
+}
+
+type ClusterOpenSSHArgs struct {
+	Address             pulumi.StringInput    `pulumi:"address"`
+	ConfigPath          pulumi.StringPtrInput `pulumi:"configPath"`
+	DisableMultiplexing pulumi.BoolPtrInput   `pulumi:"disableMultiplexing"`
+	Key                 pulumi.StringPtrInput `pulumi:"key"`
+	Options             pulumi.MapInput       `pulumi:"options"`
+	Port                pulumi.IntPtrInput    `pulumi:"port"`
+	User                pulumi.StringPtrInput `pulumi:"user"`
+}
+
+func (ClusterOpenSSHArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterOpenSSH)(nil)).Elem()
+}
+
+func (i ClusterOpenSSHArgs) ToClusterOpenSSHOutput() ClusterOpenSSHOutput {
+	return i.ToClusterOpenSSHOutputWithContext(context.Background())
+}
+
+func (i ClusterOpenSSHArgs) ToClusterOpenSSHOutputWithContext(ctx context.Context) ClusterOpenSSHOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterOpenSSHOutput)
+}
+
+func (i ClusterOpenSSHArgs) ToClusterOpenSSHPtrOutput() ClusterOpenSSHPtrOutput {
+	return i.ToClusterOpenSSHPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterOpenSSHArgs) ToClusterOpenSSHPtrOutputWithContext(ctx context.Context) ClusterOpenSSHPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterOpenSSHOutput).ToClusterOpenSSHPtrOutputWithContext(ctx)
+}
+
+// ClusterOpenSSHPtrInput is an input type that accepts ClusterOpenSSHArgs, ClusterOpenSSHPtr and ClusterOpenSSHPtrOutput values.
+// You can construct a concrete instance of `ClusterOpenSSHPtrInput` via:
+//
+//	        ClusterOpenSSHArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterOpenSSHPtrInput interface {
+	pulumi.Input
+
+	ToClusterOpenSSHPtrOutput() ClusterOpenSSHPtrOutput
+	ToClusterOpenSSHPtrOutputWithContext(context.Context) ClusterOpenSSHPtrOutput
+}
+
+type clusterOpenSSHPtrType ClusterOpenSSHArgs
+
+func ClusterOpenSSHPtr(v *ClusterOpenSSHArgs) ClusterOpenSSHPtrInput {
+	return (*clusterOpenSSHPtrType)(v)
+}
+
+func (*clusterOpenSSHPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterOpenSSH)(nil)).Elem()
+}
+
+func (i *clusterOpenSSHPtrType) ToClusterOpenSSHPtrOutput() ClusterOpenSSHPtrOutput {
+	return i.ToClusterOpenSSHPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterOpenSSHPtrType) ToClusterOpenSSHPtrOutputWithContext(ctx context.Context) ClusterOpenSSHPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterOpenSSHPtrOutput)
+}
+
+type ClusterOpenSSHOutput struct{ *pulumi.OutputState }
+
+func (ClusterOpenSSHOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterOpenSSH)(nil)).Elem()
+}
+
+func (o ClusterOpenSSHOutput) ToClusterOpenSSHOutput() ClusterOpenSSHOutput {
+	return o
+}
+
+func (o ClusterOpenSSHOutput) ToClusterOpenSSHOutputWithContext(ctx context.Context) ClusterOpenSSHOutput {
+	return o
+}
+
+func (o ClusterOpenSSHOutput) ToClusterOpenSSHPtrOutput() ClusterOpenSSHPtrOutput {
+	return o.ToClusterOpenSSHPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterOpenSSHOutput) ToClusterOpenSSHPtrOutputWithContext(ctx context.Context) ClusterOpenSSHPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterOpenSSH) *ClusterOpenSSH {
+		return &v
+	}).(ClusterOpenSSHPtrOutput)
+}
+
+func (o ClusterOpenSSHOutput) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterOpenSSH) string { return v.Address }).(pulumi.StringOutput)
+}
+
+func (o ClusterOpenSSHOutput) ConfigPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterOpenSSH) *string { return v.ConfigPath }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterOpenSSHOutput) DisableMultiplexing() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterOpenSSH) *bool { return v.DisableMultiplexing }).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterOpenSSHOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterOpenSSH) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterOpenSSHOutput) Options() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterOpenSSH) map[string]interface{} { return v.Options }).(pulumi.MapOutput)
+}
+
+func (o ClusterOpenSSHOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterOpenSSH) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterOpenSSHOutput) User() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterOpenSSH) *string { return v.User }).(pulumi.StringPtrOutput)
+}
+
+type ClusterOpenSSHPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterOpenSSHPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterOpenSSH)(nil)).Elem()
+}
+
+func (o ClusterOpenSSHPtrOutput) ToClusterOpenSSHPtrOutput() ClusterOpenSSHPtrOutput {
+	return o
+}
+
+func (o ClusterOpenSSHPtrOutput) ToClusterOpenSSHPtrOutputWithContext(ctx context.Context) ClusterOpenSSHPtrOutput {
+	return o
+}
+
+func (o ClusterOpenSSHPtrOutput) Elem() ClusterOpenSSHOutput {
+	return o.ApplyT(func(v *ClusterOpenSSH) ClusterOpenSSH {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterOpenSSH
+		return ret
+	}).(ClusterOpenSSHOutput)
+}
+
+func (o ClusterOpenSSHPtrOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterOpenSSH) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Address
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterOpenSSHPtrOutput) ConfigPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterOpenSSH) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ConfigPath
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterOpenSSHPtrOutput) DisableMultiplexing() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterOpenSSH) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.DisableMultiplexing
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterOpenSSHPtrOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterOpenSSH) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Key
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterOpenSSHPtrOutput) Options() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterOpenSSH) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Options
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterOpenSSHPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterOpenSSH) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterOpenSSHPtrOutput) User() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterOpenSSH) *string {
+		if v == nil {
+			return nil
+		}
+		return v.User
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -6986,6 +7215,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterLocalhostPtrInput)(nil)).Elem(), ClusterLocalhostArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMetadataInput)(nil)).Elem(), ClusterMetadataArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMetadataPtrInput)(nil)).Elem(), ClusterMetadataArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterOpenSSHInput)(nil)).Elem(), ClusterOpenSSHArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterOpenSSHPtrInput)(nil)).Elem(), ClusterOpenSSHArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSSHInput)(nil)).Elem(), ClusterSSHArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSSHPtrInput)(nil)).Elem(), ClusterSSHArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterSpecInput)(nil)).Elem(), ClusterSpecArgs{})
@@ -7066,6 +7297,8 @@ func init() {
 	pulumi.RegisterOutputType(ClusterLocalhostPtrOutput{})
 	pulumi.RegisterOutputType(ClusterMetadataOutput{})
 	pulumi.RegisterOutputType(ClusterMetadataPtrOutput{})
+	pulumi.RegisterOutputType(ClusterOpenSSHOutput{})
+	pulumi.RegisterOutputType(ClusterOpenSSHPtrOutput{})
 	pulumi.RegisterOutputType(ClusterSSHOutput{})
 	pulumi.RegisterOutputType(ClusterSSHPtrOutput{})
 	pulumi.RegisterOutputType(ClusterSpecOutput{})

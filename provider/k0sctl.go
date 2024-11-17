@@ -3,8 +3,6 @@ package provider
 import (
 	"bufio"
 	"bytes"
-	"strconv"
-	"strings"
 
 	"github.com/k0sproject/k0sctl/action"
 	"github.com/k0sproject/k0sctl/phase"
@@ -34,37 +32,27 @@ func (k *K0sctl) Apply(config *Config) error {
 
 	skipDowngradeCheck := false
 	if config.SkipDowngradeCheck != nil {
-		skipDowngradeCheck = strings.ToLower(*config.SkipDowngradeCheck) == "true"
+		skipDowngradeCheck = *config.SkipDowngradeCheck
 	}
 
 	noDrain := false
 	if config.NoDrain != nil {
-		noDrain = strings.ToLower(*config.NoDrain) == "true"
+		noDrain = *config.NoDrain
 	}
 
 	noWait := false
 	if config.NoWait != nil {
-		noWait = strings.ToLower(*config.NoWait) == "true"
+		noWait = *config.NoWait
 	}
 
 	concurrency := 30
 	if config.Concurrency != nil {
-		i, err := strconv.ParseUint(*config.Concurrency, 10, 64)
-		if err != nil {
-			return err
-		}
-
-		concurrency = int(i)
+		concurrency = *config.Concurrency
 	}
 
 	concurrentUploads := 5
 	if config.ConcurrentUploads != nil {
-		i, err := strconv.ParseUint(*config.ConcurrentUploads, 10, 64)
-		if err != nil {
-			return err
-		}
-
-		concurrentUploads = int(i)
+		concurrentUploads = *config.ConcurrentUploads
 	}
 
 	manager := phase.Manager{Config: cluster, Concurrency: concurrency, ConcurrentUploads: concurrentUploads}
@@ -74,14 +62,16 @@ func (k *K0sctl) Apply(config *Config) error {
 	kubeconfigWriter := bufio.NewWriter(&kubeconfigBytes)
 
 	applyAction := action.Apply{
-		Force:                 false,
-		Manager:               &manager,
-		KubeconfigOut:         kubeconfigWriter,
-		KubeconfigAPIAddress:  k.cluster.APIAddress(),
-		NoWait:                noWait,
-		NoDrain:               noDrain,
-		DisableDowngradeCheck: skipDowngradeCheck,
-		RestoreFrom:           "",
+		ApplyOptions: action.ApplyOptions{
+			Force:                 true,
+			Manager:               &manager,
+			KubeconfigOut:         kubeconfigWriter,
+			KubeconfigAPIAddress:  k.cluster.APIAddress(),
+			NoWait:                noWait,
+			NoDrain:               noDrain,
+			DisableDowngradeCheck: skipDowngradeCheck,
+			RestoreFrom:           "",
+		},
 	}
 
 	if err := applyAction.Run(); err != nil {

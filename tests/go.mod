@@ -1,8 +1,8 @@
 module github.com/ydkn/pulumi-k0s/tests
 
-go 1.21.0
+go 1.23.3
 
-toolchain go1.21.7
+toolchain go1.23.3
 
 replace github.com/ydkn/pulumi-k0s/provider => ../provider
 

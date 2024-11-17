@@ -21,6 +21,7 @@ namespace Pulumi.K0s.Outputs
         public readonly string? K0sBinaryPath;
         public readonly Outputs.ClusterLocalhost? Localhost;
         public readonly bool? NoTaints;
+        public readonly Outputs.ClusterOpenSSH? OpenSSH;
         public readonly string? Os;
         public readonly string? PrivateAddress;
         public readonly string? PrivateInterface;
@@ -47,6 +48,8 @@ namespace Pulumi.K0s.Outputs
 
             bool? noTaints,
 
+            Outputs.ClusterOpenSSH? openSSH,
+
             string? os,
 
             string? privateAddress,
@@ -69,6 +72,7 @@ namespace Pulumi.K0s.Outputs
             K0sBinaryPath = k0sBinaryPath;
             Localhost = localhost;
             NoTaints = noTaints;
+            OpenSSH = openSSH;
             Os = os;
             PrivateAddress = privateAddress;
             PrivateInterface = privateInterface;

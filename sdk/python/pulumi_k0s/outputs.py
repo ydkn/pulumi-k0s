@@ -18,6 +18,7 @@ __all__ = [
     'ClusterK0s',
     'ClusterLocalhost',
     'ClusterMetadata',
+    'ClusterOpenSSH',
     'ClusterSSH',
     'ClusterSpec',
     'ClusterWinRM',
@@ -202,6 +203,8 @@ class ClusterHost(dict):
             suggest = "k0s_binary_path"
         elif key == "noTaints":
             suggest = "no_taints"
+        elif key == "openSSH":
+            suggest = "open_ssh"
         elif key == "privateAddress":
             suggest = "private_address"
         elif key == "privateInterface":
@@ -232,6 +235,7 @@ class ClusterHost(dict):
                  k0s_binary_path: Optional[str] = None,
                  localhost: Optional['outputs.ClusterLocalhost'] = None,
                  no_taints: Optional[bool] = None,
+                 open_ssh: Optional['outputs.ClusterOpenSSH'] = None,
                  os: Optional[str] = None,
                  private_address: Optional[str] = None,
                  private_interface: Optional[str] = None,
@@ -255,6 +259,8 @@ class ClusterHost(dict):
             pulumi.set(__self__, "localhost", localhost)
         if no_taints is not None:
             pulumi.set(__self__, "no_taints", no_taints)
+        if open_ssh is not None:
+            pulumi.set(__self__, "open_ssh", open_ssh)
         if os is not None:
             pulumi.set(__self__, "os", os)
         if private_address is not None:
@@ -312,6 +318,11 @@ class ClusterHost(dict):
     @pulumi.getter(name="noTaints")
     def no_taints(self) -> Optional[bool]:
         return pulumi.get(self, "no_taints")
+
+    @property
+    @pulumi.getter(name="openSSH")
+    def open_ssh(self) -> Optional['outputs.ClusterOpenSSH']:
+        return pulumi.get(self, "open_ssh")
 
     @property
     @pulumi.getter
@@ -423,6 +434,85 @@ class ClusterMetadata(dict):
     @pulumi.getter
     def name(self) -> str:
         return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class ClusterOpenSSH(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configPath":
+            suggest = "config_path"
+        elif key == "disableMultiplexing":
+            suggest = "disable_multiplexing"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterOpenSSH. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterOpenSSH.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterOpenSSH.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 address: str,
+                 config_path: Optional[str] = None,
+                 disable_multiplexing: Optional[bool] = None,
+                 key: Optional[str] = None,
+                 options: Optional[Mapping[str, Any]] = None,
+                 port: Optional[int] = None,
+                 user: Optional[str] = None):
+        pulumi.set(__self__, "address", address)
+        if config_path is not None:
+            pulumi.set(__self__, "config_path", config_path)
+        if disable_multiplexing is not None:
+            pulumi.set(__self__, "disable_multiplexing", disable_multiplexing)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if options is not None:
+            pulumi.set(__self__, "options", options)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter
+    def address(self) -> str:
+        return pulumi.get(self, "address")
+
+    @property
+    @pulumi.getter(name="configPath")
+    def config_path(self) -> Optional[str]:
+        return pulumi.get(self, "config_path")
+
+    @property
+    @pulumi.getter(name="disableMultiplexing")
+    def disable_multiplexing(self) -> Optional[bool]:
+        return pulumi.get(self, "disable_multiplexing")
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def options(self) -> Optional[Mapping[str, Any]]:
+        return pulumi.get(self, "options")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def user(self) -> Optional[str]:
+        return pulumi.get(self, "user")
 
 
 @pulumi.output_type

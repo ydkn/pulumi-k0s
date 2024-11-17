@@ -9,27 +9,27 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
-concurrency: str
+concurrency: int
 """
 Maximum number of hosts to configure in parallel, set to 0 for unlimited
 """
 
-concurrentUploads: str
+concurrentUploads: int
 """
 Maximum number of files to upload in parallel, set to 0 for unlimited
 """
 
-noDrain: str
+noDrain: bool
 """
 Do not drain worker nodes when upgrading
 """
 
-noWait: str
+noWait: bool
 """
 Do not wait for worker nodes to join
 """
 
-skipDowngradeCheck: str
+skipDowngradeCheck: bool
 """
 Skip downgrade check
 """

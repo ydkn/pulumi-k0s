@@ -1,7 +1,7 @@
 import pulumi
 import pulumi_k0s as k0s
 
-my_provider = k0s.Provider("myProvider", no_drain="true")
+my_provider = k0s.Provider("myProvider", no_drain=True)
 my_cluster = k0s.Cluster("myCluster", spec=k0s.ClusterSpecArgs(
     hosts=[k0s.ClusterHostArgs(
         role="controller+worker",

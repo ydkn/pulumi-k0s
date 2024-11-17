@@ -16,37 +16,37 @@ __config__ = pulumi.Config('k0s')
 
 class _ExportableConfig(types.ModuleType):
     @property
-    def concurrency(self) -> str:
+    def concurrency(self) -> int:
         """
         Maximum number of hosts to configure in parallel, set to 0 for unlimited
         """
-        return __config__.get('concurrency') or (_utilities.get_env('PULUMI_K0S_CONCURRENCY') or '30')
+        return __config__.get_int('concurrency') or (_utilities.get_env_int('PULUMI_K0S_CONCURRENCY') or 30)
 
     @property
-    def concurrent_uploads(self) -> str:
+    def concurrent_uploads(self) -> int:
         """
         Maximum number of files to upload in parallel, set to 0 for unlimited
         """
-        return __config__.get('concurrentUploads') or (_utilities.get_env('PULUMI_K0S_CONCURRENT_UPLOADS') or '5')
+        return __config__.get_int('concurrentUploads') or (_utilities.get_env_int('PULUMI_K0S_CONCURRENT_UPLOADS') or 5)
 
     @property
-    def no_drain(self) -> str:
+    def no_drain(self) -> bool:
         """
         Do not drain worker nodes when upgrading
         """
-        return __config__.get('noDrain') or (_utilities.get_env('PULUMI_K0S_NO_DRAIN') or 'false')
+        return __config__.get_bool('noDrain') or (_utilities.get_env_bool('PULUMI_K0S_NO_DRAIN') or False)
 
     @property
-    def no_wait(self) -> str:
+    def no_wait(self) -> bool:
         """
         Do not wait for worker nodes to join
         """
-        return __config__.get('noWait') or (_utilities.get_env('PULUMI_K0S_NO_WAIT') or 'false')
+        return __config__.get_bool('noWait') or (_utilities.get_env_bool('PULUMI_K0S_NO_WAIT') or False)
 
     @property
-    def skip_downgrade_check(self) -> str:
+    def skip_downgrade_check(self) -> bool:
         """
         Skip downgrade check
         """
-        return __config__.get('skipDowngradeCheck') or (_utilities.get_env('PULUMI_K0S_SKIP_DOWNGRADE_CHECK') or 'false')
+        return __config__.get_bool('skipDowngradeCheck') or (_utilities.get_env_bool('PULUMI_K0S_SKIP_DOWNGRADE_CHECK') or False)
 

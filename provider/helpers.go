@@ -73,5 +73,15 @@ func propertyMapDiff(a, b resource.PropertyMap, ignoreKeys []resource.PropertyKe
 		}
 	}
 
+	for k, v := range b {
+		if _, ok := ignoreKeysMap[k]; ok {
+			continue
+		}
+
+		if a[k] != v {
+			changedProperties[k] = a[k]
+		}
+	}
+
 	return changedProperties
 }

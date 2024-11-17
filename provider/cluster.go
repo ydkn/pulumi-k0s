@@ -1,6 +1,9 @@
 package provider
 
 import (
+	"context"
+	"strings"
+
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -38,6 +41,7 @@ type ClusterHost struct {
 	Hooks            *ClusterHooks     `pulumi:"hooks,optional" json:"hooks,omitempty"`
 	WinRM            *ClusterWinRM     `pulumi:"winRM,optional" json:"winRM,omitempty"`
 	SSH              *ClusterSSH       `pulumi:"ssh,optional" json:"ssh,omitempty"`
+	OpenSSH          *ClusterOpenSSH   `pulumi:"openSSH,optional" json:"openSSH,omitempty"`
 	Localhost        *ClusterLocalhost `pulumi:"localhost,optional" json:"localhost,omitempty"`
 	NoTaints         *bool             `pulumi:"noTaints,optional" json:"noTaints,omitempty"`
 }
@@ -86,6 +90,16 @@ type ClusterSSH struct {
 	Key     *string     `pulumi:"key,optional" provider:"secret" json:"-"`
 	HostKey *string     `pulumi:"hostKey,optional" json:"hostKey,omitempty"`
 	Bastion *ClusterSSH `pulumi:"bastion,optional" json:"bastion,omitempty"`
+}
+
+type ClusterOpenSSH struct {
+	Address             *string        `pulumi:"address" json:"address,omitempty"`
+	Port                *int           `pulumi:"port,optional" json:"port,omitempty"`
+	User                *string        `pulumi:"user,optional" json:"user,omitempty"`
+	Key                 *string        `pulumi:"key,optional" provider:"secret" json:"-"`
+	ConfigPath          *string        `pulumi:"configPath,optional" json:"configPath,omitempty"`
+	Options             map[string]any `pulumi:"options,optional" json:"options,omitempty"`
+	DisableMultiplexing bool           `pulumi:"disableMultiplexing,optional" json:"disableMultiplexing,omitempty"`
 }
 
 type ClusterLocalhost struct {
@@ -317,7 +331,7 @@ type ClusterOutputs struct {
 type Cluster struct{}
 
 func (c Cluster) Check(
-	ctx p.Context,
+	ctx context.Context,
 	name string,
 	olds ClusterOutputs,
 	news ClusterInputs,
@@ -336,7 +350,12 @@ func (c Cluster) Check(
 	return news, failures, nil
 }
 
-func (c Cluster) Diff(ctx p.Context, name string, olds ClusterOutputs, news ClusterInputs) (p.DiffResponse, error) {
+func (c Cluster) Diff(
+	ctx context.Context,
+	name string,
+	olds ClusterOutputs,
+	news ClusterInputs,
+) (p.DiffResponse, error) {
 	diffResponse := p.DiffResponse{
 		DeleteBeforeReplace: true,
 		HasChanges:          false,
@@ -349,16 +368,16 @@ func (c Cluster) Diff(ctx p.Context, name string, olds ClusterOutputs, news Clus
 
 	oldsProps, err := introspect.NewPropertiesMap(olds)
 	if err != nil {
-		return p.DiffResponse{}, err
+		return diffResponse, err
 	}
 
 	newsProps, err := introspect.NewPropertiesMap(news)
 	if err != nil {
-		return p.DiffResponse{}, err
+		return diffResponse, err
 	}
 
 	for key := range propertyMapDiff(oldsProps, newsProps, []resource.PropertyKey{"kubeconfig"}) {
-		diffResponse.DetailedDiff[string(key)] = p.PropertyDiff{
+		diffResponse.DetailedDiff[strings.SplitN(string(key), ".", 2)[0]] = p.PropertyDiff{
 			Kind:      p.Update,
 			InputDiff: true,
 		}
@@ -372,7 +391,7 @@ func (c Cluster) Diff(ctx p.Context, name string, olds ClusterOutputs, news Clus
 }
 
 func (c *Cluster) Read(
-	ctx p.Context,
+	ctx context.Context,
 	name string,
 	news ClusterInputs,
 	olds ClusterOutputs,
@@ -396,7 +415,7 @@ func (c *Cluster) Read(
 }
 
 func (c Cluster) Create(
-	ctx p.Context,
+	ctx context.Context,
 	name string,
 	news ClusterInputs,
 	preview bool,
@@ -427,7 +446,7 @@ func (c Cluster) Create(
 }
 
 func (c Cluster) Update(
-	ctx p.Context,
+	ctx context.Context,
 	name string,
 	olds ClusterOutputs,
 	news ClusterInputs,
@@ -459,7 +478,7 @@ func (c Cluster) Update(
 	return olds, nil
 }
 
-func (c Cluster) Delete(ctx p.Context, name string, olds ClusterOutputs) error {
+func (c Cluster) Delete(ctx context.Context, name string, olds ClusterOutputs) error {
 	manager, err := c.newManager(name, &olds.ClusterInputs)
 	if err != nil {
 		return err
@@ -468,8 +487,6 @@ func (c Cluster) Delete(ctx p.Context, name string, olds ClusterOutputs) error {
 	if err := manager.Reset(); err != nil {
 		return err
 	}
-
-	olds.Kubeconfig = nil
 
 	return nil
 }

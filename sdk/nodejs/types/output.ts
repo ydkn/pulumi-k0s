@@ -36,6 +36,7 @@ export interface ClusterHost {
     k0sBinaryPath?: string;
     localhost?: outputs.ClusterLocalhost;
     noTaints?: boolean;
+    openSSH?: outputs.ClusterOpenSSH;
     os?: string;
     privateAddress?: string;
     privateInterface?: string;
@@ -58,6 +59,16 @@ export interface ClusterLocalhost {
 
 export interface ClusterMetadata {
     name: string;
+}
+
+export interface ClusterOpenSSH {
+    address: string;
+    configPath?: string;
+    disableMultiplexing?: boolean;
+    key?: string;
+    options?: {[key: string]: any};
+    port?: number;
+    user?: string;
 }
 
 export interface ClusterSSH {

@@ -32,51 +32,51 @@ namespace Pulumi.K0s
 
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("k0s");
 
-        private static readonly __Value<string?> _concurrency = new __Value<string?>(() => __config.Get("concurrency") ?? Utilities.GetEnv("PULUMI_K0S_CONCURRENCY") ?? "30");
+        private static readonly __Value<int?> _concurrency = new __Value<int?>(() => __config.GetInt32("concurrency") ?? Utilities.GetEnvInt32("PULUMI_K0S_CONCURRENCY") ?? 30);
         /// <summary>
         /// Maximum number of hosts to configure in parallel, set to 0 for unlimited
         /// </summary>
-        public static string? Concurrency
+        public static int? Concurrency
         {
             get => _concurrency.Get();
             set => _concurrency.Set(value);
         }
 
-        private static readonly __Value<string?> _concurrentUploads = new __Value<string?>(() => __config.Get("concurrentUploads") ?? Utilities.GetEnv("PULUMI_K0S_CONCURRENT_UPLOADS") ?? "5");
+        private static readonly __Value<int?> _concurrentUploads = new __Value<int?>(() => __config.GetInt32("concurrentUploads") ?? Utilities.GetEnvInt32("PULUMI_K0S_CONCURRENT_UPLOADS") ?? 5);
         /// <summary>
         /// Maximum number of files to upload in parallel, set to 0 for unlimited
         /// </summary>
-        public static string? ConcurrentUploads
+        public static int? ConcurrentUploads
         {
             get => _concurrentUploads.Get();
             set => _concurrentUploads.Set(value);
         }
 
-        private static readonly __Value<string?> _noDrain = new __Value<string?>(() => __config.Get("noDrain") ?? Utilities.GetEnv("PULUMI_K0S_NO_DRAIN") ?? "false");
+        private static readonly __Value<bool?> _noDrain = new __Value<bool?>(() => __config.GetBoolean("noDrain") ?? Utilities.GetEnvBoolean("PULUMI_K0S_NO_DRAIN") ?? false);
         /// <summary>
         /// Do not drain worker nodes when upgrading
         /// </summary>
-        public static string? NoDrain
+        public static bool? NoDrain
         {
             get => _noDrain.Get();
             set => _noDrain.Set(value);
         }
 
-        private static readonly __Value<string?> _noWait = new __Value<string?>(() => __config.Get("noWait") ?? Utilities.GetEnv("PULUMI_K0S_NO_WAIT") ?? "false");
+        private static readonly __Value<bool?> _noWait = new __Value<bool?>(() => __config.GetBoolean("noWait") ?? Utilities.GetEnvBoolean("PULUMI_K0S_NO_WAIT") ?? false);
         /// <summary>
         /// Do not wait for worker nodes to join
         /// </summary>
-        public static string? NoWait
+        public static bool? NoWait
         {
             get => _noWait.Get();
             set => _noWait.Set(value);
         }
 
-        private static readonly __Value<string?> _skipDowngradeCheck = new __Value<string?>(() => __config.Get("skipDowngradeCheck") ?? Utilities.GetEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") ?? "false");
+        private static readonly __Value<bool?> _skipDowngradeCheck = new __Value<bool?>(() => __config.GetBoolean("skipDowngradeCheck") ?? Utilities.GetEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") ?? false);
         /// <summary>
         /// Skip downgrade check
         /// </summary>
-        public static string? SkipDowngradeCheck
+        public static bool? SkipDowngradeCheck
         {
             get => _skipDowngradeCheck.Get();
             set => _skipDowngradeCheck.Set(value);

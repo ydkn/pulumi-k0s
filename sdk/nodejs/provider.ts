@@ -19,26 +19,6 @@ export class Provider extends pulumi.ProviderResource {
         return obj['__pulumiType'] === "pulumi:providers:" + Provider.__pulumiType;
     }
 
-    /**
-     * Maximum number of hosts to configure in parallel, set to 0 for unlimited
-     */
-    public readonly concurrency!: pulumi.Output<string | undefined>;
-    /**
-     * Maximum number of files to upload in parallel, set to 0 for unlimited
-     */
-    public readonly concurrentUploads!: pulumi.Output<string | undefined>;
-    /**
-     * Do not drain worker nodes when upgrading
-     */
-    public readonly noDrain!: pulumi.Output<string | undefined>;
-    /**
-     * Do not wait for worker nodes to join
-     */
-    public readonly noWait!: pulumi.Output<string | undefined>;
-    /**
-     * Skip downgrade check
-     */
-    public readonly skipDowngradeCheck!: pulumi.Output<string | undefined>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -51,11 +31,11 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["concurrency"] = (args ? args.concurrency : undefined) ?? (utilities.getEnv("PULUMI_K0S_CONCURRENCY") || "30");
-            resourceInputs["concurrentUploads"] = (args ? args.concurrentUploads : undefined) ?? (utilities.getEnv("PULUMI_K0S_CONCURRENT_UPLOADS") || "5");
-            resourceInputs["noDrain"] = (args ? args.noDrain : undefined) ?? (utilities.getEnv("PULUMI_K0S_NO_DRAIN") || "false");
-            resourceInputs["noWait"] = (args ? args.noWait : undefined) ?? (utilities.getEnv("PULUMI_K0S_NO_WAIT") || "false");
-            resourceInputs["skipDowngradeCheck"] = (args ? args.skipDowngradeCheck : undefined) ?? (utilities.getEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || "false");
+            resourceInputs["concurrency"] = pulumi.output((args ? args.concurrency : undefined) ?? (utilities.getEnvNumber("PULUMI_K0S_CONCURRENCY") || 30)).apply(JSON.stringify);
+            resourceInputs["concurrentUploads"] = pulumi.output((args ? args.concurrentUploads : undefined) ?? (utilities.getEnvNumber("PULUMI_K0S_CONCURRENT_UPLOADS") || 5)).apply(JSON.stringify);
+            resourceInputs["noDrain"] = pulumi.output((args ? args.noDrain : undefined) ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_DRAIN") || false)).apply(JSON.stringify);
+            resourceInputs["noWait"] = pulumi.output((args ? args.noWait : undefined) ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_WAIT") || false)).apply(JSON.stringify);
+            resourceInputs["skipDowngradeCheck"] = pulumi.output((args ? args.skipDowngradeCheck : undefined) ?? (utilities.getEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || false)).apply(JSON.stringify);
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
@@ -69,21 +49,21 @@ export interface ProviderArgs {
     /**
      * Maximum number of hosts to configure in parallel, set to 0 for unlimited
      */
-    concurrency?: pulumi.Input<string>;
+    concurrency?: pulumi.Input<number>;
     /**
      * Maximum number of files to upload in parallel, set to 0 for unlimited
      */
-    concurrentUploads?: pulumi.Input<string>;
+    concurrentUploads?: pulumi.Input<number>;
     /**
      * Do not drain worker nodes when upgrading
      */
-    noDrain?: pulumi.Input<string>;
+    noDrain?: pulumi.Input<boolean>;
     /**
      * Do not wait for worker nodes to join
      */
-    noWait?: pulumi.Input<string>;
+    noWait?: pulumi.Input<boolean>;
     /**
      * Skip downgrade check
      */
-    skipDowngradeCheck?: pulumi.Input<string>;
+    skipDowngradeCheck?: pulumi.Input<boolean>;
 }

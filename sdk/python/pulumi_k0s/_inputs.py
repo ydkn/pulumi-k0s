@@ -17,6 +17,7 @@ __all__ = [
     'ClusterK0sArgs',
     'ClusterLocalhostArgs',
     'ClusterMetadataArgs',
+    'ClusterOpenSSHArgs',
     'ClusterSSHArgs',
     'ClusterSpecArgs',
     'ClusterWinRMArgs',
@@ -235,6 +236,7 @@ class ClusterHostArgs:
                  k0s_binary_path: Optional[pulumi.Input[str]] = None,
                  localhost: Optional[pulumi.Input['ClusterLocalhostArgs']] = None,
                  no_taints: Optional[pulumi.Input[bool]] = None,
+                 open_ssh: Optional[pulumi.Input['ClusterOpenSSHArgs']] = None,
                  os: Optional[pulumi.Input[str]] = None,
                  private_address: Optional[pulumi.Input[str]] = None,
                  private_interface: Optional[pulumi.Input[str]] = None,
@@ -258,6 +260,8 @@ class ClusterHostArgs:
             pulumi.set(__self__, "localhost", localhost)
         if no_taints is not None:
             pulumi.set(__self__, "no_taints", no_taints)
+        if open_ssh is not None:
+            pulumi.set(__self__, "open_ssh", open_ssh)
         if os is not None:
             pulumi.set(__self__, "os", os)
         if private_address is not None:
@@ -351,6 +355,15 @@ class ClusterHostArgs:
     @no_taints.setter
     def no_taints(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "no_taints", value)
+
+    @property
+    @pulumi.getter(name="openSSH")
+    def open_ssh(self) -> Optional[pulumi.Input['ClusterOpenSSHArgs']]:
+        return pulumi.get(self, "open_ssh")
+
+    @open_ssh.setter
+    def open_ssh(self, value: Optional[pulumi.Input['ClusterOpenSSHArgs']]):
+        pulumi.set(self, "open_ssh", value)
 
     @property
     @pulumi.getter
@@ -491,6 +504,94 @@ class ClusterMetadataArgs:
     @name.setter
     def name(self, value: pulumi.Input[str]):
         pulumi.set(self, "name", value)
+
+
+@pulumi.input_type
+class ClusterOpenSSHArgs:
+    def __init__(__self__, *,
+                 address: pulumi.Input[str],
+                 config_path: Optional[pulumi.Input[str]] = None,
+                 disable_multiplexing: Optional[pulumi.Input[bool]] = None,
+                 key: Optional[pulumi.Input[str]] = None,
+                 options: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 port: Optional[pulumi.Input[int]] = None,
+                 user: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "address", address)
+        if config_path is not None:
+            pulumi.set(__self__, "config_path", config_path)
+        if disable_multiplexing is not None:
+            pulumi.set(__self__, "disable_multiplexing", disable_multiplexing)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if options is not None:
+            pulumi.set(__self__, "options", options)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter
+    def address(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "address")
+
+    @address.setter
+    def address(self, value: pulumi.Input[str]):
+        pulumi.set(self, "address", value)
+
+    @property
+    @pulumi.getter(name="configPath")
+    def config_path(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "config_path")
+
+    @config_path.setter
+    def config_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "config_path", value)
+
+    @property
+    @pulumi.getter(name="disableMultiplexing")
+    def disable_multiplexing(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "disable_multiplexing")
+
+    @disable_multiplexing.setter
+    def disable_multiplexing(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "disable_multiplexing", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def options(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "options")
+
+    @options.setter
+    def options(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "options", value)
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "port", value)
+
+    @property
+    @pulumi.getter
+    def user(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "user")
+
+    @user.setter
+    def user(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "user", value)
 
 
 @pulumi.input_type

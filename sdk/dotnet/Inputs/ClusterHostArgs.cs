@@ -51,6 +51,9 @@ namespace Pulumi.K0s.Inputs
         [Input("noTaints")]
         public Input<bool>? NoTaints { get; set; }
 
+        [Input("openSSH")]
+        public Input<Inputs.ClusterOpenSSHArgs>? OpenSSH { get; set; }
+
         [Input("os")]
         public Input<string>? Os { get; set; }
 

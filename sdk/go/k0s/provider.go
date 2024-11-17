@@ -13,17 +13,6 @@ import (
 
 type Provider struct {
 	pulumi.ProviderResourceState
-
-	// Maximum number of hosts to configure in parallel, set to 0 for unlimited
-	Concurrency pulumi.StringPtrOutput `pulumi:"concurrency"`
-	// Maximum number of files to upload in parallel, set to 0 for unlimited
-	ConcurrentUploads pulumi.StringPtrOutput `pulumi:"concurrentUploads"`
-	// Do not drain worker nodes when upgrading
-	NoDrain pulumi.StringPtrOutput `pulumi:"noDrain"`
-	// Do not wait for worker nodes to join
-	NoWait pulumi.StringPtrOutput `pulumi:"noWait"`
-	// Skip downgrade check
-	SkipDowngradeCheck pulumi.StringPtrOutput `pulumi:"skipDowngradeCheck"`
 }
 
 // NewProvider registers a new resource with the given unique name, arguments, and options.
@@ -34,28 +23,28 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.Concurrency == nil {
-		if d := internal.GetEnvOrDefault("30", nil, "PULUMI_K0S_CONCURRENCY"); d != nil {
-			args.Concurrency = pulumi.StringPtr(d.(string))
+		if d := internal.GetEnvOrDefault(30, internal.ParseEnvInt, "PULUMI_K0S_CONCURRENCY"); d != nil {
+			args.Concurrency = pulumi.IntPtr(d.(int))
 		}
 	}
 	if args.ConcurrentUploads == nil {
-		if d := internal.GetEnvOrDefault("5", nil, "PULUMI_K0S_CONCURRENT_UPLOADS"); d != nil {
-			args.ConcurrentUploads = pulumi.StringPtr(d.(string))
+		if d := internal.GetEnvOrDefault(5, internal.ParseEnvInt, "PULUMI_K0S_CONCURRENT_UPLOADS"); d != nil {
+			args.ConcurrentUploads = pulumi.IntPtr(d.(int))
 		}
 	}
 	if args.NoDrain == nil {
-		if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_NO_DRAIN"); d != nil {
-			args.NoDrain = pulumi.StringPtr(d.(string))
+		if d := internal.GetEnvOrDefault(false, internal.ParseEnvBool, "PULUMI_K0S_NO_DRAIN"); d != nil {
+			args.NoDrain = pulumi.BoolPtr(d.(bool))
 		}
 	}
 	if args.NoWait == nil {
-		if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_NO_WAIT"); d != nil {
-			args.NoWait = pulumi.StringPtr(d.(string))
+		if d := internal.GetEnvOrDefault(false, internal.ParseEnvBool, "PULUMI_K0S_NO_WAIT"); d != nil {
+			args.NoWait = pulumi.BoolPtr(d.(bool))
 		}
 	}
 	if args.SkipDowngradeCheck == nil {
-		if d := internal.GetEnvOrDefault("false", nil, "PULUMI_K0S_SKIP_DOWNGRADE_CHECK"); d != nil {
-			args.SkipDowngradeCheck = pulumi.StringPtr(d.(string))
+		if d := internal.GetEnvOrDefault(false, internal.ParseEnvBool, "PULUMI_K0S_SKIP_DOWNGRADE_CHECK"); d != nil {
+			args.SkipDowngradeCheck = pulumi.BoolPtr(d.(bool))
 		}
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
@@ -69,29 +58,29 @@ func NewProvider(ctx *pulumi.Context,
 
 type providerArgs struct {
 	// Maximum number of hosts to configure in parallel, set to 0 for unlimited
-	Concurrency *string `pulumi:"concurrency"`
+	Concurrency *int `pulumi:"concurrency"`
 	// Maximum number of files to upload in parallel, set to 0 for unlimited
-	ConcurrentUploads *string `pulumi:"concurrentUploads"`
+	ConcurrentUploads *int `pulumi:"concurrentUploads"`
 	// Do not drain worker nodes when upgrading
-	NoDrain *string `pulumi:"noDrain"`
+	NoDrain *bool `pulumi:"noDrain"`
 	// Do not wait for worker nodes to join
-	NoWait *string `pulumi:"noWait"`
+	NoWait *bool `pulumi:"noWait"`
 	// Skip downgrade check
-	SkipDowngradeCheck *string `pulumi:"skipDowngradeCheck"`
+	SkipDowngradeCheck *bool `pulumi:"skipDowngradeCheck"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
 	// Maximum number of hosts to configure in parallel, set to 0 for unlimited
-	Concurrency pulumi.StringPtrInput
+	Concurrency pulumi.IntPtrInput
 	// Maximum number of files to upload in parallel, set to 0 for unlimited
-	ConcurrentUploads pulumi.StringPtrInput
+	ConcurrentUploads pulumi.IntPtrInput
 	// Do not drain worker nodes when upgrading
-	NoDrain pulumi.StringPtrInput
+	NoDrain pulumi.BoolPtrInput
 	// Do not wait for worker nodes to join
-	NoWait pulumi.StringPtrInput
+	NoWait pulumi.BoolPtrInput
 	// Skip downgrade check
-	SkipDowngradeCheck pulumi.StringPtrInput
+	SkipDowngradeCheck pulumi.BoolPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {
@@ -129,31 +118,6 @@ func (o ProviderOutput) ToProviderOutput() ProviderOutput {
 
 func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) ProviderOutput {
 	return o
-}
-
-// Maximum number of hosts to configure in parallel, set to 0 for unlimited
-func (o ProviderOutput) Concurrency() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Concurrency }).(pulumi.StringPtrOutput)
-}
-
-// Maximum number of files to upload in parallel, set to 0 for unlimited
-func (o ProviderOutput) ConcurrentUploads() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ConcurrentUploads }).(pulumi.StringPtrOutput)
-}
-
-// Do not drain worker nodes when upgrading
-func (o ProviderOutput) NoDrain() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.NoDrain }).(pulumi.StringPtrOutput)
-}
-
-// Do not wait for worker nodes to join
-func (o ProviderOutput) NoWait() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.NoWait }).(pulumi.StringPtrOutput)
-}
-
-// Skip downgrade check
-func (o ProviderOutput) SkipDowngradeCheck() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.SkipDowngradeCheck }).(pulumi.StringPtrOutput)
 }
 
 func init() {

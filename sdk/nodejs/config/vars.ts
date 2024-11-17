@@ -10,10 +10,10 @@ const __config = new pulumi.Config("k0s");
 /**
  * Maximum number of hosts to configure in parallel, set to 0 for unlimited
  */
-export declare const concurrency: string;
+export declare const concurrency: number;
 Object.defineProperty(exports, "concurrency", {
     get() {
-        return __config.get("concurrency") ?? (utilities.getEnv("PULUMI_K0S_CONCURRENCY") || "30");
+        return __config.getObject<number>("concurrency") ?? (utilities.getEnvNumber("PULUMI_K0S_CONCURRENCY") || 30);
     },
     enumerable: true,
 });
@@ -21,10 +21,10 @@ Object.defineProperty(exports, "concurrency", {
 /**
  * Maximum number of files to upload in parallel, set to 0 for unlimited
  */
-export declare const concurrentUploads: string;
+export declare const concurrentUploads: number;
 Object.defineProperty(exports, "concurrentUploads", {
     get() {
-        return __config.get("concurrentUploads") ?? (utilities.getEnv("PULUMI_K0S_CONCURRENT_UPLOADS") || "5");
+        return __config.getObject<number>("concurrentUploads") ?? (utilities.getEnvNumber("PULUMI_K0S_CONCURRENT_UPLOADS") || 5);
     },
     enumerable: true,
 });
@@ -32,10 +32,10 @@ Object.defineProperty(exports, "concurrentUploads", {
 /**
  * Do not drain worker nodes when upgrading
  */
-export declare const noDrain: string;
+export declare const noDrain: boolean;
 Object.defineProperty(exports, "noDrain", {
     get() {
-        return __config.get("noDrain") ?? (utilities.getEnv("PULUMI_K0S_NO_DRAIN") || "false");
+        return __config.getObject<boolean>("noDrain") ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_DRAIN") || false);
     },
     enumerable: true,
 });
@@ -43,10 +43,10 @@ Object.defineProperty(exports, "noDrain", {
 /**
  * Do not wait for worker nodes to join
  */
-export declare const noWait: string;
+export declare const noWait: boolean;
 Object.defineProperty(exports, "noWait", {
     get() {
-        return __config.get("noWait") ?? (utilities.getEnv("PULUMI_K0S_NO_WAIT") || "false");
+        return __config.getObject<boolean>("noWait") ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_WAIT") || false);
     },
     enumerable: true,
 });
@@ -54,10 +54,10 @@ Object.defineProperty(exports, "noWait", {
 /**
  * Skip downgrade check
  */
-export declare const skipDowngradeCheck: string;
+export declare const skipDowngradeCheck: boolean;
 Object.defineProperty(exports, "skipDowngradeCheck", {
     get() {
-        return __config.get("skipDowngradeCheck") ?? (utilities.getEnv("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || "false");
+        return __config.getObject<boolean>("skipDowngradeCheck") ?? (utilities.getEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || false);
     },
     enumerable: true,
 });

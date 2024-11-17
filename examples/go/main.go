@@ -1,14 +1,14 @@
 package main
 
 import (
+	"github.com/pulumi/pulumi-k0s/sdk/go/k0s"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/ydkn/pulumi-k0s/sdk/go/k0s"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		myProvider, err := k0s.NewProvider(ctx, "myProvider", &k0s.ProviderArgs{
-			NoDrain: pulumi.String("true"),
+			NoDrain: pulumi.Bool(true),
 		})
 		if err != nil {
 			return err

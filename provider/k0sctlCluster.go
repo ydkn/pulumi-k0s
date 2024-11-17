@@ -1,10 +1,11 @@
 package provider
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 
-	"github.com/imdario/mergo"
+	"dario.cat/mergo"
 	"github.com/k0sproject/dig"
 	k0sapi "github.com/k0sproject/k0s/pkg/apis/k0s/v1beta1"
 	"github.com/k0sproject/k0sctl/cmd"
@@ -24,14 +25,23 @@ const (
 )
 
 func PrepareCluster(name string, news *ClusterInputs) error {
-	clusterDefaults, err := clusterDefaults(name)
+	defaultCluster, err := clusterDefaults(name)
 	if err != nil {
 		return err
 	}
 
 	newsCluster := k0sctlCluster(*news)
+	newsJSONData, err := json.Marshal(newsCluster)
+	if err != nil {
+		return err
+	}
 
-	if err := mergo.Merge(&newsCluster, clusterDefaults); err != nil {
+	newsClusterCopy := k0sctlCluster{}
+	if err := json.Unmarshal(newsJSONData, &newsClusterCopy); err != nil {
+		return err
+	}
+
+	if err := mergo.Merge(&newsCluster, defaultCluster); err != nil {
 		return err
 	}
 
@@ -65,6 +75,16 @@ func PrepareCluster(name string, news *ClusterInputs) error {
 		news.Spec.K0s.Config = &K0s{}
 	}
 
+	if news.Spec.K0s.DynamicConfig == nil {
+		falseValue := false
+		news.Spec.K0s.DynamicConfig = &falseValue
+	}
+
+	if news.Spec.K0s.VersionChannel == nil {
+		versionChannel := "stable"
+		news.Spec.K0s.VersionChannel = &versionChannel
+	}
+
 	if news.Spec.K0s.Config.Metadata == nil {
 		news.Spec.K0s.Config.Metadata = &K0sMetadata{}
 	}
@@ -75,6 +95,18 @@ func PrepareCluster(name string, news *ClusterInputs) error {
 
 	if news.Spec.K0s.Config.Spec == nil {
 		news.Spec.K0s.Config.Spec = &K0sSpec{}
+	}
+
+	if news.Spec.K0s.Config.Spec.Telemetry == nil {
+		news.Spec.K0s.Config.Spec.Telemetry = &K0sTelemetry{}
+	}
+
+	if newsClusterCopy.Spec != nil && newsClusterCopy.Spec.K0s != nil && newsClusterCopy.Spec.K0s.Config != nil {
+		if newsClusterCopy.Spec.K0s.Config.Spec != nil {
+			if newsClusterCopy.Spec.K0s.Config.Spec.Telemetry != nil {
+				news.Spec.K0s.Config.Spec.Telemetry.Enabled = newsClusterCopy.Spec.K0s.Config.Spec.Telemetry.Enabled
+			}
+		}
 	}
 
 	return nil
@@ -94,11 +126,12 @@ func (c *k0sctlCluster) APIAddress() string {
 
 	leader := clt.Spec.K0sLeader()
 	if leader != nil {
-		if leader.SSH != nil {
+		switch {
+		case leader.SSH != nil:
 			address = leader.SSH.Address
-		}
-
-		if leader.WinRM != nil {
+		case leader.OpenSSH != nil:
+			address = leader.OpenSSH.Address
+		case leader.WinRM != nil:
 			address = leader.WinRM.Address
 		}
 	}
@@ -204,6 +237,12 @@ func (c *k0sctlCluster) k0sctlConvertHostsPaths(prefix string, hosts cluster.Hos
 			}
 		}
 
+		if host.OpenSSH != nil {
+			if err := c.k0sctlConvertOpenSSHPaths(prefix, clusterHost.OpenSSH, host.OpenSSH); err != nil {
+				return err
+			}
+		}
+
 		if host.WinRM != nil {
 			if clusterHost.WinRM.CaCert != nil {
 				filename, err := contentToTempFile(prefix, *clusterHost.WinRM.CaCert, true)
@@ -253,6 +292,19 @@ func (c *k0sctlCluster) k0sctlConvertSSHPaths(prefix string, ssh *ClusterSSH, ri
 
 	if ssh.Bastion != nil {
 		return c.k0sctlConvertSSHPaths(prefix, ssh.Bastion, rigSSH.Bastion)
+	}
+
+	return nil
+}
+
+func (c *k0sctlCluster) k0sctlConvertOpenSSHPaths(prefix string, ssh *ClusterOpenSSH, rigSSH *rig.OpenSSH) error {
+	if ssh.Key != nil {
+		filename, err := contentToTempFile(prefix, *ssh.Key, true)
+		if err != nil {
+			return err
+		}
+
+		rigSSH.KeyPath = &filename
 	}
 
 	return nil

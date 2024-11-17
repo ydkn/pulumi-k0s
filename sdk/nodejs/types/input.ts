@@ -36,6 +36,7 @@ export interface ClusterHostArgs {
     k0sBinaryPath?: pulumi.Input<string>;
     localhost?: pulumi.Input<inputs.ClusterLocalhostArgs>;
     noTaints?: pulumi.Input<boolean>;
+    openSSH?: pulumi.Input<inputs.ClusterOpenSSHArgs>;
     os?: pulumi.Input<string>;
     privateAddress?: pulumi.Input<string>;
     privateInterface?: pulumi.Input<string>;
@@ -58,6 +59,16 @@ export interface ClusterLocalhostArgs {
 
 export interface ClusterMetadataArgs {
     name: pulumi.Input<string>;
+}
+
+export interface ClusterOpenSSHArgs {
+    address: pulumi.Input<string>;
+    configPath?: pulumi.Input<string>;
+    disableMultiplexing?: pulumi.Input<boolean>;
+    key?: pulumi.Input<string>;
+    options?: pulumi.Input<{[key: string]: any}>;
+    port?: pulumi.Input<number>;
+    user?: pulumi.Input<string>;
 }
 
 export interface ClusterSSHArgs {
