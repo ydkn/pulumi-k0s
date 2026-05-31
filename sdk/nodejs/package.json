@@ -1,6 +1,6 @@
 {
     "name": "@ydkn/k0s",
-    "version": "0.0.33+dirty",
+    "version": "0.4.0",
     "keywords": [
         "pulumi",
         "kubernetes",
@@ -22,7 +22,7 @@
     "pulumi": {
         "resource": true,
         "name": "k0s",
-        "version": "0.0.33+dirty",
+        "version": "0.4.0",
         "server": "https://repo.ydkn.io/pulumi-k0s"
     }
 }
