@@ -1,7 +1,22 @@
+// Copyright 2025, Florian Schwab.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//	http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package introspect
 
 import (
 	"fmt"
+	"maps"
 	"reflect"
 	"strings"
 
@@ -15,7 +30,7 @@ func NewPropertiesMap(obj any) (resource.PropertyMap, error) {
 	}
 
 	if typ.Kind() != reflect.Struct {
-		return nil, fmt.Errorf("Expected struct, found %s (%T)", typ.Kind(), obj)
+		return nil, fmt.Errorf("expected struct, found %s (%T)", typ.Kind(), obj)
 	}
 
 	return getPlainPropertiesMapWithPrefix(obj, "")
@@ -105,9 +120,7 @@ func getPropertyMapForValue(value reflect.Value, prefix string) (resource.Proper
 				return nil, err
 			}
 
-			for k, v := range props {
-				properties[k] = v
-			}
+			maps.Copy(properties, props)
 		}
 	case reflect.Map:
 		mapValue := reflect.ValueOf(value.Interface())
@@ -117,7 +130,7 @@ func getPropertyMapForValue(value reflect.Value, prefix string) (resource.Proper
 
 			mapPrefix := fmt.Sprintf("%s.%s", prefix, e.String())
 
-			if mapElement.Kind() == reflect.Ptr {
+			if mapElement.Kind() == reflect.Pointer {
 				mapElement = mapElement.Elem()
 			}
 
@@ -134,9 +147,7 @@ func getPropertyMapForValue(value reflect.Value, prefix string) (resource.Proper
 				return nil, err
 			}
 
-			for k, v := range props {
-				properties[k] = v
-			}
+			maps.Copy(properties, props)
 		}
 	case reflect.Bool:
 		properties[key] = resource.NewBoolProperty(value.Bool())
@@ -149,7 +160,7 @@ func getPropertyMapForValue(value reflect.Value, prefix string) (resource.Proper
 	case reflect.Invalid: // nil
 		properties[key] = resource.NewNullProperty()
 	default:
-		return nil, fmt.Errorf("Unsupported data type: %s", value.Kind())
+		return nil, fmt.Errorf("unsupported data type: %s", value.Kind())
 	}
 
 	return properties, nil

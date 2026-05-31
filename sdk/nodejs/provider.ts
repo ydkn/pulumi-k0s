@@ -31,11 +31,11 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["concurrency"] = pulumi.output((args ? args.concurrency : undefined) ?? (utilities.getEnvNumber("PULUMI_K0S_CONCURRENCY") || 30)).apply(JSON.stringify);
-            resourceInputs["concurrentUploads"] = pulumi.output((args ? args.concurrentUploads : undefined) ?? (utilities.getEnvNumber("PULUMI_K0S_CONCURRENT_UPLOADS") || 5)).apply(JSON.stringify);
-            resourceInputs["noDrain"] = pulumi.output((args ? args.noDrain : undefined) ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_DRAIN") || false)).apply(JSON.stringify);
-            resourceInputs["noWait"] = pulumi.output((args ? args.noWait : undefined) ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_WAIT") || false)).apply(JSON.stringify);
-            resourceInputs["skipDowngradeCheck"] = pulumi.output((args ? args.skipDowngradeCheck : undefined) ?? (utilities.getEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || false)).apply(JSON.stringify);
+            resourceInputs["concurrency"] = pulumi.output((args?.concurrency) ?? (utilities.getEnvNumber("PULUMI_K0S_CONCURRENCY") || 30)).apply(JSON.stringify);
+            resourceInputs["concurrentUploads"] = pulumi.output((args?.concurrentUploads) ?? (utilities.getEnvNumber("PULUMI_K0S_CONCURRENT_UPLOADS") || 5)).apply(JSON.stringify);
+            resourceInputs["noDrain"] = pulumi.output((args?.noDrain) ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_DRAIN") || false)).apply(JSON.stringify);
+            resourceInputs["noWait"] = pulumi.output((args?.noWait) ?? (utilities.getEnvBoolean("PULUMI_K0S_NO_WAIT") || false)).apply(JSON.stringify);
+            resourceInputs["skipDowngradeCheck"] = pulumi.output((args?.skipDowngradeCheck) ?? (utilities.getEnvBoolean("PULUMI_K0S_SKIP_DOWNGRADE_CHECK") || false)).apply(JSON.stringify);
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
@@ -49,21 +49,21 @@ export interface ProviderArgs {
     /**
      * Maximum number of hosts to configure in parallel, set to 0 for unlimited
      */
-    concurrency?: pulumi.Input<number>;
+    concurrency?: pulumi.Input<number | undefined>;
     /**
      * Maximum number of files to upload in parallel, set to 0 for unlimited
      */
-    concurrentUploads?: pulumi.Input<number>;
+    concurrentUploads?: pulumi.Input<number | undefined>;
     /**
      * Do not drain worker nodes when upgrading
      */
-    noDrain?: pulumi.Input<boolean>;
+    noDrain?: pulumi.Input<boolean | undefined>;
     /**
      * Do not wait for worker nodes to join
      */
-    noWait?: pulumi.Input<boolean>;
+    noWait?: pulumi.Input<boolean | undefined>;
     /**
      * Skip downgrade check
      */
-    skipDowngradeCheck?: pulumi.Input<boolean>;
+    skipDowngradeCheck?: pulumi.Input<boolean | undefined>;
 }

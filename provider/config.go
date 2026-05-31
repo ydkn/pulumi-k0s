@@ -1,3 +1,17 @@
+// Copyright 2025, Florian Schwab.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//	http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package provider
 
 import (
@@ -8,8 +22,18 @@ import (
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/ydkn/pulumi-k0s/provider/internal/introspect"
+	"github.com/ydkn/pulumi-k0s/provider/internal/upstream/ende"
 )
 
+const (
+	configDefaultSkipDowngradeCheck = false
+	configDefaultNoDrain            = false
+	configDefaultNoWait             = false
+	configDefaultConcurrency        = 30
+	configDefaultConcurrentUploads  = 5
+)
+
+// Config defines provider-level configuration
 type Config struct {
 	SkipDowngradeCheck *bool `pulumi:"skipDowngradeCheck,optional"`
 	NoDrain            *bool `pulumi:"noDrain,optional"`
@@ -19,40 +43,40 @@ type Config struct {
 }
 
 func (c *Config) Annotate(a infer.Annotator) {
-	skipDowngradeCheckValue := false
+	skipDowngradeCheckValue := configDefaultSkipDowngradeCheck
 	a.Describe(&c.SkipDowngradeCheck, "Skip downgrade check")
 	a.SetDefault(&c.SkipDowngradeCheck, &skipDowngradeCheckValue, "PULUMI_K0S_SKIP_DOWNGRADE_CHECK")
 
-	noDrainValue := false
+	noDrainValue := configDefaultNoDrain
 	a.Describe(&c.NoDrain, "Do not drain worker nodes when upgrading")
 	a.SetDefault(&c.NoDrain, &noDrainValue, "PULUMI_K0S_NO_DRAIN")
 
-	noWaitValue := false
+	noWaitValue := configDefaultNoWait
 	a.Describe(&c.NoWait, "Do not wait for worker nodes to join")
 	a.SetDefault(&c.NoWait, &noWaitValue, "PULUMI_K0S_NO_WAIT")
 
-	concurrencyValue := 30
+	concurrencyValue := configDefaultConcurrency
 	a.Describe(&c.Concurrency, "Maximum number of hosts to configure in parallel, set to 0 for unlimited")
 	a.SetDefault(&c.Concurrency, &concurrencyValue, "PULUMI_K0S_CONCURRENCY")
 
-	concurrentUploadsValue := 5
+	concurrentUploadsValue := configDefaultConcurrentUploads
 	a.Describe(&c.ConcurrentUploads, "Maximum number of files to upload in parallel, set to 0 for unlimited")
 	a.SetDefault(&c.ConcurrentUploads, &concurrentUploadsValue, "PULUMI_K0S_CONCURRENT_UPLOADS")
 }
 
-func (c *Config) Diff(ctx context.Context, name string, olds Config, news Config) (p.DiffResponse, error) {
+func (c Config) Diff(ctx context.Context, req infer.DiffRequest[Config, Config]) (p.DiffResponse, error) {
 	diffResponse := p.DiffResponse{
 		DeleteBeforeReplace: false,
 		HasChanges:          false,
 		DetailedDiff:        map[string]p.PropertyDiff{},
 	}
 
-	oldsProps, err := introspect.NewPropertiesMap(olds)
+	oldsProps, err := introspect.NewPropertiesMap(req.State)
 	if err != nil {
 		return p.DiffResponse{}, err
 	}
 
-	newsProps, err := introspect.NewPropertiesMap(news)
+	newsProps, err := introspect.NewPropertiesMap(req.Inputs)
 	if err != nil {
 		return p.DiffResponse{}, err
 	}
@@ -71,12 +95,14 @@ func (c *Config) Diff(ctx context.Context, name string, olds Config, news Config
 	return diffResponse, nil
 }
 
-func (c *Config) Check(ctx context.Context, name string, olds Config, news Config) (Config, []p.CheckFailure, error) {
-	return Config{
-		SkipDowngradeCheck: news.SkipDowngradeCheck,
-		NoDrain:            news.NoDrain,
-		NoWait:             news.NoWait,
-		Concurrency:        news.Concurrency,
-		ConcurrentUploads:  news.ConcurrentUploads,
-	}, []p.CheckFailure{}, nil
+func (c Config) Check(ctx context.Context, req infer.CheckRequest) (infer.CheckResponse[Config], error) {
+	// Remove "version" from inputs to avoid decode errors
+	req.NewInputs = req.NewInputs.Delete("version")
+
+	_, config, err := ende.Decode[Config](req.NewInputs)
+	if err != nil {
+		return infer.CheckResponse[Config]{}, err
+	}
+
+	return infer.CheckResponse[Config]{Inputs: config, Failures: []p.CheckFailure{}}, nil
 }

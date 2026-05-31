@@ -1,0 +1,57 @@
+// Copyright 2025, Florian Schwab.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//	http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package provider
+
+import (
+	"fmt"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+)
+
+func TestClusterArgsMerge(t *testing.T) {
+	t.Parallel()
+
+	args := testClusterArgsDefaultMerge(t, "test-cluster")
+
+	assert.Equal(t, clusterArgsAPIVersion, args.APIVersion, "APIVersion should be set to default")
+	assert.Equal(t, clusterArgsKind, args.Kind, "Kind should be set to default")
+	assert.Equal(t, clusterArgsVersionChannel, args.Spec.K0s.VersionChannel, "VersionChannel should be set to default")
+	assert.Equal(t, 9443, args.Spec.K0s.Config.Spec.API.K0sApiPort, "k0sApiPort should be set to default")
+
+	mergeArgs := ClusterArgs{}
+	k0sApiPort := 1234
+	mergeArgs.Spec.K0s.Config.Spec.API.K0sApiPort = &k0sApiPort
+	args = testClusterArgsDefaultMerge(t, "test-cluster", &mergeArgs)
+
+	assert.Equal(t, clusterArgsAPIVersion, args.APIVersion, "APIVersion should be set to default")
+	assert.Equal(t, clusterArgsKind, args.Kind, "Kind should be set to default")
+	assert.Equal(t, clusterArgsVersionChannel, args.Spec.K0s.VersionChannel, "VersionChannel should be set to default")
+	assert.Equal(t, 1234, args.Spec.K0s.Config.Spec.API.K0sApiPort, "k0sApiPort should be set to 1234")
+}
+
+func testClusterArgsDefaultMerge(t *testing.T, name string, mergeArgs ...*ClusterArgs) *ClusterArgs {
+	args, err := ClusterArgsDefaults(name)
+	require.NoError(t, err, "ClusterArgsDefaults should not return an error")
+
+	for _, a := range mergeArgs {
+		fmt.Println("merge")
+		err := args.Merge(a)
+		require.NoError(t, err, "Merge should not return an error")
+	}
+
+	return args
+}

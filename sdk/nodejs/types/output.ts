@@ -5,6 +5,16 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+import * as utilities from "../utilities";
+
+export interface ClusterBastion {
+    address: string;
+    hostKey?: string;
+    key?: string;
+    port?: number;
+    user?: string;
+}
+
 export interface ClusterFile {
     dirPerm?: string;
     dst?: string;
@@ -47,10 +57,33 @@ export interface ClusterHost {
 }
 
 export interface ClusterK0s {
+    /**
+     * K0s configuration.
+     */
     config?: outputs.K0s;
+    /**
+     * Whether to use dynamic configuration.
+     */
     dynamicConfig?: boolean;
+    /**
+     * The hosts that will form the cluster.
+     */
     version?: string;
+    /**
+     * The k0s version channel to use.
+     */
     versionChannel?: string;
+}
+/**
+ * clusterK0sProvideDefaults sets the appropriate defaults for ClusterK0s
+ */
+export function clusterK0sProvideDefaults(val: ClusterK0s): ClusterK0s {
+    return {
+        ...val,
+        config: (val.config ? outputs.k0sProvideDefaults(val.config) : undefined),
+        dynamicConfig: (val.dynamicConfig) ?? false,
+        versionChannel: (val.versionChannel) ?? "stable",
+    };
 }
 
 export interface ClusterLocalhost {
@@ -58,7 +91,19 @@ export interface ClusterLocalhost {
 }
 
 export interface ClusterMetadata {
-    name: string;
+    /**
+     * The name of the cluster.
+     */
+    name?: string;
+}
+/**
+ * clusterMetadataProvideDefaults sets the appropriate defaults for ClusterMetadata
+ */
+export function clusterMetadataProvideDefaults(val: ClusterMetadata): ClusterMetadata {
+    return {
+        ...val,
+        name: (val.name) ?? "k0s",
+    };
 }
 
 export interface ClusterOpenSSH {
@@ -66,14 +111,14 @@ export interface ClusterOpenSSH {
     configPath?: string;
     disableMultiplexing?: boolean;
     key?: string;
-    options?: {[key: string]: any};
+    options?: {[key: string]: string};
     port?: number;
     user?: string;
 }
 
 export interface ClusterSSH {
     address: string;
-    bastion?: outputs.ClusterSSH;
+    bastion?: outputs.ClusterBastion;
     hostKey?: string;
     key?: string;
     port?: number;
@@ -81,13 +126,28 @@ export interface ClusterSSH {
 }
 
 export interface ClusterSpec {
+    /**
+     * The hosts that will form the cluster.
+     */
     hosts: outputs.ClusterHost[];
+    /**
+     * K0s configuration.
+     */
     k0s?: outputs.ClusterK0s;
+}
+/**
+ * clusterSpecProvideDefaults sets the appropriate defaults for ClusterSpec
+ */
+export function clusterSpecProvideDefaults(val: ClusterSpec): ClusterSpec {
+    return {
+        ...val,
+        k0s: (val.k0s ? outputs.clusterK0sProvideDefaults(val.k0s) : undefined),
+    };
 }
 
 export interface ClusterWinRM {
     address: string;
-    bastion?: outputs.ClusterSSH;
+    bastion?: outputs.ClusterBastion;
     caCert?: string;
     cert?: string;
     insecure?: boolean;
@@ -101,19 +161,59 @@ export interface ClusterWinRM {
 }
 
 export interface K0s {
+    /**
+     * The API version of the k0s configuration.
+     */
     apiVersion?: string;
+    /**
+     * The kind of the k0s configuration.
+     */
     kind?: string;
+    /**
+     * K0s configuration metadata.
+     */
     metadata?: outputs.K0sMetadata;
+    /**
+     * K0s configuration specification.
+     */
     spec?: outputs.K0sSpec;
+}
+/**
+ * k0sProvideDefaults sets the appropriate defaults for K0s
+ */
+export function k0sProvideDefaults(val: K0s): K0s {
+    return {
+        ...val,
+        apiVersion: (val.apiVersion) ?? "k0s.k0sproject.io/v1beta1",
+        kind: (val.kind) ?? "Cluster",
+        metadata: (val.metadata ? outputs.k0sMetadataProvideDefaults(val.metadata) : undefined),
+        spec: (val.spec ? outputs.k0sSpecProvideDefaults(val.spec) : undefined),
+    };
 }
 
 export interface K0sAPI {
     address?: string;
     externalAddress?: string;
     extraArgs?: {[key: string]: string};
+    /**
+     * The port the k0s API will listen on.
+     */
     k0sApiPort?: number;
+    /**
+     * The port the Kubernetes API will listen on.
+     */
     port?: number;
     sans?: string[];
+}
+/**
+ * k0sAPIProvideDefaults sets the appropriate defaults for K0sAPI
+ */
+export function k0sAPIProvideDefaults(val: K0sAPI): K0sAPI {
+    return {
+        ...val,
+        k0sApiPort: (val.k0sApiPort) ?? 9443,
+        port: (val.port) ?? 6443,
+    };
 }
 
 export interface K0sCalico {
@@ -180,7 +280,7 @@ export interface K0sImage {
 export interface K0sImages {
     calico?: outputs.K0sCalicoImage;
     coredns?: outputs.K0sImage;
-    default_pull_policy?: string;
+    defaultPullPolicy?: string;
     konnectivity?: outputs.K0sImage;
     kubeproxy?: outputs.K0sImage;
     kuberouter?: outputs.K0sKubeRouterImage;
@@ -190,15 +290,55 @@ export interface K0sImages {
 }
 
 export interface K0sInstallConfig {
+    /**
+     * K0s install configuration users.
+     */
     users?: outputs.K0sInstallConfigUser;
+}
+/**
+ * k0sInstallConfigProvideDefaults sets the appropriate defaults for K0sInstallConfig
+ */
+export function k0sInstallConfigProvideDefaults(val: K0sInstallConfig): K0sInstallConfig {
+    return {
+        ...val,
+        users: (val.users ? outputs.k0sInstallConfigUserProvideDefaults(val.users) : undefined),
+    };
 }
 
 export interface K0sInstallConfigUser {
+    /**
+     * The user the etcd process will run as.
+     */
     etcdUser?: string;
+    /**
+     * The user the kine process will run as.
+     */
     kineUser?: string;
+    /**
+     * The user the konnectivity process will run as.
+     */
     konnectivityUser?: string;
+    /**
+     * The user the kube-apiserver process will run as.
+     */
     kubeAPIserverUser?: string;
+    /**
+     * The user the kube-scheduler process will run as.
+     */
     kubeSchedulerUser?: string;
+}
+/**
+ * k0sInstallConfigUserProvideDefaults sets the appropriate defaults for K0sInstallConfigUser
+ */
+export function k0sInstallConfigUserProvideDefaults(val: K0sInstallConfigUser): K0sInstallConfigUser {
+    return {
+        ...val,
+        etcdUser: (val.etcdUser) ?? "etcd",
+        kineUser: (val.kineUser) ?? "kube-apiserver",
+        konnectivityUser: (val.konnectivityUser) ?? "konnectivity-server",
+        kubeAPIserverUser: (val.kubeAPIserverUser) ?? "kube-apiserver",
+        kubeSchedulerUser: (val.kubeSchedulerUser) ?? "kube-scheduler",
+    };
 }
 
 export interface K0sKine {
@@ -206,16 +346,48 @@ export interface K0sKine {
 }
 
 export interface K0sKonnectivity {
+    /**
+     * The port the konnectivity admin server will listen on.
+     */
     adminPort?: number;
+    /**
+     * The port the konnectivity agent will listen on.
+     */
     agentPort?: number;
+}
+/**
+ * k0sKonnectivityProvideDefaults sets the appropriate defaults for K0sKonnectivity
+ */
+export function k0sKonnectivityProvideDefaults(val: K0sKonnectivity): K0sKonnectivity {
+    return {
+        ...val,
+        adminPort: (val.adminPort) ?? 8133,
+        agentPort: (val.agentPort) ?? 8132,
+    };
 }
 
 export interface K0sKubeProxy {
+    /**
+     * Disable kube-proxy.
+     */
     disabled?: boolean;
     iptables?: outputs.K0sKubeProxyIPTables;
     ipvs?: outputs.K0sKubeProxyIPVS;
+    /**
+     * The kube-proxy mode to use. One of 'iptables' or 'ipvs'.
+     */
     mode?: string;
     nodePortAddresses?: string;
+}
+/**
+ * k0sKubeProxyProvideDefaults sets the appropriate defaults for K0sKubeProxy
+ */
+export function k0sKubeProxyProvideDefaults(val: K0sKubeProxy): K0sKubeProxy {
+    return {
+        ...val,
+        disabled: (val.disabled) ?? false,
+        mode: (val.mode) ?? "iptables",
+    };
 }
 
 export interface K0sKubeProxyIPTables {
@@ -237,12 +409,28 @@ export interface K0sKubeProxyIPVS {
 }
 
 export interface K0sKubeRouter {
+    /**
+     * Automatically detect and set the MTU based on the host interface.
+     */
     autoMTU?: boolean;
     extraArgs?: {[key: string]: string};
     hairpin?: string;
     ipMasq?: boolean;
     metricsPort?: number;
+    /**
+     * The MTU to use for the kube-router network interfaces.
+     */
     mtu?: number;
+}
+/**
+ * k0sKubeRouterProvideDefaults sets the appropriate defaults for K0sKubeRouter
+ */
+export function k0sKubeRouterProvideDefaults(val: K0sKubeRouter): K0sKubeRouter {
+    return {
+        ...val,
+        autoMTU: (val.autoMTU) ?? true,
+        mtu: (val.mtu) ?? 0,
+    };
 }
 
 export interface K0sKubeRouterImage {
@@ -251,19 +439,68 @@ export interface K0sKubeRouterImage {
 }
 
 export interface K0sMetadata {
-    name: string;
+    /**
+     * The name of the k0s cluster.
+     */
+    name?: string;
+}
+/**
+ * k0sMetadataProvideDefaults sets the appropriate defaults for K0sMetadata
+ */
+export function k0sMetadataProvideDefaults(val: K0sMetadata): K0sMetadata {
+    return {
+        ...val,
+        name: (val.name) ?? "k0s",
+    };
 }
 
 export interface K0sNetwork {
+    /**
+     * K0s calico configuration.
+     */
     calico?: outputs.K0sCalico;
     clusterDomain?: string;
+    /**
+     * K0s dual-stack configuration.
+     */
     dualStack?: outputs.K0sDualStack;
+    /**
+     * K0s kube-proxy configuration.
+     */
     kubeProxy?: outputs.K0sKubeProxy;
+    /**
+     * K0s kube-router configuration.
+     */
     kuberouter?: outputs.K0sKubeRouter;
+    /**
+     * K0s node local load balancing configuration.
+     */
     nodeLocalLoadBalancing?: outputs.K0sNodeLocalLoadBalancing;
+    /**
+     * The CIDR from which Pod IPs are allocated.
+     */
     podCIDR?: string;
+    /**
+     * The network provider to use.
+     */
     provider?: string;
+    /**
+     * The CIDR from which Service IPs are allocated.
+     */
     serviceCIDR?: string;
+}
+/**
+ * k0sNetworkProvideDefaults sets the appropriate defaults for K0sNetwork
+ */
+export function k0sNetworkProvideDefaults(val: K0sNetwork): K0sNetwork {
+    return {
+        ...val,
+        kubeProxy: (val.kubeProxy ? outputs.k0sKubeProxyProvideDefaults(val.kubeProxy) : undefined),
+        kuberouter: (val.kuberouter ? outputs.k0sKubeRouterProvideDefaults(val.kuberouter) : undefined),
+        podCIDR: (val.podCIDR) ?? "10.244.0.0/16",
+        provider: (val.provider) ?? "kuberouter",
+        serviceCIDR: (val.serviceCIDR) ?? "10.96.0.0/12",
+    };
 }
 
 export interface K0sNodeLocalLoadBalancing {
@@ -273,7 +510,19 @@ export interface K0sNodeLocalLoadBalancing {
 }
 
 export interface K0sPodSecurityPolicy {
+    /**
+     * The default Pod Security Policy to use.
+     */
     defaultPolicy?: string;
+}
+/**
+ * k0sPodSecurityPolicyProvideDefaults sets the appropriate defaults for K0sPodSecurityPolicy
+ */
+export function k0sPodSecurityPolicyProvideDefaults(val: K0sPodSecurityPolicy): K0sPodSecurityPolicy {
+    return {
+        ...val,
+        defaultPolicy: (val.defaultPolicy) ?? "00-k0s-privileged",
+    };
 }
 
 export interface K0sScheduler {
@@ -281,32 +530,107 @@ export interface K0sScheduler {
 }
 
 export interface K0sSpec {
+    /**
+     * K0s API configuration.
+     */
     api?: outputs.K0sAPI;
+    /**
+     * K0s controller manager configuration.
+     */
     controllerManager?: outputs.K0sControllerManager;
+    /**
+     * K0s feature gates configuration.
+     */
     featureGates?: outputs.K0sFeatureGate[];
+    /**
+     * K0s images configuration.
+     */
     images?: outputs.K0sImages;
+    /**
+     * K0s install configuration.
+     */
     installConfig?: outputs.K0sInstallConfig;
+    /**
+     * K0s konnectivity configuration.
+     */
     konnectivity?: outputs.K0sKonnectivity;
+    /**
+     * K0s network configuration.
+     */
     network?: outputs.K0sNetwork;
+    /**
+     * K0s pod security policy configuration.
+     */
     podSecurityPolicy?: outputs.K0sPodSecurityPolicy;
+    /**
+     * K0s scheduler configuration.
+     */
     scheduler?: outputs.K0sScheduler;
+    /**
+     * K0s storage configuration.
+     */
     storage?: outputs.K0sStorage;
+    /**
+     * K0s telemetry configuration.
+     */
     telemetry?: outputs.K0sTelemetry;
+    /**
+     * K0s worker profiles configuration.
+     */
     workerProfiles?: outputs.K0sWorkerProfile[];
+}
+/**
+ * k0sSpecProvideDefaults sets the appropriate defaults for K0sSpec
+ */
+export function k0sSpecProvideDefaults(val: K0sSpec): K0sSpec {
+    return {
+        ...val,
+        api: (val.api ? outputs.k0sAPIProvideDefaults(val.api) : undefined),
+        installConfig: (val.installConfig ? outputs.k0sInstallConfigProvideDefaults(val.installConfig) : undefined),
+        konnectivity: (val.konnectivity ? outputs.k0sKonnectivityProvideDefaults(val.konnectivity) : undefined),
+        network: (val.network ? outputs.k0sNetworkProvideDefaults(val.network) : undefined),
+        podSecurityPolicy: (val.podSecurityPolicy ? outputs.k0sPodSecurityPolicyProvideDefaults(val.podSecurityPolicy) : undefined),
+        storage: (val.storage ? outputs.k0sStorageProvideDefaults(val.storage) : undefined),
+        telemetry: (val.telemetry ? outputs.k0sTelemetryProvideDefaults(val.telemetry) : undefined),
+    };
 }
 
 export interface K0sStorage {
     etcd?: outputs.K0sEtcd;
     kine?: outputs.K0sKine;
+    /**
+     * The storage type to use. One of 'etcd' or 'kine'.
+     */
     type?: string;
+}
+/**
+ * k0sStorageProvideDefaults sets the appropriate defaults for K0sStorage
+ */
+export function k0sStorageProvideDefaults(val: K0sStorage): K0sStorage {
+    return {
+        ...val,
+        type: (val.type) ?? "etcd",
+    };
 }
 
 export interface K0sTelemetry {
+    /**
+     * Enable or disable telemetry.
+     */
     enabled?: boolean;
+}
+/**
+ * k0sTelemetryProvideDefaults sets the appropriate defaults for K0sTelemetry
+ */
+export function k0sTelemetryProvideDefaults(val: K0sTelemetry): K0sTelemetry {
+    return {
+        ...val,
+        enabled: (val.enabled) ?? true,
+    };
 }
 
 export interface K0sWorkerProfile {
     name: string;
-    values: {[key: string]: any};
+    values: {[key: string]: string};
 }
 

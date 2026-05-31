@@ -44,9 +44,9 @@ archives:
 snapshot:
   name_template: "{{ .Tag }}-SNAPSHOT"
 changelog:
-  disable: true
-release:
   disable: false
+release:
+  disable: true
 blobs:
 - provider: s3
   region: us-west-2

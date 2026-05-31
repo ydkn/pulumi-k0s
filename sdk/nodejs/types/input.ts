@@ -5,200 +5,340 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+import * as utilities from "../utilities";
+
+export interface ClusterBastionArgs {
+    address: pulumi.Input<string>;
+    hostKey?: pulumi.Input<string | undefined>;
+    key?: pulumi.Input<string | undefined>;
+    port?: pulumi.Input<number | undefined>;
+    user?: pulumi.Input<string | undefined>;
+}
+
 export interface ClusterFileArgs {
-    dirPerm?: pulumi.Input<string>;
-    dst?: pulumi.Input<string>;
-    dstDir?: pulumi.Input<string>;
-    group?: pulumi.Input<string>;
-    name?: pulumi.Input<string>;
-    perm?: pulumi.Input<string>;
-    src?: pulumi.Input<string>;
-    user?: pulumi.Input<string>;
+    dirPerm?: pulumi.Input<string | undefined>;
+    dst?: pulumi.Input<string | undefined>;
+    dstDir?: pulumi.Input<string | undefined>;
+    group?: pulumi.Input<string | undefined>;
+    name?: pulumi.Input<string | undefined>;
+    perm?: pulumi.Input<string | undefined>;
+    src?: pulumi.Input<string | undefined>;
+    user?: pulumi.Input<string | undefined>;
 }
 
 export interface ClusterHookArgs {
-    after?: pulumi.Input<pulumi.Input<string>[]>;
-    before?: pulumi.Input<pulumi.Input<string>[]>;
+    after?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    before?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 export interface ClusterHooksArgs {
-    apply?: pulumi.Input<inputs.ClusterHookArgs>;
-    backup?: pulumi.Input<inputs.ClusterHookArgs>;
-    reset?: pulumi.Input<inputs.ClusterHookArgs>;
+    apply?: pulumi.Input<inputs.ClusterHookArgs | undefined>;
+    backup?: pulumi.Input<inputs.ClusterHookArgs | undefined>;
+    reset?: pulumi.Input<inputs.ClusterHookArgs | undefined>;
 }
 
 export interface ClusterHostArgs {
-    environment?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    files?: pulumi.Input<pulumi.Input<inputs.ClusterFileArgs>[]>;
-    hooks?: pulumi.Input<inputs.ClusterHooksArgs>;
-    hostname?: pulumi.Input<string>;
-    installFlags?: pulumi.Input<pulumi.Input<string>[]>;
-    k0sBinaryPath?: pulumi.Input<string>;
-    localhost?: pulumi.Input<inputs.ClusterLocalhostArgs>;
-    noTaints?: pulumi.Input<boolean>;
-    openSSH?: pulumi.Input<inputs.ClusterOpenSSHArgs>;
-    os?: pulumi.Input<string>;
-    privateAddress?: pulumi.Input<string>;
-    privateInterface?: pulumi.Input<string>;
+    environment?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    files?: pulumi.Input<pulumi.Input<inputs.ClusterFileArgs>[] | undefined>;
+    hooks?: pulumi.Input<inputs.ClusterHooksArgs | undefined>;
+    hostname?: pulumi.Input<string | undefined>;
+    installFlags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    k0sBinaryPath?: pulumi.Input<string | undefined>;
+    localhost?: pulumi.Input<inputs.ClusterLocalhostArgs | undefined>;
+    noTaints?: pulumi.Input<boolean | undefined>;
+    openSSH?: pulumi.Input<inputs.ClusterOpenSSHArgs | undefined>;
+    os?: pulumi.Input<string | undefined>;
+    privateAddress?: pulumi.Input<string | undefined>;
+    privateInterface?: pulumi.Input<string | undefined>;
     role: pulumi.Input<string>;
-    ssh?: pulumi.Input<inputs.ClusterSSHArgs>;
-    uploadBinary?: pulumi.Input<boolean>;
-    winRM?: pulumi.Input<inputs.ClusterWinRMArgs>;
+    ssh?: pulumi.Input<inputs.ClusterSSHArgs | undefined>;
+    uploadBinary?: pulumi.Input<boolean | undefined>;
+    winRM?: pulumi.Input<inputs.ClusterWinRMArgs | undefined>;
 }
 
 export interface ClusterK0sArgs {
-    config?: pulumi.Input<inputs.K0sArgs>;
-    dynamicConfig?: pulumi.Input<boolean>;
-    version?: pulumi.Input<string>;
-    versionChannel?: pulumi.Input<string>;
+    /**
+     * K0s configuration.
+     */
+    config?: pulumi.Input<inputs.K0sArgs | undefined>;
+    /**
+     * Whether to use dynamic configuration.
+     */
+    dynamicConfig?: pulumi.Input<boolean | undefined>;
+    /**
+     * The hosts that will form the cluster.
+     */
+    version?: pulumi.Input<string | undefined>;
+    /**
+     * The k0s version channel to use.
+     */
+    versionChannel?: pulumi.Input<string | undefined>;
+}
+/**
+ * clusterK0sArgsProvideDefaults sets the appropriate defaults for ClusterK0sArgs
+ */
+export function clusterK0sArgsProvideDefaults(val: ClusterK0sArgs): ClusterK0sArgs {
+    return {
+        ...val,
+        config: pulumi.output(val.config).apply(v => v === undefined ? undefined : inputs.k0sArgsProvideDefaults(v)),
+        dynamicConfig: (val.dynamicConfig) ?? false,
+        versionChannel: (val.versionChannel) ?? "stable",
+    };
 }
 
 export interface ClusterLocalhostArgs {
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
 }
 
 export interface ClusterMetadataArgs {
-    name: pulumi.Input<string>;
+    /**
+     * The name of the cluster.
+     */
+    name?: pulumi.Input<string | undefined>;
+}
+/**
+ * clusterMetadataArgsProvideDefaults sets the appropriate defaults for ClusterMetadataArgs
+ */
+export function clusterMetadataArgsProvideDefaults(val: ClusterMetadataArgs): ClusterMetadataArgs {
+    return {
+        ...val,
+        name: (val.name) ?? "k0s",
+    };
 }
 
 export interface ClusterOpenSSHArgs {
     address: pulumi.Input<string>;
-    configPath?: pulumi.Input<string>;
-    disableMultiplexing?: pulumi.Input<boolean>;
-    key?: pulumi.Input<string>;
-    options?: pulumi.Input<{[key: string]: any}>;
-    port?: pulumi.Input<number>;
-    user?: pulumi.Input<string>;
+    configPath?: pulumi.Input<string | undefined>;
+    disableMultiplexing?: pulumi.Input<boolean | undefined>;
+    key?: pulumi.Input<string | undefined>;
+    options?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    port?: pulumi.Input<number | undefined>;
+    user?: pulumi.Input<string | undefined>;
 }
 
 export interface ClusterSSHArgs {
     address: pulumi.Input<string>;
-    bastion?: pulumi.Input<inputs.ClusterSSHArgs>;
-    hostKey?: pulumi.Input<string>;
-    key?: pulumi.Input<string>;
-    port?: pulumi.Input<number>;
-    user?: pulumi.Input<string>;
+    bastion?: pulumi.Input<inputs.ClusterBastionArgs | undefined>;
+    hostKey?: pulumi.Input<string | undefined>;
+    key?: pulumi.Input<string | undefined>;
+    port?: pulumi.Input<number | undefined>;
+    user?: pulumi.Input<string | undefined>;
 }
 
 export interface ClusterSpecArgs {
+    /**
+     * The hosts that will form the cluster.
+     */
     hosts: pulumi.Input<pulumi.Input<inputs.ClusterHostArgs>[]>;
-    k0s?: pulumi.Input<inputs.ClusterK0sArgs>;
+    /**
+     * K0s configuration.
+     */
+    k0s?: pulumi.Input<inputs.ClusterK0sArgs | undefined>;
+}
+/**
+ * clusterSpecArgsProvideDefaults sets the appropriate defaults for ClusterSpecArgs
+ */
+export function clusterSpecArgsProvideDefaults(val: ClusterSpecArgs): ClusterSpecArgs {
+    return {
+        ...val,
+        k0s: pulumi.output(val.k0s).apply(v => v === undefined ? undefined : inputs.clusterK0sArgsProvideDefaults(v)),
+    };
 }
 
 export interface ClusterWinRMArgs {
     address: pulumi.Input<string>;
-    bastion?: pulumi.Input<inputs.ClusterSSHArgs>;
-    caCert?: pulumi.Input<string>;
-    cert?: pulumi.Input<string>;
-    insecure?: pulumi.Input<boolean>;
-    key?: pulumi.Input<string>;
-    password?: pulumi.Input<string>;
-    port?: pulumi.Input<number>;
-    tlsServerName?: pulumi.Input<string>;
-    useHTTPS?: pulumi.Input<boolean>;
-    useNTLM?: pulumi.Input<boolean>;
-    user?: pulumi.Input<string>;
+    bastion?: pulumi.Input<inputs.ClusterBastionArgs | undefined>;
+    caCert?: pulumi.Input<string | undefined>;
+    cert?: pulumi.Input<string | undefined>;
+    insecure?: pulumi.Input<boolean | undefined>;
+    key?: pulumi.Input<string | undefined>;
+    password?: pulumi.Input<string | undefined>;
+    port?: pulumi.Input<number | undefined>;
+    tlsServerName?: pulumi.Input<string | undefined>;
+    useHTTPS?: pulumi.Input<boolean | undefined>;
+    useNTLM?: pulumi.Input<boolean | undefined>;
+    user?: pulumi.Input<string | undefined>;
 }
 
 export interface K0sArgs {
-    apiVersion?: pulumi.Input<string>;
-    kind?: pulumi.Input<string>;
-    metadata?: pulumi.Input<inputs.K0sMetadataArgs>;
-    spec?: pulumi.Input<inputs.K0sSpecArgs>;
+    /**
+     * The API version of the k0s configuration.
+     */
+    apiVersion?: pulumi.Input<string | undefined>;
+    /**
+     * The kind of the k0s configuration.
+     */
+    kind?: pulumi.Input<string | undefined>;
+    /**
+     * K0s configuration metadata.
+     */
+    metadata?: pulumi.Input<inputs.K0sMetadataArgs | undefined>;
+    /**
+     * K0s configuration specification.
+     */
+    spec?: pulumi.Input<inputs.K0sSpecArgs | undefined>;
+}
+/**
+ * k0sArgsProvideDefaults sets the appropriate defaults for K0sArgs
+ */
+export function k0sArgsProvideDefaults(val: K0sArgs): K0sArgs {
+    return {
+        ...val,
+        apiVersion: (val.apiVersion) ?? "k0s.k0sproject.io/v1beta1",
+        kind: (val.kind) ?? "Cluster",
+        metadata: pulumi.output(val.metadata).apply(v => v === undefined ? undefined : inputs.k0sMetadataArgsProvideDefaults(v)),
+        spec: pulumi.output(val.spec).apply(v => v === undefined ? undefined : inputs.k0sSpecArgsProvideDefaults(v)),
+    };
 }
 
 export interface K0sAPIArgs {
-    address?: pulumi.Input<string>;
-    externalAddress?: pulumi.Input<string>;
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    k0sApiPort?: pulumi.Input<number>;
-    port?: pulumi.Input<number>;
-    sans?: pulumi.Input<pulumi.Input<string>[]>;
+    address?: pulumi.Input<string | undefined>;
+    externalAddress?: pulumi.Input<string | undefined>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    /**
+     * The port the k0s API will listen on.
+     */
+    k0sApiPort?: pulumi.Input<number | undefined>;
+    /**
+     * The port the Kubernetes API will listen on.
+     */
+    port?: pulumi.Input<number | undefined>;
+    sans?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+}
+/**
+ * k0sAPIArgsProvideDefaults sets the appropriate defaults for K0sAPIArgs
+ */
+export function k0sAPIArgsProvideDefaults(val: K0sAPIArgs): K0sAPIArgs {
+    return {
+        ...val,
+        k0sApiPort: (val.k0sApiPort) ?? 9443,
+        port: (val.port) ?? 6443,
+    };
 }
 
 export interface K0sCalicoArgs {
-    envVars?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    flexVolumeDriverPath?: pulumi.Input<string>;
-    ipAutodetectionMethod?: pulumi.Input<string>;
-    mode?: pulumi.Input<string>;
-    mtu?: pulumi.Input<number>;
-    overlay?: pulumi.Input<string>;
-    vxlanPort?: pulumi.Input<number>;
-    vxlanVNI?: pulumi.Input<number>;
-    wireguard?: pulumi.Input<boolean>;
+    envVars?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    flexVolumeDriverPath?: pulumi.Input<string | undefined>;
+    ipAutodetectionMethod?: pulumi.Input<string | undefined>;
+    mode?: pulumi.Input<string | undefined>;
+    mtu?: pulumi.Input<number | undefined>;
+    overlay?: pulumi.Input<string | undefined>;
+    vxlanPort?: pulumi.Input<number | undefined>;
+    vxlanVNI?: pulumi.Input<number | undefined>;
+    wireguard?: pulumi.Input<boolean | undefined>;
 }
 
 export interface K0sCalicoImageArgs {
-    cni?: pulumi.Input<inputs.K0sImageArgs>;
-    flexvolume?: pulumi.Input<inputs.K0sImageArgs>;
-    kubecontrollers?: pulumi.Input<inputs.K0sImageArgs>;
-    node?: pulumi.Input<inputs.K0sImageArgs>;
+    cni?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    flexvolume?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    kubecontrollers?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    node?: pulumi.Input<inputs.K0sImageArgs | undefined>;
 }
 
 export interface K0sControllerManagerArgs {
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
 }
 
 export interface K0sDualStackArgs {
-    IPv6podCIDR?: pulumi.Input<string>;
-    IPv6serviceCIDR?: pulumi.Input<string>;
-    enabled?: pulumi.Input<boolean>;
+    IPv6podCIDR?: pulumi.Input<string | undefined>;
+    IPv6serviceCIDR?: pulumi.Input<string | undefined>;
+    enabled?: pulumi.Input<boolean | undefined>;
 }
 
 export interface K0sEnvoyProxyArgs {
-    apiServerBindPort?: pulumi.Input<number>;
-    image?: pulumi.Input<string>;
-    imagePullPolicy?: pulumi.Input<string>;
-    konnectivityServerBindPort?: pulumi.Input<number>;
+    apiServerBindPort?: pulumi.Input<number | undefined>;
+    image?: pulumi.Input<string | undefined>;
+    imagePullPolicy?: pulumi.Input<string | undefined>;
+    konnectivityServerBindPort?: pulumi.Input<number | undefined>;
 }
 
 export interface K0sEtcdArgs {
-    externalCluster?: pulumi.Input<inputs.K0sEtcdExternalClusterArgs>;
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    peerAddress?: pulumi.Input<string>;
+    externalCluster?: pulumi.Input<inputs.K0sEtcdExternalClusterArgs | undefined>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    peerAddress?: pulumi.Input<string | undefined>;
 }
 
 export interface K0sEtcdExternalClusterArgs {
-    ca?: pulumi.Input<string>;
-    clientCert?: pulumi.Input<string>;
-    clientKey?: pulumi.Input<string>;
+    ca?: pulumi.Input<string | undefined>;
+    clientCert?: pulumi.Input<string | undefined>;
+    clientKey?: pulumi.Input<string | undefined>;
     endpoints: pulumi.Input<pulumi.Input<string>[]>;
-    etcdPrefix?: pulumi.Input<string>;
+    etcdPrefix?: pulumi.Input<string | undefined>;
 }
 
 export interface K0sFeatureGateArgs {
-    components?: pulumi.Input<pulumi.Input<string>[]>;
-    enabled?: pulumi.Input<boolean>;
+    components?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    enabled?: pulumi.Input<boolean | undefined>;
     name: pulumi.Input<string>;
 }
 
 export interface K0sImageArgs {
-    image?: pulumi.Input<string>;
-    version?: pulumi.Input<string>;
+    image?: pulumi.Input<string | undefined>;
+    version?: pulumi.Input<string | undefined>;
 }
 
 export interface K0sImagesArgs {
-    calico?: pulumi.Input<inputs.K0sCalicoImageArgs>;
-    coredns?: pulumi.Input<inputs.K0sImageArgs>;
-    default_pull_policy?: pulumi.Input<string>;
-    konnectivity?: pulumi.Input<inputs.K0sImageArgs>;
-    kubeproxy?: pulumi.Input<inputs.K0sImageArgs>;
-    kuberouter?: pulumi.Input<inputs.K0sKubeRouterImageArgs>;
-    metricsserver?: pulumi.Input<inputs.K0sImageArgs>;
-    pause?: pulumi.Input<inputs.K0sImageArgs>;
-    repository?: pulumi.Input<string>;
+    calico?: pulumi.Input<inputs.K0sCalicoImageArgs | undefined>;
+    coredns?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    defaultPullPolicy?: pulumi.Input<string | undefined>;
+    konnectivity?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    kubeproxy?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    kuberouter?: pulumi.Input<inputs.K0sKubeRouterImageArgs | undefined>;
+    metricsserver?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    pause?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    repository?: pulumi.Input<string | undefined>;
 }
 
 export interface K0sInstallConfigArgs {
-    users?: pulumi.Input<inputs.K0sInstallConfigUserArgs>;
+    /**
+     * K0s install configuration users.
+     */
+    users?: pulumi.Input<inputs.K0sInstallConfigUserArgs | undefined>;
+}
+/**
+ * k0sInstallConfigArgsProvideDefaults sets the appropriate defaults for K0sInstallConfigArgs
+ */
+export function k0sInstallConfigArgsProvideDefaults(val: K0sInstallConfigArgs): K0sInstallConfigArgs {
+    return {
+        ...val,
+        users: pulumi.output(val.users).apply(v => v === undefined ? undefined : inputs.k0sInstallConfigUserArgsProvideDefaults(v)),
+    };
 }
 
 export interface K0sInstallConfigUserArgs {
-    etcdUser?: pulumi.Input<string>;
-    kineUser?: pulumi.Input<string>;
-    konnectivityUser?: pulumi.Input<string>;
-    kubeAPIserverUser?: pulumi.Input<string>;
-    kubeSchedulerUser?: pulumi.Input<string>;
+    /**
+     * The user the etcd process will run as.
+     */
+    etcdUser?: pulumi.Input<string | undefined>;
+    /**
+     * The user the kine process will run as.
+     */
+    kineUser?: pulumi.Input<string | undefined>;
+    /**
+     * The user the konnectivity process will run as.
+     */
+    konnectivityUser?: pulumi.Input<string | undefined>;
+    /**
+     * The user the kube-apiserver process will run as.
+     */
+    kubeAPIserverUser?: pulumi.Input<string | undefined>;
+    /**
+     * The user the kube-scheduler process will run as.
+     */
+    kubeSchedulerUser?: pulumi.Input<string | undefined>;
+}
+/**
+ * k0sInstallConfigUserArgsProvideDefaults sets the appropriate defaults for K0sInstallConfigUserArgs
+ */
+export function k0sInstallConfigUserArgsProvideDefaults(val: K0sInstallConfigUserArgs): K0sInstallConfigUserArgs {
+    return {
+        ...val,
+        etcdUser: (val.etcdUser) ?? "etcd",
+        kineUser: (val.kineUser) ?? "kube-apiserver",
+        konnectivityUser: (val.konnectivityUser) ?? "konnectivity-server",
+        kubeAPIserverUser: (val.kubeAPIserverUser) ?? "kube-apiserver",
+        kubeSchedulerUser: (val.kubeSchedulerUser) ?? "kube-scheduler",
+    };
 }
 
 export interface K0sKineArgs {
@@ -206,106 +346,290 @@ export interface K0sKineArgs {
 }
 
 export interface K0sKonnectivityArgs {
-    adminPort?: pulumi.Input<number>;
-    agentPort?: pulumi.Input<number>;
+    /**
+     * The port the konnectivity admin server will listen on.
+     */
+    adminPort?: pulumi.Input<number | undefined>;
+    /**
+     * The port the konnectivity agent will listen on.
+     */
+    agentPort?: pulumi.Input<number | undefined>;
+}
+/**
+ * k0sKonnectivityArgsProvideDefaults sets the appropriate defaults for K0sKonnectivityArgs
+ */
+export function k0sKonnectivityArgsProvideDefaults(val: K0sKonnectivityArgs): K0sKonnectivityArgs {
+    return {
+        ...val,
+        adminPort: (val.adminPort) ?? 8133,
+        agentPort: (val.agentPort) ?? 8132,
+    };
 }
 
 export interface K0sKubeProxyArgs {
-    disabled?: pulumi.Input<boolean>;
-    iptables?: pulumi.Input<inputs.K0sKubeProxyIPTablesArgs>;
-    ipvs?: pulumi.Input<inputs.K0sKubeProxyIPVSArgs>;
-    mode?: pulumi.Input<string>;
-    nodePortAddresses?: pulumi.Input<string>;
+    /**
+     * Disable kube-proxy.
+     */
+    disabled?: pulumi.Input<boolean | undefined>;
+    iptables?: pulumi.Input<inputs.K0sKubeProxyIPTablesArgs | undefined>;
+    ipvs?: pulumi.Input<inputs.K0sKubeProxyIPVSArgs | undefined>;
+    /**
+     * The kube-proxy mode to use. One of 'iptables' or 'ipvs'.
+     */
+    mode?: pulumi.Input<string | undefined>;
+    nodePortAddresses?: pulumi.Input<string | undefined>;
+}
+/**
+ * k0sKubeProxyArgsProvideDefaults sets the appropriate defaults for K0sKubeProxyArgs
+ */
+export function k0sKubeProxyArgsProvideDefaults(val: K0sKubeProxyArgs): K0sKubeProxyArgs {
+    return {
+        ...val,
+        disabled: (val.disabled) ?? false,
+        mode: (val.mode) ?? "iptables",
+    };
 }
 
 export interface K0sKubeProxyIPTablesArgs {
-    masqueradeAll?: pulumi.Input<boolean>;
-    masqueradeBit?: pulumi.Input<number>;
-    minSyncPeriod?: pulumi.Input<string>;
-    syncPeriod?: pulumi.Input<string>;
+    masqueradeAll?: pulumi.Input<boolean | undefined>;
+    masqueradeBit?: pulumi.Input<number | undefined>;
+    minSyncPeriod?: pulumi.Input<string | undefined>;
+    syncPeriod?: pulumi.Input<string | undefined>;
 }
 
 export interface K0sKubeProxyIPVSArgs {
-    excludeCIDRs?: pulumi.Input<string>;
-    minSyncPeriod?: pulumi.Input<string>;
-    scheduler?: pulumi.Input<string>;
-    strictARP?: pulumi.Input<boolean>;
-    syncPeriod?: pulumi.Input<string>;
-    tcpFinTimeout?: pulumi.Input<string>;
-    tcpTimeout?: pulumi.Input<string>;
-    udpTimeout?: pulumi.Input<string>;
+    excludeCIDRs?: pulumi.Input<string | undefined>;
+    minSyncPeriod?: pulumi.Input<string | undefined>;
+    scheduler?: pulumi.Input<string | undefined>;
+    strictARP?: pulumi.Input<boolean | undefined>;
+    syncPeriod?: pulumi.Input<string | undefined>;
+    tcpFinTimeout?: pulumi.Input<string | undefined>;
+    tcpTimeout?: pulumi.Input<string | undefined>;
+    udpTimeout?: pulumi.Input<string | undefined>;
 }
 
 export interface K0sKubeRouterArgs {
-    autoMTU?: pulumi.Input<boolean>;
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-    hairpin?: pulumi.Input<string>;
-    ipMasq?: pulumi.Input<boolean>;
-    metricsPort?: pulumi.Input<number>;
-    mtu?: pulumi.Input<number>;
+    /**
+     * Automatically detect and set the MTU based on the host interface.
+     */
+    autoMTU?: pulumi.Input<boolean | undefined>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    hairpin?: pulumi.Input<string | undefined>;
+    ipMasq?: pulumi.Input<boolean | undefined>;
+    metricsPort?: pulumi.Input<number | undefined>;
+    /**
+     * The MTU to use for the kube-router network interfaces.
+     */
+    mtu?: pulumi.Input<number | undefined>;
+}
+/**
+ * k0sKubeRouterArgsProvideDefaults sets the appropriate defaults for K0sKubeRouterArgs
+ */
+export function k0sKubeRouterArgsProvideDefaults(val: K0sKubeRouterArgs): K0sKubeRouterArgs {
+    return {
+        ...val,
+        autoMTU: (val.autoMTU) ?? true,
+        mtu: (val.mtu) ?? 0,
+    };
 }
 
 export interface K0sKubeRouterImageArgs {
-    cni?: pulumi.Input<inputs.K0sImageArgs>;
-    cniInstaller?: pulumi.Input<inputs.K0sImageArgs>;
+    cni?: pulumi.Input<inputs.K0sImageArgs | undefined>;
+    cniInstaller?: pulumi.Input<inputs.K0sImageArgs | undefined>;
 }
 
 export interface K0sMetadataArgs {
-    name: pulumi.Input<string>;
+    /**
+     * The name of the k0s cluster.
+     */
+    name?: pulumi.Input<string | undefined>;
+}
+/**
+ * k0sMetadataArgsProvideDefaults sets the appropriate defaults for K0sMetadataArgs
+ */
+export function k0sMetadataArgsProvideDefaults(val: K0sMetadataArgs): K0sMetadataArgs {
+    return {
+        ...val,
+        name: (val.name) ?? "k0s",
+    };
 }
 
 export interface K0sNetworkArgs {
-    calico?: pulumi.Input<inputs.K0sCalicoArgs>;
-    clusterDomain?: pulumi.Input<string>;
-    dualStack?: pulumi.Input<inputs.K0sDualStackArgs>;
-    kubeProxy?: pulumi.Input<inputs.K0sKubeProxyArgs>;
-    kuberouter?: pulumi.Input<inputs.K0sKubeRouterArgs>;
-    nodeLocalLoadBalancing?: pulumi.Input<inputs.K0sNodeLocalLoadBalancingArgs>;
-    podCIDR?: pulumi.Input<string>;
-    provider?: pulumi.Input<string>;
-    serviceCIDR?: pulumi.Input<string>;
+    /**
+     * K0s calico configuration.
+     */
+    calico?: pulumi.Input<inputs.K0sCalicoArgs | undefined>;
+    clusterDomain?: pulumi.Input<string | undefined>;
+    /**
+     * K0s dual-stack configuration.
+     */
+    dualStack?: pulumi.Input<inputs.K0sDualStackArgs | undefined>;
+    /**
+     * K0s kube-proxy configuration.
+     */
+    kubeProxy?: pulumi.Input<inputs.K0sKubeProxyArgs | undefined>;
+    /**
+     * K0s kube-router configuration.
+     */
+    kuberouter?: pulumi.Input<inputs.K0sKubeRouterArgs | undefined>;
+    /**
+     * K0s node local load balancing configuration.
+     */
+    nodeLocalLoadBalancing?: pulumi.Input<inputs.K0sNodeLocalLoadBalancingArgs | undefined>;
+    /**
+     * The CIDR from which Pod IPs are allocated.
+     */
+    podCIDR?: pulumi.Input<string | undefined>;
+    /**
+     * The network provider to use.
+     */
+    provider?: pulumi.Input<string | undefined>;
+    /**
+     * The CIDR from which Service IPs are allocated.
+     */
+    serviceCIDR?: pulumi.Input<string | undefined>;
+}
+/**
+ * k0sNetworkArgsProvideDefaults sets the appropriate defaults for K0sNetworkArgs
+ */
+export function k0sNetworkArgsProvideDefaults(val: K0sNetworkArgs): K0sNetworkArgs {
+    return {
+        ...val,
+        kubeProxy: pulumi.output(val.kubeProxy).apply(v => v === undefined ? undefined : inputs.k0sKubeProxyArgsProvideDefaults(v)),
+        kuberouter: pulumi.output(val.kuberouter).apply(v => v === undefined ? undefined : inputs.k0sKubeRouterArgsProvideDefaults(v)),
+        podCIDR: (val.podCIDR) ?? "10.244.0.0/16",
+        provider: (val.provider) ?? "kuberouter",
+        serviceCIDR: (val.serviceCIDR) ?? "10.96.0.0/12",
+    };
 }
 
 export interface K0sNodeLocalLoadBalancingArgs {
-    enabled?: pulumi.Input<boolean>;
-    envoyProxy?: pulumi.Input<inputs.K0sEnvoyProxyArgs>;
-    type?: pulumi.Input<string>;
+    enabled?: pulumi.Input<boolean | undefined>;
+    envoyProxy?: pulumi.Input<inputs.K0sEnvoyProxyArgs | undefined>;
+    type?: pulumi.Input<string | undefined>;
 }
 
 export interface K0sPodSecurityPolicyArgs {
-    defaultPolicy?: pulumi.Input<string>;
+    /**
+     * The default Pod Security Policy to use.
+     */
+    defaultPolicy?: pulumi.Input<string | undefined>;
+}
+/**
+ * k0sPodSecurityPolicyArgsProvideDefaults sets the appropriate defaults for K0sPodSecurityPolicyArgs
+ */
+export function k0sPodSecurityPolicyArgsProvideDefaults(val: K0sPodSecurityPolicyArgs): K0sPodSecurityPolicyArgs {
+    return {
+        ...val,
+        defaultPolicy: (val.defaultPolicy) ?? "00-k0s-privileged",
+    };
 }
 
 export interface K0sSchedulerArgs {
-    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    extraArgs?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
 }
 
 export interface K0sSpecArgs {
-    api?: pulumi.Input<inputs.K0sAPIArgs>;
-    controllerManager?: pulumi.Input<inputs.K0sControllerManagerArgs>;
-    featureGates?: pulumi.Input<pulumi.Input<inputs.K0sFeatureGateArgs>[]>;
-    images?: pulumi.Input<inputs.K0sImagesArgs>;
-    installConfig?: pulumi.Input<inputs.K0sInstallConfigArgs>;
-    konnectivity?: pulumi.Input<inputs.K0sKonnectivityArgs>;
-    network?: pulumi.Input<inputs.K0sNetworkArgs>;
-    podSecurityPolicy?: pulumi.Input<inputs.K0sPodSecurityPolicyArgs>;
-    scheduler?: pulumi.Input<inputs.K0sSchedulerArgs>;
-    storage?: pulumi.Input<inputs.K0sStorageArgs>;
-    telemetry?: pulumi.Input<inputs.K0sTelemetryArgs>;
-    workerProfiles?: pulumi.Input<pulumi.Input<inputs.K0sWorkerProfileArgs>[]>;
+    /**
+     * K0s API configuration.
+     */
+    api?: pulumi.Input<inputs.K0sAPIArgs | undefined>;
+    /**
+     * K0s controller manager configuration.
+     */
+    controllerManager?: pulumi.Input<inputs.K0sControllerManagerArgs | undefined>;
+    /**
+     * K0s feature gates configuration.
+     */
+    featureGates?: pulumi.Input<pulumi.Input<inputs.K0sFeatureGateArgs>[] | undefined>;
+    /**
+     * K0s images configuration.
+     */
+    images?: pulumi.Input<inputs.K0sImagesArgs | undefined>;
+    /**
+     * K0s install configuration.
+     */
+    installConfig?: pulumi.Input<inputs.K0sInstallConfigArgs | undefined>;
+    /**
+     * K0s konnectivity configuration.
+     */
+    konnectivity?: pulumi.Input<inputs.K0sKonnectivityArgs | undefined>;
+    /**
+     * K0s network configuration.
+     */
+    network?: pulumi.Input<inputs.K0sNetworkArgs | undefined>;
+    /**
+     * K0s pod security policy configuration.
+     */
+    podSecurityPolicy?: pulumi.Input<inputs.K0sPodSecurityPolicyArgs | undefined>;
+    /**
+     * K0s scheduler configuration.
+     */
+    scheduler?: pulumi.Input<inputs.K0sSchedulerArgs | undefined>;
+    /**
+     * K0s storage configuration.
+     */
+    storage?: pulumi.Input<inputs.K0sStorageArgs | undefined>;
+    /**
+     * K0s telemetry configuration.
+     */
+    telemetry?: pulumi.Input<inputs.K0sTelemetryArgs | undefined>;
+    /**
+     * K0s worker profiles configuration.
+     */
+    workerProfiles?: pulumi.Input<pulumi.Input<inputs.K0sWorkerProfileArgs>[] | undefined>;
+}
+/**
+ * k0sSpecArgsProvideDefaults sets the appropriate defaults for K0sSpecArgs
+ */
+export function k0sSpecArgsProvideDefaults(val: K0sSpecArgs): K0sSpecArgs {
+    return {
+        ...val,
+        api: pulumi.output(val.api).apply(v => v === undefined ? undefined : inputs.k0sAPIArgsProvideDefaults(v)),
+        installConfig: pulumi.output(val.installConfig).apply(v => v === undefined ? undefined : inputs.k0sInstallConfigArgsProvideDefaults(v)),
+        konnectivity: pulumi.output(val.konnectivity).apply(v => v === undefined ? undefined : inputs.k0sKonnectivityArgsProvideDefaults(v)),
+        network: pulumi.output(val.network).apply(v => v === undefined ? undefined : inputs.k0sNetworkArgsProvideDefaults(v)),
+        podSecurityPolicy: pulumi.output(val.podSecurityPolicy).apply(v => v === undefined ? undefined : inputs.k0sPodSecurityPolicyArgsProvideDefaults(v)),
+        storage: pulumi.output(val.storage).apply(v => v === undefined ? undefined : inputs.k0sStorageArgsProvideDefaults(v)),
+        telemetry: pulumi.output(val.telemetry).apply(v => v === undefined ? undefined : inputs.k0sTelemetryArgsProvideDefaults(v)),
+    };
 }
 
 export interface K0sStorageArgs {
-    etcd?: pulumi.Input<inputs.K0sEtcdArgs>;
-    kine?: pulumi.Input<inputs.K0sKineArgs>;
-    type?: pulumi.Input<string>;
+    etcd?: pulumi.Input<inputs.K0sEtcdArgs | undefined>;
+    kine?: pulumi.Input<inputs.K0sKineArgs | undefined>;
+    /**
+     * The storage type to use. One of 'etcd' or 'kine'.
+     */
+    type?: pulumi.Input<string | undefined>;
+}
+/**
+ * k0sStorageArgsProvideDefaults sets the appropriate defaults for K0sStorageArgs
+ */
+export function k0sStorageArgsProvideDefaults(val: K0sStorageArgs): K0sStorageArgs {
+    return {
+        ...val,
+        type: (val.type) ?? "etcd",
+    };
 }
 
 export interface K0sTelemetryArgs {
-    enabled?: pulumi.Input<boolean>;
+    /**
+     * Enable or disable telemetry.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+}
+/**
+ * k0sTelemetryArgsProvideDefaults sets the appropriate defaults for K0sTelemetryArgs
+ */
+export function k0sTelemetryArgsProvideDefaults(val: K0sTelemetryArgs): K0sTelemetryArgs {
+    return {
+        ...val,
+        enabled: (val.enabled) ?? true,
+    };
 }
 
 export interface K0sWorkerProfileArgs {
     name: pulumi.Input<string>;
-    values: pulumi.Input<{[key: string]: any}>;
+    values: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
 }

@@ -11,4 +11,10 @@ yarn.lock
 ci-scripts
 /nuget/
 provider/**/schema-embed.json
-go.work.sum
+/Library/
+
+sdk/dotnet/version.txt
+sdk/java/.gradle
+sdk/java/build/
+sdk/java/build.gradle
+sdk/python/venv

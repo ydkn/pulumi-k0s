@@ -1,26 +1,17 @@
-name: provider-k0s
+name: pulumi-k0s
 runtime: yaml
-plugins:
-  providers:
-    - name: k0s
-      path: ../../bin
 
 resources:
-  myProvider:
-    type: pulumi:providers:k0s
-    properties:
-      noDrain: true
-  myCluster:
-    type: k0s:Cluster
+  myClusterResource:
+    type: pulumi-k0s:Cluster
     properties:
       spec:
         hosts:
-          - role: controller+worker
+          - role: "controller+worker"
+            hostname: "my-node"
             localhost:
               enabled: true
-    options:
-      provider: ${myProvider}
 
 outputs:
   output:
-    value: ${myCluster.kubeconfig}
+    value: ${myClusterResource.kubeconfig}

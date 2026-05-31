@@ -6,6 +6,9 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * The k0s cluster resource.
+ */
 export class Cluster extends pulumi.CustomResource {
     /**
      * Get an existing Cluster resource's state with the given name, ID, and optional extra
@@ -33,11 +36,26 @@ export class Cluster extends pulumi.CustomResource {
         return obj['__pulumiType'] === Cluster.__pulumiType;
     }
 
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
-    public readonly kind!: pulumi.Output<string | undefined>;
-    public /*out*/ readonly kubeconfig!: pulumi.Output<string>;
-    public readonly metadata!: pulumi.Output<outputs.ClusterMetadata | undefined>;
-    public readonly spec!: pulumi.Output<outputs.ClusterSpec | undefined>;
+    /**
+     * The API version of the cluster resource.
+     */
+    declare public readonly apiVersion: pulumi.Output<string | undefined>;
+    /**
+     * The kind of the cluster resource.
+     */
+    declare public readonly kind: pulumi.Output<string | undefined>;
+    /**
+     * The kubeconfig file content to access the created k0s cluster.
+     */
+    declare public /*out*/ readonly kubeconfig: pulumi.Output<string>;
+    /**
+     * Metadata of the cluster resource.
+     */
+    declare public readonly metadata: pulumi.Output<outputs.ClusterMetadata | undefined>;
+    /**
+     * Specification of the cluster resource.
+     */
+    declare public readonly spec: pulumi.Output<outputs.ClusterSpec | undefined>;
 
     /**
      * Create a Cluster resource with the given unique name, arguments, and options.
@@ -50,10 +68,10 @@ export class Cluster extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            resourceInputs["apiVersion"] = args ? args.apiVersion : undefined;
-            resourceInputs["kind"] = args ? args.kind : undefined;
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["apiVersion"] = (args?.apiVersion) ?? "k0sctl.k0sproject.io/v1beta1";
+            resourceInputs["kind"] = (args?.kind) ?? "Cluster";
+            resourceInputs["metadata"] = args ? pulumi.output(args.metadata).apply(v => v === undefined ? undefined : inputs.clusterMetadataArgsProvideDefaults(v)) : undefined;
+            resourceInputs["spec"] = args ? pulumi.output(args.spec).apply(v => v === undefined ? undefined : inputs.clusterSpecArgsProvideDefaults(v)) : undefined;
             resourceInputs["kubeconfig"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
@@ -73,8 +91,20 @@ export class Cluster extends pulumi.CustomResource {
  * The set of arguments for constructing a Cluster resource.
  */
 export interface ClusterArgs {
-    apiVersion?: pulumi.Input<string>;
-    kind?: pulumi.Input<string>;
-    metadata?: pulumi.Input<inputs.ClusterMetadataArgs>;
-    spec?: pulumi.Input<inputs.ClusterSpecArgs>;
+    /**
+     * The API version of the cluster resource.
+     */
+    apiVersion?: pulumi.Input<string | undefined>;
+    /**
+     * The kind of the cluster resource.
+     */
+    kind?: pulumi.Input<string | undefined>;
+    /**
+     * Metadata of the cluster resource.
+     */
+    metadata?: pulumi.Input<inputs.ClusterMetadataArgs | undefined>;
+    /**
+     * Specification of the cluster resource.
+     */
+    spec?: pulumi.Input<inputs.ClusterSpecArgs | undefined>;
 }
