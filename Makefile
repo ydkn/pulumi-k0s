@@ -47,6 +47,11 @@ sdk/%: $(SCHEMA_FILE)
 	rm -rf $@
 	$(PULUMI) package gen-sdk --language $* $(SCHEMA_FILE) --version "${VERSION_GENERIC}"
 
+sdk/nodejs: $(SCHEMA_FILE)
+	rm -rf $@
+	$(PULUMI) package gen-sdk --language nodejs $(SCHEMA_FILE) --version "${VERSION_GENERIC}"
+	jq '.name = "${NODE_MODULE_NAME}"' $@/package.json > $@/package.json.tmp && mv $@/package.json.tmp $@/package.json
+
 sdk/java: $(SCHEMA_FILE)
 	rm -rf $@
 	$(PULUMI) package gen-sdk --language java $(SCHEMA_FILE)
