@@ -22,7 +22,8 @@ import (
 	k0sapi "github.com/k0sproject/k0s/pkg/apis/k0s/v1beta1"
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1"
 	"github.com/k0sproject/k0sctl/pkg/apis/k0sctl.k0sproject.io/v1beta1/cluster"
-	"github.com/k0sproject/rig"
+	"github.com/k0sproject/rig/v2/protocol/openssh"
+	"github.com/k0sproject/rig/v2/protocol/ssh"
 	"github.com/k0sproject/version"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"gopkg.in/yaml.v2"
@@ -987,7 +988,7 @@ func (args *ClusterArgs) k0sctlConvertHostsPaths(prefix string, hosts cluster.Ho
 	return nil
 }
 
-func (args *ClusterArgs) k0sctlConvertSSHPaths(prefix string, ssh *ClusterSSH, rigSSH *rig.SSH) error {
+func (args *ClusterArgs) k0sctlConvertSSHPaths(prefix string, ssh *ClusterSSH, rigSSH *ssh.Config) error {
 	if ssh != nil && ssh.Key != nil {
 		filename, err := contentToTempFile(prefix, *ssh.Key, true)
 		if err != nil {
@@ -1000,7 +1001,7 @@ func (args *ClusterArgs) k0sctlConvertSSHPaths(prefix string, ssh *ClusterSSH, r
 	return args.k0sctlConvertBastionPaths(prefix, ssh.Bastion, rigSSH.Bastion)
 }
 
-func (args *ClusterArgs) k0sctlConvertBastionPaths(prefix string, ssh *ClusterBastion, rigSSH *rig.SSH) error {
+func (args *ClusterArgs) k0sctlConvertBastionPaths(prefix string, ssh *ClusterBastion, rigSSH *ssh.Config) error {
 	if ssh != nil && ssh.Key != nil {
 		filename, err := contentToTempFile(prefix, *ssh.Key, true)
 		if err != nil {
@@ -1013,7 +1014,7 @@ func (args *ClusterArgs) k0sctlConvertBastionPaths(prefix string, ssh *ClusterBa
 	return nil
 }
 
-func (args *ClusterArgs) k0sctlConvertOpenSSHPaths(prefix string, ssh *ClusterOpenSSH, rigSSH *rig.OpenSSH) error {
+func (args *ClusterArgs) k0sctlConvertOpenSSHPaths(prefix string, ssh *ClusterOpenSSH, rigSSH *openssh.Config) error {
 	if ssh != nil && ssh.Key != nil {
 		filename, err := contentToTempFile(prefix, *ssh.Key, true)
 		if err != nil {
