@@ -1,4 +1,0 @@
-[tools]
-go = "1.26"
-golangci-lint = "2.13.1"
-"ubi:pulumi/pulumictl" = "v0.0.50"
