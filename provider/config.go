@@ -64,7 +64,7 @@ func (c *Config) Annotate(a infer.Annotator) {
 	a.SetDefault(&c.ConcurrentUploads, &concurrentUploadsValue, "PULUMI_K0S_CONCURRENT_UPLOADS")
 }
 
-func (c Config) Diff(ctx context.Context, req infer.DiffRequest[Config, Config]) (p.DiffResponse, error) {
+func (c Config) Diff(_ context.Context, req infer.DiffRequest[Config, Config]) (p.DiffResponse, error) {
 	diffResponse := p.DiffResponse{
 		DeleteBeforeReplace: false,
 		HasChanges:          false,
@@ -95,7 +95,7 @@ func (c Config) Diff(ctx context.Context, req infer.DiffRequest[Config, Config])
 	return diffResponse, nil
 }
 
-func (c Config) Check(ctx context.Context, req infer.CheckRequest) (infer.CheckResponse[Config], error) {
+func (c Config) Check(_ context.Context, req infer.CheckRequest) (infer.CheckResponse[Config], error) {
 	// Remove "version" from inputs to avoid decode errors
 	req.NewInputs = req.NewInputs.Delete("version")
 

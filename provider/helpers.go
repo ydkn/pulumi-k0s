@@ -54,13 +54,13 @@ func contentToTempFile(prefix, content string, ensureNewline bool) (string, erro
 }
 
 func cleanupTempFiles(prefix string) error {
-	return filepath.WalkDir(os.TempDir(), func(path string, d fs.DirEntry, err error) error {
+	return filepath.WalkDir(os.TempDir(), func(path string, d fs.DirEntry, _ error) error {
 		if d.IsDir() {
 			return nil
 		}
 
 		if strings.HasPrefix(d.Name(), fmt.Sprintf("pulumi-%s-%s-", Name, prefix)) {
-			if err := os.Remove(path); err != nil {
+			if err := os.Remove(path); err != nil { //nolint:gosec
 				return err
 			}
 		}

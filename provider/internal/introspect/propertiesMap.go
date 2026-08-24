@@ -65,7 +65,7 @@ func getPlainPropertiesMapWithPrefix(obj any, prefix string) (resource.PropertyM
 		}
 
 		value := reflect.Indirect(val).FieldByName(f.Name)
-		if value.Kind() == reflect.Ptr {
+		if value.Kind() == reflect.Pointer {
 			value = value.Elem()
 		}
 
@@ -93,9 +93,7 @@ func getPropertyMapForValue(value reflect.Value, prefix string) (resource.Proper
 			return nil, err
 		}
 
-		for k, v := range props {
-			properties[k] = v
-		}
+		maps.Copy(properties, props)
 	case reflect.Slice:
 		slice := reflect.ValueOf(value.Interface())
 
@@ -103,7 +101,7 @@ func getPropertyMapForValue(value reflect.Value, prefix string) (resource.Proper
 			slicePrefix := fmt.Sprintf("%s[%d]", prefix, i)
 
 			sliceElement := slice.Index(i)
-			if sliceElement.Kind() == reflect.Ptr {
+			if sliceElement.Kind() == reflect.Pointer {
 				sliceElement = sliceElement.Elem()
 			}
 

@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//nolint:lll
 package provider
 
 import (
 	"fmt"
-	"math/rand"
+	"math/rand/v2"
 
 	"github.com/k0sproject/dig"
 	k0sapi "github.com/k0sproject/k0s/pkg/apis/k0s/v1beta1"
@@ -304,7 +305,7 @@ func (f *K0sSpec) Annotate(a infer.Annotator) {
 type K0sAPI struct {
 	Address         *string           `pulumi:"address,optional" json:"address,omitempty"`
 	Port            *int              `pulumi:"port,optional" json:"port,omitempty"`
-	K0sApiPort      *int              `pulumi:"k0sApiPort,optional" json:"k0sApiPort,omitempty"`
+	K0sAPIPort      *int              `pulumi:"k0sApiPort,optional" json:"k0sApiPort,omitempty"`
 	ExternalAddress *string           `pulumi:"externalAddress,optional" json:"externalAddress,omitempty"`
 	SANs            []string          `pulumi:"sans,optional" json:"sans,omitempty"`
 	ExtraArgs       map[string]string `pulumi:"extraArgs,optional" json:"extraArgs,omitempty"`
@@ -315,9 +316,9 @@ func (f *K0sAPI) Annotate(a infer.Annotator) {
 	a.Describe(&f.Port, "The port the Kubernetes API will listen on.")
 	a.SetDefault(&f.Port, &port)
 
-	k0sApiPort := defaultAPIK0sAPIPort
-	a.Describe(&f.K0sApiPort, "The port the k0s API will listen on.")
-	a.SetDefault(&f.K0sApiPort, &k0sApiPort)
+	k0sAPIPort := defaultAPIK0sAPIPort
+	a.Describe(&f.K0sAPIPort, "The port the k0s API will listen on.")
+	a.SetDefault(&f.K0sAPIPort, &k0sAPIPort)
 }
 
 type K0sImages struct {
@@ -599,236 +600,236 @@ type K0sFeatureGate struct {
 	Components []string `pulumi:"components,optional" json:"components,omitempty"`
 }
 
-func (args *ClusterArgs) FillDefaults(name *string) error {
-	if args.APIVersion == nil {
+func (f *ClusterArgs) FillDefaults(name *string) error {
+	if f.APIVersion == nil {
 		apiVersion := defaultAPIVersion
-		args.APIVersion = &apiVersion
+		f.APIVersion = &apiVersion
 	}
 
-	if args.Kind == nil {
+	if f.Kind == nil {
 		kind := defaultKind
-		args.Kind = &kind
+		f.Kind = &kind
 	}
 
-	if args.Metadata == nil {
-		args.Metadata = &ClusterMetadata{}
+	if f.Metadata == nil {
+		f.Metadata = &ClusterMetadata{}
 	}
 
-	if args.Metadata.Name == nil {
-		args.Metadata.Name = name
+	if f.Metadata.Name == nil {
+		f.Metadata.Name = name
 	}
 
-	if args.Metadata.Name == nil {
+	if f.Metadata.Name == nil {
 		clusterName := defaultClusterName
-		args.Metadata.Name = &clusterName
+		f.Metadata.Name = &clusterName
 	}
 
-	if args.Spec == nil {
-		args.Spec = &ClusterSpec{}
+	if f.Spec == nil {
+		f.Spec = &ClusterSpec{}
 	}
 
-	if args.Spec.Hosts == nil {
-		args.Spec.Hosts = []*ClusterHost{}
+	if f.Spec.Hosts == nil {
+		f.Spec.Hosts = []*ClusterHost{}
 	}
 
-	if args.Spec.K0s == nil {
-		args.Spec.K0s = &ClusterK0s{}
+	if f.Spec.K0s == nil {
+		f.Spec.K0s = &ClusterK0s{}
 	}
 
-	if args.Spec.K0s.Version == nil {
+	if f.Spec.K0s.Version == nil {
 		k0sVersion, err := version.LatestStable()
 		if err != nil {
 			return err
 		}
 
 		k0sVersionStr := k0sVersion.String()
-		args.Spec.K0s.Version = &k0sVersionStr
+		f.Spec.K0s.Version = &k0sVersionStr
 	}
 
-	if args.Spec.K0s.VersionChannel == nil {
+	if f.Spec.K0s.VersionChannel == nil {
 		versionChannel := defaultVersionChannel
-		args.Spec.K0s.VersionChannel = &versionChannel
+		f.Spec.K0s.VersionChannel = &versionChannel
 	}
 
-	if args.Spec.K0s.DynamicConfig == nil {
+	if f.Spec.K0s.DynamicConfig == nil {
 		dynamicConfig := defaultDynamicConfig
-		args.Spec.K0s.DynamicConfig = &dynamicConfig
+		f.Spec.K0s.DynamicConfig = &dynamicConfig
 	}
 
-	if args.Spec.K0s.Config == nil {
-		args.Spec.K0s.Config = &K0s{}
+	if f.Spec.K0s.Config == nil {
+		f.Spec.K0s.Config = &K0s{}
 	}
 
-	if args.Spec.K0s.Config.APIVersion == nil {
+	if f.Spec.K0s.Config.APIVersion == nil {
 		apiVersion := defaultK0sAPIVersion
-		args.Spec.K0s.Config.APIVersion = &apiVersion
+		f.Spec.K0s.Config.APIVersion = &apiVersion
 	}
 
-	if args.Spec.K0s.Config.Kind == nil {
+	if f.Spec.K0s.Config.Kind == nil {
 		kind := defaultK0sKind
-		args.Spec.K0s.Config.Kind = &kind
+		f.Spec.K0s.Config.Kind = &kind
 	}
 
-	if args.Spec.K0s.Config.Metadata == nil {
-		args.Spec.K0s.Config.Metadata = &K0sMetadata{}
+	if f.Spec.K0s.Config.Metadata == nil {
+		f.Spec.K0s.Config.Metadata = &K0sMetadata{}
 	}
 
-	if args.Spec.K0s.Config.Metadata.Name == nil {
-		args.Spec.K0s.Config.Metadata.Name = name
+	if f.Spec.K0s.Config.Metadata.Name == nil {
+		f.Spec.K0s.Config.Metadata.Name = name
 	}
 
-	if args.Spec.K0s.Config.Metadata.Name == nil {
+	if f.Spec.K0s.Config.Metadata.Name == nil {
 		k0sName := defaultK0sName
-		args.Spec.K0s.Config.Metadata.Name = &k0sName
+		f.Spec.K0s.Config.Metadata.Name = &k0sName
 	}
 
-	if args.Spec.K0s.Config.Spec == nil {
-		args.Spec.K0s.Config.Spec = &K0sSpec{}
+	if f.Spec.K0s.Config.Spec == nil {
+		f.Spec.K0s.Config.Spec = &K0sSpec{}
 	}
 
-	if args.Spec.K0s.Config.Spec.API == nil {
-		args.Spec.K0s.Config.Spec.API = &K0sAPI{}
+	if f.Spec.K0s.Config.Spec.API == nil {
+		f.Spec.K0s.Config.Spec.API = &K0sAPI{}
 	}
 
-	if args.Spec.K0s.Config.Spec.API.Port == nil {
+	if f.Spec.K0s.Config.Spec.API.Port == nil {
 		port := defaultAPIPort
-		args.Spec.K0s.Config.Spec.API.Port = &port
+		f.Spec.K0s.Config.Spec.API.Port = &port
 	}
 
-	if args.Spec.K0s.Config.Spec.API.K0sApiPort == nil {
-		k0sApiPort := defaultAPIK0sAPIPort
-		args.Spec.K0s.Config.Spec.API.K0sApiPort = &k0sApiPort
+	if f.Spec.K0s.Config.Spec.API.K0sAPIPort == nil {
+		k0sAPIPort := defaultAPIK0sAPIPort
+		f.Spec.K0s.Config.Spec.API.K0sAPIPort = &k0sAPIPort
 	}
 
-	if args.Spec.K0s.Config.Spec.InstallConfig == nil {
-		args.Spec.K0s.Config.Spec.InstallConfig = &K0sInstallConfig{}
+	if f.Spec.K0s.Config.Spec.InstallConfig == nil {
+		f.Spec.K0s.Config.Spec.InstallConfig = &K0sInstallConfig{}
 	}
 
-	if args.Spec.K0s.Config.Spec.InstallConfig.Users == nil {
-		args.Spec.K0s.Config.Spec.InstallConfig.Users = &K0sInstallConfigUser{}
+	if f.Spec.K0s.Config.Spec.InstallConfig.Users == nil {
+		f.Spec.K0s.Config.Spec.InstallConfig.Users = &K0sInstallConfigUser{}
 	}
 
-	if args.Spec.K0s.Config.Spec.InstallConfig.Users.EtcdUser == nil {
+	if f.Spec.K0s.Config.Spec.InstallConfig.Users.EtcdUser == nil {
 		etcdUser := defaultEtcdUser
-		args.Spec.K0s.Config.Spec.InstallConfig.Users.EtcdUser = &etcdUser
+		f.Spec.K0s.Config.Spec.InstallConfig.Users.EtcdUser = &etcdUser
 	}
 
-	if args.Spec.K0s.Config.Spec.InstallConfig.Users.KineUser == nil {
+	if f.Spec.K0s.Config.Spec.InstallConfig.Users.KineUser == nil {
 		kineUser := defaultKineUser
-		args.Spec.K0s.Config.Spec.InstallConfig.Users.KineUser = &kineUser
+		f.Spec.K0s.Config.Spec.InstallConfig.Users.KineUser = &kineUser
 	}
 
-	if args.Spec.K0s.Config.Spec.InstallConfig.Users.KonnectivityUser == nil {
+	if f.Spec.K0s.Config.Spec.InstallConfig.Users.KonnectivityUser == nil {
 		konnectivityUser := defaultKonnectivityUser
-		args.Spec.K0s.Config.Spec.InstallConfig.Users.KonnectivityUser = &konnectivityUser
+		f.Spec.K0s.Config.Spec.InstallConfig.Users.KonnectivityUser = &konnectivityUser
 	}
 
-	if args.Spec.K0s.Config.Spec.InstallConfig.Users.KubeAPIServerUser == nil {
+	if f.Spec.K0s.Config.Spec.InstallConfig.Users.KubeAPIServerUser == nil {
 		kubeAPIserverUser := defaultKubeAPIserverUser
-		args.Spec.K0s.Config.Spec.InstallConfig.Users.KubeAPIServerUser = &kubeAPIserverUser
+		f.Spec.K0s.Config.Spec.InstallConfig.Users.KubeAPIServerUser = &kubeAPIserverUser
 	}
 
-	if args.Spec.K0s.Config.Spec.InstallConfig.Users.KubeSchedulerUser == nil {
+	if f.Spec.K0s.Config.Spec.InstallConfig.Users.KubeSchedulerUser == nil {
 		kubeSchedulerUser := defaultKubeSchedulerUser
-		args.Spec.K0s.Config.Spec.InstallConfig.Users.KubeSchedulerUser = &kubeSchedulerUser
+		f.Spec.K0s.Config.Spec.InstallConfig.Users.KubeSchedulerUser = &kubeSchedulerUser
 	}
 
-	if args.Spec.K0s.Config.Spec.Konnectivity == nil {
-		args.Spec.K0s.Config.Spec.Konnectivity = &K0sKonnectivity{}
+	if f.Spec.K0s.Config.Spec.Konnectivity == nil {
+		f.Spec.K0s.Config.Spec.Konnectivity = &K0sKonnectivity{}
 	}
 
-	if args.Spec.K0s.Config.Spec.Konnectivity.AgentPort == nil {
+	if f.Spec.K0s.Config.Spec.Konnectivity.AgentPort == nil {
 		agentPort := defaultKonnectivityAgentPort
-		args.Spec.K0s.Config.Spec.Konnectivity.AgentPort = &agentPort
+		f.Spec.K0s.Config.Spec.Konnectivity.AgentPort = &agentPort
 	}
 
-	if args.Spec.K0s.Config.Spec.Konnectivity.AdminPort == nil {
+	if f.Spec.K0s.Config.Spec.Konnectivity.AdminPort == nil {
 		adminPort := defaultKonnectivityAdminPort
-		args.Spec.K0s.Config.Spec.Konnectivity.AdminPort = &adminPort
+		f.Spec.K0s.Config.Spec.Konnectivity.AdminPort = &adminPort
 	}
 
-	if args.Spec.K0s.Config.Spec.Network == nil {
-		args.Spec.K0s.Config.Spec.Network = &K0sNetwork{}
+	if f.Spec.K0s.Config.Spec.Network == nil {
+		f.Spec.K0s.Config.Spec.Network = &K0sNetwork{}
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.PodCIDR == nil {
+	if f.Spec.K0s.Config.Spec.Network.PodCIDR == nil {
 		podCIDR := defaultNetworkPodCIDR
-		args.Spec.K0s.Config.Spec.Network.PodCIDR = &podCIDR
+		f.Spec.K0s.Config.Spec.Network.PodCIDR = &podCIDR
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.ServiceCIDR == nil {
+	if f.Spec.K0s.Config.Spec.Network.ServiceCIDR == nil {
 		serviceCIDR := defaultNetworkServiceCIDR
-		args.Spec.K0s.Config.Spec.Network.ServiceCIDR = &serviceCIDR
+		f.Spec.K0s.Config.Spec.Network.ServiceCIDR = &serviceCIDR
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.Provider == nil {
+	if f.Spec.K0s.Config.Spec.Network.Provider == nil {
 		provider := defaultNetworkProvider
-		args.Spec.K0s.Config.Spec.Network.Provider = &provider
+		f.Spec.K0s.Config.Spec.Network.Provider = &provider
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.KubeRouter == nil {
-		args.Spec.K0s.Config.Spec.Network.KubeRouter = &K0sKubeRouter{}
+	if f.Spec.K0s.Config.Spec.Network.KubeRouter == nil {
+		f.Spec.K0s.Config.Spec.Network.KubeRouter = &K0sKubeRouter{}
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.KubeRouter.MTU == nil {
+	if f.Spec.K0s.Config.Spec.Network.KubeRouter.MTU == nil {
 		mtu := defaultKubeRouterMTU
-		args.Spec.K0s.Config.Spec.Network.KubeRouter.MTU = &mtu
+		f.Spec.K0s.Config.Spec.Network.KubeRouter.MTU = &mtu
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.KubeRouter.AutoMTU == nil {
+	if f.Spec.K0s.Config.Spec.Network.KubeRouter.AutoMTU == nil {
 		autoMTU := defaultKubeRouterAutoMTU
-		args.Spec.K0s.Config.Spec.Network.KubeRouter.AutoMTU = &autoMTU
+		f.Spec.K0s.Config.Spec.Network.KubeRouter.AutoMTU = &autoMTU
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.KubeProxy == nil {
-		args.Spec.K0s.Config.Spec.Network.KubeProxy = &K0sKubeProxy{}
+	if f.Spec.K0s.Config.Spec.Network.KubeProxy == nil {
+		f.Spec.K0s.Config.Spec.Network.KubeProxy = &K0sKubeProxy{}
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.KubeProxy.Disabled == nil {
+	if f.Spec.K0s.Config.Spec.Network.KubeProxy.Disabled == nil {
 		disabled := defaultKubeProxyDisabled
-		args.Spec.K0s.Config.Spec.Network.KubeProxy.Disabled = &disabled
+		f.Spec.K0s.Config.Spec.Network.KubeProxy.Disabled = &disabled
 	}
 
-	if args.Spec.K0s.Config.Spec.Network.KubeProxy.Mode == nil {
+	if f.Spec.K0s.Config.Spec.Network.KubeProxy.Mode == nil {
 		mode := defaultKubeProxyMode
-		args.Spec.K0s.Config.Spec.Network.KubeProxy.Mode = &mode
+		f.Spec.K0s.Config.Spec.Network.KubeProxy.Mode = &mode
 	}
 
-	if args.Spec.K0s.Config.Spec.PodSecurityPolicy == nil {
-		args.Spec.K0s.Config.Spec.PodSecurityPolicy = &K0sPodSecurityPolicy{}
+	if f.Spec.K0s.Config.Spec.PodSecurityPolicy == nil {
+		f.Spec.K0s.Config.Spec.PodSecurityPolicy = &K0sPodSecurityPolicy{}
 	}
 
-	if args.Spec.K0s.Config.Spec.PodSecurityPolicy.DefaultPolicy == nil {
+	if f.Spec.K0s.Config.Spec.PodSecurityPolicy.DefaultPolicy == nil {
 		defaultPolicy := defaultPodSecurityPolicy
-		args.Spec.K0s.Config.Spec.PodSecurityPolicy.DefaultPolicy = &defaultPolicy
+		f.Spec.K0s.Config.Spec.PodSecurityPolicy.DefaultPolicy = &defaultPolicy
 	}
 
-	if args.Spec.K0s.Config.Spec.Storage == nil {
-		args.Spec.K0s.Config.Spec.Storage = &K0sStorage{}
+	if f.Spec.K0s.Config.Spec.Storage == nil {
+		f.Spec.K0s.Config.Spec.Storage = &K0sStorage{}
 	}
 
-	if args.Spec.K0s.Config.Spec.Storage.Type == nil {
+	if f.Spec.K0s.Config.Spec.Storage.Type == nil {
 		storageType := defaultStorageType
-		args.Spec.K0s.Config.Spec.Storage.Type = &storageType
+		f.Spec.K0s.Config.Spec.Storage.Type = &storageType
 	}
 
-	if args.Spec.K0s.Config.Spec.Telemetry == nil {
-		args.Spec.K0s.Config.Spec.Telemetry = &K0sTelemetry{}
+	if f.Spec.K0s.Config.Spec.Telemetry == nil {
+		f.Spec.K0s.Config.Spec.Telemetry = &K0sTelemetry{}
 	}
 
-	if args.Spec.K0s.Config.Spec.Telemetry.Enabled == nil {
+	if f.Spec.K0s.Config.Spec.Telemetry.Enabled == nil {
 		enabled := defaultTelemetryEnabled
-		args.Spec.K0s.Config.Spec.Telemetry.Enabled = &enabled
+		f.Spec.K0s.Config.Spec.Telemetry.Enabled = &enabled
 	}
 
 	return nil
 }
 
-func (args *ClusterArgs) APIAddress() string {
+func (f *ClusterArgs) APIAddress() string {
 	address := "localhost"
 	port := 6443
 
-	clt, cleanup, err := args.k0sctl()
+	clt, cleanup, err := f.k0sctl()
 
 	defer cleanup()
 
@@ -871,14 +872,14 @@ func (args *ClusterArgs) APIAddress() string {
 	return fmt.Sprintf("https://%s:%d", address, port)
 }
 
-func (args *ClusterArgs) k0sctl() (*v1beta1.Cluster, func(), error) {
-	prefix := fmt.Sprintf("%s-%d", *args.Metadata.Name, rand.Intn(int(^uint(0)>>1)))
+func (f *ClusterArgs) k0sctl() (*v1beta1.Cluster, func(), error) {
+	prefix := fmt.Sprintf("%s-%d", *f.Metadata.Name, rand.Uint64()) //nolint:gosec
 
 	cleanup := func() {
 		_ = cleanupTempFiles(prefix)
 	}
 
-	bytes, err := yamlJSON.Marshal(args)
+	bytes, err := yamlJSON.Marshal(f)
 	if err != nil {
 		return nil, cleanup, err
 	}
@@ -911,7 +912,7 @@ func (args *ClusterArgs) k0sctl() (*v1beta1.Cluster, func(), error) {
 	}
 
 	if m, ok := clt.Spec.K0s.Config.Dig("metadata").(dig.Mapping); ok {
-		m["name"] = args.Metadata.Name
+		m["name"] = f.Metadata.Name
 	}
 
 	if clt.Spec.K0s.Config["spec"] == nil {
@@ -919,14 +920,14 @@ func (args *ClusterArgs) k0sctl() (*v1beta1.Cluster, func(), error) {
 	}
 
 	// replace inline values with file paths
-	if err := args.k0sctlConvertHostsPaths(prefix, clt.Spec.Hosts); err != nil {
+	if err := f.k0sctlConvertHostsPaths(prefix, clt.Spec.Hosts); err != nil {
 		return nil, cleanup, err
 	}
 
 	ec := clt.Spec.K0s.Config.Dig("spec", "storage", "etcd", "externalCluster")
 	if ec != nil {
 		if ec, ok := ec.(*k0sapi.ExternalCluster); ok {
-			if err := args.k0sctlConvertExternalEtcdPaths(prefix, ec); err != nil {
+			if err := f.k0sctlConvertExternalEtcdPaths(prefix, ec); err != nil {
 				return nil, cleanup, err
 			}
 		}
@@ -935,18 +936,18 @@ func (args *ClusterArgs) k0sctl() (*v1beta1.Cluster, func(), error) {
 	return &clt, cleanup, nil
 }
 
-func (args *ClusterArgs) k0sctlConvertHostsPaths(prefix string, hosts cluster.Hosts) error {
+func (f *ClusterArgs) k0sctlConvertHostsPaths(prefix string, hosts cluster.Hosts) error {
 	for i, host := range hosts {
-		clusterHost := args.Spec.Hosts[i]
+		clusterHost := f.Spec.Hosts[i]
 
 		if host.SSH != nil {
-			if err := args.k0sctlConvertSSHPaths(prefix, clusterHost.SSH, host.SSH); err != nil {
+			if err := f.k0sctlConvertSSHPaths(prefix, clusterHost.SSH, host.SSH); err != nil {
 				return err
 			}
 		}
 
 		if host.OpenSSH != nil {
-			if err := args.k0sctlConvertOpenSSHPaths(prefix, clusterHost.OpenSSH, host.OpenSSH); err != nil {
+			if err := f.k0sctlConvertOpenSSHPaths(prefix, clusterHost.OpenSSH, host.OpenSSH); err != nil {
 				return err
 			}
 		}
@@ -979,7 +980,7 @@ func (args *ClusterArgs) k0sctlConvertHostsPaths(prefix string, hosts cluster.Ho
 				host.WinRM.KeyPath = filename
 			}
 
-			if err := args.k0sctlConvertBastionPaths(prefix, clusterHost.WinRM.Bastion, host.WinRM.Bastion); err != nil {
+			if err := f.k0sctlConvertBastionPaths(prefix, clusterHost.WinRM.Bastion, host.WinRM.Bastion); err != nil {
 				return err
 			}
 		}
@@ -988,7 +989,7 @@ func (args *ClusterArgs) k0sctlConvertHostsPaths(prefix string, hosts cluster.Ho
 	return nil
 }
 
-func (args *ClusterArgs) k0sctlConvertSSHPaths(prefix string, ssh *ClusterSSH, rigSSH *ssh.Config) error {
+func (f *ClusterArgs) k0sctlConvertSSHPaths(prefix string, ssh *ClusterSSH, rigSSH *ssh.Config) error {
 	if ssh != nil && ssh.Key != nil {
 		filename, err := contentToTempFile(prefix, *ssh.Key, true)
 		if err != nil {
@@ -998,23 +999,10 @@ func (args *ClusterArgs) k0sctlConvertSSHPaths(prefix string, ssh *ClusterSSH, r
 		rigSSH.KeyPath = &filename
 	}
 
-	return args.k0sctlConvertBastionPaths(prefix, ssh.Bastion, rigSSH.Bastion)
+	return f.k0sctlConvertBastionPaths(prefix, ssh.Bastion, rigSSH.Bastion)
 }
 
-func (args *ClusterArgs) k0sctlConvertBastionPaths(prefix string, ssh *ClusterBastion, rigSSH *ssh.Config) error {
-	if ssh != nil && ssh.Key != nil {
-		filename, err := contentToTempFile(prefix, *ssh.Key, true)
-		if err != nil {
-			return err
-		}
-
-		rigSSH.KeyPath = &filename
-	}
-
-	return nil
-}
-
-func (args *ClusterArgs) k0sctlConvertOpenSSHPaths(prefix string, ssh *ClusterOpenSSH, rigSSH *openssh.Config) error {
+func (f *ClusterArgs) k0sctlConvertBastionPaths(prefix string, ssh *ClusterBastion, rigSSH *ssh.Config) error {
 	if ssh != nil && ssh.Key != nil {
 		filename, err := contentToTempFile(prefix, *ssh.Key, true)
 		if err != nil {
@@ -1027,11 +1015,24 @@ func (args *ClusterArgs) k0sctlConvertOpenSSHPaths(prefix string, ssh *ClusterOp
 	return nil
 }
 
-func (args *ClusterArgs) k0sctlConvertExternalEtcdPaths(
+func (f *ClusterArgs) k0sctlConvertOpenSSHPaths(prefix string, ssh *ClusterOpenSSH, rigSSH *openssh.Config) error {
+	if ssh != nil && ssh.Key != nil {
+		filename, err := contentToTempFile(prefix, *ssh.Key, true)
+		if err != nil {
+			return err
+		}
+
+		rigSSH.KeyPath = &filename
+	}
+
+	return nil
+}
+
+func (f *ClusterArgs) k0sctlConvertExternalEtcdPaths(
 	prefix string,
 	k0sctlExternalCluster *k0sapi.ExternalCluster,
 ) error {
-	externalCluster := args.Spec.K0s.Config.Spec.Storage.Etcd.ExternalCluster
+	externalCluster := f.Spec.K0s.Config.Spec.Storage.Etcd.ExternalCluster
 
 	if externalCluster.CA != nil {
 		filename, err := contentToTempFile(prefix, *externalCluster.CA, true)

@@ -20,8 +20,10 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 )
 
+const stringPtr = "string"
+
 func TestGetPlainPropertiesMap(t *testing.T) {
-	stringPtr := "string"
+	stringPtr := stringPtr
 	boolPtr := true
 	int64Ptr := int64(42)
 
@@ -48,7 +50,7 @@ func TestGetPlainPropertiesMap(t *testing.T) {
 		Map    map[string]string  `pulumi:"map"`
 		MapPtr map[string]*string `pulumi:"mapPtr"`
 	}{
-		String:    "string",
+		String:    stringPtr,
 		StringPtr: &stringPtr,
 		Bool:      true,
 		BoolPtr:   &boolPtr,
@@ -78,7 +80,7 @@ func TestGetPlainPropertiesMap(t *testing.T) {
 	}
 
 	keys := []string{
-		"string", "stringPtr",
+		stringPtr, "stringPtr",
 		"bool", "boolPtr",
 		"int64", "int64Ptr",
 		"struct.foo", "structPtr.bar",

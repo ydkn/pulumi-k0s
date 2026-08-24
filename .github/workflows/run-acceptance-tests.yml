@@ -60,13 +60,7 @@ jobs:
       with:
         lfs: true
         persist-credentials: false
-        ref: ${{ env.PR_COMMIT_SHA }}    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
@@ -239,13 +233,7 @@ jobs:
       with:
         lfs: true
         persist-credentials: false
-        ref: ${{ env.PR_COMMIT_SHA }}    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
@@ -371,13 +359,7 @@ jobs:
       with:
         lfs: true
         persist-credentials: false
-        ref: ${{ env.PR_COMMIT_SHA }}    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
@@ -449,7 +431,7 @@ jobs:
       with:
         lfs: true
         persist-credentials: false
-        ref: ${{ env.PR_COMMIT_SHA }}    
+        ref: ${{ env.PR_COMMIT_SHA }}
     - name: Mark workflow as successful
       uses: guibranco/github-status-action-v2@77639353504055053524efa7a3719aaf0b731ce9 # v1.2.4
       with:

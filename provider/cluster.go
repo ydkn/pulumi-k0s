@@ -43,10 +43,7 @@ func (c *Cluster) Annotate(a infer.Annotator) {
 	a.Describe(&c, "The k0s cluster resource.")
 }
 
-func (c Cluster) Check(
-	ctx context.Context,
-	req infer.CheckRequest,
-) (infer.CheckResponse[ClusterArgs], error) {
+func (c Cluster) Check(_ context.Context, req infer.CheckRequest) (infer.CheckResponse[ClusterArgs], error) {
 	res := infer.CheckResponse[ClusterArgs]{Failures: []p.CheckFailure{}}
 
 	_, args, decodeErr := ende.Decode[ClusterArgs](req.NewInputs)
@@ -67,10 +64,7 @@ func (c Cluster) Check(
 	return res, nil
 }
 
-func (c Cluster) Diff(
-	ctx context.Context,
-	req infer.DiffRequest[ClusterArgs, ClusterState],
-) (infer.DiffResponse, error) {
+func (c Cluster) Diff(_ context.Context, req infer.DiffRequest[ClusterArgs, ClusterState]) (infer.DiffResponse, error) {
 	res := infer.DiffResponse{
 		DeleteBeforeReplace: true,
 		HasChanges:          false,
@@ -189,7 +183,7 @@ func (c Cluster) Update(
 }
 
 func (c Cluster) Delete(ctx context.Context, req infer.DeleteRequest[ClusterState]) error {
-	if err := req.State.ClusterArgs.FillDefaults(nil); err != nil {
+	if err := req.State.FillDefaults(nil); err != nil {
 		return err
 	}
 

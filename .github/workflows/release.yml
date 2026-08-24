@@ -31,13 +31,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        lfs: true    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        lfs: true
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
@@ -159,13 +153,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        lfs: true    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        lfs: true
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
@@ -233,13 +221,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        lfs: true    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        lfs: true
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
@@ -296,13 +278,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        lfs: true    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        lfs: true
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
@@ -367,13 +343,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        lfs: true    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        lfs: true
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
@@ -451,13 +421,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        lfs: true    
-    - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-      id: app-auth
-      with:
-        app-id: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-        private-key: ${{ secrets.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
+        lfs: true
     - id: version
       name: Set Provider Version
       uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
