@@ -11,6 +11,7 @@ yarn.lock
 ci-scripts
 /nuget/
 provider/**/schema-embed.json
+/Library/
 
 sdk/dotnet/version.txt
 sdk/java/.gradle

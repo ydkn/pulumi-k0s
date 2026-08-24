@@ -9,6 +9,7 @@ require (
 	github.com/k0sproject/k0s v1.33.5-0.20250819091818-6da1d9c31be6
 	github.com/k0sproject/k0sctl v0.32.2
 	github.com/k0sproject/rig v0.21.11
+	github.com/k0sproject/rig/v2 v2.1.1
 	github.com/k0sproject/version v0.8.0
 	github.com/pulumi/pulumi-go-provider v1.5.0
 	github.com/pulumi/pulumi/sdk/v3 v3.259.0
@@ -89,7 +90,6 @@ require (
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
 	github.com/jellydator/validation v1.2.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/k0sproject/rig/v2 v2.1.1 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/kevinburke/ssh_config v1.6.0 // indirect
 	github.com/klauspost/compress v1.19.2 // indirect
