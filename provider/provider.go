@@ -34,7 +34,7 @@ func Provider() p.Provider {
 		WithRepository("https://github.com/ydkn/pulumi-k0s").
 		WithKeywords("pulumi", "kubernetes", "k0s").
 		WithPublisher("Florian Schwab").
-		WithLogoURL("https://k0sproject.io/images/k0s-logo.png").
+		WithLogoURL("https://docs.k0sproject.io/head/img/k0s-favicon-192.png").
 		WithLicense("Apache-2.0").
 		WithPluginDownloadURL("https://repo.ydkn.io/pulumi-k0s").
 		WithNamespace("ydkn").

@@ -72,7 +72,7 @@ sdk/go: ${SCHEMA_FILE}
 	find ${PACKDIR}/go/${PACK} -type f -exec perl -pi -e 's|https:/github.com|github.com|g' {} +
 	cp go.mod ${PACKDIR}/go/${PACK}/go.mod
 	cd ${PACKDIR}/go/${PACK} && \
-		go mod edit -module=github.com/ydkn/pulumi-${PACK}/${PACKDIR}/go/pulumi-${PACK} && \
+		go mod edit -module=github.com/ydkn/pulumi-${PACK}/${PACKDIR}/go/${PACK} && \
 		go mod tidy
 
 .PHONY: provider

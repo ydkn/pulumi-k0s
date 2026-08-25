@@ -1,11 +1,10 @@
-module github.com/ydkn/pulumi-k0s/sdk/go/pulumi-k0s
+module github.com/ydkn/pulumi-k0s/sdk/go/k0s
 
 go 1.26.0
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/pulumi/pulumi/sdk/v3 v3.259.0
-	github.com/ydkn/pulumi-k0s/sdk v0.3.0
 )
 
 require (
