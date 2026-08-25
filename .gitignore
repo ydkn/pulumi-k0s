@@ -12,6 +12,7 @@ ci-scripts
 /nuget/
 provider/**/schema-embed.json
 /Library/
+/dist/
 
 sdk/dotnet/version.txt
 sdk/java/.gradle

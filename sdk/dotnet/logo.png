@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>k0rdent: Distributed Container Management for Platform Engineering</title>
+
+  <meta name="description" content="k0rdent is an open-source, Kubernetes-native distributed container management environment for platform engineers. Design, automate, and manage Internal Developer Platforms (IDPs). Deploy AI, ML, and modern workloads at scale with declarative, composable infrastructure. Free and open-source.">
+  <meta name="author" content="Mirantis">
+  <meta name="keywords" content="k0s, kos, kubernetes, bare-metal, on-premise, edge, iot, private cloud, public cloud, lightweight, single binary, control plane isolation, open source, cloud native, containers, docker, distribution, cluster, mirantis">
+  <meta name="language" content="english">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta property="og:title" content="k0rdent: Distributed Container Management for Platform Engineering" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="k0rdent is an open-source, Kubernetes-native distributed container management environment for platform engineers. Design, automate, and manage Internal Developer Platforms (IDPs). Deploy AI, ML, and modern workloads at scale with declarative, composable infrastructure. Free and open-source." />
+  <meta property="og:image" content="https://a.storyblok.com/f/189401/1415x643/a478bf2301/k0rdent-og-image.png" />
+  <meta property="og:url" content="https://k0rdent.io/" />
+
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/fontawesome-all.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+
+  <!-- Favicon: https://favicon.io/favicon-converter/ -->
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="images/favicon/site.webmanifest">
+
+</head>
+
+<body data-spy="scroll" data-target=".fixed-top">
+
+<!-- Preloader -->
+<div class="spinner-wrapper">
+  <div class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+</div>
+<!-- end of preloader -->
+
+  <!-- Navigation -->
+  <nav class="fixed-top-above navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+  
+    <a class="navbar-brand" href="index.html">
+      <div>
+        <img src="images/k0s_logo.svg" alt="k0s">
+        <p>Zero Friction Kubernetes</p>
+      </div>
+    </a>
+  
+  
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-awesome fas fa-bars"></span>
+      <span class="navbar-toggler-awesome fas fa-times"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="https://docs.k0sproject.io" target="_blank">Docs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://medium.com/k0sproject" target="_blank">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.mirantis.com/software/k0s/" target="_blank">Support</a>
+        </li>
+      </ul>
+      <span class="nav-item social-icons">
+        <span class="fa-stack">
+          <a href="https://github.com/k0sproject/k0s" target="_blank">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-github fa-stack-1x"></i>
+          </a>
+        </span>
+        <span class="fa-stack">
+          <a href="https://twitter.com/k0sproject" target="_blank">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x"></i>
+          </a>
+        </span>
+      </span>
+    </div>
+  </nav>
+  <!-- end of navigation -->
+
+<!-- Content -->
+ <div class="error-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>404</h1>
+                <h2>Lost in space? Let’s get you to the right galaxy.</h2>
+                <a class="blue-btn" href="https://k0sproject.io/">BACK TO K0SPROJECT.IO</a>
+            </div>
+        </div>
+    </div>
+ </div>
+ <!-- end of content -->
+
+<!-- Originated By Mirantis -->
+<div id="download" class="basic-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-container">
+                  <h2 class="align-middle">Originated by</h2><img src="images/mirantis-logo-horizontal-inverted-one-color.svg" class="align-middle pl-2" />
+                </div> <!-- end of text-container -->
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div>
+<!-- end of originated by mirantis -->
+
+<!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. -->
+<!-- Footer -->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="footer-col">
+                  <img src="images/k0s_logo.svg" alt="alternative" style="margin-bottom:16px;max-width: 87px; height: auto;">
+                    <p><span class="k0s-typography">k0s</span> is the simple, solid & certified Kubernetes distribution that works on any infrastructure: bare-metal, on-premise, edge, IoT, public & private clouds. It's 100% open source & free.</p>
+                </div>
+            </div> <!-- end of col -->
+            <div class="col-md-3 offset-md-1">
+                <div class="footer-col middle">
+                    <h4>Resources</h4>
+                    <ul>
+                      <li class="media">
+                        <div class="media-body"><a href="https://docs.k0sproject.io/stable/install/">Get Started</a></div>
+                      </li>
+                      <li class="media">
+                        <div class="media-body"><a href="https://docs.k0sproject.io">Documentation</a></div>
+                      </li>
+                      <li class="media">
+                        <div class="media-body"><a href="https://github.com/k0sproject/k0s">Source Code</a></div>
+                      </li>
+                      <li class="media">
+                        <div class="media-body"><a href="https://www.mirantis.com/company/privacy-policy/">Privacy Policy</a></div>
+                      </li>
+                      <li class="media">
+                          <div class="media-body"><a href="https://kubernetes.slack.com/archives/C0809EA06QZ/p1730993027457849">Community Slack</a></div>
+                      </li>
+                    </ul>
+                </div>
+            </div> <!-- end of col -->
+            <div class="col-md-4">
+                <div class="footer-col last">
+                    <h4>Community</h4>
+                    <span class="fa-stack">
+                        <a href="https://github.com/k0sproject/k0s" target="_blank">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-github fa-stack-1x"></i>
+                        </a>
+                    </span>
+                    <span class="fa-stack">
+                        <a href="https://twitter.com/k0sproject" target="_blank">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-twitter fa-stack-1x"></i>
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg> -->
+
+                        </a>
+                    </span>
+                </div>
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div>
+<!-- end of footer -->
+
+
+<!-- Copyright -->
+<div class="copyright">
+        <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                <p>We are a <a href="https://cncf.io/">CNCF</a> sandbox project</p>
+                <p></p>
+              </div> <!-- end of col -->
+          </div> <!-- enf of row -->
+          <div class="row">
+              <div class="col-lg-12">
+                  <p>Copyright © k0sproject a Series of LF Projects, LLC</p>
+                  <p>For website terms of use, trademark policy and other project policies please see the <a href="https://lfprojects.org/policies/" target="_blank">Linux Foundation policies</a>.</p>
+              </div> <!-- end of col -->
+          </div> <!-- enf of row -->
+        </div> <!-- end of container -->
+</div>
+<!-- end of copyright -->
+
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="js/morphext.min.js"></script> <!-- Morphtext rotating text in the header -->
+    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="js/particles.min.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/asciinema-player.js"></script>
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+</body>
+</html>

@@ -1,0 +1,22 @@
+[project]
+  name = "ydkn_k0s"
+  description = "A Pulumi package for creating and managing k0s clusters."
+  dependencies = ["parver>=0.2.1", "pulumi>=3.231.0,<4.0.0", "semver>=2.8.1", "typing-extensions>=4.11,<5; python_version < \"3.11\""]
+  keywords = ["pulumi", "kubernetes", "k0s"]
+  readme = "README.md"
+  requires-python = ">=3.9"
+  version = "0.4.2"
+  [project.license]
+    text = "Apache-2.0"
+  [project.urls]
+    Homepage = "https://github.com/ydkn/pulumi-k0s"
+    Repository = "https://github.com/ydkn/pulumi-k0s"
+
+[build-system]
+  requires = ["setuptools>=61.0"]
+  build-backend = "setuptools.build_meta"
+
+[tool]
+  [tool.setuptools]
+    [tool.setuptools.package-data]
+      ydkn_k0s = ["py.typed", "pulumi-plugin.json"]
