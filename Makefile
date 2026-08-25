@@ -30,7 +30,7 @@ export PULUMI_IGNORE_AMBIENT_PLUGINS = true
 ensure::
 	go mod tidy
 
-$(SCHEMA_FILE): provider $(PULUMI)
+$(SCHEMA_FILE): provider
 	$(PULUMI) package get-schema $(WORKING_DIR)/bin/${PROVIDER} | \
 		jq 'del(.version)' > $(SCHEMA_FILE)
 
@@ -161,20 +161,6 @@ install_nodejs_sdk::
 
 test:: test_provider
 	cd examples && go test -v -tags=all -timeout 2h
-
-$(PULUMI): HOME := $(WORKING_DIR)
-$(PULUMI): go.mod
-	@ PULUMI_VERSION="$$(cd provider && go list -m github.com/pulumi/pulumi/pkg/v3 | awk '{print $$2}')"; \
-	if [ -x $(PULUMI) ]; then \
-		CURRENT_VERSION="$$($(PULUMI) version)"; \
-		if [ "$${CURRENT_VERSION}" != "$${PULUMI_VERSION}" ]; then \
-			echo "Upgrading $(PULUMI) from $${CURRENT_VERSION} to $${PULUMI_VERSION}"; \
-			rm $(PULUMI); \
-		fi; \
-	fi; \
-	if ! [ -x $(PULUMI) ]; then \
-		curl -fsSL https://get.pulumi.com | sh -s -- --version "$${PULUMI_VERSION#v}"; \
-	fi
 
 # Set these variables to enable signing of the windows binary
 AZURE_SIGNING_CLIENT_ID ?=
